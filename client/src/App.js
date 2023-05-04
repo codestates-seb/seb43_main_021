@@ -1,7 +1,7 @@
-import "./App.css";
+import Images from "./components/UI/Item/Images";
 
 function App() {
-  return <div></div>;
+  return <Images />;
 }
 
 export default App;
