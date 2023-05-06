@@ -66,7 +66,12 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     min-height: 100vh; 
     background-color: white;
+  }
 
+  @media screen  and (min-width: 416px) {
+    #root{
+      max-width:1024px;
+    }
   }
 
 `;
