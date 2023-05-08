@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import img from "../assets/158893.jpg";
+import img21 from "../assets/158893.jpg";
+import imgNike from "../assets/nike.jpeg";
 
 const AuctionDetail = () => {
   return (
     <Container>
-      <AuctionImg src={img} />
+      <AuctionImgContainer>
+        <AuctionImg src={imgNike} />
+      </AuctionImgContainer>
       <UserInfoContainer>
         <UserImg></UserImg>
         <UserText>
@@ -28,15 +31,15 @@ const AuctionDetail = () => {
       <BiddingList>입찰 목록</BiddingList>
       <BiddingItemGrid>
         <BiddingItem>
-          <ItemImg src={img} />
+          <ItemImg src={img21} />
           <ItemTitle>투애니원 앨범</ItemTitle>
         </BiddingItem>
         <BiddingItem>
-          <ItemImg src={img} />
+          <ItemImg src={img21} />
           <ItemTitle>투애니원 앨범</ItemTitle>
         </BiddingItem>
         <BiddingItem>
-          <ItemImg src={img} />
+          <ItemImg src={img21} />
           <ItemTitle>투애니원 앨범</ItemTitle>
         </BiddingItem>
       </BiddingItemGrid>
@@ -53,9 +56,19 @@ const Container = styled.div`
   margin-bottom: 1rem;
 `;
 
+const AuctionImgContainer = styled.div`
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+`;
+
 const AuctionImg = styled.img`
-  width: 26rem;
-  height: 26rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 const UserInfoContainer = styled.div`
   height: 5rem;
