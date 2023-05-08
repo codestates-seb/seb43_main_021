@@ -9,9 +9,7 @@ const Chat = () => {
       <Container>
         <Header title={"채팅"} />
       </Container>
-
       <ChatItem />
-
       <Footer>
         <Gnb />
       </Footer>
