@@ -4,15 +4,19 @@ import { BiInfoCircle } from "react-icons/bi";
 import { RiLockPasswordFill } from "react-icons/ri"
 import { BiLogOut } from "react-icons/bi";
 import { BsPeople } from "react-icons/bs";
-export default function UserInfo(){
+import { Link } from 'react-router-dom';
+export default function UserInfo(){  
+  
   return(
     <Wrapper>
       나의 활동
       <MySeletorContainer>
-        <IconContainer>
-          <BiInfoCircle/>
-          내 정보수정
-        </IconContainer>
+        <StyledLink to='/useredit'>
+          <IconContainer>
+            <BiInfoCircle/>
+            내 정보수정
+          </IconContainer>
+        </StyledLink>
         <IconContainer>
           <RiLockPasswordFill/>
           비밀번호 변경
@@ -38,6 +42,7 @@ const Wrapper = styled.div`
   margin-top: 1.25rem;
   font-size: 15px;
   font-weight: bold;
+  text-decoration: none;     
   svg{
     width: 24px;
     height: 24px;
@@ -54,6 +59,10 @@ const MySeletorContainer = styled.div`
 const IconContainer = styled.div`
   margin-bottom: 1.75rem;  
   display: flex;
-  align-items: center;  
-  cursor: pointer;  
+  align-items: center;   
+  color: black;   
+  cursor: pointer;    
 `
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
