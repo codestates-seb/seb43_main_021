@@ -8,6 +8,7 @@ const Home = () => {
   return (
     <Wrapper>
       <Header title={"군자동"} />
+
       <Item />
       <Footer>
         <Gnb />

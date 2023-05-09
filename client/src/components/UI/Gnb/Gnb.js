@@ -4,35 +4,55 @@ import { HiOutlineHome } from "react-icons/hi";
 import { BsSearch, BsChatHeart } from "react-icons/bs";
 import { TbHammer } from "react-icons/tb";
 import { BiUser } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Gnb = () => {
   return (
     <Wrapper>
       <Line />
       <Container>
-        <NavItem>
-          <HiOutlineHome className="icon" />홈
-        </NavItem>
-        <NavItem>
-          <BsSearch className="icon" />
-          검색
-        </NavItem>
-        <NavItem>
-          <TbHammer className="icon" />
-          경매 등록
-        </NavItem>
-        <NavItem>
-          <BsChatHeart className="icon" />
-          채팅
-        </NavItem>
-        <NavItem>
-          <BiUser className="icon" />
-          마이 페이지
-        </NavItem>
+        <CustomLink to="/">
+          <NavItem>
+            <HiOutlineHome className="icon" />홈
+          </NavItem>
+        </CustomLink>
+
+        <CustomLink to="/search">
+          <NavItem>
+            <BsSearch className="icon" />
+            검색
+          </NavItem>
+        </CustomLink>
+
+        <CustomLink to="/createauction">
+          <NavItem>
+            <TbHammer className="icon" />
+            경매 등록
+          </NavItem>
+        </CustomLink>
+
+        <CustomLink to="/chat">
+          <NavItem>
+            <BsChatHeart className="icon" />
+            채팅
+          </NavItem>
+        </CustomLink>
+
+        <CustomLink to="/mypage">
+          <NavItem>
+            <BiUser className="icon" />
+            마이 페이지
+          </NavItem>
+        </CustomLink>
       </Container>
     </Wrapper>
   );
 };
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
 
 const Wrapper = styled.div`
   width: 100%;
