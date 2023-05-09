@@ -22,10 +22,14 @@ const dummyData = [
 ];
 
 const Search = () => {
+  const handleBack = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <SearchHeader>
-        <BackButton />
+        <BackButton onClick={handleBack} />
         <SearchInput placeholder="중곡동 근처에서 검색"></SearchInput>
       </SearchHeader>
       <SearchBody>
@@ -52,14 +56,14 @@ const Search = () => {
 
 const SearchHeader = styled.div`
   height: 5.5rem;
-  /* background-color: navy; */
   display: flex;
   font-size: 23px;
   font-weight: 700;
 `;
 
 const BackButton = styled(FiChevronLeft)`
-  margin: auto 1.25rem 1rem;
+  margin: auto 1rem 1rem;
+  width: 2.25rem;
   height: 2.25rem;
   cursor: pointer;
 `;

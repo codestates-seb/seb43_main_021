@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { BiBell } from "react-icons/bi";
+import { FiBell } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { BsSearch, BsBell } from "react-icons/bs";
 
 const Header = ({ title }) => {
   return (
@@ -8,7 +10,10 @@ const Header = ({ title }) => {
       <Container>
         <Title>{title}</Title>
         <Notice>
-          <BiBell />
+          <CustomLink to="/search">
+            <Search />
+          </CustomLink>
+          <Bell />
         </Notice>
       </Container>
       <Line />
@@ -35,11 +40,26 @@ const Title = styled.div`
 
 const Notice = styled.div`
   margin-top: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
   margin-right: 1.5rem;
+`;
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 const Line = styled.div`
   border: 0.5px solid #cccccc;
   width: 100%;
+`;
+
+const Search = styled(BsSearch)`
+  font-size: 1.6rem;
+  margin-right: 0.8rem;
+  margin-bottom: 3px;
+`;
+
+const Bell = styled(FiBell)`
+  font-size: 1.9rem;
 `;
