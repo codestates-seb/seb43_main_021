@@ -2,46 +2,53 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
 import { dummyItem } from "../../../assets/dummyData";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Item = () => {
+  const navigate = useNavigate();
+  const handleToAuctionDetail = (id) => {
+    navigate(`/AuctionDetail/${id}`);
+  };
+
   return (
     <div>
       {dummyItem.map((item) => (
         <>
-          <CustomLink to="/AuctionDetail">
-            <Container key={item.id}>
-              <ItemLeft>
-                <Img src={item.img} />
-                <Text>
-                  <Title>{item.title}</Title>
-                  <Period>{item.period}</Period>
-                  <Bidding>경매입찰 {item.bidding}건</Bidding>
-                </Text>
-              </ItemLeft>
-              <ItemRight>
-                <AuctionState>
-                  {item.auctionState ? "거래 완료!" : "입찰 중"}
-                </AuctionState>
-                <AiOutlineHeart className="icon" />
-                {item.heart}
-              </ItemRight>
-            </Container>
-            <Line />
-          </CustomLink>
+          <Container
+            key={item.id}
+            onClick={() => handleToAuctionDetail(item.id)}
+          >
+            <ItemLeft>
+              <Img src={item.img[0]} />
+              <Text>
+                <Title>{item.title}</Title>
+                <Period>{item.period}</Period>
+                <Bidding>경매입찰 {item.bidding}건</Bidding>
+              </Text>
+            </ItemLeft>
+            <ItemRight>
+              <AuctionState>
+                {item.auctionState ? "거래 완료!" : "입찰 중"}
+              </AuctionState>
+              <AiOutlineHeart className="icon" />
+              {item.heart}
+            </ItemRight>
+          </Container>
+          <Line />
         </>
       ))}
     </div>
   );
 };
-const CustomLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
+// const CustomLink = styled(Link)`
+//   text-decoration: none;
+//   color: inherit;
+// `;
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 const ItemLeft = styled.div`
