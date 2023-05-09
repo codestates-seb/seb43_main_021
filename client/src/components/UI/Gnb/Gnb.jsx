@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { HiOutlineHome } from "react-icons/hi";
-import { BsSearch, BsChatHeart } from "react-icons/bs";
+import { BsChatHeart } from "react-icons/bs";
 import { TbHammer } from "react-icons/tb";
 import { BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
@@ -17,17 +17,10 @@ const Gnb = () => {
           </NavItem>
         </CustomLink>
 
-        <CustomLink to="/search">
-          <NavItem>
-            <BsSearch className="icon" />
-            검색
-          </NavItem>
-        </CustomLink>
-
-        <CustomLink to="/createauction">
+        <CustomLink to="/">
           <NavItem>
             <TbHammer className="icon" />
-            경매 등록
+            경매
           </NavItem>
         </CustomLink>
 
@@ -61,7 +54,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   height: 4rem;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   background-color: white;
   max-width: 1024px;
