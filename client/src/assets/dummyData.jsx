@@ -1,24 +1,32 @@
-import img1 from "./img1.jpeg";
-import img2 from "./img2.jpg";
-import img3 from "./img3.jpg";
+import img1 from "./images/img1.jpeg";
+import img2 from "./images/img2.jpg";
+import img3 from "./images/img3.jpg";
+import img4 from "./images/img4.jpeg";
+import img5 from "./images/img5.jpeg";
+import img6 from "./images/img6.jpeg";
 
 export const dummyImages = [img1, img2, img3];
 
 export const dummyBiddings = [
   {
     id: 1,
-    img: img1,
-    itemTitle: "나이키 조던1 스캇 265",
+    img: img4,
+    itemTitle: "아이앱 티셔츠 그레이멜란지",
+    itemContent:
+      "구매 후 두 번 입고 세탁한 뒤에 1년 동안 보관만 했습니다. 새 것 같은 컨디션이에여",
   },
   {
     id: 2,
-    img: img2,
-    itemTitle: "투애니원 앨범",
+    img: img6,
+    itemTitle: "애플워치 6 스테인리스 실버",
+    itemContent: "실사용 2년 정도고 잔기스 외에는 문제없습니다~~",
   },
   {
     id: 3,
-    img: img3,
-    itemTitle: "찌개 책자",
+    img: img5,
+    itemTitle: "맥북 에어m1",
+    itemContent:
+      "액정이 고장나서 화면은 안나오지만 기능은 정상 작동합니다! 크렘쉘 모드로 사용하시면 돼요 ㅎㅎㅎ",
   },
 ];
 
