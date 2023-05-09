@@ -10,8 +10,10 @@ export default function MyPage() {
   return (
     <Wrapper>
       {/* <Modal/> */}
-      <MyPageHeader title={"나의 당근"} />
-      <UserEdit/>
+      
+        <MyPageHeader title={"나의 당근"} />
+      
+      <UserEdit userName={"손고장난벽시"}/> 
       <Line/>
       <UserInfo/>
       <Footer>
@@ -21,9 +23,7 @@ export default function MyPage() {
   )
 };
 
-const Wrapper = styled.div`
-
-  
+const Wrapper = styled.div`  
 `
 const Line = styled.div`
   width: 100%;

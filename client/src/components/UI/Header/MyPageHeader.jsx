@@ -15,22 +15,16 @@ const Header = ({ title }) => {
 export default Header;
 
 const Wrapper = styled.div`
-  height: 5.5rem;
-  /* background-color: navy; */
+  height: 5.5rem;  
   display: flex;
-  justify-content: space-between;
   font-size: 23px;
   font-weight: 700;
 `;
-
 const Title = styled.div`
   margin-top: auto;
   margin-bottom: 1rem;
   margin-left: 1.5rem;
 `;
-
-
-
 const Line = styled.div`
   border: 0.5px solid #cccccc;
   width: 100%;
