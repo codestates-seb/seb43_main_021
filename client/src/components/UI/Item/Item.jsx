@@ -1,62 +1,43 @@
 import React from "react";
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
-
-const dummyData = [
-  {
-    id: 1,
-    title: "샤넬 백 교환해용!",
-    period: "2023.05.01 ~ 2023.05.15",
-    bidding: 5,
-    auctionState: true,
-    heart: 5,
-  },
-  {
-    id: 2,
-    title: "루이비통 운동화",
-    period: "2023.05.01 ~ 2023.05.15",
-    bidding: 5,
-    auctionState: false,
-    heart: 3,
-  },
-  {
-    id: 3,
-    title: "냉동 피자 하와이안",
-    period: "2023.05.01 ~ 2023.05.8",
-    bidding: 1,
-    auctionState: false,
-    heart: 2,
-  },
-];
+import { dummyItem } from "../../../assets/dummyData";
+import { Link } from "react-router-dom";
 
 const Item = () => {
   return (
     <div>
-      {dummyData.map((item) => (
+      {dummyItem.map((item) => (
         <>
-          <Container key={item.id}>
-            <ItemLeft>
-              <Img />
-              <Text>
-                <Title>{item.title}</Title>
-                <Period>{item.period}</Period>
-                <Bidding>경매입찰 {item.bidding}건</Bidding>
-              </Text>
-            </ItemLeft>
-            <ItemRight>
-              <AuctionState>
-                {item.auctionState ? "거래 완료!" : "입찰 중"}
-              </AuctionState>
-              <AiOutlineHeart className="icon" />
-              {item.heart}
-            </ItemRight>
-          </Container>
-          <Line />
+          <CustomLink to="/AuctionDetail">
+            <Container key={item.id}>
+              <ItemLeft>
+                <Img src={item.img} />
+                <Text>
+                  <Title>{item.title}</Title>
+                  <Period>{item.period}</Period>
+                  <Bidding>경매입찰 {item.bidding}건</Bidding>
+                </Text>
+              </ItemLeft>
+              <ItemRight>
+                <AuctionState>
+                  {item.auctionState ? "거래 완료!" : "입찰 중"}
+                </AuctionState>
+                <AiOutlineHeart className="icon" />
+                {item.heart}
+              </ItemRight>
+            </Container>
+            <Line />
+          </CustomLink>
         </>
       ))}
     </div>
   );
 };
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -67,11 +48,12 @@ const ItemLeft = styled.div`
   display: flex;
 `;
 
-const Img = styled.div`
+const Img = styled.img`
   border: 0.5px solid black;
   height: 6.5rem;
   width: 6.5rem;
   margin: 1rem;
+  object-fit: cover;
 `;
 
 const Text = styled.div``;
