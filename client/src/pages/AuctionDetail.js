@@ -11,7 +11,7 @@ const AuctionDetail = () => {
         <ItemImage images={dummyImages} />
       </AuctionImgContainer>
       <UserInfoContainer>
-        <UserImg />
+        <UserImg src={dummyAuctions.userImg} />
         <UserText>
           <div>{dummyAuctions.userName}</div>
           <div className="userLocation">{dummyAuctions.userLocation}</div>
@@ -67,12 +67,14 @@ const UserInfoContainer = styled.div`
   display: flex;
 `;
 
-const UserImg = styled.div`
+const UserImg = styled.img`
   width: 3rem;
   height: 3rem;
   margin: 1rem 0.5rem 1rem 1rem;
-  border: 0.5px solid black;
+  /* border: 0.5px solid black; */
+  border: none;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const UserText = styled.div`

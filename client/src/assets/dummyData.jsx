@@ -25,6 +25,7 @@ export const dummyBiddings = [
 export const dummyAuctions = {
   userName: "당근단군",
   userLocation: "군자동",
+  userImg: img2,
   auctionTitle: "나이키 에어조던1 스캇 팬텀블랙 265",
   auctionTime: "50분 전",
   content:
