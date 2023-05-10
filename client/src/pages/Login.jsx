@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { BsChevronLeft, BsGoogle } from "react-icons/bs";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+  
   return (
     <Wrapper>
       <Header>
-      <BsChevronLeft /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
+      <BackButton onClick={() => navigate('/')} /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
         <HeaderTitle>
           <h2>로그인</h2>
         </HeaderTitle>
@@ -63,6 +67,10 @@ const Header = styled.div`
     border-color: hsl(210, 8%, 90%);
     border-bottom-style: solid;
     border-bottom-width: 1px;
+`;
+
+const BackButton = styled(BsChevronLeft)`
+  cursor: pointer;
 `;
 
 const HeaderTitle = styled.div`
