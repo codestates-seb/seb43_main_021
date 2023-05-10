@@ -118,12 +118,12 @@ const AuctionContent = styled.div`
   margin: 1.5rem 1rem;
 `;
 
-const AuctionSummary = styled.div`
-  margin: 0 0 1.5rem 1rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: gray;
-`;
+// const AuctionSummary = styled.div`
+//   margin: 0 0 1.5rem 1rem;
+//   font-size: 0.75rem;
+//   font-weight: bold;
+//   color: gray;
+// `;
 
 const UnderLine = styled.div`
   border: 0.5px solid #cccccc;

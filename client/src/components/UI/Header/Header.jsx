@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FiBell } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { BsSearch, BsBell } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 
 const Header = ({ title }) => {
   return (
