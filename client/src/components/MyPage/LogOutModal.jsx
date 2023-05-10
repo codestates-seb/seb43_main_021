@@ -1,19 +1,19 @@
 import styled from 'styled-components'
 import { useRecoilState} from "recoil"
-import { modalState } from '../../../stores/atoms'
-import { ItemButton } from './ItemButton'
-import { ItemButton2 } from './ItemButton2'
-export const Modal= ()=>{
-  const [isOpen,setIsOpen] = useRecoilState(modalState)
+import { LogOutModalState } from '../../stores/atoms'
+import { ItemButton } from '../UI/Item/ItemButton'
+import { ItemButton2 } from '../UI/Item/ItemButton2'
+export const LogOutModal= ()=>{
+  const [isOpen,setIsOpen] = useRecoilState(LogOutModalState)
   const openModalHandler = ()=>{
     setIsOpen(!isOpen)    
   }
   return (
     <ModalWrapper>
         <ModalContainer>
-        회원탈퇴
+        로그아웃
           <ContainerContnet>
-          회원탈퇴 하시겠습니까?
+          로그아웃 하시겠습니까?
           </ContainerContnet>
           <ButtonArea>
             <Cancellation onClick={openModalHandler}>

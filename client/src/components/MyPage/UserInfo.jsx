@@ -5,16 +5,24 @@ import { RiLockPasswordFill } from "react-icons/ri"
 import { BiLogOut } from "react-icons/bi";
 import { BsPeople } from "react-icons/bs";
 import { Link } from 'react-router-dom';
-import {useRecoilState} from "recoil"
-import { modalState } from '../../stores/atoms';
+import { useRecoilState } from "recoil"
+import { 
+  modalState,
+  LogOutModalState,
+} from '../../stores/atoms';
 export default function UserInfo(){  
-  const [isOpen, setIsOpen] = useRecoilState(modalState);
+  const [isOpen, setIsOpen] = useRecoilState(modalState);  
+  const [logOutClick, setLogOutClick] = useRecoilState(LogOutModalState);  
+
+  
   const openModalHandler = ()=>{
     setIsOpen(!isOpen)    
   }
+  const logOutModalHandler=()=>{
+    setLogOutClick(!logOutClick)
+  }
   return(
-    <Wrapper>
-      
+    <Wrapper>      
       나의 활동
       <MySeletorContainer>
         <StyledLink to='/useredit'>
@@ -27,7 +35,7 @@ export default function UserInfo(){
           <RiLockPasswordFill/>
           비밀번호 변경
         </IconContainer>
-        <IconContainer>
+        <IconContainer onClick={logOutModalHandler}>
           <BiLogOut/>
           로그아웃
         </IconContainer>

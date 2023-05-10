@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components"
 import UserEditHeader from '../components/UI/Header/UserEditHeader';
-import UserEditBody from '../components/MyPage.js/UserEditBody';
+import UserEditBody from '../components/MyPage/UserEditBody';
 
 export default function UserEdit(){
   return (
