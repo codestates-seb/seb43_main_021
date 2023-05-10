@@ -14,7 +14,6 @@ const Home = () => {
       <CustomLink to="/createauction">
         <CreateAuctionButton />
       </CustomLink>
-
       <Footer>
         <Gnb />
       </Footer>
@@ -37,14 +36,14 @@ const CreateAuctionButton = styled(BsPlusCircle)`
   font-size: 5rem;
   cursor: pointer;
   color: #4636fc;
-  margin-right: 1rem;
+  margin-right: 2rem;
 `;
 
 const CustomLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   position: fixed;
-  bottom: 80px;
+  bottom: 90px;
   width: 100%;
   max-width: 1024px;
   display: flex;
