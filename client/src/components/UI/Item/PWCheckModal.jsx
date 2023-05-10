@@ -13,9 +13,10 @@ export const PWCheckModal= ()=>{
   return (
     <ModalWrapper>
         <ModalContainer>
+        <WarningText>*회원을 탈퇴합니다</WarningText>
         비밀번호를 입력하세요
           <ContainerContnet>
-          비밀번호:
+          비밀번호:<PWArea></PWArea>
           </ContainerContnet>
           <ButtonArea>
             <Cancellation onClick={openModalHandler}>
@@ -50,26 +51,28 @@ const ModalContainer = styled.div`
   flex-direction: column;
   border-radius: 10px;
   position:relative;  
-  padding: 1.75rem 1rem;
+  padding: 0 1rem;
   font-size: 20px;
   font-weight: bold;    
   
 `;
 
 const ContainerContnet= styled.div`
-  padding-top: 1rem;
-  padding-bottom: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
   font-size: 17px;
   font-weight: 400;
+  display: flex;
+  align-items: center;
 `
 const ButtonArea = styled.div`
     display: flex;
-    justify-content: space-between;            
+    justify-content: space-between;       
 `
 const Cancellation = styled.div`
   >div{
     width: 148px;
-    height: 46px;
+    height: 46px;    
   }
 `;
 const Permit = styled.div`
@@ -78,3 +81,16 @@ const Permit = styled.div`
     height: 46px;
   }
 `;
+const PWArea = styled.input`  
+  height: 2rem;
+  width: 14.5rem;
+  color: white;
+  margin-left: 0.25rem;        
+`
+const WarningText = styled.div`  
+  font-size: 13px;
+  color: red;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+`
