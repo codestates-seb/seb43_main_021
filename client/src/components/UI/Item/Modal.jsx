@@ -1,18 +1,27 @@
 import styled from 'styled-components'
+import { useRecoilState} from "recoil"
+import { modalState } from '../../../stores/atoms'
 import { ItemButton } from './ItemButton'
 import { ItemButton2 } from './ItemButton2'
-
-export const Modal= ()=>{
+export const Modal= ({title, content})=>{
+  const [isOpen,setIsOpen] = useRecoilState(modalState)
+  const openModalHandler = ()=>{
+    setIsOpen(!isOpen)    
+  }
   return (
     <ModalWrapper>
         <ModalContainer>
-          회원탈퇴
+          {title}
           <ContainerContnet>
-            회원탈퇴 하시겠습니까?
+            {content}
           </ContainerContnet>
           <ButtonArea>
-            <ItemButton2/> 
-            <ItemButton/>           
+            <Cancellation onClick={openModalHandler}>
+              <ItemButton2/> 
+            </Cancellation>
+            <Permit>
+              <ItemButton/>           
+            </Permit>
           </ButtonArea>
         </ModalContainer>             
     </ModalWrapper>
@@ -21,12 +30,13 @@ export const Modal= ()=>{
 
 const ModalWrapper = styled.div`    
   display: flex;
-  width: 1024px;
+  width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.5);
   justify-content: center;
   align-items: center;
   position: fixed;  
+  z-index: 2;
 `
 
 const ModalContainer = styled.div`
@@ -52,9 +62,17 @@ const ContainerContnet= styled.div`
 `
 const ButtonArea = styled.div`
     display: flex;
-    justify-content: space-between;        
-    >div{
-      width: 148px;
-      height: 46px;
-    }
+    justify-content: space-between;            
 `
+const Cancellation = styled.div`
+  >div{
+    width: 148px;
+    height: 46px;
+  }
+`;
+const Permit = styled.div`
+  >div{
+    width: 148px;
+    height: 46px;
+  }
+`;
