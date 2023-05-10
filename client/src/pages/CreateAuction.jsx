@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { IoIosCamera } from "react-icons/io";
 import { BsChevronLeft } from "react-icons/bs";
 
 const CreateAuction = () => {
+
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <Header>
-        <BsChevronLeft /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
+        <BackButton onClick={() => navigate('/')} /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
         <HeaderTitle>
           <h2>경매 등록하기</h2>
         </HeaderTitle>
@@ -67,6 +71,10 @@ const Header = styled.div`
     border-color: hsl(210, 8%, 90%);
     border-bottom-style: solid;
     border-bottom-width: 1px;
+`;
+
+const BackButton = styled(BsChevronLeft)`
+  cursor: pointer;
 `;
 
 const HeaderTitle = styled.div`
@@ -150,6 +158,7 @@ const AddImages = styled.div`
       padding-top: 1.2rem;
       padding-bottom: 0.8rem;
     }
+    
     h4 {
       padding-left: 1rem;
       color: #D2D2D4;
