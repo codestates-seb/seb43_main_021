@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -15,14 +16,20 @@ import java.util.Optional;
 public class AuctionService {
 
     private final AuctionRepository auctionRepository;
+    private final StorageService storageService;
 
+
+//    , MultipartFile auctionImage
     //물품 등록
-    public Auction createAuction(Auction auction) {
+    public Auction createAuction(Auction auction, MultipartFile auctionImage) {
+//        물품 등록시 기한 설정
+        if (auction.getPeriod() > 30) {
+            auction.setPeriod(30);
+        }
 
 
-
+        storageService.store(auctionImage); // 이미지 로컬에 저장
         Auction savedAuctionItem = auctionRepository.save(auction);
-
         return savedAuctionItem;
 
     }
@@ -42,31 +49,38 @@ public class AuctionService {
         Optional.ofNullable(auction.getContent())
                 .ifPresent(content -> findAuction.setContent(content));
 
-        //카테고리를 이렇게 수정을 받는게 맞을까?
-        Optional.ofNullable(auction.getCategoryId())
-                .ifPresent(categoryId -> findAuction.setCategoryId(categoryId));
-        
-        //상태수정
+
+        //상태수정 (status)
 
         //수정된 정보 업데이트
         return auctionRepository.save(findAuction);
     }
 
+    //물품 한개 조회
     public Auction findAuction(long auctionItemId) {
         return findVerifiedAuction(auctionItemId);
     }
 
-    public Page<Auction> findAuctions(int page, int size) {
-        return  auctionRepository.findAll(PageRequest.of(page,size, Sort.by("auctionItemId").descending()));
+    //물품 전체 조회
+//    public Page<Auction> findAuctions(int page, int size) {
+//        return  auctionRepository.findAll(PageRequest.of(page,size, Sort.by("auctionItemId").descending()));
+//    }
+    public Page<Auction> findAuctions(long lastAuctionItemId, int size) {
+        PageRequest pageRequest = PageRequest.ofSize(size); //page : 0으로 고정
+        return auctionRepository.findByAuctionItemIdLessThanOrderByAuctionItemIdDesc(lastAuctionItemId, pageRequest);
     }
 
+
+    //물품 하나 삭제
     public void deleteAuction(long auctionItemId) {
         Auction findAuction = findVerifiedAuction(auctionItemId);
         auctionRepository.delete(findAuction);
     }
 
+    //물품 전체 삭제
     public void deleteAll() {
-        auctionRepository.deleteAll();;
+        auctionRepository.deleteAll();
+
     }
 
 
@@ -76,7 +90,6 @@ public class AuctionService {
 
         return findAuction;
     }
-
 
 
 }

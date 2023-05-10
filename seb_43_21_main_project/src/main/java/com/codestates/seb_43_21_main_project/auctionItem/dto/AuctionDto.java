@@ -45,7 +45,6 @@ public class AuctionDto {
         private String name;
 
         // 이미지
-        // 상태 코드 추가해야할까..
 
         private int period; //기간 설정 (기간 30일)
 
@@ -53,7 +52,6 @@ public class AuctionDto {
         private String content;
 
 
-        private long categoryId;
     }
 
     @Getter
@@ -65,9 +63,9 @@ public class AuctionDto {
         private String name;
         //이미지
         private String content;
+        //Todo : 작성일, 수정일 null 값 들어옴. (수정 예정)
         private LocalDateTime createdDate;
         private LocalDateTime modifiedDate;
-        private long categoryId;
         //      private int view; //조회수
         private int period;
         //      private long favoriteItem; //즐겨찾기

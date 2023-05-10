@@ -8,9 +8,11 @@ import com.codestates.seb_43_21_main_project.response.MultiResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -26,11 +28,16 @@ public class AuctionController {
     private final AuctionService auctionService;
     private final AuctionMapper mapper;
 
-    @PostMapping
-    public ResponseEntity postAuction(@Valid @RequestBody AuctionDto.Post requestBody) {
-        Auction auction = mapper.auctionPostDtoToAuction(requestBody);
-        Auction createdAuction = auctionService.createAuction(auction);
 
+    //consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE} //consumes : 들어오는 데이터를 정의
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity postAuction(@Valid @RequestPart AuctionDto.Post requestBody, @RequestPart MultipartFile auctionImg) {
+
+//        Auction auction = mapper.auctionPostDtoToAuction(requestBody);
+//        System.out.println("변환이 잘 되었는가?");
+//        Auction createdAuction = auctionService.createAuction(auction);
+//        System.out.println("Controller 다시 들어오는가?");
+        Auction createdAuction = auctionService.createAuction(mapper.auctionPostDtoToAuction(requestBody), auctionImg);
 
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(createdAuction), HttpStatus.CREATED);
     }
@@ -49,19 +56,30 @@ public class AuctionController {
         return null;
     }
 
-    @GetMapping
-    public ResponseEntity getAuctionAll(@Positive @RequestParam int page,
-                                        @Positive @RequestParam int size) {
+//    @GetMapping
+//    public ResponseEntity getAuctionAll(@Positive @RequestParam int page,
+//                                        @Positive @RequestParam int size) {
+//
+//        Page<Auction> pageAuctions = auctionService.findAuctions(page - 1, size);
+//        List<Auction> auctions = pageAuctions.getContent();
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
+//    }
 
-        Page<Auction> pageAuctions = auctionService.findAuctions(page - 1, size);
+    //Todo : 무한스크롤 기능 구현 .. 0509다시..
+    @GetMapping
+    public ResponseEntity getAuctionAll(@Positive @RequestParam long lastAuctionItemId, //
+                                        @Positive @RequestParam int size) { //size : 페이지 크기, limit
+        Page<Auction> pageAuctions = auctionService.findAuctions(lastAuctionItemId+1 , size);
         List<Auction> auctions = pageAuctions.getContent();
-        return new ResponseEntity<>(
+        return new ResponseEntity(
                 new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
     }
 
+
     @DeleteMapping("{auction_items_id}")
     public ResponseEntity deleteAuction(@PathVariable("auction_items_id") @Positive long auctionItemId) {
-         auctionService.deleteAuction(auctionItemId);
+        auctionService.deleteAuction(auctionItemId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

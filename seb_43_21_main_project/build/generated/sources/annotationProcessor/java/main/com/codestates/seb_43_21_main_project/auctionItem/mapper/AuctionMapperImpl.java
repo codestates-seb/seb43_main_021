@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-07T16:08:51+0900",
+    date = "2023-05-10T01:38:26+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -36,28 +36,6 @@ public class AuctionMapperImpl implements AuctionMapper {
     }
 
     @Override
-    public Response auctionToAuctionResponseDto(Auction auction) {
-        if ( auction == null ) {
-            return null;
-        }
-
-        Response response = new Response();
-
-        response.setAuctionItemId( auction.getAuctionItemId() );
-        response.setMemberId( auction.getMemberId() );
-        response.setName( auction.getName() );
-        response.setContent( auction.getContent() );
-        response.setCreatedDate( auction.getCreatedDate() );
-        response.setModifiedDate( auction.getModifiedDate() );
-        response.setCategoryId( auction.getCategoryId() );
-        response.setPeriod( auction.getPeriod() );
-        response.setBidItemId( auction.getBidItemId() );
-        response.setAuctionStatus( auction.getAuctionStatus() );
-
-        return response;
-    }
-
-    @Override
     public Auction auctionPatchDtoToAuction(Patch requestBody) {
         if ( requestBody == null ) {
             return null;
@@ -69,7 +47,6 @@ public class AuctionMapperImpl implements AuctionMapper {
         auction.name( requestBody.getName() );
         auction.content( requestBody.getContent() );
         auction.period( requestBody.getPeriod() );
-        auction.categoryId( requestBody.getCategoryId() );
 
         return auction.build();
     }

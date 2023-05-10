@@ -1,5 +1,6 @@
 package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
+import com.codestates.seb_43_21_main_project.audit.Auditable;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @Entity
 @Table(name = "AUCTIONITEM")
-public class Auction  {
+public class Auction  extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long auctionItemId;
@@ -27,12 +28,8 @@ public class Auction  {
     @Column(nullable = false)
     private int period;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdDate = LocalDateTime.now();  //Todo : null값 저장되는거 수정하기
 
-    @LastModifiedDate
-    private LocalDateTime modifiedDate = LocalDateTime.now(); //Todo : null값 저장되는거 수정하기
+
 
 // Todo :  소프트 딜리트 컬럼 추가하기 : @where 공부하고 추가
 
@@ -64,7 +61,6 @@ public class Auction  {
             this.stepDescription = stepDescription;
         }
     }
-
 
 
 }
