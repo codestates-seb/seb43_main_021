@@ -4,19 +4,23 @@ import UserPageTop from '../components/MyPage.js/UserPageTop';
 import UserInfo from '../components/MyPage.js/UserInfo';
 import Gnb from '../components/UI/Gnb/Gnb';
 import MyPageHeader from '../components/UI/Header/MyPageHeader'
-// import { Modal } from '../components/UI/Item/Modal';
+import { modalState } from '../stores/atoms';
+import { useRecoilState } from "recoil"
+import { Modal } from '../components/UI/Item/Modal';
 
 export default function MyPage() {
+  const [isOpen,] = useRecoilState(modalState)
+
   return (
-    <Wrapper>
-      {/* <Modal/> */}      
+    <Wrapper>      
+      {isOpen&&<Modal title={"회원탈퇴"} content={"회원탈퇴 하시겠습니까?"}/>}
       <MyPageHeader title={"나의 당근"} />      
       <UserPageTop userName={"손고장난벽시"}/> 
       <Line/>
       <UserInfo/>
       <Footer>
         <Gnb/>
-      </Footer>
+      </Footer>      
     </Wrapper>
   )
 };
@@ -32,6 +36,6 @@ const Footer = styled.div`
   bottom: 0;
   width: 100%;
   position: fixed;
-  z-index: 10;
+  z-index: 1;
 `
 

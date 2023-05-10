@@ -1,22 +1,19 @@
 import React from "react";
 import styled from "styled-components"
 import UserEditHeader from '../components/UI/Header/UserEditHeader';
+import UserEditBody from '../components/MyPage.js/UserEditBody';
 
 export default function UserEdit(){
   return (
     <Wrapper>
-      <UserEditHeader title={"내 정보 수정"}/>
-      <Line/>
+      <UserEditHeader title={"내 정보 수정"}/>     
+      <UserEditBody/> 
     </Wrapper>
   )
 };
 
 const Wrapper = styled.div`  
-`
-const Line = styled.div`
-  width: 100%;
-  height: 1px;
-  background: #f2f3f6;
+  border-bottom: 1px solid #f6f6f8;
 `
 
 
