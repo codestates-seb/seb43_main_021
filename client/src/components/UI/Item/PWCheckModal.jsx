@@ -1,22 +1,24 @@
 import styled from 'styled-components'
 import { useRecoilState} from "recoil"
-import { LogOutModalState } from '../../stores/atoms'
-import { ItemButton } from '../UI/Item/ItemButton'
-import { ItemButton2 } from '../UI/Item/ItemButton2'
-export const LogOutModal= ()=>{
-  const [logOutClick, setLogOutClick] = useRecoilState(LogOutModalState);  
-  const logOutModalHandler=()=>{
-    setLogOutClick(!logOutClick)
+import {   
+  moveModalState,
+} from '../../../stores/atoms'
+import { ItemButton } from './ItemButton'
+import { ItemButton2 } from './ItemButton2'
+export const PWCheckModal= ()=>{  
+  const [goPage, setGoPage] = useRecoilState(moveModalState)
+  const openModalHandler = ()=>{
+    setGoPage(!goPage)  
   }
   return (
     <ModalWrapper>
         <ModalContainer>
-        로그아웃
+        비밀번호를 입력하세요
           <ContainerContnet>
-          로그아웃 하시겠습니까?
+          비밀번호:
           </ContainerContnet>
           <ButtonArea>
-            <Cancellation onClick={logOutModalHandler}>
+            <Cancellation onClick={openModalHandler}>
               <ItemButton2/> 
             </Cancellation>
             <Permit>

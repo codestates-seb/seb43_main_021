@@ -1,12 +1,20 @@
 import styled from 'styled-components'
 import { useRecoilState} from "recoil"
-import { modalState } from '../../../stores/atoms'
+import { 
+  modalState,
+  moveModalState
+} from '../../../stores/atoms'
 import { ItemButton } from './ItemButton'
 import { ItemButton2 } from './ItemButton2'
 export const Modal= ()=>{
   const [isOpen,setIsOpen] = useRecoilState(modalState)
+  const [goPage, setGoPage] = useRecoilState(moveModalState)
   const openModalHandler = ()=>{
     setIsOpen(!isOpen)    
+  }
+  const moveModalHandler = ()=>{
+    setIsOpen(!isOpen)
+    setGoPage(!goPage)
   }
   return (
     <ModalWrapper>
@@ -19,7 +27,7 @@ export const Modal= ()=>{
             <Cancellation onClick={openModalHandler}>
               <ItemButton2/> 
             </Cancellation>
-            <Permit>
+            <Permit onClick={moveModalHandler}>
               <ItemButton/>           
             </Permit>
           </ButtonArea>
