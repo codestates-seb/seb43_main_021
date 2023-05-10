@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { BsChevronLeft, BsGoogle } from "react-icons/bs";
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <Header>
-        <BsChevronLeft /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
+        <BackButton onClick={() => navigate('/')} /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
         <HeaderTitle>
           <h2>회원가입</h2>
         </HeaderTitle>
@@ -14,23 +18,39 @@ const SignUp = () => {
       <Container>
         <Body>
           <CreateId>
-            <h3>아이디</h3>
-            <input placeholder="공백 / 특수문자 제외 5글자 이상"></input>
+            <CreateIdTitle>
+              <h3>아이디</h3>
+            </CreateIdTitle>
+            <CreateIdInput>
+              <input placeholder="공백 / 특수문자 제외 5글자 이상"></input>
+            </CreateIdInput>
           </CreateId>
           <CreatePw>
-            <h3>비밀번호</h3>
-            <input placeholder="영문 + 숫자 조합의 8글자 이상"></input>
+            <CreatePwTitle>
+              <h3>비밀번호</h3>
+            </CreatePwTitle>
+            <CreatePwInput>
+              <input placeholder="영문 + 숫자 조합의 8글자 이상"></input>
+            </CreatePwInput>
           </CreatePw>
           <AgainPw>
             <input placeholder="비밀번호 재입력"></input>
           </AgainPw>
           <CreateNickName>
-            <h3>닉네임</h3>
-            <input placeholder="닉네임"></input>
+            <CreateNickNameTitle>
+              <h3>닉네임</h3>
+            </CreateNickNameTitle>
+            <CreateNickNameInput>
+              <input placeholder="닉네임"></input>
+            </CreateNickNameInput>
           </CreateNickName>
           <AddEmail>
-            <h3>이메일</h3>
-            <input type="email" placeholder="이메일"></input>
+              <AddEmailTitle>
+                <h3>이메일</h3>
+              </AddEmailTitle>
+              <AddEmailInput>
+                <input type="email" placeholder="이메일"></input>
+              </AddEmailInput>
           </AddEmail>
           <AddPhone>
             <AddPhoneTitle>
@@ -59,21 +79,26 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-    padding: 2rem 1.5rem;
-    height: 5.6rem;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    border-color: hsl(210, 8%, 90%);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+  padding: 2rem 1.5rem;
+  height: 5.6rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  border-color: hsl(210, 8%, 90%);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+`;
+
+const BackButton = styled(BsChevronLeft)`
+  cursor: pointer;
 `;
 
 const HeaderTitle = styled.div`
   padding-left: 1.5rem;
+
   h2 {
     font-size: 15px;
     font-weight: bold;
@@ -92,11 +117,30 @@ const Body = styled.div`
 `;
 
 const CreateId = styled.div`
+  padding-top: 1rem;
+`;
+
+const CreateIdTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 19.5rem;
+
+    @media screen and (min-width: 768px) {
+      padding-right: 25rem;
+    }
+
   h3 {
-    padding: 1rem 0.2rem 0.5rem 0;
-    font-size: 11px;
+    padding-bottom: 0.5rem;
+    font-size: 12px;
     font-weight: bold;
   }
+`;
+
+const CreateIdInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   input {
     background-color: #F5F5F5;
@@ -107,6 +151,10 @@ const CreateId = styled.div`
     border-radius: 5px;
     font-size: 12px;
     padding-left: 1rem;
+
+      @media screen and (min-width: 768px) {
+        width: 28rem;
+      }
   }
 
   input::placeholder {
@@ -115,11 +163,30 @@ const CreateId = styled.div`
 `;
 
 const CreatePw = styled.div`
+  padding-top: 1rem;
+`;
+
+const CreatePwTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 19.5rem;
+
+    @media screen and (min-width: 768px) {
+      padding-right: 25rem;
+    }
+
   h3 {
-    padding: 1rem 0.2rem 0.5rem 0;
-    font-size: 11px;
+    padding-bottom: 0.5rem;
+    font-size: 12px;
     font-weight: bold;
   }
+`;
+
+const CreatePwInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   input {
     background-color: #F5F5F5;
@@ -130,6 +197,10 @@ const CreatePw = styled.div`
     border-radius: 5px;
     font-size: 12px;
     padding-left: 1rem;
+
+      @media screen and (min-width: 768px) {
+        width: 28rem;
+      }
   }
 
   input::placeholder {
@@ -137,8 +208,12 @@ const CreatePw = styled.div`
   }
 `;
 
-  const AgainPw = styled.div`
+const AgainPw = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-top: 1rem;
+
   input {
     background-color: #F5F5F5;
     border: none;
@@ -148,80 +223,44 @@ const CreatePw = styled.div`
     border-radius: 5px;
     font-size: 12px;
     padding-left: 1rem;
+
+      @media screen and (min-width: 768px) {
+        width: 28rem;
+      }
   }
 
   input::placeholder {
     color: #AAAAAA;
   }
-  `;
+`;
 
-  const CreateNickName = styled.div`
-    h3 {
-      padding: 1rem 0.2rem 0.5rem 0;
-      font-size: 11px;
-      font-weight: bold;
+const CreateNickName = styled.div`
+  padding-top: 1rem;
+`;
+
+const CreateNickNameTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 19.5rem;
+
+    @media screen and (min-width: 768px) {
+      padding-right: 25rem;
     }
 
-    input {
-    background-color: #F5F5F5;
-    border: none;
-    outline: none;
-    width: 22rem;
-    height: 2.8rem;
-    border-radius: 5px;
-    font-size: 12px;
-    padding-left: 1rem;
-    }
-
-    input::placeholder {
-    color: #AAAAAA;
-    }
-  `;
-
-  const AddEmail = styled.div`
-    h3 {
-      padding: 1rem 0.2rem 0.5rem 0;
-      font-size: 11px;
-      font-weight: bold;
-    }
-
-    input {
-    background-color: #F5F5F5;
-    border: none;
-    outline: none;
-    width: 22rem;
-    height: 2.8rem;
-    border-radius: 5px;
-    font-size: 12px;
-    padding-left: 1rem;
-    }
-
-    input::placeholder {
-    color: #AAAAAA;
-    }
-  `;
-
-  const AddPhone = styled.div`
-    padding-top: 1rem;
-  `;
-
-  const AddPhoneTitle = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    h3 {
+  h3 {
+    padding-bottom: 0.5rem;
     font-size: 12px;
     font-weight: bold;
-    }
-  `;
+  }
+`;
 
-  const AddPhoneInput = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+const CreateNickNameInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    input {
+  input {
     background-color: #F5F5F5;
     border: none;
     outline: none;
@@ -230,44 +269,148 @@ const CreatePw = styled.div`
     border-radius: 5px;
     font-size: 12px;
     padding-left: 1rem;
+
+      @media screen and (min-width: 768px) {
+        width: 28rem;
+      }
+  }
+
+  input::placeholder {
+  color: #AAAAAA;
+  }
+`;
+
+const AddEmail = styled.div`
+  padding-top: 1rem;
+`;
+
+const AddEmailTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 19.5rem;
+
+    @media screen and (min-width: 768px) {
+      padding-right: 25rem;
     }
 
-    input::placeholder {
-    color: #AAAAAA;
-    }
-  `;
-
-  const SignUpBtn = styled.div`
-    padding-top: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    button {
-      background-color: #5170FD;
-      color: #FFFFFF;
-      border: none;
-      width: 22rem;
-      height: 2.8rem;
-      border-radius: 5px;
-      font-size: 15px;
-    }
-  `;
-
-  const GgSignUpBtn = styled.div`
-    padding-top: 2rem;
+  h3 {
     padding-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+`;
 
-    button {
-      border: 3px solid #000000;
-      background-color: #FFFFFF;
-      width: 22rem;
-      height: 2.8rem;
-      border-radius: 5px;
-      font-size: 15px;
-      font-weight: bold;
+const AddEmailInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    background-color: #F5F5F5;
+    border: none;
+    outline: none;
+    width: 22rem;
+    height: 2.8rem;
+    border-radius: 5px;
+    font-size: 12px;
+    padding-left: 1rem;
+
+      @media screen and (min-width: 768px) {
+        width: 28rem;
+      }
+  }
+
+  input::placeholder {
+    color: #AAAAAA;
+  }
+`;
+
+const AddPhone = styled.div`
+  padding-top: 1rem;
+`;
+
+const AddPhoneTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 19.5rem;
+
+    @media screen and (min-width: 768px) {
+      padding-right: 25rem;
     }
-  `;
+
+  h3 {
+    padding-bottom: 0.5rem;
+    font-size: 12px;
+    font-weight: bold;
+  }
+`;
+
+const AddPhoneInput = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    background-color: #F5F5F5;
+    border: none;
+    outline: none;
+    width: 22rem;
+    height: 2.8rem;
+    border-radius: 5px;
+    font-size: 12px;
+    padding-left: 1rem;
+
+      @media screen and (min-width: 768px) {
+        width: 28rem;
+      }
+  }
+
+  input::placeholder {
+    color: #AAAAAA;
+  }
+`;
+
+const SignUpBtn = styled.div`
+  padding-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    background-color: #5170FD;
+    color: #FFFFFF;
+    border: none;
+    width: 22rem;
+    height: 2.8rem;
+    border-radius: 5px;
+    font-size: 15px;
+
+    @media screen and (min-width: 768px) {
+      width: 28rem;
+    }
+  }
+`;
+
+const GgSignUpBtn = styled.div`
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    border: 3px solid #000000;
+    background-color: #FFFFFF;
+    width: 22rem;
+    height: 2.8rem;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+
+    @media screen and (min-width: 768px) {
+      width: 28rem;
+    }
+  }
+`;
