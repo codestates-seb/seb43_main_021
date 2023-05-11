@@ -1,6 +1,7 @@
 package com.codestates.seb_43_21_main_project.auctionItem.controller;
 
 import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
+import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.mapper.AuctionMapper;
 import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
@@ -68,9 +69,9 @@ public class AuctionController {
 
     //Todo : 무한스크롤 기능 구현 .. 0509다시..
     @GetMapping
-    public ResponseEntity getAuctionAll(@Positive @RequestParam long lastAuctionItemId,
-                                        @Positive @RequestParam int size) { //size : 페이지 크기, limit
-        Page<Auction> pageAuctions = auctionService.findAuctions(lastAuctionItemId+1, size);
+    public ResponseEntity getAuctionAll(@Valid @RequestBody PageInfoRequest pageInfo) {
+
+        Page<Auction> pageAuctions = auctionService.findAuctions(pageInfo);
         List<Auction> auctions = pageAuctions.getContent();
         return new ResponseEntity(
                 new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);

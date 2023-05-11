@@ -1,11 +1,13 @@
 package com.codestates.seb_43_21_main_project.auctionItem.service;
 
+import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,9 +67,13 @@ public class AuctionService {
 //    public Page<Auction> findAuctions(int page, int size) {
 //        return  auctionRepository.findAll(PageRequest.of(page,size, Sort.by("auctionItemId").descending()));
 //    }
-    public Page<Auction> findAuctions(long lastAuctionItemId, int size) {
-        PageRequest pageRequest = PageRequest.ofSize(size); //page : 0으로 고정
-        return auctionRepository.findByAuctionItemIdLessThanOrderByAuctionItemIdDesc(lastAuctionItemId, pageRequest);
+    public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
+        //Todo : 예외처리 하기(ExceptionHandler)
+        if (pageInfo.getLastItemId() <=0  && pageInfo.getSize() <=0)  {
+            throw new RuntimeException("양수 값을 입력해 주세요");
+        }
+        PageRequest pageRequest = PageRequest.ofSize( pageInfo.getSize()); //page : 0으로 고정
+        return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
     }
 
 

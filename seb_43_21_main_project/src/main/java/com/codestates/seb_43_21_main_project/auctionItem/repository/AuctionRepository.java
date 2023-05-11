@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
-    Page<Auction> findByAuctionItemIdLessThanOrderByAuctionItemIdDesc(Long lastAuctionItemId, Pageable pageable);
+    Page<Auction> findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(Long lastItemId, Pageable pageable);
 
 }

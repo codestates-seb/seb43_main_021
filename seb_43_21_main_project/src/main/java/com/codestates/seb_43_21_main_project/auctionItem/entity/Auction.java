@@ -2,11 +2,8 @@ package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
 import com.codestates.seb_43_21_main_project.audit.Auditable;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Builder @AllArgsConstructor
 @NoArgsConstructor
