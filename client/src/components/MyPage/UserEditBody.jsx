@@ -7,7 +7,7 @@ export default function UserEditBody(){
       <Container>
         <Title>계정 정보</Title>
         <BottomContainer>
-          이메일<EmailLink to='/email'>등록</EmailLink>                                 
+          이메일<EmailLink>등록</EmailLink>                                 
         </BottomContainer>
         <BottomContainer>
           휴대폰번호<PhoneNumberLink to='/changepn'>변경</PhoneNumberLink>
