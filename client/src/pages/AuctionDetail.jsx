@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { RiHeartLine } from "react-icons/ri";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
 import { useNavigate } from "react-router-dom";
 import useGetAuctionItem from "../hooks/useGetAuctionItem";
+import Footer from "../components/UI/Footer/Footer";
 
 const AuctionDetail = () => {
   const { data, isLoading, isError, error, auctionId } = useGetAuctionItem();
@@ -57,18 +57,7 @@ const AuctionDetail = () => {
           </BiddingItem>
         ))}
       </BiddingItemGrid>
-      <Footer>
-        <FooterLine />
-        <FooterContainer>
-          <Favorite />
-          <DivisionLine />
-          <AuctionEnd>
-            <div>경매 마감일</div>
-            <div style={{ color: "gray" }}>{data.auctionEnd}</div>
-          </AuctionEnd>
-          <BiddingButton>입찰하기</BiddingButton>
-        </FooterContainer>
-      </Footer>
+      <Footer />
     </Wrapper>
   );
 };
@@ -183,60 +172,6 @@ const ItemImg = styled.img`
 const ItemTitle = styled.div`
   font-weight: bold;
   margin-top: 1rem;
-`;
-
-const Footer = styled.div`
-  height: 5rem;
-  width: 100%;
-  bottom: 0;
-  position: fixed;
-  background-color: white;
-`;
-
-const FooterLine = styled.div`
-  border: 0.5px solid #cccccc;
-`;
-
-const FooterContainer = styled.div`
-  display: flex;
-`;
-
-const Favorite = styled(RiHeartLine)`
-  font-size: 1.5rem;
-  color: gray;
-  margin-left: 1rem;
-  margin-top: 1.5rem;
-  cursor: pointer;
-`;
-
-const DivisionLine = styled.div`
-  border: 0.5px solid #cccccc;
-  width: 0;
-  height: 2.5rem;
-  margin-top: 1rem;
-  margin-left: 1rem;
-`;
-
-const AuctionEnd = styled.div`
-  margin-top: 1.1rem;
-  margin-left: 1rem;
-  font-weight: bold;
-`;
-
-const BiddingButton = styled.button`
-  background-color: #4636fc;
-  color: white;
-  border: none;
-  width: 5.5rem;
-  height: 2.5rem;
-  font-weight: bold;
-  border-radius: 5px;
-  margin: 1rem 1rem 1rem auto;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #5170fd;
-  }
 `;
 
 export default AuctionDetail;
