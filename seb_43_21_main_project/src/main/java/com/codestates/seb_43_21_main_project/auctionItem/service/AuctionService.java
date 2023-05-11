@@ -19,7 +19,7 @@ public class AuctionService {
     private final StorageService storageService;
 
 
-//    , MultipartFile auctionImage
+    //    , MultipartFile auctionImage
     //물품 등록
     public Auction createAuction(Auction auction, MultipartFile auctionImage) {
 //        물품 등록시 기한 설정

@@ -68,9 +68,9 @@ public class AuctionController {
 
     //Todo : 무한스크롤 기능 구현 .. 0509다시..
     @GetMapping
-    public ResponseEntity getAuctionAll(@Positive @RequestParam long lastAuctionItemId, //
+    public ResponseEntity getAuctionAll(@Positive @RequestParam long lastAuctionItemId,
                                         @Positive @RequestParam int size) { //size : 페이지 크기, limit
-        Page<Auction> pageAuctions = auctionService.findAuctions(lastAuctionItemId+1 , size);
+        Page<Auction> pageAuctions = auctionService.findAuctions(lastAuctionItemId+1, size);
         List<Auction> auctions = pageAuctions.getContent();
         return new ResponseEntity(
                 new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);

@@ -12,6 +12,4 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     Page<Auction> findByAuctionItemIdLessThanOrderByAuctionItemIdDesc(Long lastAuctionItemId, Pageable pageable);
 
-
-
 }
