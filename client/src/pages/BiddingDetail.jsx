@@ -3,34 +3,10 @@ import styled from "styled-components";
 import { RiHeartLine } from "react-icons/ri";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
-import { dummyItem } from "../assets/dummyData";
-import { useParams } from "react-router-dom";
-
-import { useQuery } from "react-query";
+import useGetBiddingItem from "../hooks/useGetBiddingItem";
 
 const BiddingDetail = () => {
-  const { biddingId } = useParams();
-  const { auctionId } = useParams();
-
-  console.log("auctionId", auctionId);
-  console.log("biddingId", biddingId);
-
-  const getBiddingItemData = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dummyItem[auctionId].biddings[biddingId]);
-      }, 1000);
-    });
-  };
-
-  const { data, isLoading, isError, error } = useQuery(
-    "getBiddingItemData",
-    getBiddingItemData,
-    {
-      staleTime: 0,
-      cacheTime: 0,
-    }
-  );
+  const { data, isLoading, isError, error } = useGetBiddingItem();
 
   if (isLoading) {
     return <div>로딩 중!</div>;
@@ -38,8 +14,6 @@ const BiddingDetail = () => {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-
-  console.log("비딩디테일 데이터 기본로그", data);
 
   const handleBack = () => {
     window.history.back();

@@ -3,28 +3,12 @@ import styled from "styled-components";
 import { RiHeartLine } from "react-icons/ri";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
-import { dummyItem } from "../assets/dummyData";
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import useGetAuctionItem from "../hooks/useGetAuctionItem";
 
 const AuctionDetail = () => {
+  const { data, isLoading, isError, error, auctionId } = useGetAuctionItem();
   const navigate = useNavigate();
-  const { auctionId } = useParams();
-
-  console.log("아이디 확인", auctionId);
-  const getData = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dummyItem[auctionId]);
-        console.log("셋타임아웃 이후 데이터", data);
-      }, 1000);
-    });
-  };
-
-  const { data, isLoading, isError, error } = useQuery("getData", getData, {
-    staleTime: 0,
-    cacheTime: 0,
-  });
 
   if (isLoading) {
     return <div>로딩 중 테스트입니다~!~!~!~!</div>;
@@ -41,7 +25,6 @@ const AuctionDetail = () => {
   const handleToBiddingDetail = (auctionId, id) => {
     navigate(`/biddingdetail/${auctionId}/${id}`);
   };
-  console.log("옥션 데이터?", data);
 
   return (
     <Wrapper>

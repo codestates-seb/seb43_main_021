@@ -5,26 +5,10 @@ import Header from "../components/UI/Header/Header";
 import Item from "../components/UI/Item/Item";
 import { BsPlusCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
-import { dummyItemList } from "../assets/dummyData";
+import useGetItemList from "../hooks/useGetItemList";
 
 const Home = () => {
-  const getItemData = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dummyItemList);
-      }, 400);
-    });
-  };
-
-  const { data, isLoading, isError, error } = useQuery(
-    "getItemData",
-    getItemData,
-    {
-      staleTime: 0,
-      cacheTime: 0,
-    }
-  );
+  const { data, isLoading, isError, error } = useGetItemList();
 
   if (isLoading) {
     return <div>홈 로딩 중</div>;
@@ -34,10 +18,9 @@ const Home = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!data) {
-    return <div>Home useQuery의 getData 함수 실행 이후에 표시됨</div>;
-  }
-  console.log("홈 데이터", data);
+  // if (!data) {
+  //   return <div>Home useQuery의 getData 함수 실행 이후에 표시됨</div>;
+  // }
 
   return (
     <Wrapper>
