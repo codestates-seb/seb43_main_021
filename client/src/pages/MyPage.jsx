@@ -1,19 +1,28 @@
 import React from "react";
 import styled from 'styled-components';
-import UserPageTop from '../components/MyPage.js/UserPageTop';
-import UserInfo from '../components/MyPage.js/UserInfo';
+import UserPageTop from '../components/MyPage/UserPageTop';
+import UserInfo from '../components/MyPage/UserInfo';
 import Gnb from '../components/UI/Gnb/Gnb';
 import MyPageHeader from '../components/UI/Header/MyPageHeader'
-import { modalState } from '../stores/atoms';
+import { 
+  modalState,
+  LogOutModalState,
+  moveModalState
+} from '../stores/atoms';
 import { useRecoilState } from "recoil"
 import { Modal } from '../components/UI/Item/Modal';
+import { LogOutModal } from '../components/MyPage/LogOutModal'
+import { PWCheckModal } from '../components/UI/Item/PWCheckModal';
 
 export default function MyPage() {
   const [isOpen,] = useRecoilState(modalState)
-
+  const [logOutClick,] = useRecoilState(LogOutModalState);  
+  const [goPage,] = useRecoilState(moveModalState)
   return (
     <Wrapper>      
-      {isOpen&&<Modal title={"회원탈퇴"} content={"회원탈퇴 하시겠습니까?"}/>}
+      {isOpen&&<Modal/>}
+      {logOutClick&&<LogOutModal/>}
+      {goPage&&<PWCheckModal/>}
       <MyPageHeader title={"나의 당근"} />      
       <UserPageTop userName={"손고장난벽시"}/> 
       <Line/>

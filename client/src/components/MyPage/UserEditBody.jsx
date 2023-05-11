@@ -10,7 +10,7 @@ export default function UserEditBody(){
           이메일<EmailLink to='/email'>등록</EmailLink>                                 
         </BottomContainer>
         <BottomContainer>
-          휴대폰번호<PhoneNumberLink to='/phonenumber'>변경</PhoneNumberLink>
+          휴대폰번호<PhoneNumberLink to='/changepn'>변경</PhoneNumberLink>
         </BottomContainer>
         <Phone>010 3020 4020</Phone>
       </Container>
