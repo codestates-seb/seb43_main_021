@@ -17,6 +17,7 @@ import Notice from "./pages/Notice";
 import Search from "./pages/Search";
 import SignUp from "./pages/SignUp";
 import UserEdit from "./pages/UserEdit";
+import ChangePN from './pages/ChangePN';
 import { createGlobalStyle } from "styled-components";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/myauctionlist" element={<MyAuctionList />} />
         <Route path="/changepw" element={<ChangePw />} />
         <Route path="/useredit" element={<UserEdit />} />
+        <Route path="/changepn" element={<ChangePN />} />
       </Routes>
     </div>
   );
@@ -58,7 +60,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e0e0e0;
+    background-color: #e0e0e0;    
   }
 
   #root {
@@ -70,7 +72,7 @@ const GlobalStyle = createGlobalStyle`
 
   @media screen  and (min-width: 416px) {
     #root{
-      max-width:1024px;
+      max-width:1024px;      
     }
   }
 
