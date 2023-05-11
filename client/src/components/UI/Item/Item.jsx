@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
-import { dummyItem } from "../../../assets/dummyData";
 import { useNavigate } from "react-router-dom";
 
-const Item = () => {
+const Item = ({ item }) => {
   const navigate = useNavigate();
   const handleToAuctionDetail = (id) => {
     navigate(`/AuctionDetail/${id}`);
@@ -12,12 +11,9 @@ const Item = () => {
 
   return (
     <div>
-      {dummyItem.map((item) => (
-        <>
-          <Container
-            key={item.id}
-            onClick={() => handleToAuctionDetail(item.id)}
-          >
+      {item.map((item) => (
+        <React.Fragment key={item.id}>
+          <Container onClick={() => handleToAuctionDetail(item.id)}>
             <ItemLeft>
               <Img src={item.img[0]} />
               <Text>
@@ -35,7 +31,7 @@ const Item = () => {
             </ItemRight>
           </Container>
           <Line />
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

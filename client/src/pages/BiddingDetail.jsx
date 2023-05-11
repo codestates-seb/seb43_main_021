@@ -3,11 +3,43 @@ import styled from "styled-components";
 import { RiHeartLine } from "react-icons/ri";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
-import { dummyBiddings, dummyAuctions } from "../assets/dummyData";
+import { dummyItem } from "../assets/dummyData";
 import { useParams } from "react-router-dom";
+
+import { useQuery } from "react-query";
 
 const BiddingDetail = () => {
   const { biddingId } = useParams();
+  const { auctionId } = useParams();
+
+  console.log("auctionId", auctionId);
+  console.log("biddingId", biddingId);
+
+  const getBiddingItemData = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(dummyItem[auctionId].biddings[biddingId]);
+      }, 1000);
+    });
+  };
+
+  const { data, isLoading, isError, error } = useQuery(
+    "getBiddingItemData",
+    getBiddingItemData,
+    {
+      staleTime: 0,
+      cacheTime: 0,
+    }
+  );
+
+  if (isLoading) {
+    return <div>로딩 중!</div>;
+  }
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  console.log("비딩디테일 데이터 기본로그", data);
 
   const handleBack = () => {
     window.history.back();
@@ -16,23 +48,21 @@ const BiddingDetail = () => {
   return (
     <Wrapper>
       <AuctionImgContainer>
-        <ItemImage images={dummyBiddings[biddingId].img} />
+        <ItemImage images={data.img} />
         <BackButton onClick={handleBack} />
       </AuctionImgContainer>
 
       <UserInfoContainer>
-        <UserImg src={dummyBiddings[biddingId].userImg} />
+        <UserImg src={data.userImg} />
         <UserText>
-          <div>{dummyBiddings[biddingId].userName}</div>
-          <div className="userLocation">
-            {dummyBiddings[biddingId].userLocation}
-          </div>
+          <div>{data.userName}</div>
+          <div className="userLocation">{data.userLocation}</div>
         </UserText>
       </UserInfoContainer>
       <UnderLine />
-      <AuctionTitle>{dummyBiddings[biddingId].itemTitle} </AuctionTitle>
-      <AutcionInfo>{dummyBiddings[biddingId].itemTime}</AutcionInfo>
-      <AuctionContent>{dummyBiddings[biddingId].itemContent}</AuctionContent>
+      <AuctionTitle>{data.itemTitle} </AuctionTitle>
+      <AutcionInfo>{data.itemTime}</AutcionInfo>
+      <AuctionContent>{data.itemContent}</AuctionContent>
       <Footer>
         <FooterLine />
         <FooterContainer>
@@ -40,7 +70,7 @@ const BiddingDetail = () => {
           <DivisionLine />
           <AuctionEnd>
             <div>경매 마감일</div>
-            <div style={{ color: "gray" }}>{dummyAuctions.auctionEnd}</div>
+            {/* <div style={{ color: "gray" }}>{biddingItem.auctionEnd}</div> */}
           </AuctionEnd>
           <BiddingButton>채팅하기</BiddingButton>
         </FooterContainer>

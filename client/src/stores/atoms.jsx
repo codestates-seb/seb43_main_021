@@ -2,6 +2,7 @@ import { atom } from "recoil";
 
 //modal on/off기능
 export const modalState = atom({
+<<<<<<< HEAD
   key:"modalState",
   default:false,
 });
@@ -17,3 +18,8 @@ export const LogOutModalState = atom({
   default:false,
 });
 
+=======
+  key: "modalState",
+  default: false,
+});
+>>>>>>> 8781c54bf9086500e79b8afd1678ac0b0c40f5e2
