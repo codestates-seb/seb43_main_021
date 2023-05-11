@@ -3,68 +3,74 @@ import styled from "styled-components";
 import { RiHeartLine } from "react-icons/ri";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
-import { dummyBiddings, dummyItem } from "../assets/dummyData";
+import { dummyItem } from "../assets/dummyData";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 
 const AuctionDetail = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { auctionId } = useParams();
+
+  console.log("아이디 확인", auctionId);
+  const getData = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(dummyItem[auctionId]);
+        console.log("셋타임아웃 이후 데이터", data);
+      }, 1000);
+    });
+  };
+
+  const { data, isLoading, isError, error } = useQuery("getData", getData, {
+    staleTime: 0,
+    cacheTime: 0,
+  });
+
+  if (isLoading) {
+    return <div>로딩 중 테스트입니다~!~!~!~!</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   const handleBack = () => {
-    window.history.back();
+    navigate(`/`);
   };
 
-  const handleToBiddingDetail = (id) => {
-    navigate(`/biddingdetail/${id}`);
+  const handleToBiddingDetail = (auctionId, id) => {
+    navigate(`/biddingdetail/${auctionId}/${id}`);
   };
-
-  // {
-  //   id: 1,
-  //   title: "나이키 에어조던1 스캇 팬텀블랙 265",
-  //   period: "2023.05.01 ~ 2023.05.15",
-  //   bidding: 5,
-  //   auctionState: true,
-  //   heart: 5,
-  //   img: [img1, img2, img3],  //   userName: "당근단군",
-  //   userLocation: "군자동",
-  //   userImg: img2,
-  //   auctionTitle: "나이키 에어조던1 스캇 팬텀블랙 265",
-  //   auctionTime: "50분 전",
-  //   content:
-  //     "나이키 공홈에서 당첨된 나이키 에어조던1 스캇입니다!\n사진 찍기 위하여 보자기만 걷어봤고 그 외에는 시착도 안 했습니다.\n건대입구에서 직거래 희망합니다!",
-  //   auctionSummary: "입찰 3 ・ 관심 1 ・ 조회 146",
-  //   auctionEnd: "2023년 5월 15일 오후 5시 26분",
-  // },
+  console.log("옥션 데이터?", data);
 
   return (
     <Wrapper>
       <AuctionImgContainer>
-        <ItemImage images={dummyItem[id].img} />
+        <ItemImage images={data.img} />
         <BackButton onClick={handleBack} />
       </AuctionImgContainer>
-
       <UserInfoContainer>
-        <UserImg src={dummyItem[id].userImg} />
+        <UserImg src={data.userImg} />
         <UserText>
-          <div>{dummyItem[id].userName}</div>
-          <div className="userLocation">{dummyItem[id].userLocation}</div>
+          <div>{data.userName}</div>
+          <div className="userLocation">{data.userLocation}</div>
         </UserText>
       </UserInfoContainer>
       <UnderLine />
-      <AuctionTitle>{dummyItem[id].auctionTitle} </AuctionTitle>
-      <AutcionInfo>{dummyItem[id].auctionTime}</AutcionInfo>
-      <AuctionContent>{dummyItem[id].content}</AuctionContent>
-      <AuctionSummary>{dummyItem[id].auctionSummary}</AuctionSummary>
+      <AuctionTitle>{data.title} </AuctionTitle>
+      <AutcionInfo>{data.auctionTime}</AutcionInfo>
+      <AuctionContent>{data.content}</AuctionContent>
+      <AuctionSummary>{data.auctionSummary}</AuctionSummary>
       <UnderLine />
       <BiddingList>입찰 목록</BiddingList>
       <BiddingItemGrid>
-        {dummyBiddings.map((item) => (
+        {data.biddings.map((i) => (
           <BiddingItem
-            key={item.id}
-            onClick={() => handleToBiddingDetail(item.id)}
+            key={i.id}
+            onClick={() => handleToBiddingDetail(auctionId, i.id)}
           >
-            <ItemImg src={item.img[0]} />
-            <ItemTitle>{item.itemTitle}</ItemTitle>
+            <ItemImg src={i.img[0]} />
+            <ItemTitle>{i.itemTitle}</ItemTitle>
           </BiddingItem>
         ))}
       </BiddingItemGrid>
@@ -75,7 +81,7 @@ const AuctionDetail = () => {
           <DivisionLine />
           <AuctionEnd>
             <div>경매 마감일</div>
-            <div style={{ color: "gray" }}>{dummyItem[id].auctionEnd}</div>
+            <div style={{ color: "gray" }}>{data.auctionEnd}</div>
           </AuctionEnd>
           <BiddingButton>입찰하기</BiddingButton>
         </FooterContainer>
@@ -251,3 +257,34 @@ const BiddingButton = styled.button`
 `;
 
 export default AuctionDetail;
+
+// ===============================================================
+
+// useEffect(() => {
+//   const getData = setTimeout(() => {
+//     setItem(dummyItem);
+//   }, 1000);
+//   return () => clearTimeout(getData);
+// }, [setItem]);
+
+// const getData = () => {
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       setItem(dummyItems[id]);
+//       resolve(dummyItems[id]);
+//     }, 400);
+//   });
+// };
+
+// const { isLoading, isError, error } = useQuery("getData", getData, {
+//   staleTime: 0,
+//   cacheTime: 0,
+// });
+
+// if (isLoading) {
+//   return <div>로딩 중 테스트입니다~!~!~!~!</div>;
+// }
+
+// if (isError) {
+//   return <div>Error: {error.message}</div>;
+// }
