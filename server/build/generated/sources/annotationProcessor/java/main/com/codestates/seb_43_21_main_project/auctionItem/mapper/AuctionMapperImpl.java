@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-10T01:38:26+0900",
+    date = "2023-05-12T15:08:19+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -29,7 +29,6 @@ public class AuctionMapperImpl implements AuctionMapper {
         auction.name( requestBody.getName() );
         auction.content( requestBody.getContent() );
         auction.period( requestBody.getPeriod() );
-        auction.categoryId( requestBody.getCategoryId() );
         auction.auctionStatus( requestBody.getAuctionStatus() );
 
         return auction.build();
@@ -46,7 +45,6 @@ public class AuctionMapperImpl implements AuctionMapper {
         auction.auctionItemId( requestBody.getAuctionItemId() );
         auction.name( requestBody.getName() );
         auction.content( requestBody.getContent() );
-        auction.period( requestBody.getPeriod() );
 
         return auction.build();
     }
