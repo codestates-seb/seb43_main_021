@@ -4,6 +4,7 @@ import { VscAccount } from "react-icons/vsc";
 import { FaReceipt } from"react-icons/fa"
 import { FaShoppingBag } from "react-icons/fa";
 import { BsSuitHeartFill } from "react-icons/bs";
+import { Link } from "react-router-dom"
 
 export default function UserPageTop({userName}){
   
@@ -17,7 +18,7 @@ export default function UserPageTop({userName}){
         <IconArea>
           <FaReceipt/>
         </IconArea>
-        <IconTextarea>경매내역</IconTextarea>
+        <IconTextarea to="/myauctionlist">경매내역</IconTextarea>
         <IconArea>
           <FaShoppingBag/>
         </IconArea>
@@ -78,13 +79,15 @@ const IconArea = styled.div`
   }
 `
 
-const IconTextarea = styled.div`
+const IconTextarea = styled(Link)`
   margin-top: 0.5rem;
   font-size: 13px;  
   margin-left: 4.3rem;
   margin-top: 14rem;
   display: flex;
   position: absolute;
+  text-decoration: none;
+  color: black;
   cursor: pointer;
 `
 const IconTextarea2 = styled.div`

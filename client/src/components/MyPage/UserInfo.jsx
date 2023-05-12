@@ -12,8 +12,7 @@ import {
 } from '../../stores/atoms';
 export default function UserInfo(){  
   const [isOpen, setIsOpen] = useRecoilState(modalState);  
-  const [logOutClick, setLogOutClick] = useRecoilState(LogOutModalState);  
-
+  const [logOutClick, setLogOutClick] = useRecoilState(LogOutModalState);        
   
   const openModalHandler = ()=>{
     setIsOpen(!isOpen)    

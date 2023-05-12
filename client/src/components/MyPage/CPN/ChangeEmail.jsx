@@ -1,29 +1,29 @@
 import styled from "styled-components"
 import { ItemButton } from '../../UI/Item/ItemButton'
 import { ItemButton2 } from '../../UI/Item/ItemButton2'
-import { changePNState } from '../../../stores/atoms'
-import { useRecoilState } from'recoil'
-export default function ChangePNB(){
-  const [, setOnDisplay] = useRecoilState(changePNState)
-  const changePhoneNumber =()=>{
-    setOnDisplay(false)
+import { emailChangeState } from '../../../stores/atoms'
+import { useRecoilState } from "recoil"
+export default function ChangeEmail(){
+  const [, setOpenEmail]= useRecoilState(emailChangeState) 
+  const changeEmail = ()=>{
+    setOpenEmail(false)
   }
-  const dummydata =[
+  const dummydata=[
     {
-      phoneFrontNum:` ${1234} ${1234}`,      
+      userEmail:'wnen@naver.com'
     }
   ]
   return (
     <Wrapper>
-      <TopTitle>새로운 휴대폰 번호를 입력해주세요</TopTitle>
-      <SubTitle>현재 등록된 휴대폰 번호는 010{`${dummydata[0].phoneFrontNum}`}이에요</SubTitle>      
-      <PNInput placeholder='휴대폰 번호'/>
+      <TopTitle>새로운 이메일을 입력해주세요</TopTitle>
+      <SubTitle>현재 등록된 이메일은 {`${dummydata[0].userEmail}`}이에요</SubTitle>      
+      <PNInput placeholder='이메일 주소'/>
       <WarningM>
         꼭 확인해주세요!<FontZone>기존에 본인인증한 명의자 정보와 일치하지 않으면 땅땅마켓을 사용할 수 없어요.</FontZone>
       </WarningM>      
       <PNCButton>
-        <StyledButton onClick={changePhoneNumber}>
-          <ItemButton2/>        
+        <StyledButton onClick={changeEmail}>
+          <ItemButton2/>  
         </StyledButton>
         <ItemButton/>  
       </PNCButton>              
@@ -71,7 +71,7 @@ const FontZone = styled.div`
   padding-bottom: 3rem;
 `
 
-const PNCButton = styled.div`
+const PNCButton = styled.button`
   height: 4rem;
   width: 100%;
   border: 0;      
