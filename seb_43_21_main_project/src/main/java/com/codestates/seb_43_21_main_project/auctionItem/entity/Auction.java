@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 
 @SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
-@Where(clause = "deleted = register") // deleted = true일 경우 결과에 포함되지 X
+@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -74,6 +74,7 @@ public class Auction extends Auditable {
         }
     }
 
-
+//    public void isdeleted(Auction auction){
+//    }
 
 }

@@ -49,7 +49,7 @@ public class AuctionDto {
         // 이미지
 
 
-//        private int period; //기간 설정 (기간 30일)
+        private int period; //기간 설정 (기간 30일)
 
 
         private String content;
