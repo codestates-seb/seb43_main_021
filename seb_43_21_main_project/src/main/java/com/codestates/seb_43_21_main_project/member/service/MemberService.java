@@ -31,6 +31,7 @@ public class MemberService {
         member.setPassword(passwordEncoding(member.getPassword()));
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
+        member.setUseYn(Member.UseYn.Y);
         return memberRepository.save(member);
     }
     //Member 업데이트
@@ -40,7 +41,14 @@ public class MemberService {
         Optional.ofNullable(member.getEmail())
                 .ifPresent(findMember::setEmail);
         Optional.ofNullable(member.getPassword())
-                .ifPresent(findMember::setPassword);
+                .ifPresent(password-> {
+                    findMember.setPassword(passwordEncoding(password));
+                }); // 업데이트 할때 패스워드가 암호화 안되는 오류? 해결
+        Optional.ofNullable(member.getNickName())
+                .ifPresent(findMember::setNickName);
+        Optional.ofNullable(member.getPhoneNumber())
+                .ifPresent(findMember::setPhoneNumber);
+        verifyExistsNickName(member.getNickName()); // 업데이트할때 닉네임 중복확인
 
         return memberRepository.save(findMember);
     }
@@ -50,7 +58,7 @@ public class MemberService {
 
     public void softDeleteMember(Long memberId){
         Member member = memberRepository.findById(memberId).orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        member.setDeleted(true);
+        member.setUseYn(Member.UseYn.N);
         memberRepository.save(member);
     }
 
@@ -62,8 +70,9 @@ public class MemberService {
         }
     }
 
+    //멤버가 존재하는지, 회원상태가 Y인 상태인지 확인
     public Member findVerifiedmember(long memberId){
-        Optional<Member> optionalmember = memberRepository.findById(memberId);
+        Optional<Member> optionalmember = memberRepository.findByMemberIdAndUseYn(memberId, Member.UseYn.Y);
 
         Member findMember = optionalmember.orElseThrow(()->new BusinessLogicException((ExceptionCode.MEMBER_NOT_FOUND)));
 

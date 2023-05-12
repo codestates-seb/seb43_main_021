@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByNickName(String nickname);
     Optional<Member> findByEmail(String email);
-    List<Member> findByDeletedFalse();
+    Optional<Member> findByMemberIdAndUseYn(Long memberId, Member.UseYn useYn);
 }
