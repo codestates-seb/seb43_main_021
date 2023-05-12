@@ -1,5 +1,6 @@
 package com.codestates.seb_43_21_main_project.member.entity;
 
+import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,12 @@ public class Member {
     private String nickName;
     @Column(nullable = false)
     private String phoneNumber;
+
+
+
+
+
+
     
     @ElementCollection(fetch = FetchType.EAGER) // @ElementCollection 애너테이션은 사용자 등록시, 사용자의 권한을 등록하기 위한 권한 테이블을 새엇ㅇ.
     private List<String> roles = new ArrayList<>();

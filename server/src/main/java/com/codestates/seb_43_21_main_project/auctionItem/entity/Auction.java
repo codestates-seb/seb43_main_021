@@ -1,6 +1,7 @@
 package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
 import com.codestates.seb_43_21_main_project.audit.Auditable;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -34,7 +35,7 @@ public class Auction extends Auditable {
     private int period;
 
     @Column(nullable = false)
-    private boolean  deleted = Boolean.FALSE;
+    private boolean deleted = Boolean.FALSE;
 
 //     무결성에러(DataIntegrityViolationException:)
 //    @Enumerated(value = EnumType.STRING)
@@ -45,9 +46,11 @@ public class Auction extends Auditable {
 //        REGISTER,  DELETED
 //    }
 
-    //    매핑관계 설정
-    private long categoryId;
-    private long memberId;
+//    // Todo:  매핑관계 설정
+//    @ManyToOne
+//    @JoinColumn(name = "MEMBER_ID") //fetch는 공부후 추가.
+//    private Member member;
+
     private long bidItemId;
     //  private int view; //조회수
 //   private long favoriteItem; //즐겨찾기
@@ -74,7 +77,5 @@ public class Auction extends Auditable {
         }
     }
 
-//    public void isdeleted(Auction auction){
-//    }
 
 }

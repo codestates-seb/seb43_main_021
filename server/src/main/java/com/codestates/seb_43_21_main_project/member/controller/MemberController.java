@@ -6,8 +6,10 @@ import com.codestates.seb_43_21_main_project.member.dto.MemberPostDto;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.mapper.MemberMapper;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +19,15 @@ import javax.validation.constraints.Positive;
 @Validated
 @RestController
 @RequestMapping("/member")
+
 public class MemberController {
+
+
     private final MemberService memberService;
     private final MemberMapper mapper;
 
-    public MemberController(MemberService memberService, MemberMapper mapper){
+
+    public MemberController(MemberService memberService, MemberMapper mapper) {
         this.memberService = memberService;
         this.mapper = mapper;
     }
