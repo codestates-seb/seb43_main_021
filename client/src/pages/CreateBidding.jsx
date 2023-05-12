@@ -10,13 +10,11 @@ const CreateBidding = () => {
 
   const [imageSrcList, setImeageSrcList] = useState([]); // 이미지 등록
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
-  const [auctionPeriod, setAuctionPeriod] = useState("");
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [showTitleWarning, setShowTitleWarning] = useState(false);
   const [showTextWarning, setShowTextWarning] = useState(false);
-  const [showPeriodWarning, setShowPeriodWarning] = useState(false);
 
   const onUpload = (event) => {
     if (imageSrcList.length >= 10) {
@@ -42,23 +40,6 @@ const CreateBidding = () => {
     });
   };
 
-  const enterNumbersOnly = (event) => {
-    let input = event.target.value;
-    input = input.replace(/\D/g, "");
-
-    if (input !== "") {
-      const parsedInput = parseInt(input, 10);
-      if (parsedInput >= 1 && parsedInput <= 30) {
-        setAuctionPeriod(parsedInput.toString());
-        setShowPeriodWarning(false);
-      } else {
-        setAuctionPeriod("");
-      }
-    } else {
-      setAuctionPeriod("");
-    }
-  };
-
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
     setShowTitleWarning(false);
@@ -78,11 +59,7 @@ const CreateBidding = () => {
       setShowTextWarning(true);
     }
 
-    if (auctionPeriod === "") {
-      setShowPeriodWarning(true);
-    }
-
-    if (title !== "" && text !== "" && auctionPeriod !== "") {
+    if (title !== "" && text !== "") {
     }
   };
 
