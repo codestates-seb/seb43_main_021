@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.querydsl.QPageRequest;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,8 +47,9 @@ public class AuctionService {
         Optional.ofNullable(auction.getName())
                 .ifPresent(name -> findAuction.setName(name));
 
-        Optional.ofNullable(auction.getPeriod())
-                .ifPresent(period -> findAuction.setPeriod(period));
+        //기간설정 변경?
+//        Optional.ofNullable(auction.getPeriod())
+//                .ifPresent(period -> findAuction.setPeriod(period));
 
         Optional.ofNullable(auction.getContent())
                 .ifPresent(content -> findAuction.setContent(content));
@@ -68,11 +71,11 @@ public class AuctionService {
 //        return  auctionRepository.findAll(PageRequest.of(page,size, Sort.by("auctionItemId").descending()));
 //    }
     public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
-        //Todo : 예외처리 하기(ExceptionHandler)
-        if (pageInfo.getLastItemId() <=0  && pageInfo.getSize() <=0)  {
+        //Todo :예외처리
+        if (pageInfo.getLastItemId() <= 0 && pageInfo.getSize() <= 0) {
             throw new RuntimeException("양수 값을 입력해 주세요");
         }
-        PageRequest pageRequest = PageRequest.ofSize( pageInfo.getSize()); //page : 0으로 고정
+        PageRequest pageRequest = PageRequest.ofSize(pageInfo.getSize()); //page : 0으로 고정
         return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
     }
 
@@ -80,22 +83,33 @@ public class AuctionService {
     //물품 하나 삭제
     public void deleteAuction(long auctionItemId) {
         Auction findAuction = findVerifiedAuction(auctionItemId);
-        auctionRepository.delete(findAuction);
+        findAuction.setDeleted(Boolean.TRUE); //해당 Id의 deleted 상태 변경
+        auctionRepository.save(findAuction);
+
+//        auctionRepository.delete(findAuction);
     }
+
+
+
 
     //물품 전체 삭제
     public void deleteAll() {
-        auctionRepository.deleteAll();
-
+        //물품 전체를 찾아오기
+        List<Auction> auctions = auctionRepository.findAll();
+        //리스트에서 하나씩 꺼내서 상태 변경
+        auctions.forEach(auction -> auction.setDeleted(Boolean.TRUE));
+        auctionRepository.saveAll(auctions); //saveAll()메서드로 여러 객체를 한번에 저장
     }
 
 
     private Auction findVerifiedAuction(long auctionItemId) {
         Optional<Auction> optionalAuction = auctionRepository.findById(auctionItemId);
-        Auction findAuction = optionalAuction.orElseThrow(() -> new RuntimeException());
+        Auction findAuction = optionalAuction.orElseThrow(() -> new RuntimeException("경매 물품이 존재 하지 않습니다."));
 
         return findAuction;
     }
+
+
 
 
 }

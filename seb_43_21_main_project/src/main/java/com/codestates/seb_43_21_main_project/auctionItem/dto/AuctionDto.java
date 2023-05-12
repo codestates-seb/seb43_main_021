@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class AuctionDto {
         private String content; // 내용
 
         @NotNull
+        @Min(value = 1 ,message = "1이상의 값을 입력해야합니다.")
         private int period; //기간 설정 (기간 30일) num >30 return 30
 
 //        @NotNull
@@ -46,7 +48,8 @@ public class AuctionDto {
 
         // 이미지
 
-        private int period; //기간 설정 (기간 30일)
+
+//        private int period; //기간 설정 (기간 30일)
 
 
         private String content;

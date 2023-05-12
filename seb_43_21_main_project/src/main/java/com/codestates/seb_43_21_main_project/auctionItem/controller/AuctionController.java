@@ -54,7 +54,7 @@ public class AuctionController {
     @GetMapping("{auction_items_id}")
     public ResponseEntity getAuction(@PathVariable("auction_items_id") @Positive long auctionItemId) {
         Auction findedAuction = auctionService.findAuction(auctionItemId);
-        return null;
+        return new ResponseEntity(mapper.auctionToAuctionResponseDto(findedAuction), HttpStatus.OK);
     }
 
 //    @GetMapping
@@ -67,7 +67,7 @@ public class AuctionController {
 //                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
 //    }
 
-    //Todo : 무한스크롤 기능 구현 .. 0509다시..
+    //Todo : 무한스크롤 기능 구현
     @GetMapping
     public ResponseEntity getAuctionAll(@Valid @RequestBody PageInfoRequest pageInfo) {
 
