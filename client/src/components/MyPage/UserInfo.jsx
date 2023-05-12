@@ -31,10 +31,12 @@ export default function UserInfo(){
             내 정보수정
           </IconContainer>
         </StyledLink>
-        <IconContainer>
-          <RiLockPasswordFill/>
-          비밀번호 변경
-        </IconContainer>
+        <StyledLink to='/changepw'>
+          <IconContainer>
+            <RiLockPasswordFill/>
+            비밀번호 변경
+          </IconContainer>
+        </StyledLink>
         <IconContainer onClick={logOutModalHandler}>
           <BiLogOut/>
           로그아웃
