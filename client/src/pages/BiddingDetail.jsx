@@ -1,36 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { RiHeartLine } from "react-icons/ri";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
-import { dummyItem } from "../assets/dummyData";
-import { useParams } from "react-router-dom";
-
-import { useQuery } from "react-query";
+import useGetBiddingItem from "../hooks/useGetBiddingItem";
+import Footer from "../components/UI/Footer/Footer";
 
 const BiddingDetail = () => {
-  const { biddingId } = useParams();
-  const { auctionId } = useParams();
-
-  console.log("auctionId", auctionId);
-  console.log("biddingId", biddingId);
-
-  const getBiddingItemData = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dummyItem[auctionId].biddings[biddingId]);
-      }, 1000);
-    });
-  };
-
-  const { data, isLoading, isError, error } = useQuery(
-    "getBiddingItemData",
-    getBiddingItemData,
-    {
-      staleTime: 0,
-      cacheTime: 0,
-    }
-  );
+  const { data, isLoading, isError, error } = useGetBiddingItem();
 
   if (isLoading) {
     return <div>로딩 중!</div>;
@@ -38,8 +14,6 @@ const BiddingDetail = () => {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-
-  console.log("비딩디테일 데이터 기본로그", data);
 
   const handleBack = () => {
     window.history.back();
@@ -51,7 +25,6 @@ const BiddingDetail = () => {
         <ItemImage images={data.img} />
         <BackButton onClick={handleBack} />
       </AuctionImgContainer>
-
       <UserInfoContainer>
         <UserImg src={data.userImg} />
         <UserText>
@@ -63,23 +36,10 @@ const BiddingDetail = () => {
       <AuctionTitle>{data.itemTitle} </AuctionTitle>
       <AutcionInfo>{data.itemTime}</AutcionInfo>
       <AuctionContent>{data.itemContent}</AuctionContent>
-      <Footer>
-        <FooterLine />
-        <FooterContainer>
-          <Favorite />
-          <DivisionLine />
-          <AuctionEnd>
-            <div>경매 마감일</div>
-            {/* <div style={{ color: "gray" }}>{biddingItem.auctionEnd}</div> */}
-          </AuctionEnd>
-          <BiddingButton>채팅하기</BiddingButton>
-        </FooterContainer>
-      </Footer>
+      <Footer />
     </Wrapper>
   );
 };
-
-// ============================================================================
 
 const Wrapper = styled.div`
   display: flex;
@@ -148,70 +108,10 @@ const AuctionContent = styled.div`
   margin: 1.5rem 1rem;
 `;
 
-// const AuctionSummary = styled.div`
-//   margin: 0 0 1.5rem 1rem;
-//   font-size: 0.75rem;
-//   font-weight: bold;
-//   color: gray;
-// `;
-
 const UnderLine = styled.div`
   border: 0.5px solid #cccccc;
   margin: 0 1rem;
-`;
-
-const Footer = styled.div`
-  height: 5rem;
-  width: 100%;
-  bottom: 0;
-  position: fixed;
-  background-color: white;
-`;
-
-const FooterLine = styled.div`
-  border: 0.5px solid #cccccc;
-`;
-
-const FooterContainer = styled.div`
-  display: flex;
-`;
-
-const Favorite = styled(RiHeartLine)`
-  font-size: 1.5rem;
-  color: gray;
-  margin-left: 1rem;
-  margin-top: 1.5rem;
-  cursor: pointer;
-`;
-
-const DivisionLine = styled.div`
-  border: 0.5px solid #cccccc;
-  width: 0;
-  height: 2.5rem;
-  margin-top: 1rem;
-  margin-left: 1rem;
-`;
-
-const AuctionEnd = styled.div`
-  margin-top: 1.1rem;
-  margin-left: 1rem;
-  font-weight: bold;
-`;
-
-const BiddingButton = styled.button`
-  background-color: #4636fc;
-  color: white;
-  border: none;
-  width: 5.5rem;
-  height: 2.5rem;
-  font-weight: bold;
-  border-radius: 5px;
-  margin: 1rem 1rem 1rem auto;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #5170fd;
-  }
+  //
 `;
 
 export default BiddingDetail;
