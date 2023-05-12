@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9947a07f-9a1a-44bd-9aaa-bb8b10e18552" name="Changes" comment="[refactor] AuctionItem 필드 수정" />
+    <list default="true" id="9947a07f-9a1a-44bd-9aaa-bb8b10e18552" name="Changes" comment="[refactor] AuctionItem 필드 수정">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/2023-05-12__3_56_________Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2023-05-12__3_56_________Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/server/.idea/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
