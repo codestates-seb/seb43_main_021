@@ -27,22 +27,22 @@ public class Member {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "member")
+    private  List<Auction> auctions =  new ArrayList<>();
 
 
-
-
-
-    
     @ElementCollection(fetch = FetchType.EAGER) // @ElementCollection 애너테이션은 사용자 등록시, 사용자의 권한을 등록하기 위한 권한 테이블을 새엇ㅇ.
     private List<String> roles = new ArrayList<>();
-    public enum MemberRole{
+
+    public enum MemberRole {
         ROLE_USER,
         ROLE_ADMIN
     }
-    
+
     @Enumerated(EnumType.STRING)
     private UseYn useYn;
-    public enum UseYn{
+
+    public enum UseYn {
         Y, //회원가입상태
         N //회원탈퇴상태
     }

@@ -11,11 +11,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class AuctionDto {
-    
+
     @Getter
     @Setter
     @NoArgsConstructor
     public static class Post {
+        @NotNull
+        private long memberId;
+
         @NotBlank
         private String name; // 제목
         // 이미지는 생각해보자.
@@ -24,12 +27,14 @@ public class AuctionDto {
         private String content; // 내용
 
         @NotNull
-        @Min(value = 1 ,message = "1이상의 값을 입력해야합니다.")
+        @Min(value = 1, message = "1이상의 값을 입력해야합니다.")
         private int period; //기간 설정 (기간 30일) num >30 return 30
-        
+
 
         // 기본값으로 AUCTION_BIDDING 설정' / Todo : 기간 만료는 어디서 처리해야하는가..
         private Auction.AuctionStatus auctionStatus = Auction.AuctionStatus.AUCTION_BIDDING;
+
+
 
     }
 
@@ -58,8 +63,10 @@ public class AuctionDto {
     @Setter
     @NoArgsConstructor
     public static class Response {
+
+
         private long auctionItemId;
-        private long memberId;
+
         private String name;
         //이미지
         private String content;
@@ -69,6 +76,7 @@ public class AuctionDto {
         //      private int view; //조회수
         private int period;
         //      private long favoriteItem; //즐겨찾기
+        private long memberId;
         private long bidItemId; //  전체 데이터..
 
         //상태코드도 넘겨줘야함.

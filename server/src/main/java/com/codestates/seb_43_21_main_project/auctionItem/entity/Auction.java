@@ -47,9 +47,10 @@ public class Auction extends Auditable {
 //    }
 
 //    // Todo:  매핑관계 설정
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID") //fetch는 공부후 추가.
-//    private Member member;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
 
     private long bidItemId;
     //  private int view; //조회수

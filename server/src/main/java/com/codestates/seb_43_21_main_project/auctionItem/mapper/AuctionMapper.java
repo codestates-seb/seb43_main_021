@@ -4,12 +4,16 @@ import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AuctionMapper {
+
+    @Mapping(source = "memberId" , target =  "member.memberId")
     Auction auctionPostDtoToAuction(AuctionDto.Post requestBody);
+//    AuctionDto.Response auctionToAuctionResponseDto(Auction auction);
 
     default AuctionDto.Response auctionToAuctionResponseDto(Auction auction){
         if (auction == null) {
@@ -17,7 +21,7 @@ public interface AuctionMapper {
         } else {
             AuctionDto.Response response = new AuctionDto.Response();
             response.setAuctionItemId(auction.getAuctionItemId());
-            response.setMemberId(auction.getMemberId());
+            response.setMemberId(auction.getMember().getMemberId());
             response.setName(auction.getName());
             response.setContent(auction.getContent());
             response.setModifiedDate(auction.getModifiedDate());
@@ -33,3 +37,9 @@ public interface AuctionMapper {
 
     List<AuctionDto.Response>  auctionToAuctionResponseDtos(List<Auction> auctions);
 }
+
+
+/*
+* sour : 입력값
+* target : 출력값
+* */
