@@ -26,3 +26,8 @@ export const emailChangeState = atom({
   key:"emailChangeState",
   default:false,
 })
+// 경매내역이 경매중일때와 경매완료일때
+export const auctionState = atom({
+  key:"auctionState",
+  default:true,
+})

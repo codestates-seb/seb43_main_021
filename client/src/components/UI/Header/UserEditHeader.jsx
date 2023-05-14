@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { FiChevronLeft } from "react-icons/fi";
 import { Link } from 'react-router-dom';
-export default function UserEditHeader({title}){
+export default function UserEditHeader({title}){  
   return (
     <Wrapper>
       <Title><CustomLink to="/mypage"><FiChevronLeft/></CustomLink>{title}</Title>   

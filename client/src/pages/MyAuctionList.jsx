@@ -1,19 +1,21 @@
 import styled from "styled-components"
-import UserEditHeader from '../components/UI/Header/UserEditHeader'
+import MyAuction from '../components/MyPage/MyAuction'
+import { auctionState } from '../stores/atoms'
+import { useRecoilState } from 'recoil'
+import UnderAuction from '../components/MyPage/AuctionMain/UnderAuction'
+import AuctionCompleted from '../components/MyPage/AuctionMain/AuctionCompleted'
 export default function MyAuctionList() {
+  const [auction,] = useRecoilState(auctionState)
   return (
     <Wrapper>
-      <Container>
-        <UserEditHeader title={'경매내역'}/>
-      </Container>
+      <MyAuction/>
+        {auction&&<UnderAuction/>}
+        {!auction&&<AuctionCompleted/>}
     </Wrapper>
   )  
 };
 
 const Wrapper = styled.div`
-  width: 100%;  
-`
-
-const Container = styled.div`
-  height: 16.5rem;
+  width: 100%;    
+  height: 100%;
 `

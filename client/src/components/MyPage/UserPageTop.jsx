@@ -18,15 +18,15 @@ export default function UserPageTop({userName}){
         <IconArea>
           <FaReceipt/>
         </IconArea>
-        <IconTextarea to="/myauctionlist">경매내역</IconTextarea>
+        <IconTextarea to="/myauctionlist" >경매내역</IconTextarea>
         <IconArea>
           <FaShoppingBag/>
         </IconArea>
-        <IconTextarea2>입찰목록</IconTextarea2>
+        <IconTextarea2 to="/biddingList">입찰목록</IconTextarea2>
         <IconArea>
           <BsSuitHeartFill/>
         </IconArea>
-        <IconTextarea3>관심목록</IconTextarea3>
+        <IconTextarea3 to= "/favoritelist">관심목록</IconTextarea3>
       </IconContainer>
     </Wrapper>
   )
@@ -90,21 +90,25 @@ const IconTextarea = styled(Link)`
   color: black;
   cursor: pointer;
 `
-const IconTextarea2 = styled.div`
+const IconTextarea2 = styled(Link)`
   margin-top: 0.5rem;
   font-size: 13px;  
   margin-left: 11.6rem;
   margin-top: 14rem;
   display: flex;
   position: absolute;
+  text-decoration: none;
+  color: black;
   cursor: pointer;
 `
-const IconTextarea3 = styled.div`
+const IconTextarea3 = styled(Link)`
   margin-top: 0.5rem;
   font-size: 13px;  
   margin-left: 19rem;
   margin-top: 14rem;
   display: flex;
   position: absolute;
+  text-decoration: none;
+  color: black;
   cursor: pointer;
 `
