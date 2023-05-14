@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 
 @SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
-@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
+@Where(clause = "deleted = false") // status = true일 경우 결과에 포함되지 X
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,16 +37,9 @@ public class Auction extends Auditable {
     @Column(nullable = false)
     private boolean deleted = Boolean.FALSE;
 
-//     무결성에러(DataIntegrityViolationException:)
-//    @Enumerated(value = EnumType.STRING)
-//    @Column(name = "deleted",nullable = false)
-//    private AuctionDeleted status = AuctionDeleted.REGISTER;
-//
-//    public enum AuctionDeleted {
-//        REGISTER,  DELETED
-//    }
 
-//    // Todo:  매핑관계 설정
+
+    //    // Todo:  매핑관계 설정
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -80,3 +73,4 @@ public class Auction extends Auditable {
 
 
 }
+

@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 
 public class FileSystemStorageService implements StorageService {
-    private final Path rootLocation = Paths.get("C:\\Img");
+    private final Path rootLocation = Paths.get("C:\\Img"); //파일을 저장하는 루트 경로
 
 
     @Override
@@ -27,16 +27,21 @@ public class FileSystemStorageService implements StorageService {
             }
             Path destinationFile = this.rootLocation.resolve(
                     Paths.get(file.getOriginalFilename())).normalize().toAbsolutePath();
+
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                //This is a sercurity check
+
                 throw new StorageException(
                         "Cannot store file outside current directory.");
             }
+
             try (InputStream inputStream = file.getInputStream()) {
                 log.info("# store auction Image");
+                // 파일 저장
+
                 Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException e) {
+            // 파일 저장 중에 예외 발생
             throw new StorageException("Filed to Store file.", e);
         }
     }

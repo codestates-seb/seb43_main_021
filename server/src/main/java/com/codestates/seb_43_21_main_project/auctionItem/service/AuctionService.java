@@ -3,6 +3,8 @@ package com.codestates.seb_43_21_main_project.auctionItem.service;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
+import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
+import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,7 +74,7 @@ public class AuctionService {
     public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
         //Todo :예외처리
         if (pageInfo.getLastItemId() < 1 && pageInfo.getSize() < 1) {
-            throw new RuntimeException("양수 값을 입력해 주세요");
+            throw new BusinessLogicException(ExceptionCode.AUCTION_INTERNAL_SERVER_ERROR);
         }
         PageRequest pageRequest = PageRequest.ofSize(pageInfo.getSize()); //page : 0으로 고정
         return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
@@ -82,10 +84,9 @@ public class AuctionService {
     //물품 하나 삭제
     public void deleteAuction(long auctionItemId) {
         Auction findAuction = findVerifiedAuction(auctionItemId);
-        findAuction.setDeleted(Boolean.TRUE); //해당 Id의 deleted 상태 변경
+        findAuction.setDeleted(Boolean.TRUE);
         auctionRepository.save(findAuction);
 
-//        auctionRepository.delete(findAuction);
     }
 
 
@@ -100,7 +101,7 @@ public class AuctionService {
 
     private Auction findVerifiedAuction(long auctionItemId) {
         Optional<Auction> optionalAuction = auctionRepository.findById(auctionItemId);
-        Auction findAuction = optionalAuction.orElseThrow(() -> new RuntimeException("경매 물품이 존재 하지 않습니다."));
+        Auction findAuction = optionalAuction.orElseThrow(() -> new BusinessLogicException(ExceptionCode.AUCTION_NOT_FOUND));
 
         return findAuction;
     }
