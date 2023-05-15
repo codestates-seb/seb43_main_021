@@ -1,5 +1,7 @@
 package com.codestates.seb_43_21_main_project.bidItem.entity;
 
+import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,10 +34,12 @@ public class BidItem {
     @Enumerated(EnumType.STRING)
     private BidItemStatus bidItemStatus;
 
-    //@OneToMany
-    //private Member member;
+    @OneToMany
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
-    //@OneToMany
-    //private AuctionItem auctionItem;
+    @OneToMany
+    @JoinColumn(name = "AUCTION_ITEM_ID")
+    private Auction auctionItem;
 
 }
