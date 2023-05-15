@@ -4,12 +4,14 @@ import Gnb from "../components/UI/Gnb/Gnb";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
 import img20 from "../assets/images/img20.png";
 import { useNavigate } from "react-router-dom";
+import img21 from "../assets/images/img21.png";
+import img22 from "../assets/images/img22.png";
 
 ///// 로그인 / 회원가입 버튼 가져와서 구현하기
 
 const Landing = () => {
   const navigate = useNavigate();
-  const img = [img20, img20];
+  const img = [img20, img21, img22];
 
   return (
     <Wrapper>

@@ -10,7 +10,7 @@ const useGetBiddingItem = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItem[auctionId].biddings[biddingId]);
-      }, 1000);
+      }, 100);
     });
   };
 

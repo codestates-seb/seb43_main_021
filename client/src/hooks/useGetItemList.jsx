@@ -6,7 +6,7 @@ const useGetItemList = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItemList);
-      }, 400);
+      }, 100);
     });
   };
 

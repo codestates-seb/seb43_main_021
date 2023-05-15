@@ -9,7 +9,7 @@ const useGetAuctionItem = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItem[auctionId]);
-      }, 1000);
+      }, 100);
     });
   };
 
