@@ -45,6 +45,7 @@ const ModalWrapper = styled.div`
   align-items: center;
   position: fixed;  
   z-index: 2;
+  max-width: 1024px;
 `
 
 const ModalContainer = styled.div`

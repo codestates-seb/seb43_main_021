@@ -45,6 +45,9 @@ const Wrapper = styled.div`
   padding:1.75rem 1rem ;
   height: 13.75rem;  
   border-bottom: 1px solid #f6f6f8;
+  @media only screen and (min-width:768px){
+    height: 20rem;  
+  }
 `
 
 const Container = styled.div`  
@@ -56,19 +59,36 @@ const BottomContainer = styled.div`
   justify-content: space-between;
   margin-top: 2.5rem;
   font-size: 18px;
+  @media only screen and (min-width:768px){
+    font-size: 22px;
+    padding-left: 1rem;
+  }
 `
 const Title = styled.div`
   font-size: 15px;
   font-weight: bold;
+  @media only screen and (min-width:768px){
+    font-size: 22px;
+    padding: 1rem 1rem;
+  }
 `
 const StyledButton = styled.button`    
   font-size: 19px;
   background: white;
   border: 0;
   color: #4636fc;
+  @media only screen and (min-width:768px){
+    font-size: 23px;
+    padding-right: 1rem;
+  }
 `
 const Phone = styled.div`
   margin-top: 1rem;
   font-size: 15px;
   color: #8c9094;    
+  @media only screen and (min-width:768px){
+    font-size: 22px;
+    padding-left: 1rem;
+    padding-top: 1rem;
+  }
 `

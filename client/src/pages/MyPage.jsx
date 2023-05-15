@@ -15,6 +15,7 @@ import { LogOutModal } from '../components/MyPage/LogOutModal'
 import { PWCheckModal } from '../components/UI/Item/PWCheckModal';
 
 export default function MyPage() {
+  // useNavigate
   const [isOpen,] = useRecoilState(modalState)
   const [logOutClick,] = useRecoilState(LogOutModalState);  
   const [goPage,] = useRecoilState(moveModalState)
@@ -35,6 +36,7 @@ export default function MyPage() {
 };
 
 const Wrapper = styled.div`  
+max-width: 1024px;
 `
 const Line = styled.div`
   width: 100%;

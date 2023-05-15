@@ -30,6 +30,7 @@ export const LogOutModal= ()=>{
 
 const ModalWrapper = styled.div`    
   display: flex;
+  max-width: 1024px;
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.5);

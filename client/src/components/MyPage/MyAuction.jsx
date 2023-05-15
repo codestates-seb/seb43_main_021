@@ -17,7 +17,8 @@ export default function MyAuction(){
       <TopContainer>
         <Title><CustomLink to="/mypage"><FiChevronLeft/></CustomLink>경매내역</Title>
         <MainTitle>나의 경매내역
-          <WritingButton>글쓰기</WritingButton>
+          <WritingButton>
+            <StyledLink to="/createauction">글쓰기</StyledLink></WritingButton>
           <VscAccount/>          
         </MainTitle>
         <BottomSeletor>          
@@ -68,6 +69,9 @@ const MainTitle = styled.div`
     height: 78px;
     margin-bottom: 3.5rem;
   }  
+  @media only screen and (min-width:768px){
+    font-size: 28px;    
+  }
 `
 
 const WritingButton = styled.button`
@@ -77,6 +81,15 @@ const WritingButton = styled.button`
   height: 2.5rem;
   border: 0;
   border-radius: 5px;
+  @media only screen and (min-width:768px){
+    width: 8rem;
+    height: 3rem;
+    font-size: 18px;    
+  }
+`
+const StyledLink  = styled(Link)`
+  color: black;
+  text-decoration: none;
 `
 const BottomSeletor = styled.button`
   width: 100%;
@@ -84,6 +97,10 @@ const BottomSeletor = styled.button`
   display: flex;
   border: 0;
   background: white;
+  @media only screen and (min-width:768px){
+    height: 3rem;
+    
+  }
 `
 const FirstButton = styled.div`
   width: 50%;  
@@ -94,6 +111,9 @@ const FirstButton = styled.div`
   justify-content: center;
   align-items: flex-start;  
   border-bottom: ${props => props.isSelected ? '2px solid black' : 'none'};  
+  @media only screen and (min-width:768px){
+    font-size: 20px;
+  }
 `
 const LastButton = styled.div`
   width: 50%;
@@ -105,4 +125,8 @@ const LastButton = styled.div`
   justify-content: center;
   align-items: flex-start;
   border-bottom: ${props => !props.isSelected ? '2px solid black' : 'none'};
+  @media only screen and (min-width:768px){
+    font-size: 20px;
+
+  }
 `

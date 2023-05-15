@@ -63,19 +63,30 @@ const Wrapper = styled.div`
     margin-right: 1rem;
     cursor: pointer;
   }
+  @media only screen and (min-width:768px) {
+    font-size: 22px;
+    padding-top: 1.5rem;    
+    svg{
+      width: 2.5rem;
+      height: 2.5rem;      
+    }
+  }
 `
 
 const MySeletorContainer = styled.div`
   margin-left: 0.25rem;
   position: absolute;
-  margin-top: 4rem;
+  margin-top: 4rem;  
 `
 const IconContainer = styled.div`
   margin-bottom: 1.75rem;  
   display: flex;
   align-items: center;   
   color: black;   
-  cursor: pointer;    
+  cursor: pointer; 
+  @media only screen and (min-width:768px){
+    margin-bottom: 2.5rem;  
+  }   
 `
 const StyledLink = styled(Link)`
   text-decoration: none;
