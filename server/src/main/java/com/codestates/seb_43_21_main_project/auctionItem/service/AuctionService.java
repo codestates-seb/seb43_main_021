@@ -48,7 +48,6 @@ public class AuctionService {
         Optional.ofNullable(auction.getName())
                 .ifPresent(name -> findAuction.setName(name));
 
-        //기간설정 변경?
         Optional.ofNullable(auction.getPeriod())
                 .ifPresent(period -> findAuction.setPeriod(period));
 
@@ -72,7 +71,6 @@ public class AuctionService {
 //        return  auctionRepository.findAll(PageRequest.of(page,size, Sort.by("auctionItemId").descending()));
 //    }
     public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
-        //Todo :예외처리
         if (pageInfo.getLastItemId() < 1 && pageInfo.getSize() < 1) {
             throw new BusinessLogicException(ExceptionCode.AUCTION_INTERNAL_SERVER_ERROR);
         }

@@ -67,7 +67,7 @@ public class AuctionController {
 //                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
 //    }
 
-    //Todo : 무한스크롤 기능 구현
+    // 무한스크롤
     @GetMapping
     public ResponseEntity getAuctionAll(@Valid @RequestBody PageInfoRequest pageInfo) {
 

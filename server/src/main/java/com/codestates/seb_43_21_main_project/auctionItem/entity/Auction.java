@@ -4,7 +4,6 @@ import com.codestates.seb_43_21_main_project.audit.Auditable;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLDeleteAll;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -15,8 +14,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 @Entity
 @Table(name = "AUCTIONITEM")
 public class Auction extends Auditable {
