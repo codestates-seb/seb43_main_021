@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class BidItem extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bidItemId;
+    private Long bidItemId;
 
     @Column
     private String bidItemName;
@@ -30,12 +30,24 @@ public class BidItem extends Auditable {
     @Enumerated(EnumType.STRING)
     private BidItemStatus bidItemStatus;
 
-    //@OneToMany
-    //@JoinColumn(name = "MEMBER_ID")
-    //private Member member;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
-    //@OneToMany
-    //@JoinColumn(name = "AUCTION_ITEM_ID")
-    //private Auction auctionItem;
+    @ManyToOne
+    @JoinColumn(name = "AUCTION_ITEM_ID")
+    private Auction auction;
 
+    public void addMember(Member member) {
+        this.member = member;
+        if (!this.member.getBidItems().contains(this)) {
+            this.member.getBidItems().add(this);
+        }
+    }
+    public void addAuction(Auction auction) {
+        this.auction = auction;
+        if (!this.auction.getBidItems().contains(this)) {
+            this.auction.getBidItems().add(this);
+        }
+    }
 }
