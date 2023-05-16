@@ -1,10 +1,14 @@
 package com.codestates.seb_43_21_main_project.bidItem.mapper;
 
+import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
+import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemPatchDto;
 import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemPostDto;
 import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemResponseDto;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BidItemMapper {
@@ -19,7 +23,7 @@ public interface BidItemMapper {
             response.setBidItemId(bidItem.getBidItemId());
             response.setBidItemName(bidItem.getBidItemName());
             response.setBidItemContent(bidItem.getBidItemContent());
-            response.setCreatedDate(bidItem.getCreatedDate());
+            response.setCreateDate(bidItem.getCreateDate());
             response.setModifiedDate(bidItem.getModifiedDate());
             response.setBidItemStatus(bidItem.getBidItemStatus());
             //response.setMember(bidItem.getMember());
@@ -27,4 +31,5 @@ public interface BidItemMapper {
             return response;
         }
     }
+    //List<BidItemResponseDto> bidItemToBidItemResponseDtos(List<BidItem> bidItems);
 }
