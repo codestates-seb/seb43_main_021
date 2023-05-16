@@ -17,7 +17,7 @@ const Gnb = () => {
           </NavItem>
         </CustomLink>
 
-        <CustomLink to="/">
+        <CustomLink to="/main">
           <NavItem>
             <TbHammer className="icon" />
             경매
