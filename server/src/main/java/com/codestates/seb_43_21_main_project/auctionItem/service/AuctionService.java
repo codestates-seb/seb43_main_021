@@ -102,7 +102,7 @@ public class AuctionService {
     }
 
 
-    private Auction findVerifiedAuction(long auctionItemId) {
+    public Auction findVerifiedAuction(long auctionItemId) {
         Optional<Auction> optionalAuction = auctionRepository.findById(auctionItemId);
         Auction findAuction = optionalAuction.orElseThrow(() -> new RuntimeException("경매 물품이 존재 하지 않습니다."));
 
