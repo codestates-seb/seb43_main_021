@@ -2,8 +2,8 @@ import { useQuery } from "react-query";
 import { dummyItemList } from "../assets/dummyData";
 
 const useGetItemList = () => {
-  const getItemData = async () => {
-    await new Promise((resolve) => {
+  const getItemData = () => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItemList);
       }, 100);

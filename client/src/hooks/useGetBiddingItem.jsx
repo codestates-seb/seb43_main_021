@@ -6,8 +6,8 @@ const useGetBiddingItem = () => {
   const { auctionId } = useParams();
   const { biddingId } = useParams();
 
-  const getBiddingItemData = async () => {
-    await new Promise((resolve) => {
+  const getBiddingItemData = () => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItem[auctionId].biddings[biddingId]);
       }, 100);
