@@ -7,6 +7,8 @@ import org.hibernate.annotations.SQLDeleteAll;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
@@ -74,6 +76,15 @@ public class  Auction extends Auditable {
         }
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "auction")
+    private List<BidItem> bidItems = new ArrayList<>();
 
+    public void addBidItem(BidItem bidItem){
+        bidItems.add(bidItem);
+        if(bidItem.getAuction() != this){
+            bidItem.setAuction(this);
+        }
+    }
 
 }

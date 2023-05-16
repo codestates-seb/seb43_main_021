@@ -100,7 +100,7 @@ public class AuctionService {
     }
 
 
-    private Auction findVerifiedAuction(long auctionItemId) {
+    public Auction findVerifiedAuction(long auctionItemId) {
         Optional<Auction> optionalAuction = auctionRepository.findById(auctionItemId);
         Auction findAuction = optionalAuction.orElseThrow(() -> new BusinessLogicException(ExceptionCode.AUCTION_NOT_FOUND));
 
