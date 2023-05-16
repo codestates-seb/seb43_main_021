@@ -104,8 +104,8 @@ const Content = styled.div`
   /* display: inline-block; */
   /* white-space: nowrap; */
 
-  /* background-color: #f2f3f6; */
-  background-color: skyblue;
+  background-color: #f2f3f6;
+  /* background-color: skyblue; */
   padding: 0.5rem 0.5rem;
   border-radius: 15px;
 `;
