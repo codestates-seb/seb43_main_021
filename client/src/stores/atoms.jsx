@@ -16,3 +16,8 @@ export const LogOutModalState = atom({
   key: "LogOutModalState",
   default: false,
 });
+
+export const socketState = atom({
+  key: "socketState",
+  default: null,
+});
