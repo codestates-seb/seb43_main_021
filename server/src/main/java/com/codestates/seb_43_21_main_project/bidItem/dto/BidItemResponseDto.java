@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class BidItemResponseDto {
-    private Long bidItemId;
+    private long bidItemId;
 
     private String bidItemName;
 
     private String bidItemContent;
 
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 
     private LocalDateTime modifiedDate;
 

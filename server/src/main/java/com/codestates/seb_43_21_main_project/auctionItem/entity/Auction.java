@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "AUCTIONITEM")
-public class Auction extends Auditable {
+public class  Auction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long auctionItemId;

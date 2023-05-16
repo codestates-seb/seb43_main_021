@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- *  JWT 를 생성하는 필터
+ *  JWT 를 생성하는 필터, 클라이언트의 로그인 인증 요청 처리 엔트리포인트 역할.
  */
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

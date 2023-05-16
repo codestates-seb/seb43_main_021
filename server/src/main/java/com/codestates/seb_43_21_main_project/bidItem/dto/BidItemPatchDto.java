@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 public class BidItemPatchDto {
-    private Long bidItemId;
+    private long bidItemId;
     @NotEmpty(message = "공백이 아니어야 합니다.")
     private String bidItemName;
 
