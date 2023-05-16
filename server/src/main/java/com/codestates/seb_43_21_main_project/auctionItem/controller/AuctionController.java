@@ -51,7 +51,7 @@ public class AuctionController {
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(updatedAuction), HttpStatus.OK);
     }
 
-    @GetMapping("{auction_items_id}")
+    @GetMapping("/{auction_items_id}")
     public ResponseEntity getAuction(@PathVariable("auction_items_id") @Positive long auctionItemId) {
         Auction findedAuction = auctionService.findAuction(auctionItemId);
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(findedAuction), HttpStatus.OK);
@@ -78,7 +78,7 @@ public class AuctionController {
     }
 
 
-    @DeleteMapping("{auction_items_id}")
+    @DeleteMapping("/{auction_items_id}")
     public ResponseEntity deleteAuction(@PathVariable("auction_items_id") @Positive long auctionItemId) {
         auctionService.deleteAuction(auctionItemId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

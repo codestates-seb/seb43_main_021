@@ -55,6 +55,7 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/*/auction_items").hasRole("USER")
                         .anyRequest().permitAll()
                 );
 
