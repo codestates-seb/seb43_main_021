@@ -3,11 +3,14 @@ import { styled } from "styled-components";
 import { RiHeartLine } from "react-icons/ri";
 import useGetAuctionItem from "../../../hooks/useGetAuctionItem";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const { data } = useGetAuctionItem();
   const [auction, setAuction] = useState("");
   const { biddingId } = useParams();
+  const navigate = useNavigate();
+
   useEffect(() => {
     setAuction(data?.auctionEnd);
   }, [data, setAuction]);
@@ -18,7 +21,7 @@ const Footer = () => {
     if (biddingId) {
       console.log("입찰 아이템이며 경매자이기 때문에 채팅하기!");
     } else {
-      console.log("입찰 아이템이 아니고, 입찰자이기 때문에 입찰하기!");
+      navigate("/createbidding");
     }
   };
 

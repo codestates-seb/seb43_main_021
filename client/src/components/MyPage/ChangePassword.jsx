@@ -93,10 +93,8 @@ const InputField = styled.div`
 `;
 
 const ButtonArea = styled.div`
-  display: flex;  
-  justify-content: center;  
-  margin-top: 4.25rem;
-  margin-right: 2rem;
+  display: flex;      
+  margin: 4.25rem 2rem 0 2rem;
 `
 const Cancellation = styled(Link)`
     text-decoration: none;
@@ -104,11 +102,22 @@ const Cancellation = styled(Link)`
     width: 148px;
     height: 46px;    
   }
+  @media screen and (min-width: 768px){
+    >div{
+      width: 180px;
+    }
+  }
 `;
 const Permit = styled.div`
   >div{
     width: 148px;
     height: 46px;
     margin-left: 0.5rem;        
+  }
+  @media screen and (min-width: 768px){
+    >div{
+      width: 180px;
+      margin-left: 2rem;
+    }
   }
 `;

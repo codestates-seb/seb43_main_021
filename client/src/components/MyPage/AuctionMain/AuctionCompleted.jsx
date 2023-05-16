@@ -7,15 +7,15 @@ import { Link } from 'react-router-dom';
 export default function AuctionCompleted() {
   const { data, isLoading, isError, error } = useGetItemList();
   if (isLoading) {
-    return <div>홈 로딩 중</div>;
+    return <div>test 로딩 중</div>;
   }
 
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
 
-  const completedAuctions = data.filter((item) => item.auctionState === true);
-
+  const completedAuctions =data? data.filter((item) => item.auctionState):[];
+  console.log(data)
   return (
     <Wrapper>
         {completedAuctions.length === 0 ? (
@@ -47,6 +47,9 @@ const AuctionDisplay = styled.div`
   background-color: #f2f3f7;
   @media only screen and (min-width: 768px) {
     margin-top: 1.75rem;
+    height: 65rem;
+  }
+  @media only screen and (min-height: 897px){
     height: 65rem;
   }
 `;

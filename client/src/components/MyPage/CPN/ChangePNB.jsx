@@ -22,10 +22,12 @@ export default function ChangePNB(){
         꼭 확인해주세요!<FontZone>기존에 본인인증한 명의자 정보와 일치하지 않으면 땅땅마켓을 사용할 수 없어요.</FontZone>
       </WarningM>      
       <PNCButton>
-        <StyledButton onClick={changePhoneNumber}>
+        <StyledButton2 onClick={changePhoneNumber}>
           <ItemButton2/>        
+        </StyledButton2>
+        <StyledButton>
+        <ItemButton/>          
         </StyledButton>
-        <ItemButton/>  
       </PNCButton>              
     </Wrapper>
   )
@@ -33,17 +35,29 @@ export default function ChangePNB(){
 
 const Wrapper = styled.div`  
   margin: 0 1rem;      
+  @media only screen and (min-width:768px){    
+    margin: 0 20rem;    
+  }
 `
 const TopTitle = styled.div`
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-size: 20px;
-  font-weight: bold;  
+  font-weight: bold;
+  @media only screen and (min-width:768px){
+    margin-bottom: 2rem;
+    font-size: 22px;
+    white-space: nowrap;
+  }
 `
 const SubTitle = styled.div`
   margin-bottom: 2rem;
   font-size: 15px;
   color: #8b8c90;
+  @media only screen and (min-width:768px){
+    font-size: 17px;
+    white-space: nowrap;
+  }
 `
 const PNInput = styled.input`
   width: 23.5rem;
@@ -52,6 +66,10 @@ const PNInput = styled.input`
   border-radius: 5px;
   padding-left: 1rem;  
   margin-bottom: 1.75rem;
+  @media only screen and (min-width:768px){
+    
+    height: 3.5rem;
+  }
 `
 const WarningM = styled.div`
   width: 23.5rem;
@@ -76,7 +94,7 @@ const PNCButton = styled.div`
   width: 100%;
   border: 0;      
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 10.75rem;
   background-color: white;
@@ -85,11 +103,13 @@ const PNCButton = styled.div`
     height: 3rem;
     cursor: pointer;    
   }
+  button{
+    margin-right: 2rem;
+  }  
 `
-const  StyledButton = styled.button`
+const  StyledButton2 = styled.button`
   background-color: #F2F3F7;  
   color: black;
-  font-size: 14px;
   border-radius: 10px;  
   display: flex;
   justify-content: center;
@@ -97,5 +117,17 @@ const  StyledButton = styled.button`
   width: 11rem;
   height: 3rem;
   cursor: pointer;    
-  border: 0;
+  border: 0;  
 `;
+const StyledButton = styled.button`
+  background-color: #4636FC;  
+  color: black;  
+  border-radius: 10px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 11rem;
+  height: 3rem;
+  cursor: pointer;    
+  border: 0;  
+`

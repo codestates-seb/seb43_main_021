@@ -204,3 +204,45 @@ export const dummyItem = [
     ],
   },
 ];
+
+export const dummyData = [
+  {
+    memberId: "user01",
+    password: "1q2w3e4r",
+    nickName: "baba",
+    email: "yoyo@naver.com",
+    phone_number: "010-1111-8888",
+  },
+  {
+    memberId: "user02",
+    password: "qazwsx",
+    nickName: "dummyUser",
+    email: "dummyuser@example.com",
+    phone_number: "010-1234-5678"
+  },
+];
+
+
+export const dummyChatRoom = [
+  {
+    chatRoom_id: 0,
+    auction_member_id: 0,
+    bid_member_id: 0,
+    auction_item_id: 0,
+    createdate: "2023-05-15",
+    lastmodifieddate: "2023-05-17",
+    chat_room_status: true,
+    alarm_id: 0,
+  },
+];
+
+export const dummyChatContent = [
+  {
+    chatContent_id: 0,
+    chat_contents: "안녕하세요~!",
+    member_id: 0,
+    createdate: "2023-05-15",
+    chat_image_URL: null,
+    chatRoom_id: 0,
+  },
+];

@@ -1,17 +1,23 @@
 import styled from "styled-components"
+import useGetItemList from '../../hooks/useGetItemList';
 import { auctionState } from '../../stores/atoms';
 import {useRecoilState} from "recoil"
 import { FiChevronLeft } from "react-icons/fi";
 import { VscAccount } from "react-icons/vsc";
 import { Link } from 'react-router-dom';
 export default function MyAuction(){
+  const { data } = useGetItemList();  
   const [auction, setAuction] = useRecoilState(auctionState)
   const auctionHandler = ()=>{
     setAuction(true)
   }
   const auctionCompletedHandler =()=>{
     setAuction(false)
-  }
+  }  
+  const countAuctionData = data ? data.filter((item) => !item.auctionState).length : 0;
+  const countCompletedAuctionData = data ? data.filter((item) => item.auctionState).length : 0;
+  const auctionCount = countAuctionData > 0 ? <span>{countAuctionData}</span> : null;
+  const completedAuctionCount = countCompletedAuctionData > 0 ? <span>{countCompletedAuctionData}</span> : null;
   return (
     <Wrapper>
       <TopContainer>
@@ -21,14 +27,15 @@ export default function MyAuction(){
             <StyledLink to="/createauction">글쓰기</StyledLink></WritingButton>
           <VscAccount/>          
         </MainTitle>
-        <BottomSeletor>          
-            <FirstButton isSelected={auction} onClick={auctionHandler}>경매중</FirstButton>
-            <LastButton isSelected={auction} onClick={auctionCompletedHandler}>경매완료</LastButton>                   
-        </BottomSeletor>
+        <BottomSelector>          
+            <FirstButton isselected={auction ? 'true' : 'false'} onClick={auctionHandler}>경매중{auctionCount}</FirstButton>
+            <LastButton isselected={!auction ? 'true' : 'false'} onClick={auctionCompletedHandler}>경매완료{completedAuctionCount}</LastButton>                   
+        </BottomSelector>
       </TopContainer>    
     </Wrapper>
   )
 }
+
 
 const Wrapper = styled.div`
   width: 100%;
@@ -81,6 +88,7 @@ const WritingButton = styled.button`
   height: 2.5rem;
   border: 0;
   border-radius: 5px;
+  cursor: pointer;
   @media only screen and (min-width:768px){
     width: 8rem;
     height: 3rem;
@@ -91,7 +99,7 @@ const StyledLink  = styled(Link)`
   color: black;
   text-decoration: none;
 `
-const BottomSeletor = styled.button`
+const BottomSelector = styled.button`
   width: 100%;
   height: 2rem;
   display: flex;
@@ -110,7 +118,12 @@ const FirstButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;  
-  border-bottom: ${props => props.isSelected ? '2px solid black' : 'none'};  
+  padding-left: 0.25rem;
+  cursor: pointer;
+  border-bottom: ${props => props.isselected==='true' ? '2px solid black' : 'none'};  
+  span{
+    margin-left: 0.25rem;
+  }
   @media only screen and (min-width:768px){
     font-size: 20px;
   }
@@ -123,8 +136,12 @@ const LastButton = styled.div`
   border: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  border-bottom: ${props => !props.isSelected ? '2px solid black' : 'none'};
+  align-items: flex-start;  
+  cursor: pointer;
+  border-bottom: ${props => props.isselected==='true' ? '2px solid black' : 'none'};
+  span{
+    margin-left: 0.25rem;
+  }
   @media only screen and (min-width:768px){
     font-size: 20px;
 

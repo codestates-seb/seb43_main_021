@@ -11,7 +11,7 @@ export default function UnderAuction(){
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-  const completedAuctions = data.filter((item) => !item.auctionState);
+  const completedAuctions =data? data.filter((item) => !item.auctionState):[];
   return (
     <Wrapper>      
       {completedAuctions.length === 0 ? (
@@ -30,8 +30,8 @@ export default function UnderAuction(){
     </Wrapper>
   )
 }
-const Wrapper = styled.div`
-`
+const Wrapper = styled.div``;
+
 const AuctionDisplay = styled.div`
   width: 100%;
   height: 39rem;
@@ -39,12 +39,15 @@ const AuctionDisplay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f2f3f7;    
-  @media only screen and (min-width:768px){
+  background-color: #f2f3f7;
+  @media only screen and (min-width: 768px) {
     margin-top: 1.75rem;
     height: 65rem;
   }
-`
+  @media only screen and (min-height: 897px){
+    height: 65rem;
+  }
+`;
 const AuctionItemDisplay = styled.div`
   margin-top: 0.75rem;
   background-color: white;
@@ -52,13 +55,17 @@ const AuctionItemDisplay = styled.div`
     margin-top: 2rem;    
   }
 `
-const ContentArea =  styled.div`
+
+const ContentArea = styled.div`
   font-size: 20px;
   color: #d1d3d7;
-  @media only screen and (min-width:768px){
+  @media only screen and (min-width: 768px) {
     font-size: 25px;
   }
-`
+`;
+
+
+
 const LinkContainer = styled.div`
   position: fixed;
   bottom: 90px;

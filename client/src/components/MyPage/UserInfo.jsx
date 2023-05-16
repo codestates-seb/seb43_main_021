@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BiInfoCircle } from "react-icons/bi";
-import { RiLockPasswordFill } from "react-icons/ri"
+import { RiLockPasswordFill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 import { BsPeople } from "react-icons/bs";
 import { Link } from 'react-router-dom';
@@ -24,10 +24,9 @@ export default function UserInfo(){
     <Wrapper>      
       나의 활동
       <MySeletorContainer>
-        <StyledLink to='/useredit'>
+        <StyledLink to="/useredit">
           <IconContainer>
-            <BiInfoCircle/>
-            내 정보수정
+            <BiInfoCircle />내 정보수정
           </IconContainer>
         </StyledLink>
         <StyledLink to='/changepw'>
@@ -37,32 +36,34 @@ export default function UserInfo(){
           </IconContainer>
         </StyledLink>
         <IconContainer onClick={logOutModalHandler}>
-          <BiLogOut/>
+          <BiLogOut />
           로그아웃
         </IconContainer>
         <IconContainer onClick={openModalHandler}>
-          <BsPeople/>회원탈퇴
+          <BsPeople />
+          회원탈퇴
         </IconContainer>
       </MySeletorContainer>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 29.25rem;  
+  height: 29.25rem;
   padding-left: 1rem;
   margin-top: 1.25rem;
   font-size: 15px;
   font-weight: bold;
-  text-decoration: none;     
-  svg{
+  text-decoration: none;
+  svg {
     width: 24px;
     height: 24px;
     margin-right: 1rem;
     cursor: pointer;
   }
+
   @media only screen and (min-width:768px) {
     font-size: 22px;
     padding-top: 1.5rem;    
@@ -78,8 +79,9 @@ const MySeletorContainer = styled.div`
   position: absolute;
   margin-top: 4rem;  
 `
+
 const IconContainer = styled.div`
-  margin-bottom: 1.75rem;  
+  margin-bottom: 1.75rem;
   display: flex;
   align-items: center;   
   color: black;   
@@ -88,6 +90,7 @@ const IconContainer = styled.div`
     margin-bottom: 2.5rem;  
   }   
 `
+
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;

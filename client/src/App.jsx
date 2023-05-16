@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Main from "./pages/Main";
 import Chat from "./pages/Chat";
 import Chatting from "./pages/Chatting";
 import AuctionDetail from "./pages/AuctionDetail";
@@ -17,15 +17,17 @@ import Notice from "./pages/Notice";
 import Search from "./pages/Search";
 import SignUp from "./pages/SignUp";
 import UserEdit from "./pages/UserEdit";
-import ChangePN from './pages/ChangePN';
+import ChangePN from "./pages/ChangePN";
 import { createGlobalStyle } from "styled-components";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
     <div>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/main" element={<Main />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="/search" element={<Search />} />
         <Route path="/signup" element={<SignUp />} />
@@ -41,7 +43,7 @@ function App() {
           element={<BiddingDetail />}
         />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/biddingList" element={<BiddingList />} />
+        <Route path="/biddinglist" element={<BiddingList />} />
         <Route path="/favoritelist" element={<FavoriteList />} />
         <Route path="/myauctionlist" element={<MyAuctionList />} />
         <Route path="/changepw" element={<ChangePw />} />
