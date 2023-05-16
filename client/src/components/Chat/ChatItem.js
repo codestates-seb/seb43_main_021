@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const dummyData = [
@@ -19,11 +20,16 @@ const dummyData = [
 ];
 
 const ChatItem = () => {
+  const navigate = useNavigate();
+
+  const handleChatting = () => {
+    navigate("/chatting");
+  };
   return (
     <>
       {dummyData.map((item) => (
         <div key={item.id}>
-          <Container>
+          <Container onClick={handleChatting}>
             <LeftItem>
               <UserImg />
               <ChatDetail>

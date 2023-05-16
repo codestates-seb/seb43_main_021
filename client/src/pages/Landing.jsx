@@ -15,7 +15,7 @@ const Landing = () => {
 
   return (
     <Wrapper>
-      <TitelContainer>이고 원래 니꼬내꼬자나</TitelContainer>
+      <TitelContainer>니꺼내꺼</TitelContainer>
       <ImageContainer>
         <LandingImage>
           <ItemImage images={img} />

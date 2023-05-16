@@ -5,8 +5,8 @@ import { dummyItem } from "../assets/dummyData";
 const useGetAuctionItem = () => {
   const { auctionId } = useParams();
 
-  const getData = () => {
-    return new Promise((resolve) => {
+  const getData = async () => {
+    await new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItem[auctionId]);
       }, 100);
