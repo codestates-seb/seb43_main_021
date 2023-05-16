@@ -1,6 +1,8 @@
 package com.codestates.seb_43_21_main_project.member.entity;
 
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,5 +40,15 @@ public class Member {
     public enum UseYn{
         Y, //회원가입상태
         N //회원탈퇴상태
+    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<BidItem> bidItems = new ArrayList<>();
+
+    public void addBidItem(BidItem bidItem){
+        bidItems.add(bidItem);
+        if(bidItem.getMember() != this){
+            bidItem.setMember(this);
+        }
     }
 }
