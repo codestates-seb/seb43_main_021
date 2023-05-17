@@ -17,7 +17,6 @@ import Notice from "./pages/Notice";
 import Search from "./pages/Search";
 import SignUp from "./pages/SignUp";
 import UserEdit from "./pages/UserEdit";
-import ChangePN from "./pages/ChangePN";
 import { createGlobalStyle } from "styled-components";
 import Landing from "./pages/Landing";
 
@@ -48,7 +47,6 @@ function App() {
         <Route path="/myauctionlist" element={<MyAuctionList />} />
         <Route path="/changepw" element={<ChangePw />} />
         <Route path="/useredit" element={<UserEdit />} />
-        <Route path="/changepn" element={<ChangePN />} />
       </Routes>
     </div>
   );
