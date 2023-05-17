@@ -1,4 +1,4 @@
-package com.codestates.seb_43_21_main_project.img;
+package com.codestates.seb_43_21_main_project.img.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;

@@ -5,6 +5,7 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
+import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +28,12 @@ public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final StorageService storageService;
     private final MemberService memberService;
+    private final S3Uploader s3Uploader;
 
 
     //    , MultipartFile auctionImage
     //물품 등록
-    public Auction createAuction(Auction auction, MultipartFile auctionImage) {
+    public Auction createAuction(Auction auction, MultipartFile auctionImage) throws IOException {
         if(auction.getMember() == null) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         }
@@ -40,7 +43,8 @@ public class AuctionService {
             auction.setPeriod(30);
         }
 
-        storageService.store(auctionImage); // 이미지 로컬에 저장
+        s3Uploader.upload(auctionImage, "static");
+//        storageService.store(auctionImage); // 이미지 로컬에 저장
         Auction savedAuctionItem = auctionRepository.save(auction);
         return savedAuctionItem;
 
