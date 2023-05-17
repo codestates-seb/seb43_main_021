@@ -11,12 +11,8 @@ const useGetItemList = () => {
   };
 
   const { data, isLoading, isError, error } = useQuery(
-    "getItemData",
-    getItemData,
-    {
-      staleTime: 0,
-      cacheTime: 0,
-    }
+    ["getItemData"],
+    getItemData
   );
 
   return { data, isLoading, isError, error };

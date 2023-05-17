@@ -21,3 +21,8 @@ export const socketState = atom({
   key: "socketState",
   default: null,
 });
+
+export const AuctionConfirm = atom({
+  key: "AuctionConfirm",
+  default: null,
+});

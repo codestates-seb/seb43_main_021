@@ -15,12 +15,8 @@ const useGetBiddingItem = () => {
   };
 
   const { data, isLoading, isError, error } = useQuery(
-    "getBiddingItemData",
-    getBiddingItemData,
-    {
-      staleTime: 0,
-      cacheTime: 0,
-    }
+    ["getBiddingItemData", `${auctionId}.${biddingId}`],
+    getBiddingItemData
   );
 
   return { data, isLoading, isError, error };

@@ -9,6 +9,7 @@ import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
+import Header from "../components/UI/Header/Header";
 
 export default function MyPage() {
   const [isOpen] = useRecoilState(modalState);
@@ -19,7 +20,7 @@ export default function MyPage() {
       {isOpen && <Modal />}
       {logOutClick && <LogOutModal />}
       {goPage && <PWCheckModal />}
-      <MyPageHeader title={"나의 당근"} />
+      <Header title={"나의 당근"} />
       <UserPageTop userName={"손고장난벽시"} />
       <Line />
       <UserInfo />
