@@ -1,9 +1,42 @@
+import { useState } from 'react'
 import styled from "styled-components"
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { ItemButton } from '../UI/Item/ItemButton'
 import { ItemButton2 } from '../UI/Item/ItemButton2'
 
 export default function ChangePassword(){  
+  const navigate = useNavigate();
+
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+
+
+  const onChangePassword = (event) => {
+    setPassword(event.currentTarget.value);
+  }
+
+  const onClickLogin = () => {
+    if (password === "") {
+      setErrorMessage("비밀번호를 입력해주세요.");
+    } else if (password !== "") {
+      setErrorMessage("비밀번호가 올바르지 않습니다.");
+    } else {
+      // .post("주소", { memberId, password }) < 서버로 POST 요청 보냄
+      // .then((response) => {
+      //  if (response) => { < 서버 응답처리
+            navigate("/"); // < 로그인 성공 시
+      //  } else {
+          //  setErrorMessage(response.data.message); << 로그인 실패 시
+    //  }
+    //  })
+    // .catch((error) => {
+      // console.error("로그인 요청 에러:", error);
+      // setErrorMessage
+    // })
+    }
+  }
   return(
     <Wrapper>
       <TopTitle>계정 정보</TopTitle>
@@ -12,7 +45,7 @@ export default function ChangePassword(){
           <h3>비밀번호</h3>
         </InputTitle>
         <InputField>
-          <input placeholder="영문 + 숫자 조합의 8글자 이상"></input>
+          <input placeholder="영문 + 숫자 조합의 8글자 이상" value={password} onChange={onChangePassword}></input>
         </InputField>
       </InputWrapper>
       <InputWrapper>
@@ -32,9 +65,10 @@ export default function ChangePassword(){
         <Cancellation to='/mypage'>
           <ItemButton2/> 
         </Cancellation>
-        <Permit>
+        <Permit onClick={onClickLogin}>
           <ItemButton/>           
         </Permit>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
       </ButtonArea>
     </Wrapper>
   )
@@ -120,4 +154,16 @@ const Permit = styled.div`
       margin-left: 2rem;
     }
   }
+`;
+const ErrorMessage = styled.div`
+  color: red;
+  font-weight: bold;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+    @media screen and (min-width: 768px) {
+      font-size: 12px;
+    }
 `;

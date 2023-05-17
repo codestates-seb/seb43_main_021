@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export default function BiddingItem(){
   // const { data, isLoading, isError, error } = useGetBiddingItem();
+  // console.log(data)
   // if (isLoading) {
   //   return <div>홈 로딩 중</div>;
   // }
@@ -11,12 +12,13 @@ export default function BiddingItem(){
   // if (isError) {
   //   return <div>Error: {error.message}</div>;
   // }
-  // const biddingItems = data.filter((item)=>item.biddings[0])
+  // const biddingItems = data.filter((item) => item.biddings)
+  
   return (
     <Wrapper>      
       {/* {biddingItems.length === 0 ? (
           <BiddingDisplay>
-          <ContentArea>경매중인 게시글이 없어요.</ContentArea>
+          <ContentArea>입찰중인 게시글이 없어요.</ContentArea>
           </BiddingDisplay>
         ) : (
           <BiddingItemDisplay>

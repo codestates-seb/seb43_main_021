@@ -36,7 +36,7 @@ export default function ChangeEmail(){
 const Wrapper = styled.div`  
   margin: 0 1rem;      
   @media only screen and (min-width:768px){    
-    margin: 0 20rem;    
+    margin-left: 2rem;
   }
 `
 const TopTitle = styled.div`

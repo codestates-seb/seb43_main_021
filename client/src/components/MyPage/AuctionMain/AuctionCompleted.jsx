@@ -14,8 +14,7 @@ export default function AuctionCompleted() {
     return <div>Error: {error.message}</div>;
   }
 
-  const completedAuctions =data? data.filter((item) => item.auctionState):[];
-  console.log(data)
+  const completedAuctions =data? data.filter((item) => item.auctionState):[];  
   return (
     <Wrapper>
         {completedAuctions.length === 0 ? (

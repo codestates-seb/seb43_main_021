@@ -26,7 +26,7 @@ export default function UserInfo(){
       <MySeletorContainer>
         <StyledLink to="/useredit">
           <IconContainer>
-            <BiInfoCircle />내 정보수정
+            <BiInfoCircle />프로필 수정
           </IconContainer>
         </StyledLink>
         <StyledLink to='/changepw'>

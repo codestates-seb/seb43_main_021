@@ -1,94 +1,53 @@
 import styled from "styled-components"
-import { 
-  changePNState,
-  emailChangeState
-} from '../../stores/atoms'
-import { useRecoilState } from "recoil"
-export default function UserEditBody(){
-  const [onDisplay, setOnDisplay] = useRecoilState(changePNState)
-  const [openEmail, setOpenEmail]= useRecoilState(emailChangeState) 
+import { VscAccount } from "react-icons/vsc";
+export default function UserEditBody({nickname}){
 
-  const changeEmail = ()=>{  
-    if(onDisplay===true){
-      setOpenEmail(!openEmail)         
-      setOnDisplay(!onDisplay)   
-    }else{
-      setOpenEmail(!openEmail)         
-    }
-  }
-  const changePhoneNumber=()=>{
-    if(openEmail===true){
-      setOnDisplay(!onDisplay)   
-      setOpenEmail(!openEmail)         
-    }else{
-      setOnDisplay(!onDisplay)         
-    }   
-  }
   return(
     <Wrapper>
-      <Container>
-        <Title>계정 정보</Title>
-        <BottomContainer>
-          이메일<StyledButton onClick={changeEmail}>변경</StyledButton>                                 
-        </BottomContainer>
-        <BottomContainer>
-          휴대폰번호<StyledButton onClick={changePhoneNumber}>변경</StyledButton>
-        </BottomContainer>
-        <Phone>010 3020 4020</Phone>
-      </Container>
+      <ProfileContainer><VscAccount/></ProfileContainer>
+      <NickNameContainer>
+        닉네임
+      </NickNameContainer>
+      <NickNameInput placeholder="nickname" defaultValue={nickname}></NickNameInput>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
   width: 100%;
-  padding:1.75rem 1rem ;
-  height: 13.75rem;  
-  border-bottom: 1px solid #f6f6f8;
-  @media only screen and (min-width:768px){
-    height: 20rem;  
-  }
 `
-
-const Container = styled.div`  
-  width: 100%;
-  height: 100%;
-`
-const BottomContainer = styled.div`
+const ProfileContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 2.5rem;
+  justify-content: center;
+  margin: 1.75rem 0;
+  >svg{
+    width: 6.75rem;
+    height: 6.75rem;
+  }
+  @media only screen and (min-width:768px){    
+    margin: 3rem 0;
+    svg{
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+`
+const NickNameContainer = styled.div`
   font-size: 18px;
-  @media only screen and (min-width:768px){
-    font-size: 22px;
-    padding-left: 1rem;
-  }
-`
-const Title = styled.div`
-  font-size: 15px;
+  margin: 0 0 1rem 1rem;
   font-weight: bold;
-  @media only screen and (min-width:768px){
+
+`
+const NickNameInput = styled.input`
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 97%;
+  height: 3.5rem; 
+  font-size: 22px;
+  padding-left: 1rem;
+  ::placeholder {
+    margin-left: 1rem;
     font-size: 22px;
-    padding: 1rem 1rem;
+    
   }
-`
-const StyledButton = styled.button`    
-  font-size: 19px;
-  background: white;
-  border: 0;
-  color: #4636fc;
-  @media only screen and (min-width:768px){
-    font-size: 23px;
-    padding-right: 1rem;
-  }
-`
-const Phone = styled.div`
-  margin-top: 1rem;
-  font-size: 15px;
-  color: #8c9094;    
-  @media only screen and (min-width:768px){
-    font-size: 22px;
-    padding-left: 1rem;
-    padding-top: 1rem;
-  }
-`
+`;
