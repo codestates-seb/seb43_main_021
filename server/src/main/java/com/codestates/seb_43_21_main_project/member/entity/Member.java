@@ -44,7 +44,7 @@ public class Member {
         N //회원탈퇴상태
     }
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Auction> auctions = new ArrayList<>();
 
 

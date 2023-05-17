@@ -31,6 +31,10 @@ public class AuctionService {
     //    , MultipartFile auctionImage
     //물품 등록
     public Auction createAuction(Auction auction, MultipartFile auctionImage) {
+        if(auction.getMember() == null) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        }
+
 //        물품 등록시 기한 설정
         if (auction.getPeriod() > 30) {
             auction.setPeriod(30);
