@@ -5,6 +5,8 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,7 @@ public class AuctionService {
 
     private final AuctionRepository auctionRepository;
     private final StorageService storageService;
+    private final MemberService memberService;
 
 
     //    , MultipartFile auctionImage
@@ -77,7 +80,10 @@ public class AuctionService {
         PageRequest pageRequest = PageRequest.ofSize(pageInfo.getSize()); //page : 0으로 고정
         return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
     }
-
+    public List<Auction> findAllAuctions(long memberId) {
+        Member member = memberService.findVerifiedmember(memberId);
+        return auctionRepository.findAllByMember(member);
+    }
 
     //물품 하나 삭제
     public void deleteAuction(long auctionItemId) {
@@ -103,5 +109,7 @@ public class AuctionService {
 
         return findAuction;
     }
+
+
 
 }

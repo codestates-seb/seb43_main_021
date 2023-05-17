@@ -6,6 +6,8 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.mapper.AuctionMapper;
 import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
 import com.codestates.seb_43_21_main_project.dto.MultiResponseDto;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,8 @@ public class AuctionController {
 
     private final AuctionService auctionService;
     private final AuctionMapper mapper;
+    private  final MemberService memberService;
+
 
 
     //consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE} //consumes : 들어오는 데이터를 정의
@@ -57,15 +61,12 @@ public class AuctionController {
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(findedAuction), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity getAuctionAll(@Positive @RequestParam int page,
-//                                        @Positive @RequestParam int size) {
-//
-//        Page<Auction> pageAuctions = auctionService.findAuctions(page - 1, size);
-//        List<Auction> auctions = pageAuctions.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
-//    }
+
+    @GetMapping("/profile/{member_id}")
+    public ResponseEntity findAuctions (@PathVariable("member_id") @Positive long memberId)  {
+       List<Auction> auctionList =  auctionService.findAllAuctions(memberId);
+        return new ResponseEntity<>(mapper.auctionToAuctionResponseDtos(auctionList), HttpStatus.OK);
+    }
 
     // 무한스크롤
     @GetMapping
