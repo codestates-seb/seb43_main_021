@@ -36,7 +36,8 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: fixed;  
+  max-width: 1024px;
   z-index: 2;
 `;
 

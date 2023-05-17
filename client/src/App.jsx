@@ -17,7 +17,6 @@ import Notice from "./pages/Notice";
 import Search from "./pages/Search";
 import SignUp from "./pages/SignUp";
 import UserEdit from "./pages/UserEdit";
-import ChangePN from "./pages/ChangePN";
 import { createGlobalStyle } from "styled-components";
 import Landing from "./pages/Landing";
 
@@ -43,12 +42,11 @@ function App() {
           element={<BiddingDetail />}
         />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/biddingList" element={<BiddingList />} />
+        <Route path="/biddinglist" element={<BiddingList />} />
         <Route path="/favoritelist" element={<FavoriteList />} />
         <Route path="/myauctionlist" element={<MyAuctionList />} />
         <Route path="/changepw" element={<ChangePw />} />
         <Route path="/useredit" element={<UserEdit />} />
-        <Route path="/changepn" element={<ChangePN />} />
       </Routes>
     </div>
   );

@@ -16,6 +16,22 @@ export const LogOutModalState = atom({
   key: "LogOutModalState",
   default: false,
 });
+// PhoneNumber Change on/off기능
+export const changePNState = atom({
+  key:"changePNState",
+  default:false,
+})
+// Email Change on/off기능
+export const emailChangeState = atom({
+  key:"emailChangeState",
+  default:false,
+})
+// 경매내역이 경매중일때와 경매완료일때
+export const auctionState = atom({
+  key:"auctionState",
+  default:true,
+})
+
 
 export const socketState = atom({
   key: "socketState",

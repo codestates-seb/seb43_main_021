@@ -1,55 +1,53 @@
 import styled from "styled-components"
-import { Link } from 'react-router-dom';
-export default function UserEditBody(){
-  
+import { VscAccount } from "react-icons/vsc";
+export default function UserEditBody({nickname}){
+
   return(
     <Wrapper>
-      <Container>
-        <Title>계정 정보</Title>
-        <BottomContainer>
-          이메일<EmailLink to='/email'>등록</EmailLink>                                 
-        </BottomContainer>
-        <BottomContainer>
-          휴대폰번호<PhoneNumberLink to='/changepn'>변경</PhoneNumberLink>
-        </BottomContainer>
-        <Phone>010 3020 4020</Phone>
-      </Container>
+      <ProfileContainer><VscAccount/></ProfileContainer>
+      <NickNameContainer>
+        닉네임
+      </NickNameContainer>
+      <NickNameInput placeholder="nickname" defaultValue={nickname}></NickNameInput>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
   width: 100%;
-  margin:1.75rem 1rem ;
-  height: 13.75rem;
-  
 `
-const Container = styled.div`  
-  width: 100%;
-  height: 100%;
-`
-const BottomContainer = styled.div`
+const ProfileContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 2.5rem;
+  justify-content: center;
+  margin: 1.75rem 0;
+  >svg{
+    width: 6.75rem;
+    height: 6.75rem;
+  }
+  @media only screen and (min-width:768px){    
+    margin: 3rem 0;
+    svg{
+      width: 9rem;
+      height: 9rem;
+    }
+  }
+`
+const NickNameContainer = styled.div`
   font-size: 18px;
-`
-const Title = styled.div`
-  font-size: 15px;
+  margin: 0 0 1rem 1rem;
   font-weight: bold;
+
 `
-const EmailLink = styled(Link)`
-  text-decoration: none;
-  padding-right: 2rem;
-  font-size: 19px;
-`
-const PhoneNumberLink = styled(Link)`
-  text-decoration: none;
-  padding-right: 2rem;
-  font-size: 19px;
-`
-const Phone = styled.div`
-  margin-top: 1rem;
-  font-size: 15px;
-  color: #8c9094;
-`
+const NickNameInput = styled.input`
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 97%;
+  height: 3.5rem; 
+  font-size: 22px;
+  padding-left: 1rem;
+  ::placeholder {
+    margin-left: 1rem;
+    font-size: 22px;
+    
+  }
+`;

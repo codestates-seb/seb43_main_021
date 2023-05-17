@@ -40,21 +40,25 @@ const ModalWrapper = styled.div`
   align-items: center;
   position: fixed;
   z-index: 2;
-`;
+  max-width: 1024px;
+`
 
 const ModalContainer = styled.div`
-  display: flex;
+  display:flex;
   width: 338px;
-  height: 170px;
-  border: 1px solid black;
-  background-color: white;
+  height: 170px;  
+  border:1px solid black;  
+  background-color: white;  
   flex-direction: column;
   border-radius: 10px;
-  position: relative;
+  position:relative;  
   padding: 1.75rem 1rem;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: bold;    
+  
+
 `;
+
 
 const ContainerContnet = styled.div`
   padding-top: 1rem;
