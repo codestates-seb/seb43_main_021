@@ -1,6 +1,9 @@
 package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
 import com.codestates.seb_43_21_main_project.audit.Auditable;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -23,7 +26,7 @@ import java.util.List;
 public class  Auction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long auctionItemId;
+    private Long auctionItemId;
 
     @Column(name = "AUCTION_ITEM_NAME", length = 100, nullable = false)
     private String name;
@@ -38,19 +41,12 @@ public class  Auction extends Auditable {
     @Column(nullable = false)
     private boolean  deleted = Boolean.FALSE;
 
-//     무결성에러(DataIntegrityViolationException:)
-//    @Enumerated(value = EnumType.STRING)
-//    @Column(name = "deleted",nullable = false)
-//    private AuctionDeleted status = AuctionDeleted.REGISTER;
-//
-//    public enum AuctionDeleted {
-//        REGISTER,  DELETED
-//    }
 
-    //    매핑관계 설정
-    private long categoryId;
-    private long memberId;
-    private long bidItemId;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID" )
+    private Member member;
+
+
     //  private int view; //조회수
 //   private long favoriteItem; //즐겨찾기
 
@@ -86,5 +82,14 @@ public class  Auction extends Auditable {
             bidItem.setAuction(this);
         }
     }
+
+    public void addMember(Member member) {
+        this.member = member;
+        if (!this.member.getAuctions().contains(this)) {
+            this.member.getAuctions().add(this);
+        }
+    }
+
+
 
 }

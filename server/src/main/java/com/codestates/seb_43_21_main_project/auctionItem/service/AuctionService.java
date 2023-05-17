@@ -5,6 +5,8 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,7 @@ public class AuctionService {
 
     private final AuctionRepository auctionRepository;
     private final StorageService storageService;
+    private final MemberService memberService;
 
 
     //    , MultipartFile auctionImage
@@ -66,12 +69,14 @@ public class AuctionService {
         return findVerifiedAuction(auctionItemId);
     }
 
-    //물품 전체 조회
-//    public Page<Auction> findAuctions(int page, int size) {
-//        return  auctionRepository.findAll(PageRequest.of(page,size, Sort.by("auctionItemId").descending()));
-//    }
+    //자신이 등록한 물품 목록
+    public List<Auction> findAllAuctions(long memberId) {
+        Member member = memberService.findVerifiedmember(memberId);
+        return auctionRepository.findAllByMember(member);
+    }
+
+
     public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
-        //Todo :예외처리
         if (pageInfo.getLastItemId() <= 0 && pageInfo.getSize() <= 0) {
             throw new BusinessLogicException(ExceptionCode.AUCTION_INTERNAL_SERVER_ERROR);
         }
@@ -108,4 +113,5 @@ public class AuctionService {
     }
 
 
+   
 }

@@ -1,6 +1,6 @@
 package com.codestates.seb_43_21_main_project.auctionItem.controller;
 
-import antlr.collections.List;
+
 import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
@@ -12,12 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 
 @CrossOrigin(origins = "*")
@@ -58,22 +60,21 @@ public class AuctionController {
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(findedAuction), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity getAuctionAll(@Positive @RequestParam int page,
-//                                        @Positive @RequestParam int size) {
-//
-//        Page<Auction> pageAuctions = auctionService.findAuctions(page - 1, size);
-//        List<Auction> auctions = pageAuctions.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
-//    }
+    @GetMapping("/profile/{member_id}")
+    public ResponseEntity findAuctions(@PathVariable("member_id") @Positive long memberId) {
+        List<Auction> auctionList  = auctionService.findAllAuctions(memberId);
+        return new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctionList) ,  HttpStatus.OK) ;
+    }
 
-    //Todo : 무한스크롤 기능 구현
+
+
+    //무한스크롤
     @GetMapping
     public ResponseEntity getAuctionAll(@Valid @RequestBody PageInfoRequest pageInfo) {
 
         Page<Auction> pageAuctions = auctionService.findAuctions(pageInfo);
         List<Auction> auctions = pageAuctions.getContent();
+
         return new ResponseEntity(
                 new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
     }
