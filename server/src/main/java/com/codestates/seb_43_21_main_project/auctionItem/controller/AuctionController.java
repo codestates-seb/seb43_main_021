@@ -1,5 +1,6 @@
 package com.codestates.seb_43_21_main_project.auctionItem.controller;
 
+import antlr.collections.List;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
@@ -17,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.List;
+
 
 @CrossOrigin(origins = "*")
 @RestController
