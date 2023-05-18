@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/UI/Header/Header";
 import { styled } from "styled-components";
 import img2 from "../assets/images/img2.jpg";
 import { IoTriangleOutline } from "react-icons/io5";
+import ConfirmModal from "../components/UI/Modal/ConfirmModal";
+import { useRecoilState } from "recoil";
+import { AuctionConfirm } from "../stores/atoms";
 
 const Chatting = () => {
+  const [modal, setModal] = useRecoilState(AuctionConfirm);
+
   return (
     <Wrapper>
+      {modal ? <ConfirmModal member={"아차산 라이더"} /> : null}
       <Header chatTitle={"아차산라이더"} />
       <AuctionInfo>
         <AuctionImgText>
@@ -16,7 +22,7 @@ const Chatting = () => {
             <div>경매 중(입찰: 3건)</div>
           </AuctionInfoText>
         </AuctionImgText>
-        <Buttom>낙찰 하기</Buttom>
+        <Buttom onClick={() => setModal(!modal)}>낙찰 하기</Buttom>
       </AuctionInfo>
       <AuctionLine />
       <ChattingBody>

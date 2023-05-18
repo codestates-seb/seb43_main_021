@@ -19,7 +19,7 @@ const AuctionDetail = () => {
   }
 
   const handleBack = () => {
-    navigate(`/`);
+    window.history.back();
   };
 
   const handleToBiddingDetail = (auctionId, id) => {
