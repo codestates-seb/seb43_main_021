@@ -13,10 +13,10 @@ const useGetAuctionItem = () => {
     });
   };
 
-  const { data, isLoading, isError, error } = useQuery("getData", getData, {
-    staleTime: 0,
-    cacheTime: 0,
-  });
+  const { data, isLoading, isError, error } = useQuery(
+    ["getData", auctionId],
+    getData
+  );
 
   return { data, isLoading, isError, error, auctionId };
 };
