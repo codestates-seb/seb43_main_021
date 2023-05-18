@@ -2,14 +2,13 @@ package com.codestates.seb_43_21_main_project.bidItem.entity;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.audit.Auditable;
+import com.codestates.seb_43_21_main_project.image.entity.Image;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Setter
@@ -26,6 +25,10 @@ public class BidItem extends Auditable {
     @Column
     private String bidItemContent;
 
+    @Column(name = "image_url")
+    @ElementCollection
+    private List<String> imageUrlList;
+
     @Column
     @Enumerated(EnumType.STRING)
     private BidItemStatus bidItemStatus;
@@ -38,6 +41,10 @@ public class BidItem extends Auditable {
     @JoinColumn(name = "AUCTION_ITEM_ID")
     private Auction auction;
 
+    //@OneToMany(mappedBy = "bidItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<Image> images = new ArrayList<>();
+
+
     public void addMember(Member member) {
         this.member = member;
         if (!this.member.getBidItems().contains(this)) {
@@ -49,5 +56,8 @@ public class BidItem extends Auditable {
         if (!this.auction.getBidItems().contains(this)) {
             this.auction.getBidItems().add(this);
         }
+    }
+    public void addImageUrlList(String imageUrlLis){
+        imageUrlList.add(imageUrlLis);
     }
 }
