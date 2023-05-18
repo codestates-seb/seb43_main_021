@@ -6,14 +6,13 @@ import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemPostDto;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.bidItem.mapper.BidItemMapper;
 import com.codestates.seb_43_21_main_project.bidItem.service.BidItemService;
-import com.codestates.seb_43_21_main_project.dto.MultiResponseDto;
 import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -57,22 +56,20 @@ public class BidItemController {
         return new ResponseEntity<>(bidItemMapper.bidItemToBidItemResponseDto(response), HttpStatus.OK);
     }
 
-    /*@GetMapping("*")
-    public ResponseEntity getBidItems(@Valid @RequestBody BidItemPageInfoRequest pageInfo) {
-        Page<BidItem> pageBidItems = bidItemService.findBidItems(pageInfo);
+    @GetMapping("/list/{member_id}")
+    public ResponseEntity getBidItemListByMember(@PathVariable("member_id") Long memberId){
 
-        List<BidItem> bidItems = pageBidItems.getContent();
+        List<BidItem> response = bidItemService.findBidItemList(memberId);
 
-        return new ResponseEntity(
-                new MultiResponseDto<>(bidItemMapper.bidItemToBidItemResponseDtos(bidItems), pageBidItems), HttpStatus.OK
-        );
-    }*/
+        return new ResponseEntity<>(bidItemMapper.bidItemToBidItemResponseDtos(response),HttpStatus.OK);
+    }
+
     @PatchMapping("/{auction_item_id}/{bid_item_id}")
     public ResponseEntity updateBidItem(@PathVariable ("auction_item_id") Long auctionItemId,
                                         @PathVariable ("bid_item_id") Long bidItemId,
                                         @Valid @RequestBody BidItemPatchDto bidItemPatchDto) {
         bidItemPatchDto.setBidItemId(bidItemId);
-        Long memberId = contextHolederUtils.getAuthMemberId();
+        Long memberId =contextHolederUtils.getAuthMemberId();
 
         BidItem bidItem = bidItemMapper.bidItemPatchDtoToBidItem(bidItemPatchDto);
 
