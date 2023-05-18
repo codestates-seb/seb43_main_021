@@ -1,52 +1,91 @@
 package com.codestates.seb_43_21_main_project.bidItem.service;
 
+import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
+import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.bidItem.repository.BidItemRepository;
+import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
+import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.codestates.seb_43_21_main_project.member.service.MemberService;
+import com.codestates.seb_43_21_main_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class BidItemService {
-    private final BidItemService bidItemService;
     private final BidItemRepository bidItemRepository;
+    private final MemberService memberService;
+    private final AuctionService auctionService;
+    private final CustomBeanUtils customBeanUtils;
 
-    @PostMapping
-    public BidItem createBidItem(BidItem bidItem) {
+    public BidItem createBidItem(Long memberId,Long auctionItemId,BidItem bidItem) {
 
-        bidItem.setCreatedDate(LocalDateTime.now());
+        Member member = memberService.findMember(memberId);
+        Auction auction = auctionService.findVerifiedAuction(auctionItemId);
+
+        bidItem.setMember(member);
+        bidItem.setAuction(auction);
+
+        member.addBidItem(bidItem);
+        auction.addBidItem(bidItem);
 
         return bidItemRepository.save(bidItem);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BidItem> getBidItem(@PathVariable Long id) {
-        BidItem bidItem = bidItemService.getBidItem(id).getBody();
-        return ResponseEntity.ok(bidItem);
+    public BidItem updateBidItem(Long memberId,Long auctionItemId,BidItem bidItem) {
+
+        BidItem findBidItem = findVerifiedBidItem(bidItem.getBidItemId());
+
+        if(!findBidItem.getMember().getMemberId().equals(memberId)){
+            throw new BusinessLogicException(ExceptionCode.ACCESS_NOT_ALLOWED);
+        }
+        auctionService.findVerifiedAuction(auctionItemId);
+
+        Optional.ofNullable(bidItem.getBidItemName())
+                .ifPresent(bidItemName -> findBidItem.setBidItemName(bidItemName));
+
+        Optional.ofNullable(bidItem.getBidItemContent())
+                .ifPresent(bidItemContent -> findBidItem.setBidItemName(bidItemContent));
+
+        BidItem updateBidItem = (BidItem) customBeanUtils.copyNonNullProperties(bidItem,findBidItem);
+
+
+        return bidItemRepository.save(updateBidItem);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<BidItem> updateBidItem(@PathVariable Long id, @RequestBody BidItem bidItem) {
-        BidItem updatedBidItem = bidItemService.updateBidItem(id, bidItem).getBody();
-        return ResponseEntity.ok(updatedBidItem);
+
+    public void deleteBidItem(Long memberId,Long auctionItemId,Long bidItemId) {
+
+        BidItem findBidItem = findVerifiedBidItem(bidItemId);
+
+        if(!findBidItem.getMember().getMemberId().equals(memberId)){
+            throw new BusinessLogicException(ExceptionCode.ACCESS_NOT_ALLOWED);
+        }
+        auctionService.findVerifiedAuction(auctionItemId);
+
+        bidItemRepository.deleteById(bidItemId);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBidItem(@PathVariable Long id) {
-        bidItemService.deleteBidItem(id);
-        return ResponseEntity.ok().build();
+    public BidItem findBidItem(Long bidItemId){
+        return findVerifiedBidItem(bidItemId);
     }
 
-    @GetMapping
-    public ResponseEntity<List<BidItem>> getAllBidItems() {
-        List<BidItem> bidItems = (List<BidItem>) bidItemService.getAllBidItems();
-        return ResponseEntity.ok(bidItems);
+    //public List<BidItem> findBidItems(long memberId) {
+    //}
+
+    private BidItem findVerifiedBidItem(Long bidItemId){
+        Optional<BidItem> optionalBidItem = bidItemRepository.findById(bidItemId);
+        BidItem findBidItem = optionalBidItem.orElseThrow(()->
+                new RuntimeException("입찰 물품이 존재 하지 않습니다."));
+        return findBidItem;
     }
 }

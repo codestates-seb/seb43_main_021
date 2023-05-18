@@ -19,7 +19,7 @@ public class BidItemResponseDto {
 
     private String bidItemContent;
 
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
 
     private LocalDateTime modifiedDate;
 

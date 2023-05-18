@@ -7,10 +7,12 @@ import org.hibernate.annotations.SQLDeleteAll;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
-@Where(clause = "deleted = register") // deleted = true일 경우 결과에 포함되지 X
+@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +20,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "AUCTIONITEM")
-public class Auction extends Auditable {
+public class  Auction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long auctionItemId;
@@ -74,6 +76,15 @@ public class Auction extends Auditable {
         }
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "auction")
+    private List<BidItem> bidItems = new ArrayList<>();
 
+    public void addBidItem(BidItem bidItem){
+        bidItems.add(bidItem);
+        if(bidItem.getAuction() != this){
+            bidItem.setAuction(this);
+        }
+    }
 
 }

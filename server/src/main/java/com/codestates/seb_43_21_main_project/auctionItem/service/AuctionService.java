@@ -3,6 +3,8 @@ package com.codestates.seb_43_21_main_project.auctionItem.service;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
+import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
+import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +33,6 @@ public class AuctionService {
             auction.setPeriod(30);
         }
 
-
         storageService.store(auctionImage); // 이미지 로컬에 저장
         Auction savedAuctionItem = auctionRepository.save(auction);
         return savedAuctionItem;
@@ -47,9 +48,8 @@ public class AuctionService {
         Optional.ofNullable(auction.getName())
                 .ifPresent(name -> findAuction.setName(name));
 
-        //기간설정 변경?
-//        Optional.ofNullable(auction.getPeriod())
-//                .ifPresent(period -> findAuction.setPeriod(period));
+        Optional.ofNullable(auction.getPeriod())
+                .ifPresent(period -> findAuction.setPeriod(period));
 
         Optional.ofNullable(auction.getContent())
                 .ifPresent(content -> findAuction.setContent(content));
@@ -73,7 +73,7 @@ public class AuctionService {
     public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
         //Todo :예외처리
         if (pageInfo.getLastItemId() <= 0 && pageInfo.getSize() <= 0) {
-            throw new RuntimeException("양수 값을 입력해 주세요");
+            throw new BusinessLogicException(ExceptionCode.AUCTION_INTERNAL_SERVER_ERROR);
         }
         PageRequest pageRequest = PageRequest.ofSize(pageInfo.getSize()); //page : 0으로 고정
         return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
@@ -90,8 +90,6 @@ public class AuctionService {
     }
 
 
-
-
     //물품 전체 삭제
     public void deleteAll() {
         //물품 전체를 찾아오기
@@ -102,14 +100,12 @@ public class AuctionService {
     }
 
 
-    private Auction findVerifiedAuction(long auctionItemId) {
+    public Auction findVerifiedAuction(long auctionItemId) {
         Optional<Auction> optionalAuction = auctionRepository.findById(auctionItemId);
-        Auction findAuction = optionalAuction.orElseThrow(() -> new RuntimeException("경매 물품이 존재 하지 않습니다."));
+        Auction findAuction = optionalAuction.orElseThrow(() -> new BusinessLogicException(ExceptionCode.AUCTION_NOT_FOUND));
 
         return findAuction;
     }
-
-
 
 
 }
