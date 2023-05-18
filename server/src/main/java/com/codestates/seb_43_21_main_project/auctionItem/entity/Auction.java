@@ -1,6 +1,8 @@
 package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
 import com.codestates.seb_43_21_main_project.audit.Auditable;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -11,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
-@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
+//@SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
+//@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -86,5 +88,6 @@ public class  Auction extends Auditable {
             bidItem.setAuction(this);
         }
     }
+
 
 }
