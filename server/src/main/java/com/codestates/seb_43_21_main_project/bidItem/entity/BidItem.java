@@ -51,6 +51,7 @@ public class BidItem extends Auditable {
             this.member.getBidItems().add(this);
         }
     }
+
     public void addAuction(Auction auction) {
         this.auction = auction;
         if (!this.auction.getBidItems().contains(this)) {
