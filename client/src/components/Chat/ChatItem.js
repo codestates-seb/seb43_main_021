@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import img2 from "../../assets/images/img2.jpg";
 
 const dummyData = [
   {
@@ -9,6 +10,7 @@ const dummyData = [
     location: "군자동",
     time: "3시간 전",
     content: "안녕하세요 ㅎㅎㅎ",
+    img: img2,
   },
   {
     id: "2",
@@ -16,6 +18,7 @@ const dummyData = [
     location: "성수동",
     time: "1시간 전",
     content: "저는 5시 쯤 가능할 것 같습니다~~",
+    img: img2,
   },
 ];
 
@@ -31,7 +34,7 @@ const ChatItem = () => {
         <div key={item.id}>
           <Container onClick={handleChatting}>
             <LeftItem>
-              <UserImg />
+              <UserImg src={item.img} />
               <ChatDetail>
                 <UserTitle>{item.name}</UserTitle>
                 <UserInfo>
@@ -61,11 +64,13 @@ const LeftItem = styled.div`
 `;
 
 const RightItem = styled.div``;
-const UserImg = styled.div`
+const UserImg = styled.img`
   margin: 1rem;
   width: 3rem;
   height: 3rem;
-  border: 0.5px solid black;
+  border: none;
+  object-fit: cover;
+  border-radius: 50%;
 `;
 
 const ChatDetail = styled.div`

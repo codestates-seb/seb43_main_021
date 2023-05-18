@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import { dummyItemList } from "../assets/dummyData";
 
 const useGetItemList = () => {
-
   const getItemData = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -12,12 +11,8 @@ const useGetItemList = () => {
   };
 
   const { data, isLoading, isError, error } = useQuery(
-    "getItemData",
-    getItemData,
-    {
-      staleTime: 0,
-      cacheTime: 0,
-    }
+    ["getItemData"],
+    getItemData
   );
 
   return { data, isLoading, isError, error };

@@ -209,9 +209,15 @@ export const dummyData = [
   {
     email: "yoyo@naver.com",
     password: "1q2w"
-  }
+  },
+  {
+    memberId: "user02",
+    password: "qazwsx",
+    nickName: "dummyUser",
+    email: "dummyuser@example.com",
+    phone_number: "010-1234-5678",
+  },
 ];
-
 
 export const dummyChatRoom = [
   {

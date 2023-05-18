@@ -8,6 +8,7 @@ const Item = ({ item }) => {
   const handleToAuctionDetail = (id) => {
     navigate(`/AuctionDetail/${id}`);
   };
+  // {member.slice(0, 19) + (member.length > 19 ? "..." : "")}님의 물품으로
 
   return (
     <div>
@@ -17,7 +18,10 @@ const Item = ({ item }) => {
             <ItemLeft>
               <Img src={item.img[0]} />
               <Text>
-                <Title>{item.title}</Title>
+                <Title>
+                  {item.title.slice(0, 40) +
+                    (item.title.length > 41 ? "..." : "")}
+                </Title>
                 <Period>{item.period}</Period>
                 <Bidding>경매입찰 {item.bidding}건</Bidding>
               </Text>
