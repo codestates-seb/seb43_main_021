@@ -207,11 +207,8 @@ export const dummyItem = [
 
 export const dummyData = [
   {
-    memberId: "user01",
-    password: "1q2w3e4r",
-    nickName: "baba",
     email: "yoyo@naver.com",
-    phone_number: "010-1111-8888",
+    password: "1q2w"
   },
   {
     memberId: "user02",
