@@ -4,8 +4,6 @@ export const ItemButton = () => {
   return <Container>확인</Container>;
 };
 
-export default ItemButton;
-
 const Container = styled.div`
   background-color: #4636fc;
   width: 85px;
@@ -16,5 +14,4 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 `;
