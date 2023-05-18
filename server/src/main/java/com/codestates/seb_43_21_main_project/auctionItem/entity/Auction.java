@@ -1,6 +1,8 @@
 package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
 import com.codestates.seb_43_21_main_project.audit.Auditable;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
