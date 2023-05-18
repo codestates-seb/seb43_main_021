@@ -320,6 +320,10 @@ const SendImg = styled(HiOutlinePlusSm)`
   font-size: 2rem;
   color: #595959;
   cursor: pointer;
+
+  &:hover {
+    color: #868686;
+  }
 `;
 
 const ChattingInput = styled.input`
@@ -337,6 +341,10 @@ const SubmitButton = styled(IoTriangleOutline)`
   cursor: pointer;
   font-size: 2rem;
   color: #7e7e7e;
+
+  &:hover {
+    color: #a6a6a6;
+  }
 `;
 
 const ImageContainer = styled.div`
