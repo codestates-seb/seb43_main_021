@@ -3,10 +3,10 @@ package com.codestates.seb_43_21_main_project.auctionItem.entity;
 import com.codestates.seb_43_21_main_project.audit.Auditable;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
+
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLDeleteAll;
+import org.hibernate.annotations.SQLDelete;;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//@SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
-//@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
+@SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
+@Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,17 +41,11 @@ public class  Auction extends Auditable {
     @Column(nullable = false)
     private boolean  deleted = Boolean.FALSE;
 
-//     무결성에러(DataIntegrityViolationException:)
-//    @Enumerated(value = EnumType.STRING)
-//    @Column(name = "deleted",nullable = false)
-//    private AuctionDeleted status = AuctionDeleted.REGISTER;
-//
-//    public enum AuctionDeleted {
-//        REGISTER,  DELETED
-//    }
 
-    //    매핑관계 설정
-    private long memberId;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID" )
+    private Member member;
+
 
     //  private int view; //조회수
 //   private long favoriteItem; //즐겨찾기
@@ -88,5 +82,14 @@ public class  Auction extends Auditable {
             bidItem.setAuction(this);
         }
     }
+
+//    public void addMember(Member member) {
+//        this.member = member;
+//        if (!this.member.getAuctions().contains(this)) {
+//            this.member.getAuctions().add(this);
+//        }
+//    }
+
+
 
 }

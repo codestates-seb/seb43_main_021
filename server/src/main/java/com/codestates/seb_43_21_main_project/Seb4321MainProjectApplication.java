@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaAuditing // JPA Auditing 활성화
 @EnableScheduling // 스케줄링 사용
 public class Seb4321MainProjectApplication {
-	static {
+		static {
 		System.setProperty("com.amazonaws.sdk.disableEc2Metadata", "true");  // 추가
 	}
 	public static void main(String[] args) {
