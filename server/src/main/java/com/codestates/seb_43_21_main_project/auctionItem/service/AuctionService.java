@@ -5,7 +5,7 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
-import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
+//import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,9 @@ import java.util.Optional;
 public class AuctionService {
 
     private final AuctionRepository auctionRepository;
-    private final StorageService storageService;
+//    private final StorageService storageService;
     private final MemberService memberService;
-    private final S3Uploader s3Uploader;
+
 
 
     //    , MultipartFile auctionImage
@@ -43,7 +43,7 @@ public class AuctionService {
             auction.setPeriod(30);
         }
 
-        s3Uploader.upload(auctionImage, "static");
+//        s3Uploader.upload(auctionImage, "static");
 //        storageService.store(auctionImage); // 이미지 로컬에 저장
         Auction savedAuctionItem = auctionRepository.save(auction);
         return savedAuctionItem;

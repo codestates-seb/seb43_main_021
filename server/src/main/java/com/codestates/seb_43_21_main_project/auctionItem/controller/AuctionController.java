@@ -7,7 +7,7 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.mapper.AuctionMapper;
 import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
 import com.codestates.seb_43_21_main_project.dto.MultiResponseDto;
-import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
+//import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ import java.util.List;
 public class AuctionController {
 
     private final AuctionService auctionService;
-    private final S3Uploader s3Uploader;
+//    private final S3Uploader s3Uploader;
     private final AuctionMapper mapper;
 
 
