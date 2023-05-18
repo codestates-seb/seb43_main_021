@@ -22,6 +22,7 @@ export const chatContent = {
 
 export const chatContent1 = [
   {
+    chatContent_id: 0,
     member_id: 0,
     img: img2,
     content:
@@ -29,6 +30,7 @@ export const chatContent1 = [
     createdate: "오후 1:20",
   },
   {
+    chatContent_id: 1,
     member_id: 1,
     img: img2,
     content:
@@ -36,6 +38,7 @@ export const chatContent1 = [
     createdate: "오후 2:01",
   },
   {
+    chatContent_id: 2,
     member_id: 0,
     img: img2,
     content:
@@ -43,10 +46,23 @@ export const chatContent1 = [
     createdate: "오후 3:49",
   },
   {
+    chatContent_id: 3,
     member_id: 1,
     img: img2,
     content:
       "저는 중랑구 쪽입니다 ㅎㅎㅎ 내일 모레 쯤 건대 갈 예정인데 그 때 거래할까요??? 저녁 8시 쯤에 갈 것 같습니다!!",
     createdate: "오후 3:49",
+  },
+  {
+    chatContent_id: 4,
+    member_id: "admin",
+  },
+  {
+    chatContent_id: 5,
+    member_id: 1,
+    img: img2,
+    content:
+      "8시 이후부터 계속 건대에 있을거라서 연락 주시면 찾아뵙겠습니당👍🏻👍🏻",
+    createdate: "오후 3:52",
   },
 ];

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Header from "../components/UI/Header/Header";
 import { styled } from "styled-components";
 import img2 from "../assets/images/img2.jpg";
+import img1 from "../assets/images/img1.jpeg";
+
 import { IoTriangleOutline } from "react-icons/io5";
 import ConfirmModal from "../components/UI/Modal/ConfirmModal";
 import { useRecoilState } from "recoil";
@@ -9,11 +11,15 @@ import { AuctionConfirm } from "../stores/atoms";
 import { chatContent1 } from "../assets/dummyChatData";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { SlClose } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
 
 const Chatting = () => {
   const [modal, setModal] = useRecoilState(AuctionConfirm);
   const [imageSrcList, setImeageSrcList] = useState([]); // 이미지 등록
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
+  const [chatting, setChatting] = useState("");
+  const [choice, setChoice] = useState(false); // 경매 낙찰 여부
+  const navigate = useNavigate();
 
   const onUpload = (event) => {
     if (imageSrcList.length >= 10) {
@@ -39,22 +45,68 @@ const Chatting = () => {
     });
   };
 
+  const submitChatting = () => {
+    console.log(chatting, imageSrcList);
+    setChatting("");
+    setImeageSrcList([]);
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.keyCode === 13) {
+      submitChatting();
+    }
+  };
+
+  const auctionComplete = () => {
+    setChoice(true);
+  };
+
   return (
     <Wrapper>
-      {modal ? <ConfirmModal member={"아차산 라이더"} /> : null}
+      {modal ? (
+        <ConfirmModal
+          member={"아차산 라이더"}
+          auctionComplete={auctionComplete}
+        />
+      ) : null}
       <Header chatTitle={"아차산라이더"} />
-      <AuctionInfo>
-        <AuctionImgText>
-          <AuctionImg src={img2} />
-          <AuctionInfoText>
-            <div>투애니원 앨범</div>
-            <div>경매 중(입찰: 3건)</div>
-          </AuctionInfoText>
-        </AuctionImgText>
-        <Buttom onClick={() => setModal(!modal)}>낙찰 하기</Buttom>
-      </AuctionInfo>
+      <AuctionAndBid>
+        <AuctionInfo>
+          <AuctionImgText>
+            <AuctionImg
+              src={img2}
+              onClick={() => navigate("/AuctionDetail/0")}
+            />
+            <AuctionInfoText>
+              <div>투애니원 앨범입니다~~~~~~</div>
+              {choice ? (
+                <div>낙찰 완료!</div>
+              ) : (
+                <div>
+                  경매 중<span>(입찰: 3건)</span>
+                </div>
+              )}
+              {choice ? null : (
+                <Buttom onClick={() => setModal(!modal)}>낙찰 하기</Buttom>
+              )}
+            </AuctionInfoText>
+          </AuctionImgText>
+        </AuctionInfo>
+        <BidInfo>
+          <AuctionImgText>
+            <AuctionImg
+              src={img1}
+              onClick={() => navigate("/AuctionDetail/0")}
+            />
+            <AuctionInfoText>
+              <div>조던 1 스캇 팬텀 블랙 265 거의 새 상품</div>
+              {choice ? <div>입찰 종료</div> : <div>입찰 중</div>}
+            </AuctionInfoText>
+          </AuctionImgText>
+        </BidInfo>
+      </AuctionAndBid>
       <AuctionLine />
-      <ChattingBody>
+      <ChattingBody imageSrcList={imageSrcList}>
         {chatContent1.map((chat, index) =>
           //로컬스토리지의 유저 정보와 같을 경우로 수정예정
           chat.member_id === 1 ? (
@@ -62,6 +114,10 @@ const Chatting = () => {
               <UserContentTime>{chat.createdate}</UserContentTime>
               <UserContent>{chat.content}</UserContent>
             </UserChatContents>
+          ) : chat.member_id === "admin" ? (
+            <AdminContent>
+              🎉 낙찰 되었습니다! 상대방과 거래 약속을 잡아보세요. 🎉
+            </AdminContent>
           ) : (
             <ChatContents key={index}>
               <UserImg src={chat.img} />
@@ -85,8 +141,13 @@ const Chatting = () => {
             disabled={imageSrcList.length >= 10}
           />
         </div>
-        <ChattingInput placeholder="메시지 보내기" />
-        <SubmitButton></SubmitButton>
+        <ChattingInput
+          placeholder="메시지 보내기"
+          value={chatting}
+          onChange={(e) => setChatting(e.target.value)}
+          onKeyDown={handleEnterPress}
+        />
+        <SubmitButton onClick={submitChatting}></SubmitButton>
       </ChattingFooter>
       {imageSrcList[0] ? (
         <ImageContainer>
@@ -108,13 +169,21 @@ export default Chatting;
 
 const Wrapper = styled.div``;
 
-const AuctionInfo = styled.div`
-  width: 100%;
-  height: 7rem;
-  padding: 1rem;
+const AuctionAndBid = styled.div`
   display: flex;
-  font-weight: bold;
-  flex-direction: column;
+`;
+
+const AuctionInfo = styled.div`
+  width: 50%;
+  height: 5rem;
+  padding: 0.5rem;
+`;
+
+const BidInfo = styled.div`
+  width: 50%;
+  height: 5rem;
+  padding: 0.5rem;
+  border-left: 0.5px solid gray;
 `;
 
 const AuctionLine = styled.div`
@@ -123,23 +192,34 @@ const AuctionLine = styled.div`
 `;
 
 const AuctionImg = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 4rem;
+  height: 4rem;
   object-fit: cover;
-  margin-right: 0.75rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
 `;
 
-const AuctionInfoText = styled.div``;
+const AuctionInfoText = styled.div`
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow-x: scroll;
+
+  span {
+    color: red;
+    font-size: 0.65rem;
+  }
+`;
 
 const Buttom = styled.button`
-  height: 1.75rem;
-  width: 5.75rem;
+  height: 1.5rem;
+  width: 5.5rem;
   border-radius: 5px;
   background-color: white;
   border: 1px solid #dcdcdc;
   cursor: pointer;
-  margin-top: 0.75rem;
   font-weight: bold;
+  margin-top: 0.1rem;
 
   &:hover {
     background-color: #dfdfdf;
@@ -150,7 +230,10 @@ const AuctionImgText = styled.div`
   display: flex;
 `;
 
-const ChattingBody = styled.div``;
+const ChattingBody = styled.div`
+  margin-bottom: ${({ imageSrcList }) =>
+    imageSrcList.length ? "11rem" : "5rem"};
+`;
 
 const ChatContents = styled.div`
   display: flex;
@@ -173,6 +256,18 @@ const UserImg = styled.img`
   height: 2rem;
   object-fit: cover;
   border-radius: 50%;
+`;
+
+const AdminContent = styled.div`
+  background-color: #7c43f8;
+  padding: 1rem 0.5rem;
+  color: white;
+  border-radius: 26px;
+  text-align: center;
+  width: 25rem;
+  margin: 2rem auto;
+  font-weight: 300;
+  font-size: 17px;
 `;
 
 const Content = styled.div`
