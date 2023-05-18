@@ -3,6 +3,7 @@ package com.codestates.seb_43_21_main_project.auctionItem.entity;
 import com.codestates.seb_43_21_main_project.audit.Auditable;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLDeleteAll;
@@ -78,7 +79,6 @@ public class  Auction extends Auditable {
         }
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "auction")
     private List<BidItem> bidItems = new ArrayList<>();
 
@@ -88,6 +88,5 @@ public class  Auction extends Auditable {
             bidItem.setAuction(this);
         }
     }
-
 
 }

@@ -42,7 +42,6 @@ public class Member {
         Y, //회원가입상태
         N //회원탈퇴상태
     }
-    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<BidItem> bidItems = new ArrayList<>();
 
