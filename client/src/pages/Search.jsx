@@ -1,47 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FiChevronLeft } from "react-icons/fi";
 import Gnb from "../components/UI/Gnb/Gnb";
+import { useNavigate } from "react-router-dom";
 
-const dummyData = [
-  {
-    searchWord: "맥북",
-  },
-  {
-    searchWord: "노트북",
-  },
-  {
-    searchWord: "나이키 조던1 스캇",
-  },
-  {
-    searchWord: "에어팟",
-  },
-  {
-    searchWord: "선크림",
-  },
-];
+const searchDummy = ["맥북", "노트북", "나이키 조던1 스캇", "에어팟", "선크림"];
 
 const Search = () => {
+  const [searchData, setSearchData] = useState([]);
+  const [searchWord, setSearchWord] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    const localData = () => {
+      const storedData = localStorage.getItem("searchData");
+      if (!storedData) {
+        localStorage.setItem("searchData", JSON.stringify(searchDummy));
+        setSearchData(searchDummy);
+      } else {
+        setSearchData(JSON.parse(storedData));
+      }
+    };
+    localData();
+  }, []);
+
   const handleBack = () => {
     window.history.back();
+  };
+
+  const handelInputChange = (e) => {
+    setSearchWord(e.target.value);
+  };
+
+  const handleEnterPress = (e) => {
+    if (e.keyCode === 13) {
+      search();
+      searchData.unshift(searchWord);
+      localStorage.setItem("searchData", JSON.stringify(searchData));
+      setSearchWord("");
+    }
+  };
+  const search = () => {
+    navigate(`/search`);
+  };
+
+  const deleteSearch = (deleteWord) => {
+    setSearchData((prevData) => {
+      const deleteData = prevData.filter((word) => word !== deleteWord);
+      localStorage.setItem("searchData", JSON.stringify(deleteData));
+      return deleteData;
+    });
+  };
+
+  const deleteAllData = () => {
+    setSearchData([]);
+    localStorage.setItem("searchData", JSON.stringify([]));
   };
 
   return (
     <>
       <SearchHeader>
         <BackButton onClick={handleBack} />
-        <SearchInput placeholder="중곡동 근처에서 검색"></SearchInput>
+        <SearchInput
+          type="text"
+          placeholder="검색어를 입력해주세요."
+          value={searchWord}
+          onChange={handelInputChange}
+          onKeyDown={handleEnterPress}
+        ></SearchInput>
       </SearchHeader>
       <SearchBody>
         <RecentSearch>최근 검색어</RecentSearch>
-        <DeleteAllSearch>모두 지우기</DeleteAllSearch>
+        <DeleteAllSearch onClick={deleteAllData}>모두 지우기</DeleteAllSearch>
       </SearchBody>
       <SearchWrapper>
-        {dummyData.map((word) => (
-          <SearchContainer key={word.searchWord}>
+        {searchData.map((word, index) => (
+          <SearchContainer
+            key={index}
+            onClick={() => navigate(`/search/${word}`)}
+          >
             <SearchWords>
-              <SearchWord>{word.searchWord}</SearchWord>
-              <SearchWordDelete>X</SearchWordDelete>
+              <SearchWord>{word}</SearchWord>
+              <SearchWordDelete
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteSearch(word);
+                }}
+              >
+                X
+              </SearchWordDelete>
             </SearchWords>
             <SearchLine />
           </SearchContainer>
@@ -104,7 +150,9 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+  cursor: pointer;
+`;
 
 const SearchWords = styled.div`
   display: flex;

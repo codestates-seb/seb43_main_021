@@ -4,7 +4,7 @@ import ItemButton from "../Item/ItemButton";
 import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../../../stores/atoms";
 
-export const ConfirmModal = ({ member, content }) => {
+export const ConfirmModal = ({ member, content, auctionComplete }) => {
   const [modal, setModal] = useRecoilState(AuctionConfirm);
   // const truncateText = (text, maxLength) => {
   //   if (text.length < maxLength) {
@@ -27,7 +27,12 @@ export const ConfirmModal = ({ member, content }) => {
           <div onClick={() => setModal(false)}>
             <ItemButton2 />
           </div>
-          <div>
+          <div
+            onClick={() => {
+              auctionComplete();
+              setModal(false);
+            }}
+          >
             <ItemButton />
           </div>
         </ButtonArea>
