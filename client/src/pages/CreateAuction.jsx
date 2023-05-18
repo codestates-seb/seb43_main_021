@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BsChevronLeft } from "react-icons/bs";
 import AddImage from "../components/CreateItem/AddImage";
 import ItemBody from "../components/CreateItem/ItemBody";
+import Location from "../components/CreateItem/Location";
 import Period from "../components/CreateItem/Period";
 
 const CreateAuction = () => {
@@ -23,6 +24,20 @@ const CreateAuction = () => {
     input = input.replace(/\D/g, '');
 
     if (input !== '') {
+      let parsedInput = parseInt(input, 10);
+      if (parsedInput < 1) {
+        parsedInput = 1;
+      } else if (parsedInput > 30) {
+        parsedInput = 30;
+      }
+      setAuctionPeriod(parsedInput.toString());
+      setShowPeriodWarning(false);
+    } else {
+      setAuctionPeriod('');
+    }
+  };
+
+    /* if (input !== '') {
       const parsedInput = parseInt(input, 10);
       if (parsedInput >= 1 && parsedInput <= 30) {
         setAuctionPeriod(parsedInput.toString());
@@ -33,7 +48,7 @@ const CreateAuction = () => {
     } else {
       setAuctionPeriod('');
       }
-  };
+  }; */
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -79,6 +94,7 @@ const CreateAuction = () => {
       <Body>
         <AddImage />
         <ItemBody title={title} text={text} showTitleWarning={showTitleWarning} showTextWarning={showTextWarning} handleTitleChange={handleTitleChange} handleTextChange={handleTextChange} />
+        <Location />
         <Period auctionPeriod={auctionPeriod} enterNumbersOnly={enterNumbersOnly} showPeriodWarning={showPeriodWarning} />
       </Body>
       </Container>

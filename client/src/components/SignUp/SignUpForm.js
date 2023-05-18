@@ -7,30 +7,30 @@ const SignUpForm = () => {
 
   const navigate = useNavigate();
 
-  // ID, PW, ConfirmPW, NickName 확인
-  const [memberId, setMemberId] = useState("");
+  // Email, PW, ConfirmPW, NickName, Phone_Number 확인
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [nickName, setNickName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone_number, setPhone_Number] = useState("");
 
-  // ID, PW, ConfirmPW, NickName 오류 메시지  
-  const [idErrorMessage, setIdErrorMessage] = useState("");
+  // Email, PW, ConfirmPW, NickName, Phone_Number 오류 메시지  
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState("");
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [phoneErrorMessage, setPhoneErrorMessage] = useState("");
 
-  // ID
-  const onChangeMemberId = (e) => {
-    const value = e.target.value; // 정규식의 최소 글자에 맞춰도 경고 메시지가 노출되어 추가하여 수정
-    setMemberId(value);
-    if (value.length < 5 || !/^[\w\s]{5,}$/.test(value)) {
-      setIdErrorMessage("아이디를 영문 및 영문+숫자 5글자 이상으로 입력해주세요.");
+  // email
+  const onChangeEmail = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (value.length > 200) {
+      setEmailErrorMessage("이메일은 최대 200글자까지 입력 가능합니다.")
+    } else if (value.length < 7 || !/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(value)) {
+      setEmailErrorMessage("유효한 이메일 주소를 입력해주세요.");
     } else {
-      setIdErrorMessage("");
+      setEmailErrorMessage("");
     }
   };
 
@@ -38,8 +38,10 @@ const SignUpForm = () => {
   const onChangePassword = (e) => {
     const value = e.target.value;
     setPassword(value);
-    if (value.length < 8 || !/^(?=.*[a-zA-Z0-9])(?=.*\d).{8,}$/.test(value)) {
-      setPasswordErrorMessage("비밀번호를 영문 + 숫자 조합의 8글자 이상으로 입력해주세요.");
+    if (value.length > 16) {
+      setPasswordErrorMessage("비밀번호는 최대 16글자까지 입력 가능합니다.");
+    } else if (value.length < 4 || !/^(?=.*[a-zA-Z0-9])(?=.*\d).{4,}$/.test(value)) {
+      setPasswordErrorMessage("비밀번호를 영문 + 숫자 조합의 4글자 이상으로 입력해주세요.");
     } else {
     setPasswordErrorMessage("");
     }
@@ -60,29 +62,21 @@ const SignUpForm = () => {
   const onChangeNickName = (e) => {
     const value = e.target.value;
     setNickName(value);
-    if (value.length < 2 || !/^[\w\s]{2,}$/.test(value)) {
+    if (value.length > 20) {
+      setNicknameErrorMessage("닉네임은 최대 20글자까지 입력 가능합니다.")
+    } else if (value.length < 2 || !/^[\w\s]{2,}$/.test(value)) {
       setNicknameErrorMessage("닉네임을 영문 및 영문+숫자 2글자 이상으로 입력해주세요.");
     } else {
       setNicknameErrorMessage("");
     }
   };
 
-  // email
-  const onChangeEmail = (e) => {
-    const value = e.target.value;
-    setEmail(value);
-    if (value.length < 7 || !/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/.test(value)) {
-      setEmailErrorMessage("유효한 이메일 주소를 입력해주세요.");
-    } else {
-      setEmailErrorMessage("");
-    }
-  };
 
   // phone
   const onChangePhoneNumber = (e) => {
     const value = e.target.value;
     setPhone_Number(value);
-    if (value.length < 10 || !/^\d{3}-\d{3,4}-\d{4}$/.test(value)) {
+    if (value.length < 11 || !/^\d{3}-\d{4}-\d{4}$/.test(value)) {
       setPhoneErrorMessage("유효한 핸드폰 번호를 입력해주세요.");
     } else {
       setPhoneErrorMessage("");
@@ -92,13 +86,12 @@ const SignUpForm = () => {
   // 회원가입하기 버튼
   const onClickSignUp = () => {
     if (
-      memberId && password && confirmPassword && nickName && !idErrorMessage && !passwordErrorMessage && !confirmPasswordErrorMessage && !nicknameErrorMessage
+      email && password && confirmPassword && nickName && !emailErrorMessage && !passwordErrorMessage && !confirmPasswordErrorMessage && !nicknameErrorMessage
     ) {
       const newDummyData = {
-        memberId,
+        email,
         password,
         nickName,
-        email,
         phone_number,
       };
       
@@ -109,7 +102,7 @@ const SignUpForm = () => {
       navigate("/")
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.")
-      setIdErrorMessage(memberId ? "" : idErrorMessage || "아이디를 입력해주세요.");
+      setEmailErrorMessage(email ? "" : emailErrorMessage || "이메일을 입력해주세요.");
       setPasswordErrorMessage(password ? "" : passwordErrorMessage || "비밀번호를 입력해주세요.");
       setConfirmPasswordErrorMessage(confirmPassword ? "" : confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.");
       setNicknameErrorMessage(nickName ? "" : nicknameErrorMessage || "닉네임을 입력해주세요.");
@@ -120,17 +113,13 @@ const SignUpForm = () => {
     <Form>
       <InputWrapper>
         <InputTitle>
-          <h3>아이디</h3><span>*</span>
+          <h3>이메일</h3><span>*</span>
         </InputTitle>
         <InputField>
-          <input
-            type="text"
-            value={memberId}
-            onChange={onChangeMemberId}
-            placeholder="공백 / 특수문자 제외, 영문 및 영문+숫자 5글자 이상" />
+          <input type="email" value={email} onChange={onChangeEmail} placeholder="이메일"></input>
         </InputField>
       </InputWrapper>
-      {idErrorMessage && <ErrorMessage>{idErrorMessage}</ErrorMessage>}
+      {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
       <InputWrapper>
         <InputTitle>
           <h3>비밀번호</h3><span>*</span>
@@ -140,7 +129,7 @@ const SignUpForm = () => {
             type="password"
             value={password}
             onChange={onChangePassword}
-            placeholder="영문 + 숫자 조합의 8글자 이상" />
+            placeholder="영문 + 숫자 조합의 4글자 이상" />
         </InputField>
       </InputWrapper>
       {<ErrorMessage>{passwordErrorMessage}</ErrorMessage>}
@@ -167,15 +156,6 @@ const SignUpForm = () => {
         </InputField>
       </InputWrapper>
       {nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
-      <InputWrapper>
-        <InputTitle>
-          <h3>이메일</h3>
-        </InputTitle>
-        <InputField>
-          <input type="email" value={email} onChange={onChangeEmail} placeholder="이메일"></input>
-        </InputField>
-      </InputWrapper>
-      {emailErrorMessage && <ErrorMessage>{emailErrorMessage}</ErrorMessage>}
       <InputWrapper>
         <InputTitle>
           <h3>휴대폰</h3>
