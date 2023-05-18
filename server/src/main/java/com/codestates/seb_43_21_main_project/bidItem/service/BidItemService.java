@@ -6,15 +6,20 @@ import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.bidItem.repository.BidItemRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
+import com.codestates.seb_43_21_main_project.image.entity.Image;
+import com.codestates.seb_43_21_main_project.image.repository.ImageRepository;
+import com.codestates.seb_43_21_main_project.image.utils.S3Uploader;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import com.codestates.seb_43_21_main_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +32,9 @@ public class BidItemService {
     private final AuctionService auctionService;
     private final CustomBeanUtils customBeanUtils;
 
-    public BidItem createBidItem(Long memberId,Long auctionItemId,BidItem bidItem) {
+    public BidItem createBidItem(Long memberId,
+                                 Long auctionItemId,
+                                 BidItem bidItem) {
 
         Member member = memberService.findMember(memberId);
         Auction auction = auctionService.findVerifiedAuction(auctionItemId);
@@ -41,11 +48,13 @@ public class BidItemService {
         return bidItemRepository.save(bidItem);
     }
 
-    public BidItem updateBidItem(Long memberId,Long auctionItemId,BidItem bidItem) {
+    public BidItem updateBidItem(Long memberId,
+                                 Long auctionItemId,
+                                 BidItem bidItem) {
 
         BidItem findBidItem = findVerifiedBidItem(bidItem.getBidItemId());
 
-        if(!findBidItem.getMember().getMemberId().equals(memberId)){
+        if (!findBidItem.getMember().getMemberId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_NOT_ALLOWED);
         }
         auctionService.findVerifiedAuction(auctionItemId);
@@ -56,11 +65,13 @@ public class BidItemService {
         Optional.ofNullable(bidItem.getBidItemContent())
                 .ifPresent(bidItemContent -> findBidItem.setBidItemName(bidItemContent));
 
-        BidItem updateBidItem = (BidItem) customBeanUtils.copyNonNullProperties(bidItem,findBidItem);
+        BidItem updateBidItem = (BidItem) customBeanUtils.copyNonNullProperties(bidItem, findBidItem);
 
 
-        return bidItemRepository.save(updateBidItem);
-    }
+            return bidItemRepository.save(updateBidItem);
+        }
+
+
 
 
     public void deleteBidItem(Long memberId,Long auctionItemId,Long bidItemId) {
@@ -72,6 +83,7 @@ public class BidItemService {
         }
         auctionService.findVerifiedAuction(auctionItemId);
 
+
         bidItemRepository.deleteById(bidItemId);
     }
 
@@ -79,8 +91,9 @@ public class BidItemService {
         return findVerifiedBidItem(bidItemId);
     }
 
-    //public List<BidItem> findBidItems(long memberId) {
-    //}
+    public List<BidItem> findBidItemList(Long memberId) {
+        Member member = memberService.findMember(memberId);
+        return bidItemRepository.findAllByMember(member);}
 
     private BidItem findVerifiedBidItem(Long bidItemId){
         Optional<BidItem> optionalBidItem = bidItemRepository.findById(bidItemId);
