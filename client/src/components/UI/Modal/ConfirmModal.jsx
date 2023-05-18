@@ -6,24 +6,29 @@ import { AuctionConfirm } from "../../../stores/atoms";
 
 export const ConfirmModal = ({ member, content }) => {
   const [modal, setModal] = useRecoilState(AuctionConfirm);
-  const truncateText = (text, maxLength) => {
-    if (text.length < maxLength) {
-      return text;
-    }
-    return text.substring(0, maxLength - 3) + "...";
-  };
+  // const truncateText = (text, maxLength) => {
+  //   if (text.length < maxLength) {
+  //     return text;
+  //   }
+  //   return text.substring(0, maxLength - 3) + "...";
+  // };
+
+  // {board.content.slice(0, 200) +
+  //   (board.content.length > 200 ? '...' : '')}
+  // {truncateText(member, 20)}님의 물품으로 낙찰하시겠습니까?
 
   return (
     <ModalWrapper>
       <ModalContainer>
-        {truncateText(member, 20)}님의 물품으로 낙찰하시겠습니까?
+        {member.slice(0, 19) + (member.length > 19 ? "..." : "")}님의 물품으로
+        낙찰하시겠습니까?
         {content ? <ContainerContent></ContainerContent> : null}
         <ButtonArea>
-          <div>
-            <ItemButton />
-          </div>
           <div onClick={() => setModal(false)}>
             <ItemButton2 />
+          </div>
+          <div>
+            <ItemButton />
           </div>
         </ButtonArea>
       </ModalContainer>

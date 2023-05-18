@@ -13,7 +13,7 @@ const Search = () => {
   useEffect(() => {
     const localData = () => {
       const storedData = localStorage.getItem("searchData");
-      if (!storedData || storedData === []) {
+      if (!storedData) {
         localStorage.setItem("searchData", JSON.stringify(searchDummy));
         setSearchData(searchDummy);
       } else {
@@ -62,7 +62,7 @@ const Search = () => {
         <BackButton onClick={handleBack} />
         <SearchInput
           type="text"
-          placeholder="중곡동 근처에서 검색"
+          placeholder="검색어를 입력해주세요."
           value={searchWord}
           onChange={handelInputChange}
           onKeyDown={handleEnterPress}
@@ -74,10 +74,18 @@ const Search = () => {
       </SearchBody>
       <SearchWrapper>
         {searchData.map((word, index) => (
-          <SearchContainer key={index}>
+          <SearchContainer
+            key={index}
+            onClick={() => navigate(`/search/${word}`)}
+          >
             <SearchWords>
               <SearchWord>{word}</SearchWord>
-              <SearchWordDelete onClick={() => deleteSearch(word)}>
+              <SearchWordDelete
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteSearch(word);
+                }}
+              >
                 X
               </SearchWordDelete>
             </SearchWords>
@@ -142,7 +150,9 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+  cursor: pointer;
+`;
 
 const SearchWords = styled.div`
   display: flex;
