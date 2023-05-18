@@ -8,8 +8,8 @@ export default ItemButton;
 
 const Container = styled.div`
   background-color: #4636fc;
-  width: 148px;
-  height: 46px;
+  width: 85px;
+  height: 39px;
   color: white;
   font-size: 14px;
   border-radius: 10px;
