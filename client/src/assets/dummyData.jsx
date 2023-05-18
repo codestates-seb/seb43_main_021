@@ -218,10 +218,9 @@ export const dummyData = [
     password: "qazwsx",
     nickName: "dummyUser",
     email: "dummyuser@example.com",
-    phone_number: "010-1234-5678"
+    phone_number: "010-1234-5678",
   },
 ];
-
 
 export const dummyChatRoom = [
   {
