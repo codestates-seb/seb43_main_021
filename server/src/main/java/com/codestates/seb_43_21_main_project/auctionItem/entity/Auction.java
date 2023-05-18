@@ -79,6 +79,7 @@ public class  Auction extends Auditable {
         }
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "auction")
     private List<BidItem> bidItems = new ArrayList<>();
 
