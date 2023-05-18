@@ -51,9 +51,8 @@ public class  Auction extends Auditable {
 //    }
 
     //    매핑관계 설정
-    private long categoryId;
     private long memberId;
-    private long bidItemId;
+
     //  private int view; //조회수
 //   private long favoriteItem; //즐겨찾기
 
@@ -79,6 +78,7 @@ public class  Auction extends Auditable {
         }
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "auction")
     private List<BidItem> bidItems = new ArrayList<>();
 

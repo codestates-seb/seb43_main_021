@@ -23,7 +23,7 @@ public interface AuctionMapper {
             response.setModifiedDate(auction.getModifiedDate());
             response.setCreatedDate(auction.getCreateDate());
             response.setPeriod(auction.getPeriod());
-            response.setBidItemId(auction.getBidItemId());
+//            response.setBidItemId(auction.getBidItemId());
             response.setAuctionStatus(auction.getAuctionStatus());
             return response;
         }
