@@ -28,8 +28,6 @@ public interface AuctionMapper {
             if (auction.getAuctionItemId() != null) {
                 response.setAuctionItemId(auction.getAuctionItemId());
             }
-
-
             response.setAuctionItemId(auction.getAuctionItemId());
             response.setMemberId(auction.getMember().getMemberId());
             response.setName(auction.getName());

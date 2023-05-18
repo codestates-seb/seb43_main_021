@@ -45,6 +45,7 @@ public class Member {
         N //회원탈퇴상태
     }
 
+     @JsonIgnore  //스택오버플로우 방지
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Auction> auctions = new ArrayList<>();
 
