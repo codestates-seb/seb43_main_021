@@ -30,6 +30,7 @@ public interface AuctionMapper {
             }
             response.setAuctionItemId(auction.getAuctionItemId());
             response.setMemberId(auction.getMember().getMemberId());
+            response.setImageUrlList(auction.getImageUrlList());
             response.setName(auction.getName());
             response.setContent(auction.getContent());
             response.setModifiedDate(auction.getModifiedDate());

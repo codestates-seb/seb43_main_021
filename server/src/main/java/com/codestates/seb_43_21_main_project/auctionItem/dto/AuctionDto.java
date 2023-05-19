@@ -34,8 +34,9 @@ public class AuctionDto {
         @Min(value = 1 ,message = "1이상의 값을 입력해야합니다.")
         private int period; //기간 설정 (기간 30일) num >30 return 30
 
-//        @NotNull
-//        private long categoryId;
+        private  List<String> imgeUrlList;
+
+
 
         // 기본값으로 AUCTION_BIDDING 설정' / Todo : 기간 만료는 어디서 처리해야하는가..
         private Auction.AuctionStatus auctionStatus = Auction.AuctionStatus.AUCTION_BIDDING;
@@ -49,14 +50,12 @@ public class AuctionDto {
         @NotNull
         private long auctionItemId;
 
+        // 이미지
+        private List<String> imageUrlList;
 
         private String name;
 
-        // 이미지
-
-
         private int period;
-
 
         private String content;
 
@@ -71,8 +70,9 @@ public class AuctionDto {
         private long memberId;
         private String name;
         //이미지
+        private List<String> imageUrlList;
         private String content;
-        //Todo : 작성일, 수정일 null 값 들어옴. (수정 예정)
+
         private LocalDateTime createdDate;
         private LocalDateTime modifiedDate;
         //      private int view; //조회수

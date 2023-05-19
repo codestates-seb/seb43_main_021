@@ -33,4 +33,10 @@ public class Image {
         this.imageUrl = imageUrl;
         this.bidItem = bidItem;
     }
+
+
+    public Image(String imageUrl, Auction auction) {
+        this.imageUrl = imageUrl;
+        this.auction = auction;
+    }
 }

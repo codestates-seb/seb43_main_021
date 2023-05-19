@@ -33,7 +33,7 @@ public class AuctionService {
 
     //    , MultipartFile auctionImage
     //물품 등록
-    public Auction createAuction(Auction auction, MultipartFile auctionImage) throws IOException {
+    public Auction createAuction(Auction auction)  {
         if(auction.getMember() == null) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         }

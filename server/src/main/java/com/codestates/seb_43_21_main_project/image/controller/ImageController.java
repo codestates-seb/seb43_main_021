@@ -20,7 +20,7 @@ public class ImageController {
     @Autowired
     private S3Uploader s3Uploader;
 
-    @PostMapping("/upload/bid_item")
+    @PostMapping("/upload") ///bid_item
     public String imageUpload( MultipartFile multipartFile) {
         try {
             String imageUrl = s3Uploader.upload(multipartFile);
