@@ -37,14 +37,14 @@ public class AuctionController {
 
 
     //consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE} //consumes : 들어오는 데이터를 정의
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity postAuction(@Valid @RequestPart AuctionDto.Post requestBody, @RequestPart MultipartFile auctionImg) throws IOException {
+    @PostMapping()
+    public ResponseEntity postAuction(@Valid @RequestBody AuctionDto.Post requestBody) {
 
 //        Auction auction = mapper.auctionPostDtoToAuction(requestBody);
 //        System.out.println("변환이 잘 되었는가?");
 //        Auction createdAuction = auctionService.createAuction(auction);
 //        System.out.println("Controller 다시 들어오는가?");
-        Auction createdAuction = auctionService.createAuction(mapper.auctionPostDtoToAuction(requestBody), auctionImg);
+        Auction createdAuction = auctionService.createAuction(mapper.auctionPostDtoToAuction(requestBody));
 
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(createdAuction), HttpStatus.CREATED);
     }

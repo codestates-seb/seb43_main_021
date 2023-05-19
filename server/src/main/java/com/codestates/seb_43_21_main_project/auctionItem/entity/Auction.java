@@ -26,7 +26,7 @@ import java.util.List;
 public class  Auction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long auctionItemId;
+    private Long auctionItemId;
 
     @Column(name = "AUCTION_ITEM_NAME", length = 100, nullable = false)
     private String name;
@@ -76,6 +76,10 @@ public class  Auction extends Auditable {
     @OneToMany(mappedBy = "auction")
     private List<BidItem> bidItems = new ArrayList<>();
 
+    @Column(name="image_url")
+    @ElementCollection
+    private List<String> imageUrlList;
+
     public void addBidItem(BidItem bidItem){
         bidItems.add(bidItem);
         if(bidItem.getAuction() != this){
@@ -83,6 +87,9 @@ public class  Auction extends Auditable {
         }
     }
 
+    public void addImageUrlList(String imageUrlLis){
+        imageUrlList.add(imageUrlLis);
+    }
 //    public void addMember(Member member) {
 //        this.member = member;
 //        if (!this.member.getAuctions().contains(this)) {

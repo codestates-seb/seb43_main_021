@@ -27,6 +27,7 @@ public class S3Uploader {
         this.amazonS3Client = amazonS3Client;
     }
 
+
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
@@ -41,7 +42,7 @@ public class S3Uploader {
     }
 
     private String upload(File uploadFile, String dirName) {
-        String fileName = dirName + "/" + UUID.randomUUID() + "_" + uploadFile.getName();
+        String fileName = dirName + "/" + UUID.randomUUID() + "_" + uploadFile.getName(); // s3에 저장되는 이름
         String uploadImageUrl = putS3(uploadFile, fileName);
 
         removeNewFile(uploadFile); // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
@@ -64,14 +65,14 @@ public class S3Uploader {
         }
     }
 
-    public void delete(String filename) {
-        try {
-            amazonS3Client.deleteObject(bucket, filename);
-            log.info("S3 파일 " + filename + " 삭제 성공");
-        } catch(AmazonS3Exception e) {
-            throw new IllegalArgumentException("S3 파일 삭제 실패");
-        }
-    }
+//    public void delete(String filename) {
+//        try {
+//            amazonS3Client.deleteObject(bucket, filename);
+//            log.info("S3 파일 " + filename + " 삭제 성공");
+//        } catch(AmazonS3Exception e) {
+//            throw new IllegalArgumentException("S3 파일 삭제 실패");
+//        }
+//    }
 
     private Optional<File> convert(MultipartFile multipartFile) throws IOException {
         File convertFile = new File(multipartFile.getOriginalFilename());
