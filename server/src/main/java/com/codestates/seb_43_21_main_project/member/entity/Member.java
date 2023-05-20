@@ -22,7 +22,7 @@ public class Member {
     private Long memberId;
     @Column(nullable = false)
     private String email;
-    //@JsonIgnore
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
