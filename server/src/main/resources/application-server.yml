@@ -5,12 +5,13 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/main?createDatabaseIfNotExist=true&userUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true
-    username: root
+    url: jdbc:mysql://seb-main-021.cnatq6rq8pwu.ap-northeast-2.rds.amazonaws.com:13306/main_021?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
     password:
 
   jpa:
     database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
       ddl-auto: update
@@ -18,6 +19,8 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+config:
+  domain: http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com
 
 logging:
   level:
@@ -31,9 +34,10 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: kevin1234123412341234123412341234         # 민감한 정보는 시스템 환경 변수설정
+  key: kevin1234123412341234123412341234
   access-token-expiration-minutes: 10
   refresh-token-expiration-minutes: 30
+
 
 cloud:
   aws:
@@ -41,7 +45,7 @@ cloud:
       access-key:
       secret-key:
     s3:
-      bucket: main-021
+      bucket: seb-main-021
     region:
       static: ap-northeast-2
     stack:
