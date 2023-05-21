@@ -273,7 +273,7 @@ const AdminContent = styled.div`
 const Content = styled.div`
   background-color: #f2f3f6;
   padding: 0.5rem;
-  border-radius: 15px;
+  border-radius: 10px;
 `;
 
 const ContentTime = styled.div`
@@ -288,7 +288,7 @@ const UserContent = styled.div`
   background-color: #4b3bfa;
   color: white;
   padding: 0.5rem;
-  border-radius: 15px;
+  border-radius: 10px;
 `;
 
 const UserContentTime = styled.div`
