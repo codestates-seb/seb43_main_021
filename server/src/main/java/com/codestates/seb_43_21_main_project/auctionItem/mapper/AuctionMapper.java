@@ -57,7 +57,7 @@ public interface AuctionMapper {
                     bidItemResponseDtoList.setModifiedDate(bidItem.getModifiedDate());
                     bidItemResponseDtoList.setBidItemStatus(bidItem.getBidItemStatus());
                     bidItemResponseDtoList.setMember(bidItem.getMember());
-
+                    bidItemResponseDtoList.setAuctionItem(bidItem.getAuction());
 
                     return bidItemResponseDtoList;
                 }).collect(Collectors.toList());
