@@ -42,9 +42,7 @@ public interface AuctionMapper {
             response.setPeriod(auction.getPeriod());
             response.setAuctionStatus(auction.getAuctionStatus());
             response.setMemberId(auction.getMember().getMemberId());
-            response.setEmail(auction.getMember().getEmail());
-            response.setNickName(auction.getMember().getNickName());
-            response.setPhoneNumber(auction.getMember().getPhoneNumber());
+
 
             if (auction.getBidItems() != null) {
                 List<BidItem> bidItemList = auction.getBidItems();
