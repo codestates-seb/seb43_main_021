@@ -11,7 +11,7 @@ import Loading from "../components/UI/Loading/Loading";
 const Home = () => {
   const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구"];
   const { data, isLoading, isError, error } = useGetItemList();
-
+  console.log("메인 데이터", data);
   if (isLoading) {
     return (
       <div>

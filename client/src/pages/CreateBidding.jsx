@@ -61,6 +61,8 @@ const CreateBidding = () => {
 
     if (title !== "" && text !== "") {
     }
+
+    console.log(title, text, imageSrcList);
   };
 
   return (
@@ -72,7 +74,7 @@ const CreateBidding = () => {
         </HeaderTitle>
         <CreateBtn onClick={handleCreateBtnClick}>
           <h2>완료</h2>
-        </CreateBtn>{" "}
+        </CreateBtn>
         {/* h2에 onClick={} 이벤트 넣기 */}
       </Header>
       <Container>
