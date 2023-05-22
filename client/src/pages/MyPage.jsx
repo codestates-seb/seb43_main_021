@@ -4,14 +4,19 @@ import UserPageTop from "../components/MyPage/UserPageTop";
 import UserInfo from "../components/MyPage/UserInfo";
 import Gnb from "../components/UI/Gnb/Gnb";
 import MyPageHeader from "../components/UI/Header/MyPageHeader";
-import { modalState, LogOutModalState, moveModalState } from "../stores/atoms";
+import { 
+  modalState,
+  LogOutModalState,
+  moveModalState,
+  profileNicknameState,
+} from "../stores/atoms";
 import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
 
 export default function MyPage() {
-
+  const [profileNickname] = useRecoilState(profileNicknameState);
   const [isOpen] = useRecoilState(modalState);
   const [logOutClick] = useRecoilState(LogOutModalState);
   const [goPage] = useRecoilState(moveModalState);
@@ -22,7 +27,7 @@ export default function MyPage() {
       {logOutClick && <LogOutModal />}
       {goPage && <PWCheckModal />}
       <MyPageHeader title={"나의 당근"} />
-      <UserPageTop userName={"손고장난벽시"} />
+      <UserPageTop nickname={profileNickname} />
       <Line />
       <UserInfo />
       <Footer>

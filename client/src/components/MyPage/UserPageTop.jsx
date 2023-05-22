@@ -1,19 +1,29 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilState } from 'recoil';
+import { selectedImageState } from '../../stores/atoms';
 import { VscAccount } from "react-icons/vsc";
 import { CiReceipt } from"react-icons/ci"
 import { BiShoppingBag } from "react-icons/bi";
 import { BiHeart } from "react-icons/bi";
 import { Link } from "react-router-dom"
 
-export default function UserPageTop({userName}){
-  
+
+export default function UserPageTop({nickname}){
+  const [selectedImage] = useRecoilState(selectedImageState);  //image상태
+
   return(
     <Wrapper>
-      <ProfileIcon>
-        <VscAccount/>
+      <ProfileIcon to="/useredit">
+      {selectedImage ? (
+          <div>            
+            <img src={selectedImage} alt="프로필 이미지" />
+          </div>
+        ):(
+        <VscAccount/>        
+        )}
       </ProfileIcon>
-      <UserName>{userName}</UserName>         
+      <UserName>{nickname}</UserName>         
       <IconContainer>
         나의 거래
         <MySelectorContainer>
@@ -39,13 +49,24 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   height: 20.5rem;    
+  img{
+    border-radius: 50%;
+    width:8rem;
+    height:8rem;
+  }
   @media only screen and (min-width:768px){
     height: 28rem;        
   }  
 `
 
-const ProfileIcon =  styled.div`  
-  margin: 1.25rem 1rem 0;
+const ProfileIcon =  styled(Link)`  
+  margin: 1rem 1rem 0;
+  color: black;
+  img{
+    border-radius: 50%;
+    width:6rem;
+    height:6rem;
+  }
   >svg{
     width: 4.5rem;
     height: 4.5rem;
@@ -57,10 +78,11 @@ const ProfileIcon =  styled.div`
       height: 5.5rem;
     }
   }
+  
 `
 
 const UserName = styled.div`
-  margin-top: 2.75rem;
+  margin-top: 3.25rem;
   font-weight: bold;
   font-size: 22px;
   @media only screen and (min-width:768px){
@@ -75,7 +97,7 @@ const IconContainer = styled.div`
   width: 100%;
   height: 14rem;
   position: absolute;  
-  padding: 7.5rem 1rem;
+  padding: 8.25rem 1rem;
   font-size: 15px;
   font-weight: bold;
   svg {

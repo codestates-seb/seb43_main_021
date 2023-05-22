@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../../../stores/atoms";
 
 export const ConfirmModal = ({ member, content, auctionComplete }) => {
-  const [modal, setModal] = useRecoilState(AuctionConfirm);
+  const [, setModal] = useRecoilState(AuctionConfirm);
   // const truncateText = (text, maxLength) => {
   //   if (text.length < maxLength) {
   //     return text;
