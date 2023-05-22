@@ -1,10 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import Gnb from "../components/UI/Gnb/Gnb";
-import img20 from "../assets/images/img20.png";
 import { useNavigate } from "react-router-dom";
-import img21 from "../assets/images/img21.png";
-import img22 from "../assets/images/img22.png";
 import logo1 from "../assets/logo/logo1.png";
 import logo3 from "../assets/logo/logo3.png";
 
@@ -17,7 +14,6 @@ import Bidding from "../components/Landing/Bidding";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const img = [img20, img21, img22];
 
   return (
     <Flexible>
@@ -100,7 +96,7 @@ const Flexible = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #dadada;
+  background-color: white;
 `;
 const Wrapper = styled.div`
   width: 416px;
@@ -197,16 +193,6 @@ const TreshContainer = styled.div`
 const MainLogoContainer = styled.div`
   margin-top: 20%;
   width: 80%;
-`;
-
-const LandingImage = styled.div`
-  width: 100%;
-  position: relative;
-  /* padding-top: 125%; */
-`;
-
-const ImageContainer = styled.div`
-  margin: 0 1rem;
 `;
 
 const LoginBtn = styled.div`

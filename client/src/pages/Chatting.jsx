@@ -35,6 +35,7 @@ const Chatting = () => {
 
     setImeageSrcList((prevList) => [...prevList, ...newImageSrcList]);
     setIsImageUploaded(true);
+    console.log(isImageUploaded);
   };
 
   const onDeleteImage = (index) => {
