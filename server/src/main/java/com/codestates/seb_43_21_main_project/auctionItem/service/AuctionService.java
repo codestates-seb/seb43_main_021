@@ -88,12 +88,18 @@ public class AuctionService {
     }
 
 
-    public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
-        if (pageInfo.getLastItemId() <= 0 && pageInfo.getSize() <= 0) {
-            throw new BusinessLogicException(ExceptionCode.AUCTION_INTERNAL_SERVER_ERROR);
-        }
-        PageRequest pageRequest = PageRequest.ofSize(pageInfo.getSize()); //page : 0으로 고정
-        return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
+//    public Page<Auction> findAuctions(PageInfoRequest pageInfo) {
+//        if (pageInfo.getLastItemId() <= 0 && pageInfo.getSize() <= 0) {
+//            throw new BusinessLogicException(ExceptionCode.AUCTION_INTERNAL_SERVER_ERROR);
+//        }
+//        PageRequest pageRequest = PageRequest.ofSize(pageInfo.getSize()); //page : 0으로 고정
+//        return auctionRepository.findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(pageInfo.getLastItemId(), pageRequest);
+//    }
+//
+
+    //물품 전체 조회
+    public List<Auction> findAuctions() {
+        return auctionRepository.findAll();
     }
 
 

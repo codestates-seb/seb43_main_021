@@ -54,6 +54,7 @@ public class AuctionController {
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(updatedAuction), HttpStatus.OK);
     }
 
+
     @GetMapping("{auction_items_id}")
     public ResponseEntity getAuction(@PathVariable("auction_items_id") @Positive long auctionItemId) {
         Auction findedAuction = auctionService.findAuction(auctionItemId);
@@ -69,14 +70,21 @@ public class AuctionController {
 
 
     //무한스크롤
+//    @GetMapping
+//    public ResponseEntity getAuctionAll(@Valid @RequestBody PageInfoRequest pageInfo) {
+//        Page<Auction> pageAuctions = auctionService.findAuctions(pageInfo);
+//        List<Auction> auctions = pageAuctions.getContent();
+//
+//        return new ResponseEntity(
+//                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
+//    }
+
+    //전체 데이터
     @GetMapping
-    public ResponseEntity getAuctionAll(@Valid @RequestBody PageInfoRequest pageInfo) {
-
-        Page<Auction> pageAuctions = auctionService.findAuctions(pageInfo);
-        List<Auction> auctions = pageAuctions.getContent();
-
-        return new ResponseEntity(
-                new MultiResponseDto<>(mapper.auctionToAuctionResponseDtos(auctions), pageAuctions), HttpStatus.OK);
+    public ResponseEntity getAuctionAll(){
+        List<Auction> auctions = auctionService.findAuctions();
+        List<AuctionDto.Response> response = mapper.auctionToAuctionResponseDtos(auctions);
+        return  new ResponseEntity(response, HttpStatus.OK);
     }
 
 
