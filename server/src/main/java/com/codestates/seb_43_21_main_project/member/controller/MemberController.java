@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
+@CrossOrigin(origins = "http://ec2-3-36-64-0.ap-northeast-2.compute.amazonaws.com:8080http://ec2-3-36-64-0.ap-northeast-2.compute.amazonaws.com:8080", allowedHeaders = "*", allowCredentials = "true")
 @Validated
 @RestController
 @RequestMapping("/member")
