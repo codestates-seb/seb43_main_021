@@ -90,12 +90,13 @@ public class  Auction extends Auditable {
     public void addImageUrlList(String imageUrlLis){
         imageUrlList.add(imageUrlLis);
     }
-//    public void addMember(Member member) {
-//        this.member = member;
-//        if (!this.member.getAuctions().contains(this)) {
-//            this.member.getAuctions().add(this);
-//        }
-//    }
+
+    public void addMember(Member member) {
+        this.member = member;
+        if (!this.member.getAuctions().contains(this)) {
+            this.member.getAuctions().add(this);
+        }
+    }
 
 
 

@@ -2,6 +2,7 @@ package com.codestates.seb_43_21_main_project.auctionItem.dto;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemResponseDto;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,7 +35,7 @@ public class AuctionDto {
         @Min(value = 1 ,message = "1이상의 값을 입력해야합니다.")
         private int period; //기간 설정 (기간 30일) num >30 return 30
 
-        private  List<String> imgeUrlList;
+        private List<String> imageUrlList;
 
 
 
@@ -59,6 +60,8 @@ public class AuctionDto {
 
         private String content;
 
+        private Member member;
+
 
     }
 
@@ -68,6 +71,11 @@ public class AuctionDto {
     public static class Response {
         private long auctionItemId;
         private long memberId;
+        private String email;
+        private String nickName;
+        private String phoneNumber;
+
+
         private String name;
         //이미지
         private List<String> imageUrlList;
@@ -78,9 +86,12 @@ public class AuctionDto {
         //      private int view; //조회수
         private int period;
         //      private long favoriteItem; //즐겨찾기
-        private List<BidItemResponseDto> bidItems; //  전체 데이터..
+        private List<BidItemResponseDto> bidItems; //  전체 데이터
 
         //상태코드도 넘겨줘야함.
         private Auction.AuctionStatus auctionStatus;
+
     }
+
+
 }

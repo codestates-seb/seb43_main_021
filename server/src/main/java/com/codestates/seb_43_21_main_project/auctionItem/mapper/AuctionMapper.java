@@ -3,12 +3,16 @@ package com.codestates.seb_43_21_main_project.auctionItem.mapper;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
+import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
 import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemResponseDto;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 
+import com.codestates.seb_43_21_main_project.member.dto.MemberResponseDto;
+import com.codestates.seb_43_21_main_project.member.entity.Member;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +23,8 @@ public interface AuctionMapper {
     @Mapping(source = "memberId", target = "member.memberId")
     Auction auctionPostDtoToAuction(AuctionDto.Post requestBody);
 
-    //    AuctionDto.Response auctionToAuctionResponseDto(Auction auction);
+//        AuctionDto.Response auctionToAuctionResponseDto(Auction auction);
+
     default AuctionDto.Response auctionToAuctionResponseDto(Auction auction) {
         if (auction == null) {
             return null;
@@ -29,7 +34,6 @@ public interface AuctionMapper {
                 response.setAuctionItemId(auction.getAuctionItemId());
             }
             response.setAuctionItemId(auction.getAuctionItemId());
-            response.setMemberId(auction.getMember().getMemberId());
             response.setImageUrlList(auction.getImageUrlList());
             response.setName(auction.getName());
             response.setContent(auction.getContent());
@@ -37,6 +41,10 @@ public interface AuctionMapper {
             response.setCreatedDate(auction.getCreateDate());
             response.setPeriod(auction.getPeriod());
             response.setAuctionStatus(auction.getAuctionStatus());
+            response.setMemberId(auction.getMember().getMemberId());
+            response.setEmail(auction.getMember().getEmail());
+            response.setNickName(auction.getMember().getNickName());
+            response.setPhoneNumber(auction.getMember().getPhoneNumber());
 
             if (auction.getBidItems() != null) {
                 List<BidItem> bidItemList = auction.getBidItems();
@@ -45,7 +53,14 @@ public interface AuctionMapper {
                     BidItemResponseDto bidItemResponseDtoList = new BidItemResponseDto();
                     bidItemResponseDtoList.setBidItemId(bidItem.getBidItemId());
                     bidItemResponseDtoList.setBidItemName(bidItem.getBidItemName());
+                    bidItemResponseDtoList.setImageUrlList(bidItem.getImageUrlList());
                     bidItemResponseDtoList.setBidItemContent(bidItem.getBidItemContent());
+                    bidItemResponseDtoList.setCreateDate(bidItem.getCreateDate());
+                    bidItemResponseDtoList.setModifiedDate(bidItem.getModifiedDate());
+                    bidItemResponseDtoList.setBidItemStatus(bidItem.getBidItemStatus());
+                    bidItemResponseDtoList.setMember(bidItem.getMember());
+
+
                     return bidItemResponseDtoList;
                 }).collect(Collectors.toList());
                 response.setBidItems(bidItemResponseDto);
@@ -57,5 +72,5 @@ public interface AuctionMapper {
 
     Auction auctionPatchDtoToAuction(AuctionDto.Patch requestBody);
 
-    List<AuctionDto.Response>  auctionToAuctionResponseDtos(List<Auction> auctions);
+    List<AuctionDto.Response> auctionToAuctionResponseDtos(List<Auction> auctions);
 }
