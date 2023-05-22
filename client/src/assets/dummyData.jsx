@@ -92,7 +92,7 @@ export const dummyItemList = [
 export const dummyItem = [
   {
     id: 0,
-    title: "나이키 에어조던1 스캇 팬텀블랙 265",
+    name: "나이키 에어조던1 스캇 팬텀블랙 265",
     img: [img1, img2, img3, img10],
     userName: "당근단군",
     userLocation: "군자동",
@@ -137,7 +137,7 @@ export const dummyItem = [
   },
   {
     id: 1,
-    title: "조던1 다크 모카",
+    name: "조던1 다크 모카",
     img: [img10],
     userName: "출출",
     userLocation: "익선동",
@@ -171,7 +171,7 @@ export const dummyItem = [
   },
   {
     id: 2,
-    title: "마샬 스톡웰1",
+    name: "마샬 스톡웰1",
     img: [img17],
     userName: "딩당동",
     userLocation: "마북동",
@@ -208,7 +208,7 @@ export const dummyItem = [
 export const dummyData = [
   {
     email: "yoyo@naver.com",
-    password: "1q2w"
+    password: "1q2w",
   },
   {
     memberId: "user02",
