@@ -16,7 +16,7 @@ public class MultiResponseDto<T> {
     public MultiResponseDto(List<T> data, Page page){
         this.data = data;
         this.pageInfo = new PageInfo(page.getNumber(),
-                page.getSize(), page.getTotalElements(), page.getTotalPages());
+                page.getSize(), page.getTotalElements());
     }
 }
 

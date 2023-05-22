@@ -44,7 +44,7 @@ cloud:
       access-key:
       secret-key:
     s3:
-      bucket: main-021
+      bucket: seb-main-021
     region:
       static: ap-northeast-2
     stack:

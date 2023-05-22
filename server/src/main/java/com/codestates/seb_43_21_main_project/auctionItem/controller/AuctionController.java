@@ -7,20 +7,20 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.mapper.AuctionMapper;
 import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
 import com.codestates.seb_43_21_main_project.dto.MultiResponseDto;
-//import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
+import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -32,18 +32,13 @@ import java.util.List;
 public class AuctionController {
 
     private final AuctionService auctionService;
-//    private final S3Uploader s3Uploader;
     private final AuctionMapper mapper;
 
 
-    //consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE} //consumes : 들어오는 데이터를 정의
     @PostMapping()
     public ResponseEntity postAuction(@Valid @RequestBody AuctionDto.Post requestBody) {
 
-//        Auction auction = mapper.auctionPostDtoToAuction(requestBody);
-//        System.out.println("변환이 잘 되었는가?");
-//        Auction createdAuction = auctionService.createAuction(auction);
-//        System.out.println("Controller 다시 들어오는가?");
+
         Auction createdAuction = auctionService.createAuction(mapper.auctionPostDtoToAuction(requestBody));
 
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(createdAuction), HttpStatus.CREATED);
@@ -52,6 +47,8 @@ public class AuctionController {
     @PatchMapping("/{auction_items_id}")
     public ResponseEntity patchAuction(@PathVariable("auction_items_id") @Positive long auctionItemId,
                                        @Valid @RequestBody AuctionDto.Patch requestBody) {
+
+
         requestBody.setAuctionItemId(auctionItemId);
         Auction updatedAuction = auctionService.updateAuction(mapper.auctionPatchDtoToAuction(requestBody));
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(updatedAuction), HttpStatus.OK);
@@ -63,12 +60,12 @@ public class AuctionController {
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(findedAuction), HttpStatus.OK);
     }
 
+    //내 경매 물품보기
     @GetMapping("/profile/{member_id}")
     public ResponseEntity findAuctions(@PathVariable("member_id") @Positive long memberId) {
-        List<Auction> auctionList  = auctionService.findAllAuctions(memberId);
-        return new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctionList) ,  HttpStatus.OK) ;
+        List<Auction> auctionList = auctionService.findAllAuctions(memberId);
+        return new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctionList), HttpStatus.OK);
     }
-
 
 
     //무한스크롤

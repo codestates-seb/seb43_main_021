@@ -38,6 +38,7 @@ public class AuctionService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         }
 
+
 //        물품 등록시 기한 설정
         if (auction.getPeriod() > 30) {
             auction.setPeriod(30);
@@ -59,6 +60,9 @@ public class AuctionService {
         Optional.ofNullable(auction.getName())
                 .ifPresent(name -> findAuction.setName(name));
 
+        if (auction.getPeriod() > 30) {
+            auction.setPeriod(30);
+        }
         Optional.ofNullable(auction.getPeriod())
                 .ifPresent(period -> findAuction.setPeriod(period));
 
@@ -121,5 +125,5 @@ public class AuctionService {
     }
 
 
-   
+
 }

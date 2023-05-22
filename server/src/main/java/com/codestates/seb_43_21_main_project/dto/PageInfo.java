@@ -9,6 +9,6 @@ public class PageInfo {
     private  int page;
     private  int size;
     private long totalElements;
-    private int totalPage;// 전체 데이터/size
+//    private int totalPage;// 전체 데이터/size
 
 }

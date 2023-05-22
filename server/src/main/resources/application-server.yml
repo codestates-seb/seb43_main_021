@@ -1,5 +1,5 @@
 server:
-  address: localhost
+#  address: localhost //설정된 주소로만 바인딩된다.
   port: 8080
 
 spring:
