@@ -33,7 +33,6 @@ export const profileNicknameState = atom({
   key:"profileNicknameState",
   default:"",
 })
-
 // 로그인 상태
 export const loginState = atom({
   key:"loginState",
@@ -47,5 +46,10 @@ export const withdrawalState = atom({
 })
 export const socketState = atom({
   key: "socketState",
+  default: null,
+});
+
+export const AuctionConfirm = atom({
+  key: "AuctionConfirm",
   default: null,
 });

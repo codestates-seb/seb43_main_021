@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import useGetItemList from "../hooks/useGetItemList";
 
 const Home = () => {
+  const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구"];
   const { data, isLoading, isError, error } = useGetItemList();
 
   if (isLoading) {
@@ -24,7 +25,7 @@ const Home = () => {
 
   return (
     <Wrapper>
-      <Header title={"군자동"} />
+      <Header titleList={titleList} />
       <Item item={data} />
       <LinkContainer>
         <CustomLink to="/createauction">

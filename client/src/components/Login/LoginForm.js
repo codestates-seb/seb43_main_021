@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { dummyData } from "../../assets/dummyData";
 // import axios from "axios";
 
 const LoginFrom = () => {
 
   const navigate = useNavigate();
 
-  const [memberId, setMemberId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onChangeMemberId = (event) => {
-    setMemberId(event.currentTarget.value);
+  const onChangeEmail = (event) => {
+    setEmail(event.currentTarget.value);
   };
 
   const onChangePassword = (event) => {
@@ -20,33 +21,28 @@ const LoginFrom = () => {
   }
 
   const onClickLogin = () => {
-    if (memberId === "" || password === "") {
-      setErrorMessage("아이디와 비밀번호를 입력해주세요.");
-    } else if (memberId !== "" || password !== "") {
-      setErrorMessage("아이디 또는 비밀번호가 올바르지 않습니다.");
+    if (email === "" || password === "") {
+      setErrorMessage("이메일과 비밀번호를 입력해주세요.");
     } else {
-      // .post("주소", { memberId, password }) < 서버로 POST 요청 보냄
-      // .then((response) => {
-      //  if (response) => { < 서버 응답처리
-            navigate("/"); // < 로그인 성공 시
-      //  } else {
-          //  setErrorMessage(response.data.message); << 로그인 실패 시
-    //  }
-    //  })
-    // .catch((error) => {
-      // console.error("로그인 요청 에러:", error);
-      // setErrorMessage
-    // })
+      const member = dummyData.find(
+        (data) => data.email === email && data.password === password
+      );
+
+      if (member) {
+        navigate("/");
+      } else {
+        setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
+      }
     }
   }
 
     return (
         <Body>
           <IdInputBox>
-            <input value={memberId} onChange={onChangeMemberId} placeholder="아이디"></input>
+            <input value={email} onChange={onChangeEmail} placeholder="이메일"></input>
           </IdInputBox>
           <PwInputBox>
-            <input value={password} onChange={onChangePassword} placeholder="비밀번호"></input>
+            <input type="password" value={password} onChange={onChangePassword} placeholder="비밀번호"></input>
           </PwInputBox>
           <LoginBtn>
             <button onClick={onClickLogin}>로그인</button>
@@ -57,7 +53,7 @@ const LoginFrom = () => {
               <button onClick={() => navigate('/signup')}>회원가입</button>
             </SignUpBtn>
             <FindId>
-              <button>아이디찾기</button>
+              <button>이메일찾기</button>
             </FindId>
             <FindPw>
               <button>비밀번호찾기</button>

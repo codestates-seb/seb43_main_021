@@ -5,13 +5,18 @@ import ItemImage from "../components/UI/ItemImage/ItemImage";
 import { useNavigate } from "react-router-dom";
 import useGetAuctionItem from "../hooks/useGetAuctionItem";
 import Footer from "../components/UI/Footer/Footer";
+import Loading from "../components/UI/Loading/Loading";
 
 const AuctionDetail = () => {
   const { data, isLoading, isError, error, auctionId } = useGetAuctionItem();
   const navigate = useNavigate();
 
   if (isLoading) {
-    return <div>로딩 중 테스트입니다~!~!~!~!</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   if (isError) {
@@ -19,7 +24,7 @@ const AuctionDetail = () => {
   }
 
   const handleBack = () => {
-    navigate(`/`);
+    window.history.back();
   };
 
   const handleToBiddingDetail = (auctionId, id) => {

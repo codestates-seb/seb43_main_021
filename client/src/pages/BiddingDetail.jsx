@@ -4,12 +4,17 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
 import useGetBiddingItem from "../hooks/useGetBiddingItem";
 import Footer from "../components/UI/Footer/Footer";
+import Loading from "../components/UI/Loading/Loading";
 
 const BiddingDetail = () => {
   const { data, isLoading, isError, error } = useGetBiddingItem();
 
   if (isLoading) {
-    return <div>로딩 중!</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
   if (isError) {
     return <div>Error: {error.message}</div>;
