@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import { FiChevronLeft } from "react-icons/fi";
 import { Link } from 'react-router-dom';
-export default function UserEditHeader({title, clear}){  
+export default function UserEditHeader({title, clear, handleSubmit}){  
+  
   return (
     <Wrapper>
       <Title><CustomLink to="/mypage"><FiChevronLeft/></CustomLink>{title} </Title>   
-      <ClearButton>{clear}</ClearButton>
+      <ClearButton onClick={handleSubmit} to="/mypage" >{clear}</ClearButton>
     </Wrapper>
       
   )
@@ -32,7 +33,7 @@ const Title = styled.div`
   }  
 `;
 
-const ClearButton = styled.button`
+const ClearButton = styled(Link)`
   border: 0;
   background: white;
   font-size: 18px;
@@ -41,7 +42,10 @@ const ClearButton = styled.button`
   padding-top: 1rem; 
   padding-right: 1rem;
   font-weight: bold;  
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 `
 const CustomLink = styled(Link)`  
-  color: inherit;
+  color: inherit;  
 `;

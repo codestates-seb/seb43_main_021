@@ -16,23 +16,35 @@ export const LogOutModalState = atom({
   key: "LogOutModalState",
   default: false,
 });
-// PhoneNumber Change on/off기능
-export const changePNState = atom({
-  key:"changePNState",
-  default:false,
-})
-// Email Change on/off기능
-export const emailChangeState = atom({
-  key:"emailChangeState",
-  default:false,
-})
+
 // 경매내역이 경매중일때와 경매완료일때
 export const auctionState = atom({
   key:"auctionState",
   default:true,
 })
 
+// 내 프로필 수정의 프로필 사진 등록
+export const selectedImageState = atom({
+  key:"selectedImageState",
+  default:null,
+})
+// profileNickname Input
+export const profileNicknameState = atom({
+  key:"profileNicknameState",
+  default:"",
+})
 
+// 로그인 상태
+export const loginState = atom({
+  key:"loginState",
+  default:true
+})
+
+// 회원탈퇴 상태
+export const withdrawalState = atom({
+  key:"withdrawalState",
+  default:false,
+})
 export const socketState = atom({
   key: "socketState",
   default: null,
