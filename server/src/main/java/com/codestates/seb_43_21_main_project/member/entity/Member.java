@@ -3,6 +3,7 @@ package com.codestates.seb_43_21_main_project.member.entity;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,8 +46,9 @@ public class Member {
         N //회원탈퇴상태
     }
 
-     @JsonIgnore  //스택오버플로우 방지
+//     @JsonIgnore  //스택오버플로우 방지
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+    @JsonBackReference //
     private List<Auction> auctions = new ArrayList<>();
 
 
