@@ -1,8 +1,7 @@
 import React from "react";
-import Lottie, { useLottie } from "lottie-react";
+import Lottie from "lottie-react";
 import tresh from "../../assets/lotties/tresh.json";
 import x from "../../assets/lotties/x_circle.json";
-import bid from "../../assets/lotties/bid.json";
 import { styled } from "styled-components";
 
 const interactivity1 = {

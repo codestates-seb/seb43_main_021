@@ -6,13 +6,18 @@ import Item from "../components/UI/Item/Item";
 import { BsPlusCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useGetItemList from "../hooks/useGetItemList";
+import Loading from "../components/UI/Loading/Loading";
 
 const Home = () => {
   const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구"];
   const { data, isLoading, isError, error } = useGetItemList();
 
   if (isLoading) {
-    return <div>홈 로딩 중</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   if (isError) {
