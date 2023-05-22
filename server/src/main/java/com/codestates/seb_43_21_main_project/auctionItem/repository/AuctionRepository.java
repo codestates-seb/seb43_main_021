@@ -17,4 +17,6 @@ public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     List<Auction> findAllByMember (Member member);
 //    List<Auction> findAllByMember_memberId (Member member);
+
+
 }

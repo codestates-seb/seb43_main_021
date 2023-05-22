@@ -39,7 +39,7 @@ public class AuctionDto {
 
 
 
-        // 기본값으로 AUCTION_BIDDING 설정' / Todo : 기간 만료는 어디서 처리해야하는가..
+        // 기본값으로 AUCTION_BIDDING 설정' /
         private Auction.AuctionStatus auctionStatus = Auction.AuctionStatus.AUCTION_BIDDING;
 
     }
@@ -50,6 +50,7 @@ public class AuctionDto {
     public static class Patch {
         @NotNull
         private long auctionItemId;
+
 
         // 이미지
         private List<String> imageUrlList;
@@ -71,9 +72,6 @@ public class AuctionDto {
     public static class Response {
         private long auctionItemId;
         private long memberId;
-        private String email;
-        private String nickName;
-        private String phoneNumber;
 
 
         private String name;
