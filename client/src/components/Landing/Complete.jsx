@@ -1,5 +1,5 @@
 import React from "react";
-import Lottie, { useLottie } from "lottie-react";
+import Lottie from "lottie-react";
 import auction from "../../assets/lotties/auction.json";
 
 import { styled } from "styled-components";

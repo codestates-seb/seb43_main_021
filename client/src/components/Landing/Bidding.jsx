@@ -15,7 +15,7 @@ const interactivity = {
     {
       visibility: [0, 0.9], // 처음에 애니메이션 실행되도록 변경
       type: "seek",
-      frames: [100, 355],
+      frames: [90, 355],
     },
   ],
 };
