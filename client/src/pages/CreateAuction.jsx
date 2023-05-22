@@ -10,6 +10,7 @@ import Period from "../components/CreateItem/Period";
 const CreateAuction = () => {
   const navigate = useNavigate();
 
+  const [selectLocation, setSelectLocation] = useState("지역 설정");
   const [auctionPeriod, setAuctionPeriod] = useState("");
 
   const [title, setTitle] = useState("");
@@ -17,6 +18,7 @@ const CreateAuction = () => {
   const [showTitleWarning, setShowTitleWarning] = useState(false);
   const [showTextWarning, setShowTextWarning] = useState(false);
   const [showPeriodWarning, setShowPeriodWarning] = useState(false);
+  const [showLocationWarning, setShowLocationWarning] = useState(false);
 
   const enterNumbersOnly = (event) => {
     let input = event.target.value;
@@ -35,19 +37,6 @@ const CreateAuction = () => {
       setAuctionPeriod('');
     }
   };
-
-    /* if (input !== '') {
-      const parsedInput = parseInt(input, 10);
-      if (parsedInput >= 1 && parsedInput <= 30) {
-        setAuctionPeriod(parsedInput.toString());
-        setShowPeriodWarning(false);
-      } else {
-        setAuctionPeriod("");
-      }
-    } else {
-      setAuctionPeriod('');
-      }
-  }; */
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -72,30 +61,44 @@ const CreateAuction = () => {
       setShowPeriodWarning(true);
     }
 
-    if (title !== "" && text !== "" && auctionPeriod !== "") {
+    if (titleList[0] === selectLocation) {
+      setShowLocationWarning(true);
+    } else {
+      setShowLocationWarning(false);
+    }
+
+    if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
       // 서버로 데이터 전송하는 로직 공간
 
-      navigate("/");
+      navigate("/main");
+    }
+  };
+
+  const titleList = ["지역 설정", "강동구", "노원구", "중랑구", "광진구"];
+
+  const LocationChange = (location) => {
+    setSelectLocation(location);
+    if (location !== "지역 설정") {
+      setShowLocationWarning(false);
     }
   };
 
   return (
     <Wrapper>
       <Header>
-        <BackButton onClick={() => navigate("/")} />
+        <BackButton onClick={() => navigate("/main")} />
         <HeaderTitle>
           <h2>경매 등록하기</h2>
         </HeaderTitle>
         <CreateBtn onClick={handleCreateBtnClick}>
           <h2>완료</h2>
         </CreateBtn>{" "}
-        {/* h2에 onClick={} 이벤트 넣기 */}
       </Header>
       <Container>
       <Body>
         <AddImage />
         <ItemBody title={title} text={text} showTitleWarning={showTitleWarning} showTextWarning={showTextWarning} handleTitleChange={handleTitleChange} handleTextChange={handleTextChange} />
-        <Location />
+        <Location titleList={titleList} showLocationWarning={showLocationWarning} selectLocation={selectLocation} setSelectLocation={LocationChange} setShowLocationWarning={setShowLocationWarning} />
         <Period auctionPeriod={auctionPeriod} enterNumbersOnly={enterNumbersOnly} showPeriodWarning={showPeriodWarning} />
       </Body>
       </Container>

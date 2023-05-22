@@ -102,10 +102,10 @@ const SignUpForm = () => {
       navigate("/")
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.")
-      setEmailErrorMessage(email ? "" : emailErrorMessage || "이메일을 입력해주세요.");
-      setPasswordErrorMessage(password ? "" : passwordErrorMessage || "비밀번호를 입력해주세요.");
-      setConfirmPasswordErrorMessage(confirmPassword ? "" : confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.");
-      setNicknameErrorMessage(nickName ? "" : nicknameErrorMessage || "닉네임을 입력해주세요.");
+      setEmailErrorMessage(emailErrorMessage || "이메일을 입력해주세요.");
+      setPasswordErrorMessage(passwordErrorMessage || "비밀번호를 입력해주세요.");
+      setConfirmPasswordErrorMessage(confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.");
+      setNicknameErrorMessage(nicknameErrorMessage || "닉네임을 입력해주세요.");
     }
   };
 
@@ -243,6 +243,7 @@ const SignUpBtn = styled.div`
     height: 2.8rem;
     border-radius: 5px;
     font-size: 15px;
+    cursor: pointer;
 
         @media screen and (min-width: 768px) {
         width: 28rem;
