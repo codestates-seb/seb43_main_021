@@ -208,7 +208,11 @@ export const dummyItem = [
 export const dummyData = [
   {
     email: "yoyo@naver.com",
+<<<<<<< HEAD
     password: "1q2w",
+=======
+    password: "1q2w"
+>>>>>>> 84c0974f8308acf42e1550199119856b0ba6f9e6
   },
   {
     memberId: "user02",

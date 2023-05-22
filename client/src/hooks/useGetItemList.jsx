@@ -6,9 +6,12 @@ const useGetItemList = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(dummyItemList);
-      }, 100);
+      }, 1000);
     });
   };
+  // const getItemData = async () =>{
+  //   const response =
+  // }
 
   const { data, isLoading, isError, error } = useQuery(
     ["getItemData"],

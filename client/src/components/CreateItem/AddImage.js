@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
-import { SlClose } from "react-icons/sl"
+import { SlClose } from "react-icons/sl";
 
 const AddImage = () => {
   const [imageSrcList, setImeageSrcList] = useState([]); // 이미지 등록
@@ -31,29 +31,47 @@ const AddImage = () => {
     });
   };
 
-    return (
-        <AddImages>
-          <div>
-            <label htmlFor="file">
-              <IoIosCamera />
-              <h5>
-                <span style={{color: isImageUploaded && imageSrcList.length> 0 ? 'red' : 'inherit'}}>{imageSrcList.length}</span>/10</h5>
-            </label>
-            <input type="file" id="file" onChange={onUpload} multiple accept="image/*" disabled={imageSrcList.length >= 10} />
-          </div>
-          <ImageList className="image-preview">
-            {imageSrcList.map((src, index) => (
-              <ImageWrapper key={index}>
-                <img src={src} alt={"이미지 미리보기"} />
-                <DeleteButton onClick={() => onDeleteImage(index)}>
-                  <SlClose />
-                </DeleteButton>
-              </ImageWrapper>
-          ))}
-          </ImageList>
-        </AddImages>
-    )
-}
+  return (
+    <AddImages>
+      <div>
+        <label htmlFor="file">
+          <IoIosCamera />
+          <h5>
+            <span
+              style={{
+                color:
+                  isImageUploaded && imageSrcList.length > 0
+                    ? "red"
+                    : "inherit",
+              }}
+            >
+              {imageSrcList.length}
+            </span>
+            /10
+          </h5>
+        </label>
+        <input
+          type="file"
+          id="file"
+          onChange={onUpload}
+          multiple
+          accept="image/*"
+          disabled={imageSrcList.length >= 10}
+        />
+      </div>
+      <ImageList className="image-preview">
+        {imageSrcList.map((src, index) => (
+          <ImageWrapper key={index}>
+            <img src={src} alt={"이미지 미리보기"} />
+            <DeleteButton onClick={() => onDeleteImage(index)}>
+              <SlClose />
+            </DeleteButton>
+          </ImageWrapper>
+        ))}
+      </ImageList>
+    </AddImages>
+  );
+};
 
 export default AddImage;
 
@@ -61,7 +79,7 @@ const AddImages = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem 1.5rem 0;
-  border-bottom: 1px solid #F3F3F3;
+  border-bottom: 1px solid #f3f3f3;
 
   > div {
     display: flex;
@@ -76,25 +94,25 @@ const AddImages = styled.div`
     align-items: center;
     width: 4.8rem;
     height: 4.8rem;
-    background: #F2F3F7;
+    background: #f2f3f7;
     border-radius: 5%;
     cursor: pointer;
 
     > svg {
-        width: 24px;
-        height: 24px;
-      }
+      width: 24px;
+      height: 24px;
+    }
   }
 
   input[type="file"] {
-      display: none;
+    display: none;
   }
 
   img {
-      width: 4.8rem;
-      height: 4.7rem;
-      margin-left: 1rem;
-      border-radius: 5%;
+    width: 4.8rem;
+    height: 4.7rem;
+    margin-left: 1rem;
+    border-radius: 5%;
   }
 `;
 
