@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-
+import { useRecoilState } from 'recoil';
+import { loginState } from '../../stores/atoms'
 const LoginFrom = () => {
   const navigate = useNavigate();
 
+  const [,setKeepLoggedIn] = useRecoilState(loginState)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,7 +26,7 @@ const LoginFrom = () => {
     } else {
       axios
         .post(
-          "http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/auth/login",
+          "http://ec2-13-125-170-160.ap-northeast-2.compute.amazonaws.com:8080/auth/login",
           {
             username: email,
             password: password,
@@ -38,7 +40,7 @@ const LoginFrom = () => {
 
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
-
+            setKeepLoggedIn(true)
             navigate("/main");
           } else {
             setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");

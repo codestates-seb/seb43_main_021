@@ -8,11 +8,13 @@ import {
   modalState,
   LogOutModalState,
   moveModalState,
+  loginState,
 } from "../stores/atoms";
 import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
+import useAccessToken from '../hooks/useAccessToken';
 
 
 export default function MyPage() {
@@ -20,8 +22,9 @@ export default function MyPage() {
   const [isOpen] = useRecoilState(modalState);
   const [logOutClick] = useRecoilState(LogOutModalState);
   const [goPage] = useRecoilState(moveModalState);
-
-  
+  const  [ww] = useRecoilState(loginState)
+  useAccessToken();// useAccessToken만 쓰면 토큰을 가져올수있다
+  console.log(ww)
 
 
   return (
