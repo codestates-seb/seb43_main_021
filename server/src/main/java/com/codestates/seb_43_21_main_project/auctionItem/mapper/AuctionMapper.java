@@ -41,6 +41,7 @@ public interface AuctionMapper {
             response.setModifiedDate(auction.getModifiedDate());
             response.setCreatedDate(auction.getCreateDate());
             response.setPeriod(auction.getPeriod());
+            response.setLocation(auction.getLocation());
             response.setAuctionStatus(auction.getAuctionStatus());
 //            response.setMemberId(auction.getMember().getMemberId());
 //            response.setNickName(auction.getMember().getNickName());
@@ -56,6 +57,7 @@ public interface AuctionMapper {
                 memberResponseDto.setNickName(member.getNickName());
                 memberResponseDto.setEmail(member.getEmail());
                 memberResponseDto.setPhoneNumber(member.getPhoneNumber());
+                memberResponseDto.setImageUrlList(member.getImageUrlList());
 
                 memberResponseDtoList.add(memberResponseDto);
 

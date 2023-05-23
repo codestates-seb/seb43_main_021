@@ -72,6 +72,9 @@ public class AuctionService {
         Optional.ofNullable(auction.getContent())
                 .ifPresent(content -> findAuction.setContent(content));
 
+        Optional.ofNullable(auction.getLocation())
+                .ifPresent(location -> findAuction.setLocation(location));
+
 
         //상태수정 (status) --> 메서드 만들기
 

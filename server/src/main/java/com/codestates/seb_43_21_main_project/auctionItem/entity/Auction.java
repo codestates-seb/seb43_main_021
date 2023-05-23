@@ -39,6 +39,9 @@ public class Auction extends Auditable {
     private int period;
 
     @Column(nullable = false)
+    private String location;
+
+    @Column(nullable = false)
     private boolean deleted = Boolean.FALSE;
 
 
