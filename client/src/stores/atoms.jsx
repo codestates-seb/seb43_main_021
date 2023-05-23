@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 //modal on/off기능
 export const modalState = atom({
@@ -19,31 +19,47 @@ export const LogOutModalState = atom({
 
 // 경매내역이 경매중일때와 경매완료일때
 export const auctionState = atom({
-  key:"auctionState",
-  default:true,
-})
+  key: "auctionState",
+  default: true,
+});
 
 // 내 프로필 수정의 프로필 사진 등록
 export const selectedImageState = atom({
-  key:"selectedImageState",
-  default:null,
-})
+  key: "selectedImageState",
+  default: null,
+});
 // profileNickname Input
 export const profileNicknameState = atom({
-  key:"profileNicknameState",
-  default:"",
-})
+  key: "profileNicknameState",
+  default: "",
+});
+
 // 로그인 상태
 export const loginState = atom({
-  key:"loginState",
-  default:true
-})
+  key: "loginState",
+  default: false,
+});
+
+// // access token의 존재 여부 확인
+// export const accessTokenSelector = selector({
+//   key: "accessTokenSelector",
+//   get: ({ get }) => {
+//     const accessToken = localStorage.getItem("accessToken");
+//     return !!accessToken;
+//   },
+// });
+
+// // 로그인 상태
+// export const loginState = atom({
+//   key: "loginState",
+//   default: accessTokenSelector,
+// });
 
 // 회원탈퇴 상태
 export const withdrawalState = atom({
-  key:"withdrawalState",
-  default:false,
-})
+  key: "withdrawalState",
+  default: false,
+});
 export const socketState = atom({
   key: "socketState",
   default: null,
