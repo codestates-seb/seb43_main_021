@@ -9,6 +9,7 @@ import Loading from "../components/UI/Loading/Loading";
 import img2 from "../assets/images/img2.jpg";
 import FormatDateTime from "../utils/FormatDateTime";
 import ItemDot from "../components/ItemDetail/ItemDot";
+import defaultUserImg from "../assets/images/defaultUserImg.jpg";
 
 const AuctionDetail = () => {
   const { data, isLoading, isError, error, auctionItemId } =
@@ -51,10 +52,18 @@ const AuctionDetail = () => {
       </AuctionImgContainer>
 
       <UserInfoContainer>
-        {/* <UserImg src={data.userImg} /> */}
+        {data.userImg ? (
+          <UserImg src={data.userImg} />
+        ) : (
+          <UserImg src={defaultUserImg} />
+        )}
         <UserText>
-          {/* <div>{data.userName}</div> */}
-          {/* <div className="userLocation">{data.userLocation}</div> */}
+          {data.userName ? <div>{data.userName}</div> : "유저 이름이 없음"}
+          {data.userLocation ? (
+            <div className="userLocation">{data.userLocation}</div>
+          ) : (
+            <div className="userLocation">지역 정보 없음</div>
+          )}
         </UserText>
       </UserInfoContainer>
       <UnderLine />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Gnb from "../components/UI/Gnb/Gnb";
 import styled from "styled-components";
 import Header from "../components/UI/Header/Header";
@@ -15,7 +15,6 @@ const Home = () => {
   console.log("메인 데이터", data);
 
   const login = useAccessToken();
-
   console.log("isLoggedIn:", login);
 
   if (isLoading) {
@@ -35,24 +34,31 @@ const Home = () => {
   // }
 
   return (
-    <Wrapper>
-      <Header titleList={titleList} />
-      <Item item={data} />
-      <LinkContainer>
-        <CustomLink to="/createauction">
-          <CreateAuctionButton />
-        </CustomLink>
-      </LinkContainer>
+    <>
+      <Wrapper>
+        <Header titleList={titleList} />
+        <Item item={data} />
+        <LinkContainer>
+          <CustomLink to="/createauction">
+            <CreateAuctionButton />
+          </CustomLink>
+        </LinkContainer>
+      </Wrapper>
       <Footer>
         <Gnb />
       </Footer>
-    </Wrapper>
+    </>
   );
 };
 
 export default Home;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+`;
 
 const Footer = styled.div`
   bottom: 0;
@@ -65,13 +71,12 @@ const CreateAuctionButton = styled(BsPlusCircle)`
   font-size: 5rem;
   cursor: pointer;
   color: #4636fc;
-  margin-right: 2rem;
+  margin-right: 1.5rem;
 `;
 
 const LinkContainer = styled.div`
   position: fixed;
   bottom: 90px;
-  width: 100%;
   max-width: 1024px;
   display: flex;
   justify-content: flex-end;
