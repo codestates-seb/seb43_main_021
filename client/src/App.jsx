@@ -36,9 +36,12 @@ function App() {
         <Route path="/category" element={<Category />} />
         <Route path="/createauction" element={<CreateAuction />} />
         <Route path="/createbidding" element={<CreateBidding />} />
-        <Route path="/auctiondetail/:auctionId" element={<AuctionDetail />} />
         <Route
-          path="/biddingdetail/:auctionId/:biddingId"
+          path="/auctiondetail/:auctionItemId"
+          element={<AuctionDetail />}
+        />
+        <Route
+          path="/biddingdetail/:auctionItemId/:bidItemId"
           element={<BiddingDetail />}
         />
         <Route path="/mypage" element={<MyPage />} />
@@ -63,7 +66,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e0e0e0;    
+    /* background-color: #e0e0e0;     */
   }
 
   #root {

@@ -5,9 +5,12 @@ import ItemImage from "../components/UI/ItemImage/ItemImage";
 import useGetBiddingItem from "../hooks/useGetBiddingItem";
 import Footer from "../components/UI/Footer/Footer";
 import Loading from "../components/UI/Loading/Loading";
+import img2 from "../assets/images/img2.jpg";
+import FormatDateTime from "../utils/FormatDateTime";
 
 const BiddingDetail = () => {
   const { data, isLoading, isError, error } = useGetBiddingItem();
+  const img = [img2];
 
   if (isLoading) {
     return (
@@ -27,20 +30,26 @@ const BiddingDetail = () => {
   return (
     <Wrapper>
       <AuctionImgContainer>
-        <ItemImage images={data.img} />
+        {data.imageUrlList.length > 0 ? (
+          <ItemImage images={data.imageUrlList} />
+        ) : (
+          <ItemImage images={img} />
+        )}
         <BackButton onClick={handleBack} />
       </AuctionImgContainer>
       <UserInfoContainer>
-        <UserImg src={data.userImg} />
+        {/* <UserImg src={data.userImg} /> */}
         <UserText>
-          <div>{data.userName}</div>
-          <div className="userLocation">{data.userLocation}</div>
+          <div>{data.member.nickName}</div>
+          {/* <div className="userLocation">{data.userLocation}</div> */}
         </UserText>
       </UserInfoContainer>
       <UnderLine />
-      <AuctionTitle>{data.itemTitle} </AuctionTitle>
-      <AutcionInfo>{data.itemTime}</AutcionInfo>
-      <AuctionContent>{data.itemContent}</AuctionContent>
+      <AuctionTitle>{data.bidItemName} </AuctionTitle>
+      <AutcionInfo>
+        <FormatDateTime dateTime={data.createdDate} />
+      </AutcionInfo>
+      <AuctionContent>{data.bidItemContent}</AuctionContent>
       <Footer />
     </Wrapper>
   );
