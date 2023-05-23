@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Getter
 public class MemberPatchDto {
@@ -17,6 +18,8 @@ public class MemberPatchDto {
     private String nickName;
     @Pattern(regexp = "^\\d{3}-\\d{4}-\\d{4}$", message = "휴대폰 번호는 '000-0000-0000' 형식으로 입력해주세요.")
     private String phoneNumber;
+
+    private List<String> imageUrlList;
 
     public void setMemberId(long memberId){
         this.memberId = memberId;

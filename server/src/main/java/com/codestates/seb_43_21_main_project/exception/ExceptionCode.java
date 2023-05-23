@@ -5,6 +5,7 @@ import lombok.Getter;
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "회원을 찾을 수 없습니다."),
     MEMBER_EXISTS(404, "중복된 닉네임입니다."),
+    EMAIL_EXISTS(404, "중복된 이메일입니다."),
     ACCESS_NOT_ALLOWED(403, "권한이 없습니다."),
     AUCTION_NOT_FOUND(404, "경매 물품이 존재하지 않습니다."),
 

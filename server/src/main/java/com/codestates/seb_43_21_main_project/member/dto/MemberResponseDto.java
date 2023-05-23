@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
+
 
 @Getter @Setter
 @AllArgsConstructor
@@ -14,11 +14,10 @@ import java.util.List;
 public class MemberResponseDto {//HTTP응답 생성 객체
     private Long memberId;
     private String email;
-    @JsonIgnore
+//     @JsonIgnore
     private String password;
     private String nickName;
     private String phoneNumber;
-
-
+    private List<String> imageUrlList;
 
 }

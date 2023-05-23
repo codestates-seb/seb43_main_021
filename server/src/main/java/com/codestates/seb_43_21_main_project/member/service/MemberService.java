@@ -27,6 +27,7 @@ public class MemberService {
     public Member createMember(Member member){
 
         verifyExistsNickName(member.getNickName());
+        verifExistsEmail(member.getEmail());
 
         member.setPassword(passwordEncoding(member.getPassword()));
         List<String> roles = authorityUtils.createRoles(member.getEmail());
@@ -67,6 +68,14 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByNickName(nickname);
         if(member.isPresent()){
             throw new BusinessLogicException((ExceptionCode.MEMBER_EXISTS));
+        }
+    }
+
+    //이메일 존재하는지 확인
+    public void verifExistsEmail(String eamil){
+        Optional<Member> member = memberRepository.findByEmail(eamil);
+        if(member.isPresent()){
+            throw new BusinessLogicException((ExceptionCode.EMAIL_EXISTS));
         }
     }
 

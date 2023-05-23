@@ -65,14 +65,14 @@ public class S3Uploader {
         }
     }
 
-//    public void delete(String filename) {
-//        try {
-//            amazonS3Client.deleteObject(bucket, filename);
-//            log.info("S3 파일 " + filename + " 삭제 성공");
-//        } catch(AmazonS3Exception e) {
-//            throw new IllegalArgumentException("S3 파일 삭제 실패");
-//        }
-//    }
+   public void delete(String filename) {
+       try {
+           amazonS3Client.deleteObject(bucket, filename);
+           log.info("S3 파일 " + filename + " 삭제 성공");
+       } catch(AmazonS3Exception e) {
+           throw new IllegalArgumentException("S3 파일 삭제 실패");
+       }
+   }
 
     private Optional<File> convert(MultipartFile multipartFile) throws IOException {
         File convertFile = new File(multipartFile.getOriginalFilename());
