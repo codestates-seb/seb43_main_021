@@ -2,6 +2,7 @@ package com.codestates.seb_43_21_main_project.auctionItem.dto;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.bidItem.dto.BidItemResponseDto;
+import com.codestates.seb_43_21_main_project.member.dto.MemberResponseDto;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,6 @@ public class AuctionDto {
     @NoArgsConstructor
     public static class Post {
 
-        @NotNull
-        private long memberId;
 
         @NotBlank
         private String name; // 제목
@@ -33,14 +32,15 @@ public class AuctionDto {
 
         @NotNull
         @Min(value = 1 ,message = "1이상의 값을 입력해야합니다.")
-        private int period; //기간 설정 (기간 30일) num >30 return 30
+        private int period; //기간 설정
 
         private List<String> imageUrlList;
 
+        @NotNull
+        private String location; //지역
 
 
-        // 기본값으로 AUCTION_BIDDING 설정' /
-        private Auction.AuctionStatus auctionStatus = Auction.AuctionStatus.AUCTION_BIDDING;
+        private Auction.AuctionStatus auctionStatus;
 
     }
 
@@ -51,7 +51,6 @@ public class AuctionDto {
         @NotNull
         private long auctionItemId;
 
-
         // 이미지
         private List<String> imageUrlList;
 
@@ -61,8 +60,9 @@ public class AuctionDto {
 
         private String content;
 
-        private Member member;
+        private String location; //지역
 
+        private Member member;
 
     }
 
@@ -71,23 +71,23 @@ public class AuctionDto {
     @NoArgsConstructor
     public static class Response {
         private long auctionItemId;
-        private long memberId;
-
-
         private String name;
+
         //이미지
         private List<String> imageUrlList;
         private String content;
-
+        private String location; //지역
         private LocalDateTime createdDate;
         private LocalDateTime modifiedDate;
         //      private int view; //조회수
         private int period;
         //      private long favoriteItem; //즐겨찾기
         private List<BidItemResponseDto> bidItems; //  전체 데이터
+        private List<MemberResponseDto> members;
 
-        //상태코드도 넘겨줘야함.
         private Auction.AuctionStatus auctionStatus;
+
+
 
     }
 

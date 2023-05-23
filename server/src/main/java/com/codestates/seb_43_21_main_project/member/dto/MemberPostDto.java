@@ -28,4 +28,5 @@ public class MemberPostDto {
 
     private List<String> imageUrlList;
     // private String location;
+
 }

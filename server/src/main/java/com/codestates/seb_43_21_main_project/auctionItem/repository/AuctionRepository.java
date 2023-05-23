@@ -13,10 +13,9 @@ import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
-    Page<Auction> findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(Long lastItemId, Pageable pageable);
-
     List<Auction> findAllByMember (Member member);
-//    List<Auction> findAllByMember_memberId (Member member);
 
+//    Page<Auction> findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(Long lastItemId, Pageable pageable);
+//    List<Auction> findAllByMember_memberId (Member member);
 
 }

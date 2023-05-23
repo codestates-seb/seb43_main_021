@@ -34,11 +34,8 @@ public class AuctionController {
     private final AuctionService auctionService;
     private final AuctionMapper mapper;
 
-
     @PostMapping()
     public ResponseEntity postAuction(@Valid @RequestBody AuctionDto.Post requestBody) {
-
-
         Auction createdAuction = auctionService.createAuction(mapper.auctionPostDtoToAuction(requestBody));
 
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(createdAuction), HttpStatus.CREATED);
@@ -47,7 +44,6 @@ public class AuctionController {
     @PatchMapping("/{auction_items_id}")
     public ResponseEntity patchAuction(@PathVariable("auction_items_id") @Positive long auctionItemId,
                                        @Valid @RequestBody AuctionDto.Patch requestBody) {
-
 
         requestBody.setAuctionItemId(auctionItemId);
         Auction updatedAuction = auctionService.updateAuction(mapper.auctionPatchDtoToAuction(requestBody));
