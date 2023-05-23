@@ -34,9 +34,9 @@ public class AuctionController {
     private final AuctionService auctionService;
     private final AuctionMapper mapper;
 
-
     @PostMapping()
     public ResponseEntity postAuction(@Valid @RequestBody AuctionDto.Post requestBody) {
+
 
 
         Auction createdAuction = auctionService.createAuction(mapper.auctionPostDtoToAuction(requestBody));
