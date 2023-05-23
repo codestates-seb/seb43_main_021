@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { ItemButton } from '../UI/Item/ItemButton'
 import { ItemButton2 } from '../UI/Item/ItemButton2'
-
+import axios from 'axios'
 export default function ChangePassword(){  
   const navigate = useNavigate();
 
@@ -58,15 +58,22 @@ export default function ChangePassword(){
     if (
       password && newPassword &&confirmPassword&& !passwordErrorMessage &&!newPasswordErrorMessage && !confirmPasswordErrorMessage
     ) {
-      const newDummyData = {        
-        password,                
-      };
-      
-      // dummyData.push(newDummyData);
+      axios
+        .patch(
+          'http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
+          {            
+            password: password,
+          }
+        )
+        .then((res=>{
+          setPassword(res.password)
+          console.log("비밀번호가 성공적으로 변경되었습니다!");     
+          navigate("/mypage")
 
-      console.log("회원가입이 성공적으로 완료되었습니다!");
-      console.log("가입 정보:", newDummyData);
-      navigate("/")
+        }))
+        .catch((err) => {
+          console.log(err);
+        });      
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.")      
       setPasswordErrorMessage(passwordErrorMessage || "비밀번호를 입력해주세요.");

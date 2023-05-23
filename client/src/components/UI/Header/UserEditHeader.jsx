@@ -1,12 +1,12 @@
 import styled from "styled-components"
 import { FiChevronLeft } from "react-icons/fi";
 import { Link } from 'react-router-dom';
-export default function UserEditHeader({title,  handleSubmit}){  
+export default function UserEditHeader({submit,title,  handleSubmit}){  
   
   return (
     <Wrapper>
       <Title><CustomLink to="/mypage"><FiChevronLeft/></CustomLink>{title} </Title>   
-      <ClearButton onClick={handleSubmit} to="/mypage" >완료</ClearButton>
+      <ClearButton onClick={handleSubmit} to="/mypage" >{submit}</ClearButton>
     </Wrapper>
       
   )

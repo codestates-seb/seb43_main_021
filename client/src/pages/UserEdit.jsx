@@ -42,7 +42,7 @@ export default function UserEdit(){
 
   return (
     <Wrapper>
-      <UserEditHeader title={"프로필 수정"} handleSubmit={handleSubmit}/>     
+      <UserEditHeader title={"프로필 수정"} handleSubmit={handleSubmit} submit={"완료"}/>     
       <UserEditBody nickname={profileNickname}  onImageChange={handleImageChange} onNicknameChange={handleNicknameChange}/> 
     
     </Wrapper>
