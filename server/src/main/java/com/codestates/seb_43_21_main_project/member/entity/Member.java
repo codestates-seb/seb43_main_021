@@ -30,6 +30,9 @@ public class Member {
     private String nickName;
     @Column(nullable = false)
     private String phoneNumber;
+    @Column(name = "image_url")
+    @ElementCollection
+    private List<String> imageUrlList;
     
     @ElementCollection(fetch = FetchType.EAGER) // @ElementCollection 애너테이션은 사용자 등록시, 사용자의 권한을 등록하기 위한 권한 테이블을 새엇ㅇ.
     private List<String> roles = new ArrayList<>();
@@ -68,5 +71,8 @@ public class Member {
         if(auction.getMember() != this){
             auction.setMember(this);
         }
+    }
+    public void addImageUrlList(String imageUrlLis){
+        imageUrlList.add(imageUrlLis);
     }
 }

@@ -11,4 +11,5 @@ public class MemberResponseDto {//HTTP응답 생성 객체
     private String password;
     private String nickName;
     private String phoneNumber;
+    private List<String> imageUrlList;
 }

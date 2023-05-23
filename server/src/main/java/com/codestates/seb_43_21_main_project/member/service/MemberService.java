@@ -70,6 +70,14 @@ public class MemberService {
         }
     }
 
+    //이메일 존재하는지 확인
+    public void verifExistsEmail(String eamil){
+        Optional<Member> member = memberRepository.findByEmail(eamil);
+        jif(member.isPresent()){
+            throw new BusinessLogicException((ExceptionCode.EMAIL_EXISTS));
+        }
+    }
+
     //멤버가 존재하는지, 회원상태가 Y인 상태인지 확인
     public Member findVerifiedmember(long memberId){
         Optional<Member> optionalmember = memberRepository.findByMemberIdAndUseYn(memberId, Member.UseYn.Y);
