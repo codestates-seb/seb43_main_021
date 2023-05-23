@@ -7,7 +7,7 @@ const PeriodDateTime = ({ createdDate, period }) => {
   const isToday = now.isSame(periodDate, "day");
 
   const formatTime = (periodDate) => {
-    return periodDate.format("오늘 HH시 MM분");
+    return periodDate.format("HH시 MM분");
   };
 
   const FormatDate = (periodDate) => {
