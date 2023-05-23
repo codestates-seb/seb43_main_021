@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { dummyItemList } from "../assets/dummyData";
+// import { dummyItemList } from "../assets/dummyData";
 import axios from "axios";
 
 const useGetItemList = () => {

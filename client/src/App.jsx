@@ -41,7 +41,7 @@ function App() {
           element={<AuctionDetail />}
         />
         <Route
-          path="/biddingdetail/:auctionItemId/:biddingId"
+          path="/biddingdetail/:auctionItemId/:bidItemId"
           element={<BiddingDetail />}
         />
         <Route path="/mypage" element={<MyPage />} />
@@ -66,7 +66,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e0e0e0;    
+    /* background-color: #e0e0e0;     */
   }
 
   #root {

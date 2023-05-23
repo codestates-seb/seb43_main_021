@@ -9,7 +9,7 @@ const interactivity1 = {
 
   actions: [
     {
-      visibility: [0.15, 0.3], // 처음에 애니메이션 실행되도록 변경
+      visibility: [0.2, 0.35], // 처음에 애니메이션 실행되도록 변경
       type: "seek",
       frames: [0, 65],
     },

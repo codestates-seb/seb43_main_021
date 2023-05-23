@@ -20,7 +20,7 @@ const Landing = () => {
       <Wrapper>
         <TitelContainer>
           <LogoContainer>
-            <Logo4 src={logo1} />
+            <Logo4 src={logo1} onClick={() => navigate("/")} />
           </LogoContainer>
           <Menu>=</Menu>
         </TitelContainer>
@@ -252,6 +252,7 @@ const GnbContainer = styled.div`
   width: 100%;
   position: fixed;
   z-index: 10;
+  max-width: 1024px;
 `;
 
 export default Landing;

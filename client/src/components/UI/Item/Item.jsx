@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import img2 from "../../../assets/images/img2.jpg";
+import FormatDateTime from "../../../utils/FormatDateTime";
+import PeriodDateTime from "../../../utils/PeriodDateTime";
 
 const Item = ({ item }) => {
   const navigate = useNavigate();
@@ -27,13 +29,20 @@ const Item = ({ item }) => {
                   {item.name.slice(0, 40) +
                     (item.name.length > 41 ? "..." : "")}
                 </Title>
-                <Period>{item.period}</Period>
+                <Period>
+                  <PeriodDateTime
+                    period={item.period}
+                    createdDate={item.createdDate}
+                  />
+                  까지
+                </Period>
                 <Bidding>경매입찰 {item.bidItems.length}건</Bidding>
+                <FormatDateTime dateTime={item.createdDate} />
               </Text>
             </ItemLeft>
             <ItemRight>
               <AuctionState>
-                {/* {item.auctionState ? "거래 완료!" : "입찰 중"} */}
+                {item.auctionState ? "거래 완료!" : "입찰 중"}
               </AuctionState>
               <AiOutlineHeart className="icon" />
               {/* {item.heart} */}
@@ -83,6 +92,8 @@ const Period = styled.div`
 
 const Bidding = styled.div`
   margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
   font-weight: bold;
 `;
 
