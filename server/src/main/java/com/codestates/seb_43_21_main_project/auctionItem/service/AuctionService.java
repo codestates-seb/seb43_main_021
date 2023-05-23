@@ -5,11 +5,11 @@ import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
-//import com.codestates.seb_43_21_main_project.img.service.S3Uploader;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,9 +18,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuctionService {
@@ -42,7 +44,6 @@ public class AuctionService {
         }
 
         auction.setAuctionStatus(Auction.AuctionStatus.AUCTION_BIDDING); // 물품 상태 설정  : 입찰중
-
 
         Auction savedAuctionItem = auctionRepository.save(auction);
         return savedAuctionItem;
@@ -105,7 +106,8 @@ public class AuctionService {
 
     //물품 전체 조회
     public List<Auction> findAuctions() {
-        return auctionRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        return auctionRepository.findAll(sort);
     }
 
 
@@ -146,9 +148,25 @@ public class AuctionService {
         return findAuction;
     }
 
+    private boolean isAuctionExpired(Auction auction, LocalDateTime current){
+        LocalDateTime endDate = auction.getCreateDate().plusDays(auction.getPeriod()); // 경매 만료 = 시작일 + 기간
+        return auction.getAuctionStatus() == Auction.AuctionStatus.AUCTION_BIDDING && endDate.isBefore(current);  //isBefore() : 파라미터값보다 과거
+    }
 
-    public void test(){
+    
+//    @Scheduled(fixedDelay = 10000) //10초마다 실행
+    @Scheduled(cron = "0 0 0 * * *") //매일 자정 12시에 실행
+    public void ExpiredAuction(){
+        LocalDateTime current = LocalDateTime.now();
+        List<Auction> auctions = auctionRepository.findAll();
 
+        for (Auction auction : auctions){
+            if(isAuctionExpired(auction, current)){ //값이 true이면
+                auction.setAuctionStatus(Auction.AuctionStatus.AUCTION_EXPIRATION); //상태 변경
+                auctionRepository.save(auction);
+                log.info("auction: {}" , auction);
+            }
+        }
     }
 }
 

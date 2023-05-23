@@ -39,8 +39,6 @@ public class AuctionDto {
         private List<String> imageUrlList;
 
 
-
-        // 기본값으로 AUCTION_BIDDING 설정' /
         private Auction.AuctionStatus auctionStatus;
 
     }
@@ -87,7 +85,6 @@ public class AuctionDto {
         private List<BidItemResponseDto> bidItems; //  전체 데이터
         private List<MemberResponseDto> members;
 
-        //상태코드도 넘겨줘야함.
         private Auction.AuctionStatus auctionStatus;
 
 
