@@ -16,10 +16,7 @@ const useGetBiddingItem = () => {
 
   const getBidItemData = async () => {
     const response = await axios.get(
-      `http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/bid_items/${auctionItemId}/${bidItemId}`,
-      {
-        withCredentials: true,
-      }
+      `http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/bid_items/${auctionItemId}/${bidItemId}`
     );
     return response.data;
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Gnb from "../components/UI/Gnb/Gnb";
 import styled from "styled-components";
 import Header from "../components/UI/Header/Header";
@@ -7,11 +7,17 @@ import { BsPlusCircle } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import useGetItemList from "../hooks/useGetItemList";
 import Loading from "../components/UI/Loading/Loading";
+import useAccessToken from "../hooks/useAccessToken";
 
 const Home = () => {
   const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구"];
   const { data, isLoading, isError, error } = useGetItemList();
   console.log("메인 데이터", data);
+
+  const login = useAccessToken();
+
+  console.log("isLoggedIn:", login);
+
   if (isLoading) {
     return (
       <div>
