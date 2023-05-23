@@ -20,7 +20,8 @@ import java.util.stream.Collectors;
 public interface AuctionMapper {
 
 
-    @Mapping(source = "memberId", target = "member.memberId")
+
+//    @Mapping(source = "memberId", target = "member.memberId")
     Auction auctionPostDtoToAuction(AuctionDto.Post requestBody);
 
 //        AuctionDto.Response auctionToAuctionResponseDto(Auction auction);
@@ -41,7 +42,25 @@ public interface AuctionMapper {
             response.setCreatedDate(auction.getCreateDate());
             response.setPeriod(auction.getPeriod());
             response.setAuctionStatus(auction.getAuctionStatus());
-            response.setMemberId(auction.getMember().getMemberId());
+//            response.setMemberId(auction.getMember().getMemberId());
+//            response.setNickName(auction.getMember().getNickName());
+
+
+
+            if (auction.getMember() != null) {
+                Member member = auction.getMember();
+
+                List<MemberResponseDto> memberResponseDtoList = new ArrayList<>();
+                MemberResponseDto memberResponseDto = new MemberResponseDto();
+                memberResponseDto.setMemberId(member.getMemberId());
+                memberResponseDto.setNickName(member.getNickName());
+                memberResponseDto.setEmail(member.getEmail());
+                memberResponseDto.setPhoneNumber(member.getPhoneNumber());
+
+                memberResponseDtoList.add(memberResponseDto);
+
+                response.setMembers(memberResponseDtoList);
+            }
 
 
             if (auction.getBidItems() != null) {
@@ -67,6 +86,7 @@ public interface AuctionMapper {
             return response;
         }
     }
+
 
     Auction auctionPatchDtoToAuction(AuctionDto.Patch requestBody);
 
