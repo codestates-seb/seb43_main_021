@@ -3,11 +3,14 @@ package com.codestates.seb_43_21_main_project.auctionItem.service;
 import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItemStatus;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
+import com.codestates.seb_43_21_main_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -30,6 +33,7 @@ public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final MemberService memberService;
     private final ContextHolederUtils contextHolederUtils;
+    private final CustomBeanUtils customBeanUtils;
 
 
     //    , MultipartFile auctionImage
@@ -76,7 +80,15 @@ public class AuctionService {
                 .ifPresent(location -> findAuction.setLocation(location));
 
 
-        //상태수정 (status) --> 메서드 만들기
+        //낙찰시 상태 변경
+        if (isBidSuccessful(auction)){
+            findAuction.setAuctionStatus(Auction.AuctionStatus.AUCTION_SUCCESSFUL);
+        } else {
+            findAuction.setAuctionStatus(Auction.AuctionStatus.AUCTION_BIDDING);
+        }
+
+        //customBeanUtils : null값이 아닐때 객체를 복사해서 일부 업데이트를 수행
+        Auction updateAuctionItem = (Auction) customBeanUtils.copyNonNullProperties(auction,findAuction);
 
         //수정된 정보 업데이트
         return auctionRepository.save(findAuction);
@@ -151,6 +163,22 @@ public class AuctionService {
         return findAuction;
     }
 
+    //입찰 성공 확인
+    private boolean isBidSuccessful(Auction auction){
+        List<BidItem> bidItems = auction.getBidItems();
+        //입찰 아이템 상태가 낙찰로 변경되면 낙찰로 판단
+        for (BidItem bidItem : bidItems) {
+            if (bidItem.getBidItemStatus() == BidItemStatus.APPROVE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+    //기한 만료
     private boolean isAuctionExpired(Auction auction, LocalDateTime current){
         LocalDateTime endDate = auction.getCreateDate().plusDays(auction.getPeriod()); // 경매 만료 = 시작일 + 기간
         return auction.getAuctionStatus() == Auction.AuctionStatus.AUCTION_BIDDING && endDate.isBefore(current);  //isBefore() : 파라미터값보다 과거
