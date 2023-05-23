@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styled from "styled-components"
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ItemButton } from '../UI/Item/ItemButton'
 import { ItemButton2 } from '../UI/Item/ItemButton2'
 import axios from 'axios'
@@ -63,14 +62,14 @@ export default function ChangePassword(){
     ) {
       axios
         .patch(
-          'http://ec2-3-34-179-243.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
+          'http://ec2-13-125-170-160.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
           {            
-            password: password,
+            password: newPassword,
           }
         )
         .then((res=>{
-          setPassword(res.password)
-          console.log(res.password)
+          setPassword(res.data.password); 
+          console.log(res.data.password);
           console.log("비밀번호가 성공적으로 변경되었습니다!");     
           navigate("/mypage")
 

@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   height: 5.5rem;  
   display: flex;
   font-size: 23px;
-  font-weight: 700;
+  font-weight: bold;
 `;
 const Title = styled.div`
   margin-top: auto;

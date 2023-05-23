@@ -29,7 +29,7 @@ export default function MyPage() {
       {isOpen && <Modal />}
       {logOutClick && <LogOutModal />}
       {goPage && <PWCheckModal />}
-      <MyPageHeader title={"나의 당근"} />
+      <MyPageHeader title={"마이 페이지"} />
       <UserPageTop />
       <Line />
       <UserInfo />

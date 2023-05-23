@@ -21,7 +21,7 @@ export default function UserPageTop(){
   useEffect(()=>{
     axios
   .get(
-    `http://ec2-3-34-179-243.ap-northeast-2.compute.amazonaws.com:8080/member/2`,        
+    `http://ec2-13-125-170-160.ap-northeast-2.compute.amazonaws.com:8080/member/2`,        
     {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`        

@@ -112,11 +112,16 @@ const SignUpForm = () => {
       });
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.")
-      setEmailErrorMessage(!email||emailErrorMessage?emailErrorMessage || "이메일을 입력해주세요.":"");
-      setPasswordErrorMessage(!password||passwordErrorMessage?passwordErrorMessage || "비밀번호를 입력해주세요.":"");
-      setConfirmPasswordErrorMessage(!confirmPassword||confirmPasswordErrorMessage?confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.":"");
-      setNicknameErrorMessage(!nickName||nicknameErrorMessage?nicknameErrorMessage || "닉네임을 입력해주세요.":"");
-      setPhoneErrorMessage(!phoneNumber||phoneErrorMessage?phoneErrorMessage || "휴대폰 번호를 입력해주세요.":"");
+      // setEmailErrorMessage(!email||emailErrorMessage?emailErrorMessage || "이메일을 입력해주세요.":"");
+      // setPasswordErrorMessage(!password||passwordErrorMessage?passwordErrorMessage || "비밀번호를 입력해주세요.":"");
+      // setConfirmPasswordErrorMessage(!confirmPassword||confirmPasswordErrorMessage?confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.":"");
+      // setNicknameErrorMessage(!nickName||nicknameErrorMessage?nicknameErrorMessage || "닉네임을 입력해주세요.":"");
+      // setPhoneErrorMessage(!phoneNumber||phoneErrorMessage?phoneErrorMessage || "휴대폰 번호를 입력해주세요.":"");
+      setEmailErrorMessage(emailErrorMessage || "이메일을 입력해주세요.");
+      setPasswordErrorMessage(passwordErrorMessage || "비밀번호를 입력해주세요.");
+      setConfirmPasswordErrorMessage(confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.");
+      setNicknameErrorMessage(nicknameErrorMessage || "닉네임을 입력해주세요.");
+      setPhoneErrorMessage(phoneErrorMessage || "휴대폰 번호를 입력해주세요.")
     }
   };
 
