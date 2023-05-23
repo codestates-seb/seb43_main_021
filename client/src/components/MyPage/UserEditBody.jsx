@@ -1,4 +1,4 @@
-import React, {  useRef,useState } from 'react';
+import React, {  useRef, useState } from 'react';
 import styled from "styled-components"
 import { useRecoilState } from 'recoil';
 import { 
@@ -8,12 +8,19 @@ import {
 import { VscAccount } from "react-icons/vsc";
 import {AiOutlineCamera}from "react-icons/ai"
 import { SlClose } from "react-icons/sl"
-export default function UserEditBody({nickname, onImageChange,onNicknameChange}){
+// import axios from 'axios'
+export default function UserEditBody({nickName, onImageChange,onNicknameChange}){
+  
   const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState);  //image상태
   const [profileNickname, setProfileNickname] = useRecoilState(profileNicknameState);//nickname상태
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");//nickname errormessage 상태
   const fileInputRef = useRef(null);
   const nicknameInputRef = useRef();
+  
+
+  
+  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -31,21 +38,23 @@ export default function UserEditBody({nickname, onImageChange,onNicknameChange})
   const handleProfileClick = () => {
     fileInputRef.current.click();
   };
-  const onChangeNickname = (e)=>{
-    const value = e.target.value;
+  const onChangeNickname = (e) => {
+    const value = e.target.value;       
     setProfileNickname(value);
-    if(value.length<2||value.length > 20 || !/^[\w\s가-힣]{2,}$/.test(value)){
-      setNicknameErrorMessage("닉네임을 2글자 이상 20글자 미만으로 입력해주세요 ")   
-      nicknameInputRef.current.focus()   
-      return;      
-    }else{
-      setNicknameErrorMessage("")
+    if (value.length < 2 || value.length > 20 || !/^[\w\s가-힣]{2,}$/.test(value)) {
+      setNicknameErrorMessage("닉네임을 2글자 이상 20글자 미만으로 입력해주세요 ");
+      nicknameInputRef.current.focus();
+      return;
+    } else {
+      setNicknameErrorMessage("");
     }
     onNicknameChange(value);
-  }
+  };
+  
   const profileDeleteClick = ()=>{
     setSelectedImage(!selectedImage)
   }
+
   return(
     <Wrapper>
       <ProfileContainer >

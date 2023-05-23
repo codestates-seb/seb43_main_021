@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect}from "react";
 import styled from "styled-components";
 import { useRecoilState } from 'recoil';
-import { selectedImageState } from '../../stores/atoms';
+import {
+  selectedImageState,
+  profileNicknameState
+} from '../../stores/atoms';
 import { VscAccount } from "react-icons/vsc";
 import { CiReceipt } from"react-icons/ci"
 import { BiShoppingBag } from "react-icons/bi";
 import { BiHeart } from "react-icons/bi";
 import { Link } from "react-router-dom"
+import axios from 'axios';
 
 
-export default function UserPageTop({nickname}){
+export default function UserPageTop(){
   const [selectedImage] = useRecoilState(selectedImageState);  //image상태
+  const [userNickname, setUserNickname] = useRecoilState(profileNicknameState);
+  useEffect(()=>{
+    axios
+  .get(
+    `http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member/2`,    
+  )
+  .then((res)=>{
+    const {data} = res    
+    setUserNickname(data.nickName);
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+  },[setUserNickname])
 
   return(
     <Wrapper>
@@ -23,7 +41,7 @@ export default function UserPageTop({nickname}){
         <VscAccount/>        
         )}
       </ProfileIcon>
-      <UserName>{nickname}</UserName>         
+      <UserName>{userNickname}</UserName>         
       <IconContainer>
         나의 거래
         <MySelectorContainer>

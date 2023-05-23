@@ -8,18 +8,21 @@ import {
   modalState,
   LogOutModalState,
   moveModalState,
-  profileNicknameState,
 } from "../stores/atoms";
 import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
 
+
 export default function MyPage() {
-  const [profileNickname] = useRecoilState(profileNicknameState);
+  
   const [isOpen] = useRecoilState(modalState);
   const [logOutClick] = useRecoilState(LogOutModalState);
   const [goPage] = useRecoilState(moveModalState);
+
+  
+
 
   return (
     <Wrapper>
@@ -27,7 +30,7 @@ export default function MyPage() {
       {logOutClick && <LogOutModal />}
       {goPage && <PWCheckModal />}
       <MyPageHeader title={"나의 당근"} />
-      <UserPageTop nickname={profileNickname} />
+      <UserPageTop />
       <Line />
       <UserInfo />
       <Footer>
