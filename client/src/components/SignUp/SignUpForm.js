@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dummyData } from "../../assets/dummyData";
 import styled from "styled-components";
+import axios from "axios";
 
 const SignUpForm = () => {
 
@@ -12,7 +12,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [nickName, setNickName] = useState("");
-  const [phone_number, setPhone_Number] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   // Email, PW, ConfirmPW, NickName, Phone_Number 오류 메시지  
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
@@ -20,6 +20,7 @@ const SignUpForm = () => {
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState("");
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");
   const [phoneErrorMessage, setPhoneErrorMessage] = useState("");
+  const [signupFailed, setSignupFailed] = useState("");
 
   // email
   const onChangeEmail = (e) => {
@@ -75,7 +76,7 @@ const SignUpForm = () => {
   // phone
   const onChangePhoneNumber = (e) => {
     const value = e.target.value;
-    setPhone_Number(value);
+    setPhoneNumber(value);
     if (value.length < 11 || !/^\d{3}-\d{4}-\d{4}$/.test(value)) {
       setPhoneErrorMessage("유효한 핸드폰 번호를 입력해주세요.");
     } else {
@@ -86,26 +87,36 @@ const SignUpForm = () => {
   // 회원가입하기 버튼
   const onClickSignUp = () => {
     if (
-      email && password && confirmPassword && nickName && !emailErrorMessage && !passwordErrorMessage && !confirmPasswordErrorMessage && !nicknameErrorMessage
+      email && password && confirmPassword && nickName && !emailErrorMessage && !passwordErrorMessage && !confirmPasswordErrorMessage && !nicknameErrorMessage && !phoneErrorMessage
     ) {
-      const newDummyData = {
-        email,
-        password,
-        nickName,
-        phone_number,
-      };
-      
-      dummyData.push(newDummyData);
-
       console.log("회원가입이 성공적으로 완료되었습니다!");
-      console.log("가입 정보:", newDummyData);
-      navigate("/")
+
+      return axios
+      .post(
+        'http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member',
+        {
+          email,
+          password,
+          nickName,
+          phoneNumber
+        }
+      )
+      .then((response) => {
+        const { data } = response;
+        console.log("회원가입 응답:", data)
+        navigate("/main");
+      })
+      .catch((error) => {
+        console.error(error);
+        setSignupFailed('회원가입에 실패했습니다.');
+      });
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.")
       setEmailErrorMessage(emailErrorMessage || "이메일을 입력해주세요.");
       setPasswordErrorMessage(passwordErrorMessage || "비밀번호를 입력해주세요.");
       setConfirmPasswordErrorMessage(confirmPasswordErrorMessage || "비밀번호를 재입력해주세요.");
       setNicknameErrorMessage(nicknameErrorMessage || "닉네임을 입력해주세요.");
+      setPhoneErrorMessage(phoneErrorMessage || "휴대폰 번호를 입력해주세요.")
     }
   };
 
@@ -158,16 +169,17 @@ const SignUpForm = () => {
       {nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
       <InputWrapper>
         <InputTitle>
-          <h3>휴대폰</h3>
+          <h3>휴대폰</h3><span>*</span>
         </InputTitle>
         <InputField>
-          <input type="phone_number" value={phone_number} onChange={onChangePhoneNumber} placeholder="휴대폰 번호"></input>
+          <input type="phone_number" value={phoneNumber} onChange={onChangePhoneNumber} placeholder="휴대폰 번호"></input>
         </InputField>
       </InputWrapper>
       {phoneErrorMessage && <ErrorMessage>{phoneErrorMessage}</ErrorMessage>}
       <SignUpBtn>
         <button onClick={onClickSignUp}>회원가입 하기</button>
       </SignUpBtn>
+        <ErrorMessage>{signupFailed}</ErrorMessage>
     </Form>
   );
 };
