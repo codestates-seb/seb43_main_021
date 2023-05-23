@@ -23,7 +23,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "AUCTIONITEM")
-public class  Auction extends Auditable {
+public class Auction extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auctionItemId;
@@ -39,11 +39,11 @@ public class  Auction extends Auditable {
     private int period;
 
     @Column(nullable = false)
-    private boolean  deleted = Boolean.FALSE;
+    private boolean deleted = Boolean.FALSE;
 
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID" )
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
 
@@ -53,7 +53,7 @@ public class  Auction extends Auditable {
     //      auction_item_status -> enum 클래스
     @Enumerated(value = EnumType.STRING)
     @Column(name = "AUCTION_ITEM_STATUS", nullable = false)
-    private AuctionStatus auctionStatus = AuctionStatus.AUCTION_BIDDING; //기본값
+    private AuctionStatus auctionStatus; //기본값
 
     public enum AuctionStatus {
         AUCTION_BIDDING(1, "입찰중"),
@@ -76,28 +76,35 @@ public class  Auction extends Auditable {
     @OneToMany(mappedBy = "auction")
     private List<BidItem> bidItems = new ArrayList<>();
 
-    @Column(name="image_url")
+    @Column(name = "image_url")
     @ElementCollection
     private List<String> imageUrlList;
 
-    public void addBidItem(BidItem bidItem){
+    public void addBidItem(BidItem bidItem) {
         bidItems.add(bidItem);
-        if(bidItem.getAuction() != this){
+        if (bidItem.getAuction() != this) {
             bidItem.setAuction(this);
         }
     }
 
-    public void addImageUrlList(String imageUrlLis){
+    public void addImageUrlList(String imageUrlLis) {
         imageUrlList.add(imageUrlLis);
     }
 
-    public void addMember(Member member) {
-        this.member = member;
-        if (!this.member.getAuctions().contains(this)) {
-            this.member.getAuctions().add(this);
-        }
-    }
+//    public void addMember(Member member) {
+//        this.member = member;
+//        if (!this.member.getAuctions().contains(this)) {
+//            this.member.getAuctions().add(this);
+//        }
+//    }
+//    public Auction(Member member){
+//        this.member = member;
+//    }
 
+    //매핑
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
 
 }
