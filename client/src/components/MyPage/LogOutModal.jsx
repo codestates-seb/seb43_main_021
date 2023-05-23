@@ -16,6 +16,7 @@ export const LogOutModal = () => {
     setLogOutClicks(false)
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    setLogOutClick(!logOutClick);
     navigate("/")
   }
   return (

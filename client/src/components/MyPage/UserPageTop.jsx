@@ -16,11 +16,17 @@ import axios from 'axios';
 export default function UserPageTop(){
   const [selectedImage] = useRecoilState(selectedImageState);  //image상태
   const [userNickname, setUserNickname] = useRecoilState(profileNicknameState);
+
   //header에다가 엑세스토큰 넣어서 보내기 
   useEffect(()=>{
     axios
   .get(
-    `http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member/2`,    
+    `http://ec2-3-34-179-243.ap-northeast-2.compute.amazonaws.com:8080/member/2`,        
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`        
+      }
+    },
   )
   .then((res)=>{
     const {data} = res    
