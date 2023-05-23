@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} position="top-right" />
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
       <RecoilRoot>
         <BrowserRouter>
           <App />

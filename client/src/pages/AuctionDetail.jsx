@@ -7,9 +7,12 @@ import useGetAuctionItem from "../hooks/useGetAuctionItem";
 import Footer from "../components/UI/Footer/Footer";
 import Loading from "../components/UI/Loading/Loading";
 import img2 from "../assets/images/img2.jpg";
+import FormatDateTime from "../utils/FormatDateTime";
+import ItemDot from "../components/ItemDetail/ItemDot";
 
 const AuctionDetail = () => {
-  const { data, isLoading, isError, error } = useGetAuctionItem();
+  const { data, isLoading, isError, error, auctionItemId } =
+    useGetAuctionItem();
   const navigate = useNavigate();
   const img = [img2];
 
@@ -44,7 +47,9 @@ const AuctionDetail = () => {
           <ItemImage images={img} />
         )}
         <BackButton onClick={handleBack} />
+        <ItemDot />
       </AuctionImgContainer>
+
       <UserInfoContainer>
         {/* <UserImg src={data.userImg} /> */}
         <UserText>
@@ -54,22 +59,32 @@ const AuctionDetail = () => {
       </UserInfoContainer>
       <UnderLine />
       <AuctionTitle>{data.name} </AuctionTitle>
-      <AutcionInfo>{data.createdDate}</AutcionInfo>
+      <AutcionInfo>
+        <FormatDateTime dateTime={data.createdDate} />
+      </AutcionInfo>
       <AuctionContent>{data.content}</AuctionContent>
       <AuctionSummary>{data.auctionSummary}</AuctionSummary>
       <UnderLine />
       <BiddingList>입찰 목록</BiddingList>
-      <BiddingItemGrid>
-        {/* {data.biddings.map((i) => (
-          <BiddingItem
-            key={i.id}
-            onClick={() => handleToBiddingDetail(auctionId, i.id)}
-          >
-            <ItemImg src={i.img[0]} />
-            <ItemTitle>{i.itemTitle}</ItemTitle>
-          </BiddingItem>
-        ))} */}
-      </BiddingItemGrid>
+      {data.bidItems.length > 0 ? (
+        <BiddingItemGrid>
+          {data.bidItems.map((i) => (
+            <BiddingItem
+              key={i.bidItemId}
+              onClick={() => handleToBiddingDetail(auctionItemId, i.bidItemId)}
+            >
+              {i.imageUrlList.length > 0 ? (
+                <ItemImg src={i.imageUrlList[0]} />
+              ) : (
+                <ItemImg src={img2} />
+              )}
+              <ItemTitle>{i.bidItemName}</ItemTitle>
+            </BiddingItem>
+          ))}
+        </BiddingItemGrid>
+      ) : (
+        <NothingMessage>아직 등록된 입찰 내역이 없습니다.</NothingMessage>
+      )}
       <Footer />
     </Wrapper>
   );
@@ -167,6 +182,12 @@ const BiddingItemGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
   margin: 0 1rem 1rem 1rem;
+`;
+
+const NothingMessage = styled.div`
+  margin-top: -0.5rem;
+  margin-left: 1rem;
+  color: #5e5e5e;
 `;
 
 const BiddingItem = styled.div`

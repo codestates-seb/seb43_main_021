@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { dummyItem } from "../assets/dummyData";
+// import { dummyItem } from "../assets/dummyData";
 import axios from "axios";
 
 const useGetAuctionItem = () => {
