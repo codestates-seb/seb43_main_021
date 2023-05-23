@@ -22,8 +22,6 @@ public class AuctionDto {
     @NoArgsConstructor
     public static class Post {
 
-//        @NotNull
-//        private long memberId;
 
         @NotBlank
         private String name; // 제목
@@ -38,6 +36,9 @@ public class AuctionDto {
 
         private List<String> imageUrlList;
 
+        @NotNull
+        private String location; //지역
+
 
         private Auction.AuctionStatus auctionStatus;
 
@@ -50,7 +51,6 @@ public class AuctionDto {
         @NotNull
         private long auctionItemId;
 
-
         // 이미지
         private List<String> imageUrlList;
 
@@ -60,8 +60,9 @@ public class AuctionDto {
 
         private String content;
 
-        private Member member;
+        private String location; //지역
 
+        private Member member;
 
     }
 
@@ -72,11 +73,10 @@ public class AuctionDto {
         private long auctionItemId;
         private String name;
 
-
         //이미지
         private List<String> imageUrlList;
         private String content;
-
+        private String location; //지역
         private LocalDateTime createdDate;
         private LocalDateTime modifiedDate;
         //      private int view; //조회수
