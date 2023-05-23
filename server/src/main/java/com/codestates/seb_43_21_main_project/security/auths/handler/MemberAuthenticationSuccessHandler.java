@@ -25,6 +25,7 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.setHeader("memberId",member.getMemberId().toString());
         PrintWriter out = response.getWriter();
         out.print("{\"result\": \"success\"}");
         out.flush();
