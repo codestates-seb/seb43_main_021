@@ -74,7 +74,7 @@ const CreateAuction = () => {
     }
   };
 
-  const titleList = ["지역 설정", "강동구", "노원구", "중랑구", "광진구"];
+  const titleList = ["지역 설정", "강동구", "노원구", "중랑구", "광진구", "마포구"];
 
   const LocationChange = (location) => {
     setSelectLocation(location);

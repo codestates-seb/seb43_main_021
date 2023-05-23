@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { dummyData } from "../../assets/dummyData";
-// import axios from "axios";
+import axios from "axios";
 
 const LoginFrom = () => {
 
@@ -24,17 +23,28 @@ const LoginFrom = () => {
     if (email === "" || password === "") {
       setErrorMessage("이메일과 비밀번호를 입력해주세요.");
     } else {
-      const member = dummyData.find(
-        (data) => data.email === email && data.password === password
-      );
-
-      if (member) {
-        navigate("/");
-      } else {
-        setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
-      }
+      axios
+        .post(
+          'http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/auth/login',
+          {
+            username: email,
+            password: password,
+          }
+        )
+        .then((res) => {
+          if (res.data.result === "success") {
+            console.log("로그인 성공:", res.data)
+            navigate("/main");
+          } else {
+            setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.")
+          }
+        })
+        .catch((error) => {
+          setErrorMessage("로그인에 실패했습니다.");
+          console.error(error);
+        });
     }
-  }
+  };
 
     return (
         <Body>
