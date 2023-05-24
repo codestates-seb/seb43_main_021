@@ -43,8 +43,10 @@ jwt:
 cloud:
   aws:
     credentials:
+
       access-key:
       secret-key:
+
     s3:
       bucket: seb-main-021
     region:
