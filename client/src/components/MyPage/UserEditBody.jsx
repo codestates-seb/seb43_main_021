@@ -8,8 +8,8 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { SlClose } from "react-icons/sl";
 
 import axios from "axios";
-import ItemButton2 from "../UI/Button/ItemButton2";
-import ItemButton1 from "../UI/Button/ItemButton1";
+import { Button2 } from "../UI/Button/Button2";
+import { Button1 } from "../UI/Button/Button1";
 export default function UserEditBody({
   nickName,
   onImageChange,
@@ -124,10 +124,10 @@ export default function UserEditBody({
       )}
       <ButtonArea>
         <Cancellation to="/mypage">
-          <ItemButton2 name={"취소"} />
+          <Button2 name={"취소"} />
         </Cancellation>
         <Permit onClick={handleSubmit}>
-          <ItemButton1 name={"확인"} />
+          <Button1 name={"확인"} />
         </Permit>
       </ButtonArea>
     </Wrapper>

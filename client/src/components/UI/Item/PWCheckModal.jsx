@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { moveModalState } from "../../../stores/atoms";
 import { useState } from "react";
-import ItemButton2 from "../Button/ItemButton2";
-import ItemButton1 from "../Button/ItemButton1";
+import ItemButton2 from "../Button/Button2";
+import ItemButton1 from "../Button/Button1";
 export const PWCheckModal = () => {
   const [goPage, setGoPage] = useRecoilState(moveModalState);
   const [pwCheckValue, setPwCheckValue] = useState("");

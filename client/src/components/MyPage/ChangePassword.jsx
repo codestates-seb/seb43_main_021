@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { ItemButton1 } from "../UI/Button/ItemButton1";
-import { ItemButton2 } from "../UI/Button/ItemButton2";
+import Button1 from "../UI/Button/Button1";
+import Button2 from "../UI/Button/Button2";
 import axios from "axios";
 export default function ChangePassword() {
   const navigate = useNavigate();
@@ -157,10 +157,10 @@ export default function ChangePassword() {
       </InputWrapper>
       <ButtonArea>
         <Cancellation to="/mypage">
-          <ItemButton2></ItemButton2>
+          <Button2 name={"취소"} />
         </Cancellation>
         <Permit onClick={onClickChangePw}>
-          <ItemButton1></ItemButton1>
+          <Button1 name={"확인"} />
         </Permit>
       </ButtonArea>
     </Wrapper>

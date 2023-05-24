@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { modalState, moveModalState } from "../../../stores/atoms";
-import ItemButton2 from "../Button/ItemButton2";
-import ItemButton1 from "../Button/ItemButton1";
+import { Button2 } from "../Button/Button2";
+import { Button1 } from "../Button/Button1";
 
 export const Modal = () => {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
@@ -21,10 +21,10 @@ export const Modal = () => {
         <ContainerContnet>회원탈퇴 하시겠습니까?</ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={openModalHandler}>
-            <ItemButton2 name={"취소"} />
+            <Button2 name={"취소"} />
           </Cancellation>
           <Permit onClick={moveModalHandler}>
-            <ItemButton1 name={"확인"} />
+            <Button1 name={"확인"} />
           </Permit>
         </ButtonArea>
       </ModalContainer>

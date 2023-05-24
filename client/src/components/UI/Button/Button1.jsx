@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const ItemButton1 = ({ name }) => {
+export const Button1 = ({ name }) => {
   return <Container>{name}</Container>;
 };
 
-export default ItemButton1;
+export default Button1;
 
 const Container = styled.div`
   background-color: #4636fc;

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { LogOutModalState, loginState } from "../../stores/atoms";
 import { useNavigate } from "react-router-dom";
-import ItemButton2 from "../UI/Button/ItemButton2";
-import ItemButton1 from "../UI/Button/ItemButton1";
+import { Button2 } from "../UI/Button/Button2";
+import { Button1 } from "../UI/Button/Button1";
 
 export const LogOutModal = () => {
   const navigate = useNavigate();
@@ -27,10 +27,10 @@ export const LogOutModal = () => {
         <ContainerContnet>로그아웃 하시겠습니까?</ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={logOutModalHandler}>
-            <ItemButton2 name={"취소"} />
+            <Button2 name={"취소"} />
           </Cancellation>
           <Permit onClick={logoutHandler}>
-            <ItemButton1 name={"확인"} />
+            <Button1 name={"확인"} />
           </Permit>
         </ButtonArea>
       </ModalContainer>
