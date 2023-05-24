@@ -29,6 +29,7 @@ public interface BidItemMapper {
             response.setCreateDate(bidItem.getCreateDate());
             response.setModifiedDate(bidItem.getModifiedDate());
             response.setBidItemStatus(bidItem.getBidItemStatus());
+            response.setLocation(bidItem.getLocation());
             response.setMember(bidItem.getMember());
             response.setAuctionItem(bidItem.getAuction());
             return response;

@@ -22,7 +22,10 @@ public class BidItemResponseDto {
     private LocalDateTime createDate;
 
     private LocalDateTime modifiedDate;
+
     private Enum bidItemStatus;
+
+    private String location;
 
     private Member member;
 

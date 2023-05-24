@@ -32,6 +32,7 @@ public class BidItem extends Auditable {
     @ElementCollection
     private List<String> imageUrlList;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "BID_ITEM_STATUS", nullable = false)
     private BidItem.BidItemStatus bidItemStatus;
 

@@ -18,4 +18,6 @@ public class BidItemPostDto {
 
     private List<String> imageUrlList;
 
+    private String location;
+
 }

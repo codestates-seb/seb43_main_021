@@ -38,6 +38,8 @@ public class BidItemService {
         member.addBidItem(bidItem);
         auction.addBidItem(bidItem);
 
+        bidItem.setBidItemStatus(BidItem.BidItemStatus.AUCTION_BIDDING);
+
         return bidItemRepository.save(bidItem);
     }
 
