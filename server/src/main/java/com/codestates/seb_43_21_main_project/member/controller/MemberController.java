@@ -22,12 +22,10 @@ import javax.validation.constraints.Positive;
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
-    private final ContextHolederUtils contextHolederUtils;
 
-    public MemberController(MemberService memberService, MemberMapper mapper, ContextHolederUtils contextHolederUtils) {
+    public MemberController(MemberService memberService, MemberMapper mapper) {
         this.memberService = memberService;
         this.mapper = mapper;
-        this.contextHolederUtils = contextHolederUtils;
     }
 
     @PostMapping
@@ -50,9 +48,7 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(){
-
-        Long memberId = contextHolederUtils.getAuthMemberId();
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId){
 
         Member response = memberService.findMember(memberId);
 
