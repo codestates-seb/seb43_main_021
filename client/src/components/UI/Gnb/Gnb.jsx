@@ -5,8 +5,11 @@ import { BsChatHeart } from "react-icons/bs";
 import { TbHammer } from "react-icons/tb";
 import { BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useRecoilState } from 'recoil';
+import { loginState } from '../../../stores/atoms';
 
 const Gnb = () => {
+  const [keepLoggedIn] = useRecoilState(loginState)
   return (
     <Wrapper>
       <Line />
@@ -31,12 +34,21 @@ const Gnb = () => {
           </NavItem>
         </CustomLink>
 
+        {keepLoggedIn===true?
         <CustomLink to="/mypage">
           <NavItem>
             <BiUser className="icon" />
             마이 페이지
           </NavItem>
         </CustomLink>
+        :
+        <CustomLink to="/login">
+          <NavItem>
+            <BiUser className="icon" />
+            마이 페이지
+          </NavItem>
+        </CustomLink>
+        }
       </Container>
     </Wrapper>
   );

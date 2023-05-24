@@ -1,4 +1,4 @@
-import React, { useEffect}from "react";
+import React, { useEffect, useState}from "react";
 import styled from "styled-components";
 import { useRecoilState } from 'recoil';
 import {
@@ -12,15 +12,22 @@ import { BiHeart } from "react-icons/bi";
 import { Link } from "react-router-dom"
 import axios from 'axios';
 
-
 export default function UserPageTop(){
   const [selectedImage] = useRecoilState(selectedImageState);  //image상태
   const [userNickname, setUserNickname] = useRecoilState(profileNicknameState);
+  const accessToken = localStorage.getItem("accessToken");
+  // const [userInfoId,setUserInfoId] = useState(0)
   //header에다가 엑세스토큰 넣어서 보내기 
   useEffect(()=>{
     axios
   .get(
-    `http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member/2`,    
+    // `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/${userInfoId}`,
+    `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/2`,        
+    {
+      headers: {
+        Authorization: accessToken,
+      },
+    }
   )
   .then((res)=>{
     const {data} = res    

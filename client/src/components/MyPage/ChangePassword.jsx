@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styled from "styled-components"
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ItemButton } from '../UI/Item/ItemButton'
 import { ItemButton2 } from '../UI/Item/ItemButton2'
 import axios from 'axios'
@@ -22,8 +21,10 @@ export default function ChangePassword(){
   const onChangePassword = (e) => {
     const value = e.target.value;
     setPassword(value);
-    if (value.length < 8 || !/^(?=.*[a-zA-Z0-9])(?=.*\d).{8,}$/.test(value)) {
-      setPasswordErrorMessage("비밀번호를 영문 + 숫자 조합의 8글자 이상으로 입력해주세요.");
+    if (value.length > 16) {
+      setPasswordErrorMessage("비밀번호는 최대 16글자까지 입력 가능합니다.");
+    } else if (value.length < 4 || !/^(?=.*[a-zA-Z0-9])(?=.*\d).{4,}$/.test(value)) {
+      setPasswordErrorMessage("비밀번호를 영문 + 숫자 조합의 4글자 이상으로 입력해주세요.");
     } else {
     setPasswordErrorMessage("");
     }
@@ -33,14 +34,15 @@ export default function ChangePassword(){
   const onChangeNewPassword = (e) => {
     const value = e.target.value;
     setNewPassword(value);
-    if (value.length < 8 || !/^(?=.*[a-zA-Z0-9])(?=.*\d).{8,}$/.test(value)) {
-      setNewPasswordErrorMessage("비밀번호를 영문 + 숫자 조합의 8글자 이상으로 입력해주세요.");
-    }else if(value===password){
-      setNewPasswordErrorMessage("기존 비밀번호와 동일합니다.");
-    } 
-    else {
+    if (value.length > 16) {
+      setNewPasswordErrorMessage("비밀번호는 최대 16글자까지 입력 가능합니다.");
+    } else if (value.length < 4 || !/^(?=.*[a-zA-Z0-9])(?=.*\d).{4,}$/.test(value)) {
+      setNewPasswordErrorMessage("비밀번호를 영문 + 숫자 조합의 4글자 이상으로 입력해주세요.");
+    } else if (value===password){
+      setNewPasswordErrorMessage("기존의 비밀번호와 동일합니다.")
+    } else {
       setNewPasswordErrorMessage("");
-    }
+    } 
   };
 
   // ConfirmPW
@@ -60,13 +62,14 @@ export default function ChangePassword(){
     ) {
       axios
         .patch(
-          'http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
+          'http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
           {            
-            password: password,
+            password: newPassword,
           }
         )
         .then((res=>{
-          setPassword(res.password)
+          setPassword(res.data.password); 
+          console.log(res.data.password);
           console.log("비밀번호가 성공적으로 변경되었습니다!");     
           navigate("/mypage")
 
@@ -76,9 +79,9 @@ export default function ChangePassword(){
         });      
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.")      
-      setPasswordErrorMessage(passwordErrorMessage || "비밀번호를 입력해주세요.");
-      setNewPasswordErrorMessage(newPasswordErrorMessage|| "새 비밀번호를 입력해주세요.")
-      setConfirmPasswordErrorMessage(confirmPasswordErrorMessage || "새 비밀번호를 재입력해주세요.");      
+      setPasswordErrorMessage(!password||passwordErrorMessage? passwordErrorMessage || "비밀번호를 입력해주세요.":"");
+      setNewPasswordErrorMessage(!newPassword||newPasswordErrorMessage?newPasswordErrorMessage|| "새 비밀번호를 입력해주세요.":"")
+      setConfirmPasswordErrorMessage(!confirmPassword||confirmPasswordErrorMessage?confirmPasswordErrorMessage || "새 비밀번호를 재입력해주세요.":"");      
     }
   };
   return(
@@ -89,24 +92,37 @@ export default function ChangePassword(){
           <h3>비밀번호</h3><span>*</span>
         </InputTitle>
         <InputField>
-          <input placeholder="영문 + 숫자 조합의 8글자 이상" value={password} onChange={onChangePassword}></input>
+          <input           
+          type="password"
+          placeholder="영문 + 숫자 조합의 4글자 이상" 
+          value={password} 
+          onChange={onChangePassword}>
+          </input>
         </InputField>
-        <ErrorMessage>{passwordErrorMessage}</ErrorMessage>
+        {<ErrorMessage>{passwordErrorMessage}</ErrorMessage>}
       </InputWrapper>
       <InputWrapper>
         <InputTitle>
           <h3>새 비밀번호</h3><span>*</span>
         </InputTitle>
         <InputField>
-          <input placeholder="영문 + 숫자 조합의 8글자 이상" onChange={onChangeNewPassword}></input>
+          <input         
+          type="password"  
+          placeholder="영문 + 숫자 조합의 4글자 이상"
+          value={newPassword}
+          onChange={onChangeNewPassword}></input>
         </InputField>
-        <ErrorMessage>{newPasswordErrorMessage}</ErrorMessage>
+        {<ErrorMessage>{newPasswordErrorMessage}</ErrorMessage>}
       </InputWrapper>
       <InputWrapper>
         <InputField>
-          <input placeholder="비밀번호 재입력" onChange={onChangePasswordConfirm} ></input>
+          <input         
+          type="password"  
+          placeholder="비밀번호 재입력"
+          value={confirmPassword}
+          onChange={onChangePasswordConfirm} ></input>
         </InputField>
-        <ErrorMessage>{confirmPasswordErrorMessage}</ErrorMessage>
+        {<ErrorMessage>{confirmPasswordErrorMessage}</ErrorMessage>}
       </InputWrapper>      
       <ButtonArea>
         <Cancellation to='/mypage'>

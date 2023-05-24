@@ -3,18 +3,27 @@ import { useRecoilState } from "recoil";
 import { moveModalState } from "../../../stores/atoms";
 import { ItemButton } from "./ItemButton";
 import { ItemButton2 } from "./ItemButton2";
+import { useState } from 'react';
 export const PWCheckModal = () => {
   const [goPage, setGoPage] = useRecoilState(moveModalState);
+  const [pwCheckValue, setPwCheckValue] =useState("")
   const openModalHandler = () => {
     setGoPage(!goPage);
   };
+  const onChangePwvalue = (e)=>{
+    setPwCheckValue(e.target.value)
+  }
   return (
     <ModalWrapper>
       <ModalContainer>
         <WarningText>*회원을 탈퇴합니다</WarningText>
         비밀번호를 입력하세요
         <ContainerContnet>
-          비밀번호:<PWArea></PWArea>
+          비밀번호:
+          <PWArea
+          value={pwCheckValue}
+          onChange={onChangePwvalue}
+          ></PWArea>
         </ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={openModalHandler}>
@@ -81,7 +90,8 @@ const Permit = styled.div`
 const PWArea = styled.input`
   height: 2rem;
   width: 14.5rem;
-  color: white;
+  background-color: white;
+  
   margin-left: 0.25rem;
 `;
 const WarningText = styled.div`
