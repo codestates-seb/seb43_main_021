@@ -23,20 +23,20 @@ public class AuctionDto {
     public static class Post {
 
 
-        @NotBlank
+        @NotBlank(message = "제목을 입력해 주세요")
         private String name; // 제목
-        // 이미지는 생각해보자.
 
-        @NotBlank
+
+        @NotBlank(message = "내용을 입력해주세요")
         private String content; // 내용
 
         @NotNull
-        @Min(value = 1 ,message = "1이상의 값을 입력해야합니다.")
+        @Min(value = 1 ,message = "기간은 1이상의 값을 입력해야합니다.")
         private int period; //기간 설정
 
         private List<String> imageUrlList;
 
-        @NotNull
+        @NotNull(message = "지역을 선택해주세요")
         private String location; //지역
 
 
@@ -51,18 +51,24 @@ public class AuctionDto {
         @NotNull
         private long auctionItemId;
 
-        // 이미지
-        private List<String> imageUrlList;
-
         private String name;
-
-        private int period;
 
         private String content;
 
+        private int period;
+
+        private List<String> imageUrlList;
+
         private String location; //지역
 
-        private Member member;
+
+
+
+
+
+
+
+//        private Member member;
 
     }
 

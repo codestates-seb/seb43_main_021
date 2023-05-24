@@ -33,6 +33,7 @@ logging:
 mail:
   address:
     admin: admin@gmail.com
+
 jwt:
   key: kevin1234123412341234123412341234
   access-token-expiration-minutes: 10
