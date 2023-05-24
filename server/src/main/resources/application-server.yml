@@ -1,0 +1,52 @@
+server:
+#  address: localhost #설정된 주소로만 바인딩된다.
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://seb-main-021.cnatq6rq8pwu.ap-northeast-2.rds.amazonaws.com:13306/main_021?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: admin
+    password:
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+config:
+  domain: http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+
+
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  key: kevin1234123412341234123412341234
+  access-token-expiration-minutes: 10
+  refresh-token-expiration-minutes: 30
+
+
+cloud:
+  aws:
+    credentials:
+      access-key:
+      secret-key:
+    s3:
+      bucket: seb-main-021
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
