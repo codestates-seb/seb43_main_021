@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import img2 from "../../../assets/images/img2.jpg";
+import noImage from "../../../assets/images/noimage.png";
 import FormatDateTime from "../../../utils/FormatDateTime";
 import PeriodDateTime from "../../../utils/PeriodDateTime";
 
@@ -22,7 +22,7 @@ const Item = ({ item }) => {
               {item.imageUrlList[0] ? (
                 <Img src={item.imageUrlList[0]} />
               ) : (
-                <Img src={img2} />
+                <Img src={noImage} />
               )}
               <Text>
                 <Title>

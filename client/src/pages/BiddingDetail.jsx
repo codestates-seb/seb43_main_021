@@ -5,12 +5,15 @@ import ItemImage from "../components/UI/ItemImage/ItemImage";
 import useGetBiddingItem from "../hooks/useGetBiddingItem";
 import Footer from "../components/UI/Footer/Footer";
 import Loading from "../components/UI/Loading/Loading";
-import img2 from "../assets/images/img2.jpg";
+import noImage from "../assets/images/noimage.png";
 import FormatDateTime from "../utils/FormatDateTime";
+import defaultUserImg from "../assets/images/defaultUserImg.jpg";
 
 const BiddingDetail = () => {
   const { data, isLoading, isError, error } = useGetBiddingItem();
-  const img = [img2];
+  const img = [noImage];
+
+  console.log("비딩 디테일", data);
 
   if (isLoading) {
     return (
@@ -38,7 +41,11 @@ const BiddingDetail = () => {
         <BackButton onClick={handleBack} />
       </AuctionImgContainer>
       <UserInfoContainer>
-        {/* <UserImg src={data.userImg} /> */}
+        {data.member.imageUrlList.length ? (
+          <UserImg src={data.members.imageUrlList[0]} />
+        ) : (
+          <UserImg src={defaultUserImg} />
+        )}
         <UserText>
           <div>{data.member.nickName}</div>
           {/* <div className="userLocation">{data.userLocation}</div> */}
