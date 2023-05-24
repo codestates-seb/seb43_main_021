@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import ItemButton2 from "../Item/ItemButton2";
-import ItemButton from "../Item/ItemButton";
+
 import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../../../stores/atoms";
+import { Button1 } from "../Button/Button1";
+import { Button2 } from "../Button/Button2";
 
 export const ItemEditModal = () => {
   const [, setModal] = useRecoilState(AuctionConfirm);
@@ -21,7 +22,7 @@ export const ItemEditModal = () => {
     <ModalWrapper>
       <ModalContainer>
         <div onClick={() => setModal(false)}>
-          <ItemButton2 />
+          <Button2 name={"수정하기"} />
         </div>
         <div
           onClick={() => {
@@ -29,7 +30,16 @@ export const ItemEditModal = () => {
             setModal(false);
           }}
         >
-          <ItemButton />
+          <div onClick={() => setModal(false)}>
+            <Button2 name={"삭제하기"} />
+          </div>
+          <div
+            onClick={() => {
+              // auctionComplete();
+              setModal(false);
+            }}
+          ></div>
+          <Button1 name={"취소"} />
         </div>
       </ModalContainer>
     </ModalWrapper>
@@ -52,8 +62,8 @@ const ModalWrapper = styled.div`
 
 const ModalContainer = styled.div`
   display: flex;
-  width: 338px;
-  height: 170px;
+  width: 17rem;
+  height: 15rem;
   background-color: white;
   flex-direction: column;
   border-radius: 10px;
