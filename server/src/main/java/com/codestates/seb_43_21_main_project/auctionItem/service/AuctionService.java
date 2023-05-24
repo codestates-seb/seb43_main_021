@@ -1,10 +1,8 @@
 package com.codestates.seb_43_21_main_project.auctionItem.service;
 
-import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
-import com.codestates.seb_43_21_main_project.bidItem.entity.BidItemStatus;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
@@ -13,10 +11,7 @@ import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import com.codestates.seb_43_21_main_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -168,7 +163,7 @@ public class AuctionService {
         List<BidItem> bidItems = auction.getBidItems();
         //입찰 아이템 상태가 낙찰로 변경되면 낙찰로 판단
         for (BidItem bidItem : bidItems) {
-            if (bidItem.getBidItemStatus() == BidItemStatus.APPROVE) {
+            if (bidItem.getBidItemStatus() == BidItem.BidItemStatus.AUCTION_SUCCESSFUL) {
                 return true;
             }
         }
