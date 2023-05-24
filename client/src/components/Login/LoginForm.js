@@ -46,13 +46,14 @@ const LoginFrom = () => {
             const accessToken = res.headers.authorization;
             const refreshToken = res.headers.refresh;
             const memberId = res.headers.memberId;
-            console.log("로그인 성공:", res.data, res.headers);
+
 
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
-            setKeepLoggedIn(true);
             localStorage.setItem("memberId", memberId);
-            // navigate("/main");
+            setKeepLoggedIn(true)
+            navigate("/main");
+
           } else {
             setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
           }

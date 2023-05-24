@@ -141,6 +141,45 @@ const GlobalStyle = createGlobalStyle`
     --ItemEditModal-ModalWrapper-color:rgba(0, 0, 0, 0.5);
 
     /* ================================================================================ */
+    
+    --MyPage-Line-color:#f2f3f6;
+
+    --PWCheckModal-ModalWrapper-color:rgba(0, 0, 0, 0.5);
+    --PWCheckModal-ModalContainer-color: white;
+    --PWCheckModal-WarningText-color: red;
+
+    --Modal-ModalContainer-color: white;
+
+    --UserEditHeader-Wrapper-color:  #f6f6f8;
+    --MyPageHeader-Line-color: #cccccc;
+
+    --UserPageTop-ProfileIcon-color: black; 
+
+    --UserInfo-IconContainer-color: black;
+
+    --UserEditBody-Wrapper-color: red;
+    --UserEditBody-ProfileContainer-color: gray;
+    --UserEditBody-ProfileInput-color: blue;
+
+    --MyAuction-StyledLink-color: black;
+    --MyAuction-BottomSelector-color: white;
+
+    --LogOutModal-ModalWrapper-color: rgba(0, 0, 0, 0.5);
+    --LogOutModal-ModalContainer-color: white;
+
+    --ChangePassword-InputTitle-color: red;
+    --ChangePassword-InputField-color: #f5f5f5;
+    --ChangePassword-InputFieldInput-color: #aaaaaa;
+
+    --UnderAuction-AuctionDisplay-color: #f2f3f7;
+    --UnderAuction-AuctionItemDisplay-color: white;
+    --UnderAuction-ContentArea-color: #d1d3d7;
+
+    --AuctionCompleted-AuctionDisplay-color: #f2f3f7;
+    --AuctionCompleted-AuctionItemDisplay-color: #d1d3d7;
+
+    
+
 
 
 
