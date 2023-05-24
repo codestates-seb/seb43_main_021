@@ -17,4 +17,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  &:hover {
+    background-color: #3b29fb;
+  }
 `;
