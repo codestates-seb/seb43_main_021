@@ -5,12 +5,13 @@ import useGetAuctionItem from "../../../hooks/useGetAuctionItem";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const Footer = ({ 멤버아이디 }) => {
+const Footer = () => {
   const { data } = useGetAuctionItem();
   const [auction, setAuction] = useState("");
   const { bidItemId } = useParams();
   const navigate = useNavigate();
   const myMemberId = localStorage.getItem("memberId");
+  const auctionMemberId = data.members[0].memberId.toString();
 
   useEffect(() => {
     setAuction(data?.auctionEnd);
@@ -26,8 +27,6 @@ const Footer = ({ 멤버아이디 }) => {
     }
   };
 
-  console.log("푸터 비드 아이템", bidItemId);
-
   return (
     <>
       <Wrapper>
@@ -40,10 +39,10 @@ const Footer = ({ 멤버아이디 }) => {
             <div style={{ color: "gray" }}>{auction}</div>
           </AuctionEnd>
           {bidItemId ? (
-            멤버아이디 === myMemberId ? (
+            auctionMemberId === myMemberId ? (
               <BiddingButton onClick={handleButton}>채팅하기</BiddingButton>
             ) : null
-          ) : 멤버아이디 === myMemberId ? null : (
+          ) : auctionMemberId === myMemberId ? null : (
             <BiddingButton onClick={handleButton}>입찰하기</BiddingButton>
           )}
 
