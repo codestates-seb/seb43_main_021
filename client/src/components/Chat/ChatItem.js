@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import img2 from "../../assets/images/img2.jpg";
+import defaultUserImg from "../../assets/images/defaultUserImg.jpg";
 
 const dummyData = [
   {
@@ -10,7 +10,7 @@ const dummyData = [
     location: "군자동",
     time: "3시간 전",
     content: "안녕하세요 ㅎㅎㅎ",
-    img: img2,
+    img: defaultUserImg,
   },
   {
     id: "2",
@@ -18,7 +18,7 @@ const dummyData = [
     location: "성수동",
     time: "1시간 전",
     content: "저는 5시 쯤 가능할 것 같습니다~~",
-    img: img2,
+    img: defaultUserImg,
   },
 ];
 

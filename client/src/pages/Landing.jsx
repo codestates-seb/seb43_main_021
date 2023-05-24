@@ -15,14 +15,20 @@ import Bidding from "../components/Landing/Bidding";
 const Landing = () => {
   const navigate = useNavigate();
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <Flexible>
       <Wrapper>
         <TitelContainer>
           <LogoContainer>
-            <Logo4 src={logo1} onClick={() => navigate("/")} />
+            <Logo4 src={logo1} onClick={() => scrollTop()} />
           </LogoContainer>
-          <Menu>=</Menu>
         </TitelContainer>
         <LandingContent>
           <Title>
@@ -128,6 +134,8 @@ const Logo4 = styled.img`
   /* max-height: 100px; */
   width: 100%;
   height: auto;
+  cursor: pointer;
+  z-index: 10;
 `;
 
 const Logo3 = styled.img`
@@ -139,7 +147,8 @@ const Logo3 = styled.img`
 const Menu = styled.div`
   margin: 0.5rem;
   /* font-size: 7lvw; */
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  cursor: pointer;
 `;
 
 const LandingContent = styled.div`
