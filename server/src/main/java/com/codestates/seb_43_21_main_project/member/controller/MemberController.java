@@ -49,7 +49,7 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponseDto(member)),HttpStatus.OK);
     }
 
-    @GetMapping("{member-id}")
+    @GetMapping("/{member-id}")
     public ResponseEntity getMember(){
 
         Long memberId = contextHolederUtils.getAuthMemberId();
