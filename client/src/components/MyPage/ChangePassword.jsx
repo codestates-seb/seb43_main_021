@@ -62,7 +62,7 @@ export default function ChangePassword(){
     ) {
       axios
         .patch(
-          'http://ec2-13-125-170-160.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
+          'http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2',
           {            
             password: newPassword,
           }
@@ -93,6 +93,7 @@ export default function ChangePassword(){
         </InputTitle>
         <InputField>
           <input           
+          type="password"
           placeholder="영문 + 숫자 조합의 4글자 이상" 
           value={password} 
           onChange={onChangePassword}>
@@ -105,7 +106,8 @@ export default function ChangePassword(){
           <h3>새 비밀번호</h3><span>*</span>
         </InputTitle>
         <InputField>
-          <input           
+          <input         
+          type="password"  
           placeholder="영문 + 숫자 조합의 4글자 이상"
           value={newPassword}
           onChange={onChangeNewPassword}></input>
@@ -114,7 +116,8 @@ export default function ChangePassword(){
       </InputWrapper>
       <InputWrapper>
         <InputField>
-          <input           
+          <input         
+          type="password"  
           placeholder="비밀번호 재입력"
           value={confirmPassword}
           onChange={onChangePasswordConfirm} ></input>

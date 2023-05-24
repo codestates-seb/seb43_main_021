@@ -15,20 +15,25 @@ import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
 import useAccessToken from '../hooks/useAccessToken';
-
+import Loading from '../components/UI/Loading/Loading';
 
 export default function MyPage() {
   
   const [isOpen] = useRecoilState(modalState);
   const [logOutClick] = useRecoilState(LogOutModalState);
   const [goPage] = useRecoilState(moveModalState);
-  const  [ww] = useRecoilState(loginState)
+  const  [keepLoggedIn] = useRecoilState(loginState)
   useAccessToken();// useAccessToken만 쓰면 토큰을 가져올수있다
-  console.log(ww)
+  console.log(keepLoggedIn)
+  console.log(useAccessToken)
 
 
-  return (
-    <Wrapper>
+
+
+  return (    
+    <Wrapper>      
+      {keepLoggedIn === true ? (
+      <>
       {isOpen && <Modal />}
       {logOutClick && <LogOutModal />}
       {goPage && <PWCheckModal />}
@@ -39,8 +44,12 @@ export default function MyPage() {
       <Footer>
         <Gnb />
       </Footer>
-    </Wrapper>
-  );
+    </>
+    ) : (
+    <Loading />    
+    )}      
+    </Wrapper> 
+  )
 }
 
 

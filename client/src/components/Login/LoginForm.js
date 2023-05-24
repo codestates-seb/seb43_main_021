@@ -26,7 +26,7 @@ const LoginFrom = () => {
     } else {
       axios
         .post(
-          "http://ec2-13-125-170-160.ap-northeast-2.compute.amazonaws.com:8080/auth/login",
+          "http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/auth/login",
           {
             username: email,
             password: password,

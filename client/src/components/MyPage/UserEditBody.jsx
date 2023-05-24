@@ -68,7 +68,7 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
 
     axios
       .patch(
-        `http://ec2-13-125-170-160.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2`,        
+        `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2`,        
         requestBody
       )
       .then((res) => {
