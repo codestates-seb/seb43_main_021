@@ -21,6 +21,7 @@ const CreateAuction = () => {
   const [showPeriodWarning, setShowPeriodWarning] = useState(false);
   const [showLocationWarning, setShowLocationWarning] = useState(false);
   const [imageSrcList, setImageSrcList] = useState([]);
+  const accessToken = localStorage.getItem("accessToken");
   
 
   const enterNumbersOnly = (event) => {
@@ -51,6 +52,15 @@ const CreateAuction = () => {
     setShowTextWarning(false);
   };
 
+  const titleList = ["지역 설정", "강동구", "노원구", "중랑구", "광진구", "마포구"];
+
+  const LocationChange = (location) => {
+    setSelectLocation(location);
+    if (location !== "지역 설정") {
+      setShowLocationWarning(false);
+    }
+  };
+
   const handleCreateBtnClick = () => {
     if (title === "") {
       setShowTitleWarning(true);
@@ -64,6 +74,10 @@ const CreateAuction = () => {
       setShowPeriodWarning(true);
     }
 
+    if (selectLocation === "지역 설정") {
+      setShowLocationWarning(true);
+    }
+
     if (titleList[0] === selectLocation) {
       setShowLocationWarning(true);
     } else {
@@ -71,36 +85,40 @@ const CreateAuction = () => {
     }
 
     if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
-      // 서버로 데이터 전송하는 로직 공간
+    
 
-      axios
-        .post
-          (
-            'http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/auction_items', 
-            {
-              name : title,
-              period : parseInt(auctionPeriod),
-              content : text,
-              location : selectLocation,
-              imageUrlList : imageSrcList,
-            })
-        .then (res => {
-          
-          console.log("전송 성공:", res.data)
-          navigate("/main");
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    }
-  };
+    const data = {
+      name: title,
+      period: parseInt(auctionPeriod),
+      content: text,
+      location: selectLocation,
+      imageUrlList: imageSrcList,
+    };
+  
+    console.log("전송 데이터:", data);
 
-  const titleList = ["지역 설정", "강동구", "노원구", "중랑구", "광진구", "마포구"];
 
-  const LocationChange = (location) => {
-    setSelectLocation(location);
-    if (location !== "지역 설정") {
-      setShowLocationWarning(false);
+    axios       
+      .post(`${process.env.REACT_APP_API_URL}/auction_items`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+        {
+          name : title,
+          period : parseInt(auctionPeriod),
+          content : text,
+          location : selectLocation,
+          imageUrlList : imageSrcList,
+        },
+      )
+      .then (res => {
+        console.log("전송 성공:", res.data)
+        navigate("/main");
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
   };
 
