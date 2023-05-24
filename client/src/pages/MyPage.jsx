@@ -10,15 +10,15 @@ import {
   moveModalState,
   loginState,
 } from "../stores/atoms";
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
 import useAccessToken from '../hooks/useAccessToken';
-import Loading from '../components/UI/Loading/Loading';
 
 export default function MyPage() {
-  
+  const navigate = useNavigate();
   const [isOpen] = useRecoilState(modalState);
   const [logOutClick] = useRecoilState(LogOutModalState);
   const [goPage] = useRecoilState(moveModalState);
@@ -46,7 +46,7 @@ export default function MyPage() {
       </Footer>
     </>
     ) : (
-    <Loading />    
+    navigate('/login')    
     )}      
     </Wrapper> 
   )
