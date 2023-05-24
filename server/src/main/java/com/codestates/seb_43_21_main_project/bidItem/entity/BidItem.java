@@ -2,12 +2,15 @@ package com.codestates.seb_43_21_main_project.bidItem.entity;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.audit.Auditable;
-import com.codestates.seb_43_21_main_project.image.entity.Image;
+import com.codestates.seb_43_21_main_project.chat.entity.ChatRoom;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,17 +32,42 @@ public class BidItem extends Auditable {
     @ElementCollection
     private List<String> imageUrlList;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private BidItemStatus bidItemStatus;
+    @Column(name = "BID_ITEM_STATUS", nullable = false)
+    private BidItem.BidItemStatus bidItemStatus;
 
+    public enum BidItemStatus {
+        AUCTION_BIDDING(1, "입찰중"),
+        AUCTION_EXPIRATION(2, "기간만료"),
+        AUCTION_SUCCESSFUL(3, "낙찰");
+
+        @Getter
+        private int stepNumber;
+
+        @Getter
+        private String stepDescription;
+
+        BidItemStatus(int stepNumber, String stepDescription) {
+            this.stepNumber = stepNumber;
+            this.stepDescription = stepDescription;
+        }
+    }
+
+    @Column
+    private String location;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "AUCTION_ITEM_ID")
     private Auction auction;
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "bidItem")
+    private ChatRoom chatRoom;
 
     //@OneToMany(mappedBy = "bidItem", cascade = CascadeType.ALL, orphanRemoval = true)
     //private List<Image> images = new ArrayList<>();

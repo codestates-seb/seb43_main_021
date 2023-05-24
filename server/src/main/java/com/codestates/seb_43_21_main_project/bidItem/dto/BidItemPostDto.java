@@ -1,10 +1,8 @@
 package com.codestates.seb_43_21_main_project.bidItem.dto;
 
-import com.codestates.seb_43_21_main_project.bidItem.entity.BidItemStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -20,5 +18,4 @@ public class BidItemPostDto {
 
     private List<String> imageUrlList;
 
-    private BidItemStatus bidItemStatus;
 }

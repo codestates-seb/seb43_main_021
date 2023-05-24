@@ -1,4 +1,4 @@
-package com.codestates.seb_43_21_main_project.image.entity;
+package com.codestates.seb_43_21_main_project.entity;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;

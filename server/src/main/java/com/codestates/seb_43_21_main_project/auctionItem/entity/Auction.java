@@ -2,6 +2,8 @@ package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
 import com.codestates.seb_43_21_main_project.audit.Auditable;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.codestates.seb_43_21_main_project.chat.entity.ChatRoom;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 
@@ -44,7 +46,7 @@ public class Auction extends Auditable {
     @Column(nullable = false)
     private boolean deleted = Boolean.FALSE;
 
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -75,7 +77,7 @@ public class Auction extends Auditable {
         }
     }
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(mappedBy = "auction")
     private List<BidItem> bidItems = new ArrayList<>();
 
@@ -83,7 +85,10 @@ public class Auction extends Auditable {
     @ElementCollection
     private List<String> imageUrlList;
 
-    public void addBidItem(BidItem bidItem) {
+    @OneToMany(mappedBy = "auction")
+    private List<ChatRoom> chatRooms = new ArrayList<>();
+
+    public void addBidItem(BidItem bidItem){
         bidItems.add(bidItem);
         if (bidItem.getAuction() != this) {
             bidItem.setAuction(this);

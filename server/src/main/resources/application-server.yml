@@ -42,8 +42,8 @@ jwt:
 cloud:
   aws:
     credentials:
-      access-key:
-      secret-key:
+      access-key: AKIAXSYXCM25GEGSCJYO
+      secret-key: 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
     s3:
       bucket: seb-main-021
     region:

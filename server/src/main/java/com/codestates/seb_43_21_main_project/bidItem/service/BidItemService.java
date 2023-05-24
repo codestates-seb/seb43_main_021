@@ -6,20 +6,13 @@ import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.bidItem.repository.BidItemRepository;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
-import com.codestates.seb_43_21_main_project.image.entity.Image;
-import com.codestates.seb_43_21_main_project.image.repository.ImageRepository;
-import com.codestates.seb_43_21_main_project.image.utils.S3Uploader;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import com.codestates.seb_43_21_main_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
 

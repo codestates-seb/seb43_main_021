@@ -48,16 +48,19 @@ public class BidItemController {
         return new ResponseEntity<>(bidItemMapper.bidItemToBidItemResponseDto(response), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{bid_item_id}")
-    public ResponseEntity getBidItem(@PathVariable("bid_item_id") Long bidItemId) {
+    @GetMapping("/{auction_item_id}/{bid_item_id}")
+    public ResponseEntity getBidItem(@PathVariable("auction_item_id") Long auctionItemId,
+                                     @PathVariable("bid_item_id") Long bidItemId) {
 
         BidItem response = bidItemService.findBidItem(bidItemId);
 
         return new ResponseEntity<>(bidItemMapper.bidItemToBidItemResponseDto(response), HttpStatus.OK);
     }
 
-    @GetMapping("/list/{member_id}")
-    public ResponseEntity getBidItemListByMember(@PathVariable("member_id") Long memberId){
+    @GetMapping("/list")
+    public ResponseEntity getBidItemListByMember(){
+
+        Long memberId = contextHolederUtils.getAuthMemberId();
 
         List<BidItem> response = bidItemService.findBidItemList(memberId);
 

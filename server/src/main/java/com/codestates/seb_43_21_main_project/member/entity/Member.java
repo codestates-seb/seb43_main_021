@@ -2,6 +2,7 @@ package com.codestates.seb_43_21_main_project.member.entity;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.codestates.seb_43_21_main_project.chat.entity.ChatRoom;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -55,9 +56,13 @@ public class Member {
     private List<Auction> auctions = new ArrayList<>();
 
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(mappedBy = "member")
     private List<BidItem> bidItems = new ArrayList<>();
+
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "member")
+    //private List<ChatRoom> chatRooms = new ArrayList<>();
 
     public void addBidItem(BidItem bidItem){
         bidItems.add(bidItem);
