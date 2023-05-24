@@ -5,11 +5,12 @@ import useGetAuctionItem from "../../../hooks/useGetAuctionItem";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({ 멤버아이디 }) => {
   const { data } = useGetAuctionItem();
   const [auction, setAuction] = useState("");
-  const { biddingId } = useParams();
+  const { bidItemId } = useParams();
   const navigate = useNavigate();
+  const myMemberId = localStorage.getItem("memberId");
 
   useEffect(() => {
     setAuction(data?.auctionEnd);
@@ -18,12 +19,14 @@ const Footer = () => {
   const submitFavorite = () => {};
 
   const handleButton = () => {
-    if (biddingId) {
+    if (bidItemId) {
       console.log("입찰 아이템이며 경매자이기 때문에 채팅하기!");
     } else {
       navigate("/createbidding");
     }
   };
+
+  console.log("푸터 비드 아이템", bidItemId);
 
   return (
     <>
@@ -36,9 +39,17 @@ const Footer = () => {
             <div>경매 마감일</div>
             <div style={{ color: "gray" }}>{auction}</div>
           </AuctionEnd>
-          <BiddingButton onClick={handleButton}>
-            {biddingId ? "채팅하기" : "입찰하기"}
-          </BiddingButton>
+          {bidItemId ? (
+            멤버아이디 === myMemberId ? (
+              <BiddingButton onClick={handleButton}>채팅하기</BiddingButton>
+            ) : null
+          ) : 멤버아이디 === myMemberId ? null : (
+            <BiddingButton onClick={handleButton}>입찰하기</BiddingButton>
+          )}
+
+          {/* <BiddingButton onClick={handleButton}>
+            {biddingId ? "채팅하기" : 멤버아이디 ? null : "입찰하기"}
+          </BiddingButton> */}
         </FooterContainer>
       </Wrapper>
     </>
