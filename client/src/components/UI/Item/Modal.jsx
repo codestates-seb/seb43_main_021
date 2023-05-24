@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { modalState, moveModalState } from "../../../stores/atoms";
-import { ItemButton } from "./ItemButton";
-import { ItemButton2 } from "./ItemButton2";
+import ItemButton2 from "../Button/ItemButton2";
+import ItemButton1 from "../Button/ItemButton1";
+
 export const Modal = () => {
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [goPage, setGoPage] = useRecoilState(moveModalState);
@@ -20,10 +21,10 @@ export const Modal = () => {
         <ContainerContnet>회원탈퇴 하시겠습니까?</ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={openModalHandler}>
-            <ItemButton2 />
+            <ItemButton2 name={"취소"} />
           </Cancellation>
           <Permit onClick={moveModalHandler}>
-            <ItemButton />
+            <ItemButton1 name={"확인"} />
           </Permit>
         </ButtonArea>
       </ModalContainer>
@@ -41,23 +42,20 @@ const ModalWrapper = styled.div`
   position: fixed;
   z-index: 2;
   max-width: 1024px;
-`
-
-const ModalContainer = styled.div`
-  display:flex;
-  width: 338px;
-  height: 170px;    
-  background-color: white;  
-  flex-direction: column;
-  border-radius: 10px;
-  position:relative;  
-  padding: 1.75rem 1rem;
-  font-size: 20px;
-  font-weight: bold;    
-  
-
 `;
 
+const ModalContainer = styled.div`
+  display: flex;
+  width: 338px;
+  height: 170px;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 10px;
+  position: relative;
+  padding: 1.75rem 1rem;
+  font-size: 20px;
+  font-weight: bold;
+`;
 
 const ContainerContnet = styled.div`
   padding-top: 1rem;

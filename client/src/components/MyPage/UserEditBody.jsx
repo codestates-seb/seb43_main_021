@@ -1,29 +1,28 @@
-import React, {  useRef, useState } from 'react';
-import styled from "styled-components"
-import { useRecoilState } from 'recoil';
-import { 
-  selectedImageState,
-  profileNicknameState,
-} from "../../stores/atoms"
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useRef, useState } from "react";
+import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { selectedImageState, profileNicknameState } from "../../stores/atoms";
+import { Link, useNavigate } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
-import {AiOutlineCamera}from "react-icons/ai"
-import { SlClose } from "react-icons/sl"
-import { ItemButton } from "../UI/Item/ItemButton"
-import { ItemButton2 } from "../UI/Item/ItemButton2"
-import axios from 'axios'
-export default function UserEditBody({nickName, onImageChange,onNicknameChange}){
+import { AiOutlineCamera } from "react-icons/ai";
+import { SlClose } from "react-icons/sl";
+
+import axios from "axios";
+import ItemButton2 from "../UI/Button/ItemButton2";
+import ItemButton1 from "../UI/Button/ItemButton1";
+export default function UserEditBody({
+  nickName,
+  onImageChange,
+  onNicknameChange,
+}) {
   const navigate = useNavigate();
 
-  const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState);  //image상태
-  const [profileNickname, setProfileNickname] = useRecoilState(profileNicknameState);//nickname상태
-  const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");//nickname errormessage 상태
+  const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState); //image상태
+  const [profileNickname, setProfileNickname] =
+    useRecoilState(profileNicknameState); //nickname상태
+  const [nicknameErrorMessage, setNicknameErrorMessage] = useState(""); //nickname errormessage 상태
   const fileInputRef = useRef(null);
   const nicknameInputRef = useRef();
-  
-
-  
-  
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -43,10 +42,16 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
     fileInputRef.current.click();
   };
   const onChangeNickname = (e) => {
-    const value = e.target.value;       
+    const value = e.target.value;
     setProfileNickname(value);
-    if (value.length < 2 || value.length > 20 || !/^[\w\s가-힣]{2,}$/.test(value)) {
-      setNicknameErrorMessage("닉네임을 2글자 이상 20글자 미만으로 입력해주세요 ");
+    if (
+      value.length < 2 ||
+      value.length > 20 ||
+      !/^[\w\s가-힣]{2,}$/.test(value)
+    ) {
+      setNicknameErrorMessage(
+        "닉네임을 2글자 이상 20글자 미만으로 입력해주세요 "
+      );
       nicknameInputRef.current.focus();
       return;
     } else {
@@ -54,12 +59,12 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
     }
     onNicknameChange(value);
   };
-  
-  const profileDeleteClick = ()=>{
-    setSelectedImage(!selectedImage)
-  }
 
-  const handleSubmit = () => {    
+  const profileDeleteClick = () => {
+    setSelectedImage(!selectedImage);
+  };
+
+  const handleSubmit = () => {
     console.log("Selected Image:", selectedImage);
     console.log("Profile Nickname:", profileNickname);
     const requestBody = {
@@ -68,176 +73,182 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
 
     axios
       .patch(
-        `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2`,        
+        `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2`,
         requestBody
       )
       .then((res) => {
         setProfileNickname(res.nickName);
-        navigate('/mypage')
+        navigate("/mypage");
       })
       .catch((err) => {
-        navigate('/mypage')
+        navigate("/mypage");
         console.log(err);
       });
   };
-  return(
-    <Wrapper>      
-      <ProfileContainer >
-      <label htmlFor="file">        
-        <ProfileInput ref={fileInputRef} type="file" accept="image/*" onChange={handleImageChange} />
-        <AiOutlineCamera onClick={handleProfileClick}/>        
-      </label>      
+  return (
+    <Wrapper>
+      <ProfileContainer>
+        <label htmlFor="file">
+          <ProfileInput
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+          <AiOutlineCamera onClick={handleProfileClick} />
+        </label>
         {selectedImage ? (
-          <div>            
-            <CloseButton >
-              <SlClose onClick={profileDeleteClick}/>
+          <div>
+            <CloseButton>
+              <SlClose onClick={profileDeleteClick} />
             </CloseButton>
             <img src={selectedImage} alt="프로필 이미지" />
           </div>
-        ):(
-        <VscAccount/>        
-        )}        
-      </ProfileContainer>      
-      <span>☀︎ 위의 카메라 버튼을 클릭하시면 프로필 이미지를 등록하실 수 있습니다👆</span>
-      <NickNameContainer>
-        닉네임
-      </NickNameContainer>
-      <NickNameInput 
-      ref={nicknameInputRef}
-      type="text"
-      placeholder="nickname"       
-      onChange={onChangeNickname}
-      value={profileNickname}
+        ) : (
+          <VscAccount />
+        )}
+      </ProfileContainer>
+      <span>
+        ☀︎ 위의 카메라 버튼을 클릭하시면 프로필 이미지를 등록하실 수 있습니다👆
+      </span>
+      <NickNameContainer>닉네임</NickNameContainer>
+      <NickNameInput
+        ref={nicknameInputRef}
+        type="text"
+        placeholder="nickname"
+        onChange={onChangeNickname}
+        value={profileNickname}
       ></NickNameInput>
-      {nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
+      {nicknameErrorMessage && (
+        <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>
+      )}
       <ButtonArea>
-        <Cancellation to='/mypage'>
-          <ItemButton2/> 
+        <Cancellation to="/mypage">
+          <ItemButton2 name={"취소"} />
         </Cancellation>
         <Permit onClick={handleSubmit}>
-          <ItemButton/>           
-        </Permit>        
+          <ItemButton1 name={"확인"} />
+        </Permit>
       </ButtonArea>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
   width: 100%;
-  span{
+  span {
     display: flex;
-    justify-content: center;    
+    justify-content: center;
     font-size: 12px;
     color: red;
   }
-  @media only screen and (min-width:768px){
-    span{
+  @media only screen and (min-width: 768px) {
+    span {
       font-size: 15px;
     }
   }
-`
+`;
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 2.5rem 0 3rem 0;      
-  label{    
-    input{
+  margin: 2.5rem 0 3rem 0;
+  label {
+    input {
       display: none;
     }
-    >svg{
+    > svg {
       color: gray;
       position: absolute;
       width: 2.75rem;
       margin-left: 6rem;
-      margin-top: 3rem; 
-      cursor: pointer;     
+      margin-top: 3rem;
+      cursor: pointer;
     }
   }
-  svg{
+  svg {
     width: 6.75rem;
     height: 6.75rem;
   }
-  img{
+  img {
     border-radius: 50%;
-    width:8rem;
-    height:8rem;
+    width: 8rem;
+    height: 8rem;
   }
-  @media only screen and (min-width:768px){    
+  @media only screen and (min-width: 768px) {
     margin: 3.5rem 0;
-    label{    
-    input{   
+    label {
+      input {
+      }
+      > svg {
+        color: gray;
+        position: absolute;
+        width: 3rem;
+        margin-left: 6rem;
+        margin-top: 3rem;
+      }
     }
-    >svg{
-      color: gray;
-      position: absolute;
-      width: 3rem;
-      margin-left: 6rem;
-      margin-top: 3rem;      
-    }
-  }
-    svg{
+    svg {
       width: 9rem;
       height: 9rem;
     }
   }
-`
+`;
 const ProfileInput = styled.input`
-  color:blue;
-  position: absolute;      
-  
-`
+  color: blue;
+  position: absolute;
+`;
 const NickNameContainer = styled.div`
   font-size: 18px;
   margin: 0 0 1rem 1rem;
   font-weight: bold;
-`
+`;
 const CloseButton = styled.div`
-  svg{
+  svg {
     color: gray;
-      position: absolute;
-      width: 2rem;
-      margin-left: 7rem;      
-      padding-bottom: 7rem;
-      cursor: pointer;
+    position: absolute;
+    width: 2rem;
+    margin-left: 7rem;
+    padding-bottom: 7rem;
+    cursor: pointer;
   }
-`
+`;
 const NickNameInput = styled.input`
   margin-left: 1rem;
   margin-right: 1rem;
   width: 97%;
-  height: 3.5rem; 
+  height: 3.5rem;
   font-size: 22px;
   padding-left: 1rem;
   ::placeholder {
     margin-left: 1rem;
-    font-size: 22px;    
+    font-size: 22px;
   }
 `;
 const ButtonArea = styled.div`
-  display: flex;      
+  display: flex;
   margin: 4.25rem 2rem 0 2rem;
   justify-content: center;
-`
+`;
 const Cancellation = styled(Link)`
-    text-decoration: none;
-  >div{
+  text-decoration: none;
+  > div {
     width: 148px;
-    height: 46px;    
+    height: 46px;
   }
-  @media screen and (min-width: 768px){
-    >div{
+  @media screen and (min-width: 768px) {
+    > div {
       width: 180px;
     }
   }
 `;
 const Permit = styled.div`
-  >div{
+  > div {
     width: 148px;
     height: 46px;
-    margin-left: 0.5rem;        
+    margin-left: 0.5rem;
   }
-  @media screen and (min-width: 768px){
-    >div{
+  @media screen and (min-width: 768px) {
+    > div {
       width: 180px;
       margin-left: 2rem;
     }
@@ -252,7 +263,7 @@ const ErrorMessage = styled.div`
   align-items: center;
   justify-content: center;
 
-    @media screen and (min-width: 768px) {
-      font-size: 12px;
-    }
+  @media screen and (min-width: 768px) {
+    font-size: 12px;
+  }
 `;

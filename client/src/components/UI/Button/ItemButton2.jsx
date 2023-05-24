@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const ItemButton2 = () => {
-  return <Container>취소</Container>;
+export const ItemButton2 = ({ name }) => {
+  return <Container>{name}</Container>;
 };
 
 export default ItemButton2;

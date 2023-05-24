@@ -1,24 +1,25 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { LogOutModalState,loginState } from "../../stores/atoms";
-import { useNavigate } from 'react-router-dom'
-import { ItemButton } from "../UI/Item/ItemButton";
-import { ItemButton2 } from "../UI/Item/ItemButton2";
+import { LogOutModalState, loginState } from "../../stores/atoms";
+import { useNavigate } from "react-router-dom";
+import ItemButton2 from "../UI/Button/ItemButton2";
+import ItemButton1 from "../UI/Button/ItemButton1";
+
 export const LogOutModal = () => {
   const navigate = useNavigate();
 
   const [logOutClick, setLogOutClick] = useRecoilState(LogOutModalState);
-  const [,setLogOutClicks] =useRecoilState(loginState);
+  const [, setLogOutClicks] = useRecoilState(loginState);
   const logOutModalHandler = () => {
     setLogOutClick(!logOutClick);
   };
-  const logoutHandler =()=>{
-    setLogOutClicks(false)
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
+  const logoutHandler = () => {
+    setLogOutClicks(false);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setLogOutClick(!logOutClick);
-    navigate("/")
-  }
+    navigate("/");
+  };
   return (
     <ModalWrapper>
       <ModalContainer>
@@ -26,10 +27,10 @@ export const LogOutModal = () => {
         <ContainerContnet>로그아웃 하시겠습니까?</ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={logOutModalHandler}>
-            <ItemButton2 />
+            <ItemButton2 name={"취소"} />
           </Cancellation>
           <Permit onClick={logoutHandler}>
-            <ItemButton />
+            <ItemButton1 name={"확인"} />
           </Permit>
         </ButtonArea>
       </ModalContainer>
@@ -52,7 +53,7 @@ const ModalWrapper = styled.div`
 const ModalContainer = styled.div`
   display: flex;
   width: 338px;
-  height: 170px;  
+  height: 170px;
   background-color: white;
   flex-direction: column;
   border-radius: 10px;
