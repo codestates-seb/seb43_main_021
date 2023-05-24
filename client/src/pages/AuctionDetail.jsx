@@ -45,7 +45,7 @@ const AuctionDetail = () => {
 
   return (
     <Wrapper>
-      {modal ? <ItemEditModal /> : null}
+      {modal ? <ItemEditModal auction_item_id={data.auction_item_id} /> : null}
       <AuctionImgContainer>
         {data.imageUrlList.length > 0 ? (
           <ItemImage images={data.imageUrlList} />
