@@ -6,6 +6,7 @@ import AddImage from "../components/CreateItem/AddImage";
 import ItemBody from "../components/CreateItem/ItemBody";
 import Location from "../components/CreateItem/Location";
 import Period from "../components/CreateItem/Period";
+import axios from "axios";
 
 const CreateAuction = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const CreateAuction = () => {
   const [showTextWarning, setShowTextWarning] = useState(false);
   const [showPeriodWarning, setShowPeriodWarning] = useState(false);
   const [showLocationWarning, setShowLocationWarning] = useState(false);
+  const [imageSrcList, setImageSrcList] = useState([]);
+  
 
   const enterNumbersOnly = (event) => {
     let input = event.target.value;
@@ -70,7 +73,25 @@ const CreateAuction = () => {
     if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
       // 서버로 데이터 전송하는 로직 공간
 
-      navigate("/main");
+      axios
+        .post
+          (
+            'http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/auction_items', 
+            {
+              name : title,
+              period : parseInt(auctionPeriod),
+              content : text,
+              location : selectLocation,
+              imageUrlList : imageSrcList,
+            })
+        .then (res => {
+          
+          console.log("전송 성공:", res.data)
+          navigate("/main");
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
   };
 
@@ -90,18 +111,18 @@ const CreateAuction = () => {
         <HeaderTitle>
           <h2>경매 등록하기</h2>
         </HeaderTitle>
-        <CreateBtn onClick={handleCreateBtnClick}>
-          <h2>완료</h2>
-        </CreateBtn>{" "}
       </Header>
       <Container>
       <Body>
-        <AddImage />
+        <AddImage imageSrcList={imageSrcList} setImageSrcList={setImageSrcList} />
         <ItemBody title={title} text={text} showTitleWarning={showTitleWarning} showTextWarning={showTextWarning} handleTitleChange={handleTitleChange} handleTextChange={handleTextChange} />
         <Location titleList={titleList} showLocationWarning={showLocationWarning} selectLocation={selectLocation} setSelectLocation={LocationChange} setShowLocationWarning={setShowLocationWarning} />
         <Period auctionPeriod={auctionPeriod} enterNumbersOnly={enterNumbersOnly} showPeriodWarning={showPeriodWarning} />
       </Body>
       </Container>
+      <CreateBtn>
+        <button onClick={handleCreateBtnClick}>등록하기</button>
+      </CreateBtn>
     </Wrapper>
   );
 };
@@ -118,7 +139,7 @@ const Header = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: left;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -140,11 +161,21 @@ const HeaderTitle = styled.div`
 `;
 
 const CreateBtn = styled.div`
-  margin-left: auto;
-  cursor: pointer;
-  h2 {
-    color: #ff7e36;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  button {
+    background-color: #5170FD;
+    color: #FFFFFF;
+    border: none;
+    width: 20rem;
+    height: 2.8rem;
+    border-radius: 5px;
     font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 
