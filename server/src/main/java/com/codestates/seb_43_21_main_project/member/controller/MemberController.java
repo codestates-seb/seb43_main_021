@@ -6,6 +6,7 @@ import com.codestates.seb_43_21_main_project.member.dto.MemberPostDto;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import com.codestates.seb_43_21_main_project.member.mapper.MemberMapper;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
+import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,10 +22,12 @@ import javax.validation.constraints.Positive;
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
+    private final ContextHolederUtils contextHolederUtils;
 
-    public MemberController(MemberService memberService, MemberMapper mapper){
+    public MemberController(MemberService memberService, MemberMapper mapper, ContextHolederUtils contextHolederUtils) {
         this.memberService = memberService;
         this.mapper = mapper;
+        this.contextHolederUtils = contextHolederUtils;
     }
 
     @PostMapping
@@ -46,8 +49,10 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponseDto(member)),HttpStatus.OK);
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId){
+    @GetMapping()
+    public ResponseEntity getMember(){
+
+        Long memberId = contextHolederUtils.getAuthMemberId();
 
         Member response = memberService.findMember(memberId);
 
