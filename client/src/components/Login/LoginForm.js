@@ -20,6 +20,12 @@ const LoginFrom = () => {
     setPassword(event.currentTarget.value);
   };
 
+  const handleEnterPress = (e) => {
+    if (e.keyCode === 13) {
+      onClickLogin();
+    }
+  };
+
   const onClickLogin = () => {
     if (email === "" || password === "") {
       setErrorMessage("이메일과 비밀번호를 입력해주세요.");
@@ -74,6 +80,7 @@ const LoginFrom = () => {
           value={password}
           onChange={onChangePassword}
           placeholder="비밀번호"
+          onKeyDown={handleEnterPress}
         ></input>
       </PwInputBox>
       <LoginBtn>
