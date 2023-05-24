@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { IoArrowBackOutline } from "react-icons/io5";
 import ItemImage from "../components/UI/ItemImage/ItemImage";
@@ -10,10 +10,14 @@ import img2 from "../assets/images/img2.jpg";
 import FormatDateTime from "../utils/FormatDateTime";
 import ItemDot from "../components/ItemDetail/ItemDot";
 import defaultUserImg from "../assets/images/defaultUserImg.jpg";
+import ItemEditModal from "../components/UI/Modal/ItemEditModal";
+import { useRecoilState } from "recoil";
+import { AuctionConfirm } from "../stores/atoms";
 
 const AuctionDetail = () => {
   const { data, isLoading, isError, error, auctionItemId } =
     useGetAuctionItem();
+  const [modal, setModal] = useRecoilState(AuctionConfirm);
   const navigate = useNavigate();
   const img = [img2];
 
@@ -41,6 +45,7 @@ const AuctionDetail = () => {
 
   return (
     <Wrapper>
+      {modal ? <ItemEditModal /> : null}
       <AuctionImgContainer>
         {data.imageUrlList.length > 0 ? (
           <ItemImage images={data.imageUrlList} />
@@ -48,7 +53,9 @@ const AuctionDetail = () => {
           <ItemImage images={img} />
         )}
         <BackButton onClick={handleBack} />
-        <ItemDot />
+        <div onClick={() => setModal(!modal)}>
+          <ItemDot />
+        </div>
       </AuctionImgContainer>
 
       <UserInfoContainer>

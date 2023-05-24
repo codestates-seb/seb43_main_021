@@ -23,21 +23,20 @@ const LoginFrom = () => {
       setErrorMessage("이메일과 비밀번호를 입력해주세요.");
     } else {
       axios
-        .post(
-          "http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/auth/login",
-          {
-            username: email,
-            password: password,
-          }
-        )
+        .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+          username: email,
+          password: password,
+        })
         .then((res) => {
           if (res.data.result === "success") {
-            console.log("로그인 성공:", res.data, res.headers.refresh);
+            console.log("로그인 성공:", res.data, res.headers);
             const accessToken = res.headers.authorization;
             const refreshToken = res.headers.refresh;
+            const memberId = res.headers.memberId;
 
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
+            localStorage.setItem("memberId", memberId);
 
             navigate("/main");
           } else {
