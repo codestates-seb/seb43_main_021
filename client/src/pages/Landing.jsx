@@ -63,17 +63,23 @@ const Landing = () => {
         <LoginBtn>
           <Button
             onClick={() => {
-              navigate("/login");
+              navigate("/main");
             }}
             color="blue"
           >
-            로그인
+            둘러보기
           </Button>
 
-          <Button>게스트 로그인</Button>
+          <Button
+            onClick={() => {
+              window.open("https://github.com/codestates-seb/seb43_main_021");
+            }}
+          >
+            만든 사람들
+          </Button>
         </LoginBtn>
         <BottomText>
-          <Text
+          {/* <Text
             onClick={() => {
               navigate("/signup");
             }}
@@ -87,7 +93,7 @@ const Landing = () => {
             }}
           >
             둘러보기
-          </Text>
+          </Text> */}
         </BottomText>
         <GnbContainer>
           <Gnb />
@@ -217,12 +223,13 @@ const Button = styled.button`
     props.color === "blue" ? "#5170fd" : "#4636fc"};
   color: #ffffff;
   border: none;
-  width: 22rem;
+  width: 20rem;
   height: 2.8rem;
   border-radius: 5px;
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: ${(props) => (props.color === "blue" ? "0.5rem" : "")};
+  cursor: pointer;
 
   @media screen and (min-width: 768px) {
     width: 32rem;
