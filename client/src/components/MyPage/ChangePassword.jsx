@@ -78,7 +78,7 @@ export default function ChangePassword() {
     ) {
       axios
         .patch(
-          "http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2",
+          `${process.env.REACT_APP_API_URL}/member/profile/2`,
           {
             password: newPassword,
           }

@@ -63,32 +63,22 @@ const Landing = () => {
         <LoginBtn>
           <Button
             onClick={() => {
-              navigate("/login");
+              navigate("/main");
             }}
             color="blue"
           >
-            로그인
+            둘러보기
           </Button>
 
-          <Button>게스트 로그인</Button>
+          <Button
+            onClick={() => {
+              window.open("https://github.com/codestates-seb/seb43_main_021");
+            }}
+          >
+            만든 사람들
+          </Button>
         </LoginBtn>
-        <BottomText>
-          <Text
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            회원가입
-          </Text>
-          <Line />
-          <Text
-            onClick={() => {
-              navigate("/main");
-            }}
-          >
-            둘러보기
-          </Text>
-        </BottomText>
+        <BottomText></BottomText>
         <GnbContainer>
           <Gnb />
         </GnbContainer>
@@ -217,12 +207,13 @@ const Button = styled.button`
     props.color === "blue" ? "#5170fd" : "#4636fc"};
   color: #ffffff;
   border: none;
-  width: 22rem;
+  width: 20rem;
   height: 2.8rem;
   border-radius: 5px;
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: ${(props) => (props.color === "blue" ? "0.5rem" : "")};
+  cursor: pointer;
 
   @media screen and (min-width: 768px) {
     width: 32rem;
@@ -238,22 +229,6 @@ const BottomText = styled.div`
   justify-content: center;
   margin-top: 5px;
   margin-bottom: 10%;
-`;
-
-const Text = styled.div`
-  color: #6d6d6d;
-  padding: 0 20px;
-  cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    padding: 0 30px;
-    font-size: 1.2rem;
-  }
-`;
-
-const Line = styled.div`
-  border-right: 1px solid #cccccc;
-  height: 30px;
 `;
 
 const GnbContainer = styled.div`

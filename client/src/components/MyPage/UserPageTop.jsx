@@ -21,8 +21,7 @@ export default function UserPageTop(){
   useEffect(()=>{
     axios
   .get(
-    // `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/${userInfoId}`,
-    `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/2`,        
+    `${process.env.REACT_APP_API_URL}/member/2`,        
     {
       headers: {
         Authorization: accessToken,

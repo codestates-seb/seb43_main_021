@@ -45,7 +45,7 @@ const AuctionDetail = () => {
 
   return (
     <Wrapper>
-      {modal ? <ItemEditModal /> : null}
+      {modal ? <ItemEditModal auction_item_id={data.auction_item_id} /> : null}
       <AuctionImgContainer>
         {data.imageUrlList.length > 0 ? (
           <ItemImage images={data.imageUrlList} />
@@ -59,15 +59,19 @@ const AuctionDetail = () => {
       </AuctionImgContainer>
 
       <UserInfoContainer>
-        {data.userImg ? (
-          <UserImg src={data.userImg} />
+        {data.members[0].imageUrlList.length ? (
+          <UserImg src={data.members[0].imageUrlList} />
         ) : (
           <UserImg src={defaultUserImg} />
         )}
         <UserText>
-          {data.userName ? <div>{data.userName}</div> : "유저 이름이 없음"}
-          {data.userLocation ? (
-            <div className="userLocation">{data.userLocation}</div>
+          {data.members[0].nickName ? (
+            <div>{data.members[0].nickName}</div>
+          ) : (
+            "유저 이름이 없음"
+          )}
+          {data.location ? (
+            <div className="userLocation">{data.location}</div>
           ) : (
             <div className="userLocation">지역 정보 없음</div>
           )}

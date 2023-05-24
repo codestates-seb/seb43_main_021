@@ -5,15 +5,19 @@ const Period = ({ auctionPeriod, enterNumbersOnly, showPeriodWarning }) => {
 
     return (
         <AuctionPeriod>
+          <LeftContent>
             <h2>경매 기간</h2>
             <h4>※ 경매 기간은 최소 1일부터 30일까지 설정할 수 있어요.</h4>
+          </LeftContent>
+          <RightContent>
             <PeriodData>
                 <PeriodInput>
                     <input type="text" value={auctionPeriod} onChange={enterNumbersOnly} />
                 </PeriodInput>
                 <h2>일</h2>
             </PeriodData>
-            {showPeriodWarning && <Warning>경매 기간을 입력해주세요.</Warning>}
+          {showPeriodWarning && <Warning>경매 기간을 입력해주세요.</Warning>}
+          </RightContent>
         </AuctionPeriod>
     )
 }
@@ -21,6 +25,12 @@ const Period = ({ auctionPeriod, enterNumbersOnly, showPeriodWarning }) => {
 export default Period;
 
 const AuctionPeriod = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  `;
+
+const LeftContent = styled.div`
     h2 {
       padding-top: 1.2rem;
       padding-bottom: 0.8rem;
@@ -30,7 +40,10 @@ const AuctionPeriod = styled.div`
       padding-left: 1rem;
       color: #D2D2D4;
     }
-  `;
+;`
+
+const RightContent = styled.div`
+`;
 
 const PeriodData = styled.div`
   display: flex;
@@ -58,9 +71,9 @@ const PeriodInput = styled.div`
     border-top: medium none;
     outline: none;
     text-align: center;
-    width: 4.4rem;
-    height: 4rem;
-    font-size: 50px;
+    width: 3.3rem;
+    height: 3rem;
+    font-size: 30px;
   }
 `;
 

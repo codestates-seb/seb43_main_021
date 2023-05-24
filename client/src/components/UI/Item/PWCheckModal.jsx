@@ -2,31 +2,68 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { moveModalState } from "../../../stores/atoms";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ItemButton2 from "../Button/Button2";
 import ItemButton1 from "../Button/Button1";
+import axios from 'axios';
 export const PWCheckModal = () => {
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
+
   const [goPage, setGoPage] = useRecoilState(moveModalState);
   const [pwCheckValue, setPwCheckValue] = useState("");
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState("");
+  
+
   const openModalHandler = () => {
     setGoPage(!goPage);
   };
   const onChangePwvalue = (e) => {
-    setPwCheckValue(e.target.value);
+    const value = e.target.value;
+    setPwCheckValue(value);
   };
+  const onClickDeleteUser = ()=>{
+    axios
+      .get(
+        `${process.env.REACT_APP_API_URL}/member/2`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },
+        {
+          password:pwCheckValue,
+        }
+      )
+      .then((res) => {
+        if(res.password===pwCheckValue){
+          navigate('/')
+        }else{
+          setConfirmPasswordErrorMessage("비밀번호가 일치하지 않습니다.")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  
+  }
   return (
     <ModalWrapper>
       <ModalContainer>
-        <WarningText>*회원을 탈퇴합니다</WarningText>
+        <WarningText>{confirmPasswordErrorMessage? confirmPasswordErrorMessage: "*회원을 탈퇴합니다"}</WarningText>
         비밀번호를 입력하세요
         <ContainerContnet>
           비밀번호:
-          <PWArea value={pwCheckValue} onChange={onChangePwvalue}></PWArea>
+          <PWArea 
+          type="password"
+          value={pwCheckValue}
+          onChange={onChangePwvalue}></PWArea>
         </ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={openModalHandler}>
             <ItemButton2 name={"취소"} />
           </Cancellation>
-          <Permit>
+          <Permit onClick={onClickDeleteUser}>
             <ItemButton1 name={"확인"} />
           </Permit>
         </ButtonArea>

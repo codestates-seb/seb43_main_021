@@ -52,7 +52,6 @@ export default Header;
 
 const Container = styled.div`
   height: 5.5rem;
-  /* background-color: navy; */
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

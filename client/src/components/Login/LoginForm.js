@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useRecoilState } from 'recoil';
-import { loginState } from '../../stores/atoms'
+import { useRecoilState } from "recoil";
+import { loginState } from "../../stores/atoms";
 const LoginFrom = () => {
   const navigate = useNavigate();
 
-  const [,setKeepLoggedIn] = useRecoilState(loginState)
+  const [, setKeepLoggedIn] = useRecoilState(loginState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,22 +25,29 @@ const LoginFrom = () => {
       setErrorMessage("이메일과 비밀번호를 입력해주세요.");
     } else {
       axios
-        .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-          username: email,
-          password: password,
-        })
+        .post(
+          `${process.env.REACT_APP_API_URL}/auth/login`,
+          {
+            username: email,
+            password: password,
+          }
+          // {
+          //   withCredentials: true,
+          // }
+        )
         .then((res) => {
           if (res.data.result === "success") {
-            console.log("로그인 성공:", res.data, res.headers);
             const accessToken = res.headers.authorization;
             const refreshToken = res.headers.refresh;
             const memberId = res.headers.memberId;
+
 
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
             localStorage.setItem("memberId", memberId);
             setKeepLoggedIn(true)
             navigate("/main");
+
           } else {
             setErrorMessage("이메일 또는 비밀번호가 올바르지 않습니다.");
           }

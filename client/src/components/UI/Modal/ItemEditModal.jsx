@@ -4,19 +4,24 @@ import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../../../stores/atoms";
 import { Button1 } from "../Button/Button1";
 import { Button2 } from "../Button/Button2";
+import axios from "axios";
 
-export const ItemEditModal = () => {
+export const ItemEditModal = ({ auction_item_id }) => {
   const [, setModal] = useRecoilState(AuctionConfirm);
-  // const truncateText = (text, maxLength) => {
-  //   if (text.length < maxLength) {
-  //     return text;
-  //   }
-  //   return text.substring(0, maxLength - 3) + "...";
-  // };
 
-  // {board.content.slice(0, 200) +
-  //   (board.content.length > 200 ? '...' : '')}
-  // {truncateText(member, 20)}님의 물품으로 낙찰하시겠습니까?
+  const deleteAuction = async () => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/auction_items/${auction_item_id}`
+      );
+      setModal(false);
+      alert("정상적으로 삭제되었습니다.");
+    } catch (error) {
+      setModal(false);
+      alert("삭제 실패하였습니다.");
+      console.error(error);
+    }
+  };
 
   return (
     <ModalWrapper>
@@ -24,21 +29,16 @@ export const ItemEditModal = () => {
         <div onClick={() => setModal(false)}>
           <Button2 name={"수정하기"} />
         </div>
+        <div onClick={() => deleteAuction()}>
+          <Button2 name={"삭제하기"} />
+        </div>
         <div
+          className="cancel"
           onClick={() => {
             // auctionComplete();
             setModal(false);
           }}
         >
-          <div onClick={() => setModal(false)}>
-            <Button2 name={"삭제하기"} />
-          </div>
-          <div
-            onClick={() => {
-              // auctionComplete();
-              setModal(false);
-            }}
-          ></div>
           <Button1 name={"취소"} />
         </div>
       </ModalContainer>
@@ -63,7 +63,7 @@ const ModalWrapper = styled.div`
 const ModalContainer = styled.div`
   display: flex;
   width: 17rem;
-  height: 15rem;
+  height: 14rem;
   background-color: white;
   flex-direction: column;
   border-radius: 10px;
@@ -72,11 +72,15 @@ const ModalContainer = styled.div`
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-`;
+  gap: 0.3rem;
+  justify-content: center;
+  align-items: center;
 
-const ContainerContent = styled.div`
-  padding-top: 1rem;
-  padding-bottom: 1.25rem;
-  font-size: 17px;
-  font-weight: 400;
+  div {
+    width: 14rem;
+  }
+
+  .cancel {
+    margin-top: 1rem;
+  }
 `;
