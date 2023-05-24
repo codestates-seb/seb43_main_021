@@ -105,7 +105,7 @@ const AuctionDetail = () => {
       ) : (
         <NothingMessage>아직 등록된 입찰 내역이 없습니다.</NothingMessage>
       )}
-      <Footer />
+      <Footer 멤버아이디={data.memberId} />
     </Wrapper>
   );
 };
