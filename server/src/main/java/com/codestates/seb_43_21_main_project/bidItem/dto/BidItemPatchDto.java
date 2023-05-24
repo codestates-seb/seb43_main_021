@@ -18,4 +18,6 @@ public class BidItemPatchDto {
     private String bidItemContent;
 
     private List<String> imageUrlList;
+
+    private String location;
 }
