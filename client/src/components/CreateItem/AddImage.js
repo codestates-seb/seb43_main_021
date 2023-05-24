@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 import { SlClose } from "react-icons/sl";
 
-const AddImage = () => {
-  const [imageSrcList, setImeageSrcList] = useState([]); // 이미지 등록
-  const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
+const AddImage = ({ imageSrcList, setImageSrcList }) => {
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
 
   const onUpload = (event) => {
     if (imageSrcList.length >= 10) {
@@ -16,15 +15,22 @@ const AddImage = () => {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      newImageSrcList.push(URL.createObjectURL(file));
-    }
+      const reader = new FileReader();
 
-    setImeageSrcList((prevList) => [...prevList, ...newImageSrcList]);
-    setIsImageUploaded(true);
+      reader.onload = (e) => {
+        newImageSrcList.push(e.target.result);
+        if (newImageSrcList.length === files.length) {
+          setImageSrcList((prevList) => [...prevList, ...newImageSrcList]);
+          setIsImageUploaded(true);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   const onDeleteImage = (index) => {
-    setImeageSrcList((prevList) => {
+    setImageSrcList((prevList) => {
       const newList = [...prevList];
       newList.splice(index, 1);
       return newList;

@@ -93,7 +93,7 @@ const SignUpForm = () => {
 
       return axios
       .post(
-        'http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/member',
+        'http://ec2-3-34-179-243.ap-northeast-2.compute.amazonaws.com:8080/member',
         {
           email,
           password,

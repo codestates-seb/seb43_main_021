@@ -43,6 +43,8 @@ const ItemBody = ({
     input {
       border: none;
       outline: none;
+      font-size: 25px;
+      width: 100%;
     }
   
     input::placeholder {
