@@ -19,6 +19,8 @@ public class SecurityCorsConfig {
         config.setAllowCredentials(true);
         config.addAllowedOriginPattern("http://localhost:3000");
         config.addExposedHeader("Authorization");
+        config.addExposedHeader("Refresh");
+        config.addExposedHeader("memberId");
         config.addAllowedHeader("*"); //특정 header만 허용
         config.addAllowedMethod("GET"); //특정 메소드만 허용
         config.addAllowedMethod("POST"); //특정 메소드만 허용
