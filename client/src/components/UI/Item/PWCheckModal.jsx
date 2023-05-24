@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { moveModalState } from "../../../stores/atoms";
-import { ItemButton } from "./ItemButton";
-import { ItemButton2 } from "./ItemButton2";
-import { useState } from 'react';
+import { useState } from "react";
+import ItemButton2 from "../Button/Button2";
+import ItemButton1 from "../Button/Button1";
 export const PWCheckModal = () => {
   const [goPage, setGoPage] = useRecoilState(moveModalState);
-  const [pwCheckValue, setPwCheckValue] =useState("")
+  const [pwCheckValue, setPwCheckValue] = useState("");
   const openModalHandler = () => {
     setGoPage(!goPage);
   };
-  const onChangePwvalue = (e)=>{
-    setPwCheckValue(e.target.value)
-  }
+  const onChangePwvalue = (e) => {
+    setPwCheckValue(e.target.value);
+  };
   return (
     <ModalWrapper>
       <ModalContainer>
@@ -20,17 +20,14 @@ export const PWCheckModal = () => {
         비밀번호를 입력하세요
         <ContainerContnet>
           비밀번호:
-          <PWArea
-          value={pwCheckValue}
-          onChange={onChangePwvalue}
-          ></PWArea>
+          <PWArea value={pwCheckValue} onChange={onChangePwvalue}></PWArea>
         </ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={openModalHandler}>
-            <ItemButton2 />
+            <ItemButton2 name={"취소"} />
           </Cancellation>
           <Permit>
-            <ItemButton />
+            <ItemButton1 name={"확인"} />
           </Permit>
         </ButtonArea>
       </ModalContainer>
@@ -45,7 +42,7 @@ const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  position: fixed;  
+  position: fixed;
   max-width: 1024px;
   z-index: 2;
 `;
@@ -53,7 +50,7 @@ const ModalWrapper = styled.div`
 const ModalContainer = styled.div`
   display: flex;
   width: 338px;
-  height: 170px;  
+  height: 170px;
   background-color: white;
   flex-direction: column;
   border-radius: 10px;
@@ -91,7 +88,7 @@ const PWArea = styled.input`
   height: 2rem;
   width: 14.5rem;
   background-color: white;
-  
+
   margin-left: 0.25rem;
 `;
 const WarningText = styled.div`

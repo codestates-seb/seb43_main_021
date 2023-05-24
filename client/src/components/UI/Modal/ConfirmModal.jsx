@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import ItemButton2 from "../Item/ItemButton2";
-import ItemButton from "../Item/ItemButton";
+
 import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../../../stores/atoms";
+import { Button2 } from "../Button/Button2";
+import { Button1 } from "../Button/Button1";
 
 export const ConfirmModal = ({ member, content, auctionComplete }) => {
   const [, setModal] = useRecoilState(AuctionConfirm);
@@ -25,7 +26,7 @@ export const ConfirmModal = ({ member, content, auctionComplete }) => {
         {content ? <ContainerContent></ContainerContent> : null}
         <ButtonArea>
           <div onClick={() => setModal(false)}>
-            <ItemButton2 />
+            <Button2 name={"취소"} />
           </div>
           <div
             onClick={() => {
@@ -33,7 +34,7 @@ export const ConfirmModal = ({ member, content, auctionComplete }) => {
               setModal(false);
             }}
           >
-            <ItemButton />
+            <Button1 name={"확인"} />
           </div>
         </ButtonArea>
       </ModalContainer>
