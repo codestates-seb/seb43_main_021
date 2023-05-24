@@ -61,7 +61,7 @@ const CreateAuction = () => {
     }
   };
 
-  const handleCreateBtnClick = () => {
+  const handleCreateBtnClick = async () => {
     if (title === "") {
       setShowTitleWarning(true);
     }
@@ -84,41 +84,62 @@ const CreateAuction = () => {
       setShowLocationWarning(false);
     }
 
-    if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
-    
+    // 이미지용 코드
+    const uploadImages = async () => {
+      const imageUrls = [];
 
-    const data = {
-      name: title,
-      period: parseInt(auctionPeriod),
-      content: text,
-      location: selectLocation,
-      imageUrlList: imageSrcList,
+      for (const imageSrc of imageSrcList) {
+        try {
+          const formData = new FormData();
+          FormData.append("image", imageSrc);
+
+          const res = await axios.post (
+            `${process.env.REACT_APP_API_URL}/images/upload`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${accessToken}`, 
+              },
+            }
+          );
+
+          imageUrls.push(res.data.imageUrl);
+        } catch (error) {
+          console.log("이미지 업로드 실패:", error);
+        }
+      }
+      return imageUrls;
     };
-  
+
+    if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
+      try {
+        const imageUrls = await uploadImages();
+
+        const data = {
+          name: title,
+          period: parseInt(auctionPeriod),
+          content: text,
+          location: selectLocation,
+          imageUrlList: imageUrls,
+      };
+
     console.log("전송 데이터:", data);
 
 
     axios       
-      .post(`${process.env.REACT_APP_API_URL}/auction_items`, {
+      .post(`${process.env.REACT_APP_API_URL}/auction_items`, data, {
           headers: {
-            Authorization: accessToken,
+            Authorization: `Bearer ${accessToken}`,
           },
-        },
-        {
-          name : title,
-          period : parseInt(auctionPeriod),
-          content : text,
-          location : selectLocation,
-          imageUrlList : imageSrcList,
-        },
-      )
+      })
       .then (res => {
         console.log("전송 성공:", res.data)
         navigate("/main");
       })
-      .catch(err => {
+    } catch(err) {
         console.log(err);
-      })
+      };
     }
   };
 
