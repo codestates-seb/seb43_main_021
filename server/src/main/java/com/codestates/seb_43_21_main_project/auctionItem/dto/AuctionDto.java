@@ -23,11 +23,10 @@ public class AuctionDto {
     public static class Post {
 
 
-        @NotBlank
+        @NotBlank(message = "제목을 입력해주세요.")
         private String name; // 제목
-        // 이미지는 생각해보자.
 
-        @NotBlank
+        @NotBlank(message = "내용을 입력해주세요")
         private String content; // 내용
 
         @NotNull
@@ -36,7 +35,7 @@ public class AuctionDto {
 
         private List<String> imageUrlList;
 
-        @NotNull
+        @NotNull(message = "지역을 입력해주세요")
         private String location; //지역
 
 
@@ -72,16 +71,12 @@ public class AuctionDto {
     public static class Response {
         private long auctionItemId;
         private String name;
-
-        //이미지
-        private List<String> imageUrlList;
         private String content;
+        private List<String> imageUrlList;
         private String location; //지역
         private LocalDateTime createdDate;
         private LocalDateTime modifiedDate;
-        //      private int view; //조회수
         private int period;
-        //      private long favoriteItem; //즐겨찾기
         private List<BidItemResponseDto> bidItems; //  전체 데이터
         private List<MemberResponseDto> members;
 
