@@ -66,6 +66,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
+    
     /* background-color: #e0e0e0;     */
   }
 
@@ -78,7 +79,7 @@ const GlobalStyle = createGlobalStyle`
 
   @media screen  and (min-width: 416px) {
     #root{
-      max-width:1024px;      
+      max-width:1024px; 
     }
   }
 

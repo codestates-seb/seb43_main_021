@@ -12,10 +12,7 @@ const useGetItemList = () => {
   // };
   const getItemData = async () => {
     const response = await axios.get(
-      "http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/auction_items",
-      {
-        withCredentials: true,
-      }
+      `${process.env.REACT_APP_API_URL}/auction_items`
     );
     console.log("리액트쿼리 데이터", response.data);
     return response.data;

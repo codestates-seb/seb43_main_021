@@ -1,13 +1,24 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { LogOutModalState } from "../../stores/atoms";
+import { LogOutModalState,loginState } from "../../stores/atoms";
+import { useNavigate } from 'react-router-dom'
 import { ItemButton } from "../UI/Item/ItemButton";
 import { ItemButton2 } from "../UI/Item/ItemButton2";
 export const LogOutModal = () => {
+  const navigate = useNavigate();
+
   const [logOutClick, setLogOutClick] = useRecoilState(LogOutModalState);
+  const [,setLogOutClicks] =useRecoilState(loginState);
   const logOutModalHandler = () => {
     setLogOutClick(!logOutClick);
   };
+  const logoutHandler =()=>{
+    setLogOutClicks(false)
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setLogOutClick(!logOutClick);
+    navigate("/")
+  }
   return (
     <ModalWrapper>
       <ModalContainer>
@@ -17,7 +28,7 @@ export const LogOutModal = () => {
           <Cancellation onClick={logOutModalHandler}>
             <ItemButton2 />
           </Cancellation>
-          <Permit>
+          <Permit onClick={logoutHandler}>
             <ItemButton />
           </Permit>
         </ButtonArea>

@@ -5,12 +5,16 @@ import {
   selectedImageState,
   profileNicknameState,
 } from "../../stores/atoms"
+import { Link, useNavigate } from 'react-router-dom'
 import { VscAccount } from "react-icons/vsc";
 import {AiOutlineCamera}from "react-icons/ai"
 import { SlClose } from "react-icons/sl"
-// import axios from 'axios'
+import { ItemButton } from "../UI/Item/ItemButton"
+import { ItemButton2 } from "../UI/Item/ItemButton2"
+import axios from 'axios'
 export default function UserEditBody({nickName, onImageChange,onNicknameChange}){
-  
+  const navigate = useNavigate();
+
   const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState);  //image상태
   const [profileNickname, setProfileNickname] = useRecoilState(profileNicknameState);//nickname상태
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState("");//nickname errormessage 상태
@@ -55,13 +59,33 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
     setSelectedImage(!selectedImage)
   }
 
+  const handleSubmit = () => {    
+    console.log("Selected Image:", selectedImage);
+    console.log("Profile Nickname:", profileNickname);
+    const requestBody = {
+      nickName: profileNickname,
+    };
+
+    axios
+      .patch(
+        `http://ec2-3-37-87-208.ap-northeast-2.compute.amazonaws.com:8080/member/profile/2`,        
+        requestBody
+      )
+      .then((res) => {
+        setProfileNickname(res.nickName);
+        navigate('/mypage')
+      })
+      .catch((err) => {
+        navigate('/mypage')
+        console.log(err);
+      });
+  };
   return(
-    <Wrapper>
+    <Wrapper>      
       <ProfileContainer >
       <label htmlFor="file">        
         <ProfileInput ref={fileInputRef} type="file" accept="image/*" onChange={handleImageChange} />
-        <AiOutlineCamera onClick={handleProfileClick}/>
-        
+        <AiOutlineCamera onClick={handleProfileClick}/>        
       </label>      
         {selectedImage ? (
           <div>            
@@ -74,6 +98,7 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
         <VscAccount/>        
         )}        
       </ProfileContainer>      
+      <span>☀︎ 위의 카메라 버튼을 클릭하시면 프로필 이미지를 등록하실 수 있습니다👆</span>
       <NickNameContainer>
         닉네임
       </NickNameContainer>
@@ -85,17 +110,36 @@ export default function UserEditBody({nickName, onImageChange,onNicknameChange})
       value={profileNickname}
       ></NickNameInput>
       {nicknameErrorMessage && <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>}
+      <ButtonArea>
+        <Cancellation to='/mypage'>
+          <ItemButton2/> 
+        </Cancellation>
+        <Permit onClick={handleSubmit}>
+          <ItemButton/>           
+        </Permit>        
+      </ButtonArea>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
   width: 100%;
+  span{
+    display: flex;
+    justify-content: center;    
+    font-size: 12px;
+    color: red;
+  }
+  @media only screen and (min-width:768px){
+    span{
+      font-size: 15px;
+    }
+  }
 `
 const ProfileContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 1.75rem 0;    
+  margin: 2.5rem 0 3rem 0;      
   label{    
     input{
       display: none;
@@ -119,7 +163,7 @@ const ProfileContainer = styled.div`
     height:8rem;
   }
   @media only screen and (min-width:768px){    
-    margin: 3rem 0;
+    margin: 3.5rem 0;
     label{    
     input{   
     }
@@ -167,6 +211,36 @@ const NickNameInput = styled.input`
   ::placeholder {
     margin-left: 1rem;
     font-size: 22px;    
+  }
+`;
+const ButtonArea = styled.div`
+  display: flex;      
+  margin: 4.25rem 2rem 0 2rem;
+  justify-content: center;
+`
+const Cancellation = styled(Link)`
+    text-decoration: none;
+  >div{
+    width: 148px;
+    height: 46px;    
+  }
+  @media screen and (min-width: 768px){
+    >div{
+      width: 180px;
+    }
+  }
+`;
+const Permit = styled.div`
+  >div{
+    width: 148px;
+    height: 46px;
+    margin-left: 0.5rem;        
+  }
+  @media screen and (min-width: 768px){
+    >div{
+      width: 180px;
+      margin-left: 2rem;
+    }
   }
 `;
 const ErrorMessage = styled.div`

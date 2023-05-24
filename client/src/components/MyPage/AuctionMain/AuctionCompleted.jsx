@@ -2,12 +2,16 @@ import styled from 'styled-components';
 import useGetItemList from '../../../hooks/useGetItemList';
 import Item from '../../UI/Item/Item';
 import { Link } from 'react-router-dom';
-
+import Loading from '../../UI/Loading/Loading';
 
 export default function AuctionCompleted() {
   const { data, isLoading, isError, error } = useGetItemList();
   if (isLoading) {
-    return <div>test 로딩 중</div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   if (isError) {

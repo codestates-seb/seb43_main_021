@@ -16,10 +16,7 @@ const useGetAuctionItem = () => {
 
   const getData = async () => {
     const response = await axios.get(
-      `http://ec2-3-34-46-159.ap-northeast-2.compute.amazonaws.com:8080/auction_items/${auctionItemId}`,
-      {
-        withCredentials: true,
-      }
+      `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}`
     );
     console.log("겟옥션 데이터", response.data);
     return response.data;
