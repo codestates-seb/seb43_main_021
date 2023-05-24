@@ -1,7 +1,7 @@
 package com.codestates.seb_43_21_main_project.image.repository;
 
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
-import com.codestates.seb_43_21_main_project.image.entity.Image;
+import com.codestates.seb_43_21_main_project.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

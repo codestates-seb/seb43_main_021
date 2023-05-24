@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 
 public class FileSystemStorageService implements StorageService {
-    private final Path rootLocation = Paths.get("C:\\Img");
+    private final Path rootLocation = Paths.get("/Users/choseungmin/Desktop");
 
 
     @Override
