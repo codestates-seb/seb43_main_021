@@ -78,23 +78,7 @@ const Landing = () => {
             만든 사람들
           </Button>
         </LoginBtn>
-        <BottomText>
-          {/* <Text
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            회원가입
-          </Text>
-          <Line />
-          <Text
-            onClick={() => {
-              navigate("/main");
-            }}
-          >
-            둘러보기
-          </Text> */}
-        </BottomText>
+        <BottomText></BottomText>
         <GnbContainer>
           <Gnb />
         </GnbContainer>
@@ -245,22 +229,6 @@ const BottomText = styled.div`
   justify-content: center;
   margin-top: 5px;
   margin-bottom: 10%;
-`;
-
-const Text = styled.div`
-  color: #6d6d6d;
-  padding: 0 20px;
-  cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    padding: 0 30px;
-    font-size: 1.2rem;
-  }
-`;
-
-const Line = styled.div`
-  border-right: 1px solid #cccccc;
-  height: 30px;
 `;
 
 const GnbContainer = styled.div`

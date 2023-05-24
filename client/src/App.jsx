@@ -75,7 +75,80 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     min-height: 100vh; 
     background-color: white;
+
+    --blue-button1-color: #4636fc;
+    --blue-button1hover-color: #3b29fb;
+
+    --white-button2-color:#f2f3f7;
+    --blue-button2hover-color: #e0e0e0bc;
+
+    --landing-Button1-color: #5170fd;
+    --landing-Button2-color: #4636fc;
+    --landing-Flexible-color: white;
+
+    --AuctionDetail-BackButton-color: #f0f0f0;
+    --AuctionDetail-userLocation-color: gray;
+    --AuctionDetail-UnderLine-color: #cccccc;
+    --AuctionDetail-NothingMessage-color: #5e5e5e;
+
+    --BiddingDetail-BackButton-color:#f0f0f0;
+    --BiddingDetail-userLocation-color:gray;
+    --BiddingDetail-UnderLine-color:#cccccc;
+
+    --Header-SelectBox-color:white;
+    --Header-Line-color:#cccccc;
+
+    --ChatItem-UserInfo-color: gray;
+    --ChatItem-UnderLine-color: #dfdfdf;
+
+    --Gnb-Container-color: white;
+    --Gnb-Line-color: #cccccc;
+
+    --Chatting-AuctionLine-color: #cccccc;
+    --Chatting-span-color: red;
+    --Chatting-Buttom-color: white;
+    --Chatting-Buttom1-color: #dcdcdc;
+    --Chatting-Buttom2-color: #dfdfdf;
+    --Chatting-AdminContent-color: #7c43f8;
+    --Chatting-Content-color: #f2f3f6;
+    --Chatting-ContentTime-color: #9c9c9c;
+    --Chatting-UserContent-color: #4b3bfa;
+    --Chatting-UserContentTime-color: #9c9c9c;
+    --Chatting-SendImg-color: #595959;
+    --Chatting-SendImg1-color: #868686;
+    --Chatting-ChattingInput-color: #f2f3f6;
+    --Chatting-SubmitButton-color: #7e7e7e;
+    --Chatting-SubmitButton1-color: #a6a6a6;
+    --Chatting-DeleteButton-color: #626262;
+
+    --Main-CreateAuctionButton-color: #4636fc; 
+
+    --Search-SearchInput-color: #ebebeb;
+    --Search-SearchLine-color: #cccccc;
+
+    --ItemDot-Dots-color: white;
+
+    --Footer-FooterLine-color:#cccccc;
+    --Footer-BiddingButton-color:#4636fc;
+    --Footer-BiddingButtonhover-color:#5170fd;
+
+    --item-Period-color: gray;
+    --item-AuctionState-color: red;
+    --item-Line-color: #cccccc;
+
+    --ConfirmModal-ModalWrapper-color:rgba(0, 0, 0, 0.5);
+
+    --ItemEditModal-ModalWrapper-color:rgba(0, 0, 0, 0.5);
+
+    /* ================================================================================ */
+
+
+
+    /* ================================================================================ */
+
+
   }
+
 
   @media screen  and (min-width: 416px) {
     #root{
