@@ -33,17 +33,20 @@ logging:
 mail:
   address:
     admin: admin@gmail.com
+
 jwt:
   key: kevin1234123412341234123412341234
-  access-token-expiration-minutes: 10
-  refresh-token-expiration-minutes: 30
+  access-token-expiration-minutes: 1440
+  refresh-token-expiration-minutes: 2880
 
 
 cloud:
   aws:
     credentials:
-      access-key: 
-      secret-key: 
+
+      access-key:
+      secret-key:
+
     s3:
       bucket: seb-main-021
     region:
