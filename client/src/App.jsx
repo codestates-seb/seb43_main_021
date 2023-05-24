@@ -180,14 +180,54 @@ const GlobalStyle = createGlobalStyle`
     --AuctionCompleted-AuctionDisplay-color: #f2f3f7;
     --AuctionCompleted-AuctionItemDisplay-color: #d1d3d7;
 
-    
-
-
-
 
     /* ================================================================================ */
 
+    --LoginPages-HeaderBorder-color: hsl(210, 8%, 90%);
 
+    --LoginForm-IdPwInputBackground-color: #f5f5f5;
+    --LoginForm-IdPwPlaceholder-color: #aaaaaa;
+    --LoginForm-LoginBtn-color: #5170fd;
+    --LoginForm-LoginText-color: #ffffff;
+    --LoginForm-LoginErrorMessage-color: red;
+    --LoginForm-UserInfoBorder-color: #000000;
+    --LoginForm-UserInfoBtnBackground-color: #ffffff;
+    --LoginForm-GuestLoginBtnBackground-color: #4636fc;
+    --LoginForm-GuestLoginText-color: #ffffff;
+
+    --SignUpPages-HeaderBorder-color: hsl(210, 8%, 90%);
+    --SignUpPages-ContainerBackground-color: #f2f3f7;
+    --SignUpPages-BodyBackground-color: #ffffff;
+
+    --SignUpForm-ImportantSpan-color: red;
+    --SignUpForm-InputFieldBackground-color: #f5f5f5;
+    --SignUpForm-InputFieldPlaceholder-color: #aaaaaa;
+    --SignUpForm-SignUpBtnBackground-color: #5170fd;
+    --SignUpForm-SignUpBtnText-color: #ffffff;
+    --SignUpForm-SignUpErrorMessage-color: red;
+
+    --CreateAuctionPages-HeaderBorder-color: hsl(210, 8%, 90%);
+    --CreateAuctionPages-CreateBtnBackground-color: #5170fd;
+    --CreateAuctionPages-CreateBtnText-color: #ffffff;
+
+    --AddImage-AddImagesBorder-color: #f3f3f3;
+    --AddImage-AddImagesLabelBackground-color: #f2f3f7;
+    --AddImage-DeleteBtnText-color: red;
+
+    --ItemBody-TitleBorder-color: #f3f3f3;
+    --ItemBody-TitlePlaceholder-color: #d2d2d4;
+    --ItemBody-TextAreaDivBorder-color: #f3f3f3;
+    --ItemBody-TextAreaBorder-color: #000000;
+    --ItemBody-TextAreaPlaceholder-color: #d2d2d4;
+    --ItemBody-WarningText-color: red;
+
+    --Location-ContainerBorder-color: hsl(210, 8%, 90%);
+    --Location-SelectBoxBackground-color: white;
+    --Location-SelectBoxLiBackground-color: lightgray;
+    --Location-WarningText-color: red;
+
+    --Period-LeftContentH4-color: #d2d2d4;
+    --Period-WarningText-color: red;
   }
 
 
