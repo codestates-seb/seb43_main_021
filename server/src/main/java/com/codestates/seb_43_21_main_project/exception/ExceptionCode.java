@@ -9,6 +9,8 @@ public enum ExceptionCode {
     ACCESS_NOT_ALLOWED(403, "권한이 없습니다."),
     AUCTION_NOT_FOUND(404, "경매 물품이 존재하지 않습니다."),
 
+    AUCTION_BAD_REQUEST(400, "키워드를 입력해주세요."),
+
     AUCTION_INTERNAL_SERVER_ERROR(500,"양수를 입력해주세요.");
 
 

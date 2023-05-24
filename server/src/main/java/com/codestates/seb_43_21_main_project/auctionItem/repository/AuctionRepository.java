@@ -6,6 +6,7 @@ import com.codestates.seb_43_21_main_project.member.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,8 +15,8 @@ import java.util.List;
 public interface AuctionRepository extends JpaRepository<Auction, Long> {
 
     List<Auction> findAllByMember (Member member);
+    List<Auction> findByNameContaining(String keyword , Sort sort);
 
-//    Page<Auction> findByAuctionItemIdLessThanEqualOrderByAuctionItemIdDesc(Long lastItemId, Pageable pageable);
-//    List<Auction> findAllByMember_memberId (Member member);
+
 
 }

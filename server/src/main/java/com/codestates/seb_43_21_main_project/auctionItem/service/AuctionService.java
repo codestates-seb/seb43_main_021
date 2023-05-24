@@ -158,6 +158,13 @@ public class AuctionService {
         return findAuction;
     }
 
+    //검색
+    public List<Auction> searchAuctionByName(String keyword, Sort.Direction sortDirection) {
+        Sort sort = Sort.by(sortDirection, "auctionItemId");
+        return auctionRepository.findByNameContaining(keyword, sort);
+    }
+
+
     //입찰 성공 확인
     private boolean isBidSuccessful(Auction auction){
         List<BidItem> bidItems = auction.getBidItems();

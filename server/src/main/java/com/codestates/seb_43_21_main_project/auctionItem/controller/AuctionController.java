@@ -2,14 +2,13 @@ package com.codestates.seb_43_21_main_project.auctionItem.controller;
 
 
 import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
-import com.codestates.seb_43_21_main_project.auctionItem.dto.PageInfoRequest;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.mapper.AuctionMapper;
 import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
-import com.codestates.seb_43_21_main_project.dto.MultiResponseDto;
-import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
+import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
+import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -95,4 +94,17 @@ public class AuctionController {
         auctionService.deleteAll();
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+
+    @GetMapping("/search")
+    public ResponseEntity searchAuction(@RequestParam String keyword){
+        if(keyword == null || keyword.trim().isEmpty()) {
+            throw  new BusinessLogicException(ExceptionCode.AUCTION_BAD_REQUEST);
+        }
+        List<Auction> auctions = auctionService.searchAuctionByName(keyword, Sort.Direction.DESC);
+        return  new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctions),HttpStatus.OK);
+    }
+
+
+
 }
