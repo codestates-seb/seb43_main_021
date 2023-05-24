@@ -40,7 +40,9 @@ const Header = ({ title, titleList, chatTitle }) => {
           <CustomLink to="/search">
             <Search />
           </CustomLink>
-          <Bell />
+          <BellLink to="/alarm">
+            <Bell />
+          </BellLink>
         </Notice>
       </Container>
       <Line />
@@ -119,6 +121,11 @@ const Search = styled(BsSearch)`
   font-size: 1.6rem;
   margin-right: 0.8rem;
   margin-bottom: 3px;
+`;
+
+const BellLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 const Bell = styled(FiBell)`

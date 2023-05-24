@@ -19,6 +19,7 @@ import SignUp from "./pages/SignUp";
 import UserEdit from "./pages/UserEdit";
 import { createGlobalStyle } from "styled-components";
 import Landing from "./pages/Landing";
+import Alarm from "./pages/Alarm";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <Route path="/myauctionlist" element={<MyAuctionList />} />
         <Route path="/changepw" element={<ChangePw />} />
         <Route path="/useredit" element={<UserEdit />} />
+        <Route path="/alarm" element={<Alarm />} />
       </Routes>
     </div>
   );

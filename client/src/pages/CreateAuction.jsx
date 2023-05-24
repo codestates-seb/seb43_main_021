@@ -131,12 +131,12 @@ const CreateAuction = () => {
         </HeaderTitle>
       </Header>
       <Container>
-      <Body>
-        <AddImage imageSrcList={imageSrcList} setImageSrcList={setImageSrcList} />
-        <ItemBody title={title} text={text} showTitleWarning={showTitleWarning} showTextWarning={showTextWarning} handleTitleChange={handleTitleChange} handleTextChange={handleTextChange} />
-        <Location titleList={titleList} showLocationWarning={showLocationWarning} selectLocation={selectLocation} setSelectLocation={LocationChange} setShowLocationWarning={setShowLocationWarning} />
-        <Period auctionPeriod={auctionPeriod} enterNumbersOnly={enterNumbersOnly} showPeriodWarning={showPeriodWarning} />
-      </Body>
+        <Body>
+          <AddImage imageSrcList={imageSrcList} setImageSrcList={setImageSrcList} />
+          <ItemBody title={title} text={text} showTitleWarning={showTitleWarning} showTextWarning={showTextWarning} handleTitleChange={handleTitleChange} handleTextChange={handleTextChange} />
+          <Location titleList={titleList} showLocationWarning={showLocationWarning} selectLocation={selectLocation} setSelectLocation={LocationChange} setShowLocationWarning={setShowLocationWarning} />
+          <Period auctionPeriod={auctionPeriod} enterNumbersOnly={enterNumbersOnly} showPeriodWarning={showPeriodWarning} />
+        </Body>
       </Container>
       <CreateBtn>
         <button onClick={handleCreateBtnClick}>등록하기</button>
