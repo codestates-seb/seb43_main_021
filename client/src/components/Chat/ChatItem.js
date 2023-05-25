@@ -85,7 +85,7 @@ const UserTitle = styled.span`
 const UserInfo = styled.span`
   font-size: 12px;
   font-weight: bold;
-  color: gray;
+  color: var(--gray1-color);
 `;
 const ChatThumbnail = styled.div`
   display: flex;
@@ -101,7 +101,7 @@ const ItemImg = styled.div`
 `;
 
 const UnderLine = styled.div`
-  border: 0.5px solid #dfdfdf;
+  border: 0.5px solid var(--white4-color);
 `;
 
 export default ChatItem;

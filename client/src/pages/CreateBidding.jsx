@@ -155,7 +155,7 @@ const Header = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  border-color: hsl(210, 8%, 90%);
+  border-color: var(--white3-color);
   border-bottom-style: solid;
   border-bottom-width: 1px;
 `;
@@ -176,7 +176,7 @@ const CreateBtn = styled.div`
   margin-left: auto;
   cursor: pointer;
   h2 {
-    color: #ff7e36;
+    color: var(--orange1-color);
     font-size: 15px;
   }
 `;
@@ -191,9 +191,7 @@ const AddImages = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem 1.5rem 0;
-  border-bottom: 1px solid #f3f3f3;
-
-  > div {
+  border-bottom: 1px solid var(--white2-color) > div {
     display: flex;
     align-items: center;
     margin-right: 1rem;
@@ -206,7 +204,7 @@ const AddImages = styled.div`
     align-items: center;
     width: 4.8rem;
     height: 4.8rem;
-    background: #f2f3f7;
+    background: var(--white2-color);
     border-radius: 5%;
     cursor: pointer;
 
@@ -245,7 +243,7 @@ const DeleteButton = styled.button`
   background-color: transparent;
   border: none;
   font-size: 20px;
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   cursor: pointer;
 `;
@@ -260,19 +258,17 @@ const Title = styled.div`
   }
 
   input::placeholder {
-    color: #d2d2d4;
+    color: var(--white5-color);
   }
 `;
 
 const TextArea = styled.div`
   padding: 2.2rem 0 1.5rem 0;
-  border-bottom: 1px solid #f3f3f3;
-
-  textarea {
+  border-bottom: 1px solid var(--white2-color) textarea {
     width: 100%;
     height: 12rem;
     box-sizing: border-box;
-    border: 2px solid #000000;
+    border: 2px solid var(--black1-color);
     border-radius: 5px;
     font-size: 16px;
     resize: none;
@@ -281,12 +277,12 @@ const TextArea = styled.div`
   }
 
   textarea::placeholder {
-    color: #d2d2d4;
+    color: var(--white5-color);
   }
 `;
 
 const Warning = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-size: 13px;
   text-align: center;
   margin-top: 0.5rem;

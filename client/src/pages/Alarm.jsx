@@ -3,29 +3,24 @@ import styled from "styled-components";
 import { BsChevronLeft } from "react-icons/bs";
 
 const Alarm = () => {
+  const handleBack = () => {
+    window.history.back();
+  };
 
-    const handleBack = () => {
-        window.history.back();
-    };
-
-    return (
-        <Wrapper>
-            <Header>
-                <BackButton onClick={handleBack} />
-                <HeaderTitle>
-                    <h2>알림</h2>
-                </HeaderTitle>
-                <DeleteAll>
-                    전체삭제
-                </DeleteAll>
-            </Header>
-            <Container>
-                <Body>
-
-                </Body>
-            </Container>
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <Header>
+        <BackButton onClick={handleBack} />
+        <HeaderTitle>
+          <h2>알림</h2>
+        </HeaderTitle>
+        <DeleteAll>전체삭제</DeleteAll>
+      </Header>
+      <Container>
+        <Body></Body>
+      </Container>
+    </Wrapper>
+  );
 };
 
 export default Alarm;
@@ -44,7 +39,7 @@ const Header = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  border-color: hsl(210, 8%, 90%);
+  border-color: var(--white3-color);
   border-bottom-style: solid;
   border-bottom-width: 1px;
 `;
@@ -61,9 +56,7 @@ const HeaderTitle = styled.div`
   }
 `;
 
-const DeleteAll = styled.div`
-    
-`;
+const DeleteAll = styled.div``;
 
 const Container = styled.div``;
 

@@ -54,10 +54,6 @@ const Item = ({ item }) => {
     </div>
   );
 };
-// const CustomLink = styled(Link)`
-//   text-decoration: none;
-//   color: inherit;
-// `;
 
 const Container = styled.div`
   display: flex;
@@ -87,7 +83,7 @@ const Title = styled.div`
 const Period = styled.div`
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  color: gray;
+  color: var(--gray1-color);
 `;
 
 const Bidding = styled.div`
@@ -108,12 +104,12 @@ const ItemRight = styled.div`
 `;
 
 const AuctionState = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
 `;
 
 const Line = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
 `;
 
 export default Item;

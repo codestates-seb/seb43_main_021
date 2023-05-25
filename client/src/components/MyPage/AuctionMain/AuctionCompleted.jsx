@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import useGetItemList from '../../../hooks/useGetItemList';
-import Item from '../../UI/Item/Item';
-import { Link } from 'react-router-dom';
-import Loading from '../../UI/Loading/Loading';
+import styled from "styled-components";
+import useGetItemList from "../../../hooks/useGetItemList";
+import Item from "../../UI/Item/Item";
+import { Link } from "react-router-dom";
+import Loading from "../../UI/Loading/Loading";
 
 export default function AuctionCompleted() {
   const { data, isLoading, isError, error } = useGetItemList();
@@ -18,22 +18,23 @@ export default function AuctionCompleted() {
     return <div>Error: {error.message}</div>;
   }
 
-  const completedAuctions =data? data.filter((item) => item.auctionState):[];  
+  const completedAuctions = data
+    ? data.filter((item) => item.auctionState)
+    : [];
   return (
     <Wrapper>
-        {completedAuctions.length === 0 ? (
-          <AuctionDisplay>
+      {completedAuctions.length === 0 ? (
+        <AuctionDisplay>
           <ContentArea>거래 완료된 게시글이 없어요.</ContentArea>
-          </AuctionDisplay>
-        ) : (
-          <AuctionItemDisplay>
-            <Item item={completedAuctions} />
-            <LinkContainer>
-              <CustomLink to='/createauction'>                
-              </CustomLink>
-            </LinkContainer>
-          </AuctionItemDisplay>
-        )}    
+        </AuctionDisplay>
+      ) : (
+        <AuctionItemDisplay>
+          <Item item={completedAuctions} />
+          <LinkContainer>
+            <CustomLink to="/createauction"></CustomLink>
+          </LinkContainer>
+        </AuctionItemDisplay>
+      )}
     </Wrapper>
   );
 }
@@ -47,32 +48,30 @@ const AuctionDisplay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f2f3f7;
+  background-color: var(--white2-color);
   @media only screen and (min-width: 768px) {
     margin-top: 1.75rem;
     height: 65rem;
   }
-  @media only screen and (min-height: 897px){
+  @media only screen and (min-height: 897px) {
     height: 65rem;
   }
 `;
 const AuctionItemDisplay = styled.div`
   margin-top: 0.75rem;
-  background-color: white;
+  background-color: var(--white1-color);
   @media only screen and (min-width: 768px) {
-    margin-top: 2rem;    
+    margin-top: 2rem;
   }
-`
+`;
 
 const ContentArea = styled.div`
   font-size: 20px;
-  color: #d1d3d7;
+  color: var(--white4-color);
   @media only screen and (min-width: 768px) {
     font-size: 25px;
   }
 `;
-
-
 
 const LinkContainer = styled.div`
   position: fixed;

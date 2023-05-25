@@ -60,11 +60,12 @@ const Wrapper = styled.div`
   width: 100%;
   bottom: 0;
   position: fixed;
-  background-color: white;
+  background-color: var(--white1-color);
+  z-index: 100;
 `;
 
 const FooterLine = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
 `;
 
 const FooterContainer = styled.div`
@@ -73,14 +74,14 @@ const FooterContainer = styled.div`
 
 const Favorite = styled(RiHeartLine)`
   font-size: 1.5rem;
-  color: gray;
+  color: var(--gray1-color);
   margin-left: 1rem;
   margin-top: 1.5rem;
   cursor: pointer;
 `;
 
 const DivisionLine = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   width: 0;
   height: 2.5rem;
   margin-top: 1rem;
@@ -94,8 +95,8 @@ const AuctionEnd = styled.div`
 `;
 
 const BiddingButton = styled.button`
-  background-color: #4636fc;
-  color: white;
+  background-color: var(--purple2-color);
+  color: var(--white1-color);
   border: none;
   width: 5.5rem;
   height: 2.5rem;
@@ -105,7 +106,7 @@ const BiddingButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #5170fd;
+    background-color: var(--purple1-color);
   }
 `;
 

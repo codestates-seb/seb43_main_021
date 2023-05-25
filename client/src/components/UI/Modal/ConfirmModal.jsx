@@ -49,7 +49,7 @@ const ModalWrapper = styled.div`
   width: 100%;
   max-width: 1024px;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--blackCover-color);
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -60,7 +60,7 @@ const ModalContainer = styled.div`
   display: flex;
   width: 338px;
   height: 170px;
-  background-color: white;
+  background-color: var(--white1-color);
   flex-direction: column;
   border-radius: 10px;
   position: relative;
