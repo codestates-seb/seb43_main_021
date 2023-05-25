@@ -31,7 +31,7 @@ const Container = styled.div`
 `;
 
 const Dots = styled(BsThreeDotsVertical)`
-  color: white;
+  color: var(--white1-color);
   font-size: 1.8rem;
 `;
 

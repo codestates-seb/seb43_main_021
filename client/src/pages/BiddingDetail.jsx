@@ -80,7 +80,7 @@ const BackButton = styled(IoArrowBackOutline)`
   left: 2.5%;
   font-size: 2rem;
   z-index: 10;
-  color: #f0f0f0;
+  color: var(--white2-color);
   cursor: pointer;
 `;
 
@@ -108,7 +108,7 @@ const UserText = styled.div`
 
   .userLocation {
     font-size: 0.75rem;
-    color: gray;
+    color: var(--gray1-color);
   }
 `;
 
@@ -122,7 +122,7 @@ const AutcionInfo = styled.div`
   margin-left: 1rem;
   font-size: 0.75rem;
   font-weight: bold;
-  color: gray;
+  color: var(--gray1-color);
 `;
 
 const AuctionContent = styled.div`
@@ -130,7 +130,7 @@ const AuctionContent = styled.div`
 `;
 
 const UnderLine = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   margin: 0 1rem;
   //
 `;

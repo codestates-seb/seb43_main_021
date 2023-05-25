@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { 
+import {
   selectedImageState,
   profileNicknameState,
-  memberIdState, } from "../../stores/atoms";
+  memberIdState,
+} from "../../stores/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineCamera } from "react-icons/ai";
@@ -13,14 +14,12 @@ import { SlClose } from "react-icons/sl";
 import axios from "axios";
 import { Button2 } from "../UI/Button/Button2";
 import { Button1 } from "../UI/Button/Button1";
-export default function UserEditBody({  
-  onImageChange,
-  onNicknameChange,
-}) {
+export default function UserEditBody({ onImageChange, onNicknameChange }) {
   const navigate = useNavigate();
   const [memberId] = useRecoilState(memberIdState);
   const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState); //image상태
-  const [profileNickname, setProfileNickname] = useRecoilState(profileNicknameState); //nickname상태
+  const [profileNickname, setProfileNickname] =
+    useRecoilState(profileNicknameState); //nickname상태
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState(""); //nickname errormessage 상태
   const accessToken = localStorage.getItem("accessToken");
 
@@ -78,12 +77,12 @@ export default function UserEditBody({
     axios
       .patch(
         `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
-        requestBody,        
+        requestBody,
         {
           headers: {
             Authorization: accessToken,
           },
-        },        
+        }
       )
       .then((res) => {
         setProfileNickname(res.nickName);
@@ -127,7 +126,7 @@ export default function UserEditBody({
         type="text"
         placeholder="nickname"
         onChange={onChangeNickname}
-        value={profileNickname || ''}
+        value={profileNickname || ""}
       ></NickNameInput>
       {nicknameErrorMessage && (
         <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>
@@ -150,7 +149,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     font-size: 12px;
-    color: red;
+    color: var(--red1-color);
   }
   @media only screen and (min-width: 768px) {
     span {
@@ -167,7 +166,7 @@ const ProfileContainer = styled.div`
       display: none;
     }
     > svg {
-      color: gray;
+      color: var(--gray1-color);
       position: absolute;
       width: 2.75rem;
       margin-left: 6rem;
@@ -190,7 +189,7 @@ const ProfileContainer = styled.div`
       input {
       }
       > svg {
-        color: gray;
+        color: var(--gray1-color);
         position: absolute;
         width: 3rem;
         margin-left: 6rem;
@@ -204,7 +203,7 @@ const ProfileContainer = styled.div`
   }
 `;
 const ProfileInput = styled.input`
-  color: blue;
+  color: var(--blue1-color);
   position: absolute;
 `;
 const NickNameContainer = styled.div`
@@ -214,7 +213,7 @@ const NickNameContainer = styled.div`
 `;
 const CloseButton = styled.div`
   svg {
-    color: gray;
+    color: var(--gray1-color);
     position: absolute;
     width: 2rem;
     margin-left: 7rem;
@@ -265,7 +264,7 @@ const Permit = styled.div`
   }
 `;
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   font-size: 11px;
   padding-top: 0.5rem;

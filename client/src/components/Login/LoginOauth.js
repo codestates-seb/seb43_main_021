@@ -1,15 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { BsGoogle } from "react-icons/bs"
+import { BsGoogle } from "react-icons/bs";
 
 const LoginOauth = () => {
-    return (
-        <Body>
-           <GgLonInBtn>
-            <button> <BsGoogle /> Google로 로그인 하기</button>
-          </GgLonInBtn> 
-        </Body>
-    )
+  return (
+    <Body>
+      <GgLonInBtn>
+        <button>
+          {" "}
+          <BsGoogle /> Google로 로그인 하기
+        </button>
+      </GgLonInBtn>
+    </Body>
+  );
 };
 
 export default LoginOauth;
@@ -25,8 +28,8 @@ const GgLonInBtn = styled.div`
   justify-content: center;
 
   button {
-    border: 3px solid #000000;
-    background-color: #FFFFFF;
+    border: 3px solid var(--black1-color);
+    background-color: var(--white1-color);
     width: 22rem;
     height: 2.8rem;
     border-radius: 5px;

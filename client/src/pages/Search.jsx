@@ -177,7 +177,7 @@ const SearchInput = styled.input`
   margin: auto 1.5rem 1rem 0;
   border-radius: 8px;
   border: none;
-  background-color: #ebebeb;
+  background-color: var(--white2-color);
 `;
 
 const SearchBody = styled.div`
@@ -186,7 +186,7 @@ const SearchBody = styled.div`
 `;
 
 const Line = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   margin: 0 1rem;
 `;
 
@@ -231,7 +231,7 @@ const SearchWordDelete = styled.div`
   padding-left: 5px;
 `;
 const SearchLine = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
 `;
 
 const Footer = styled.div`

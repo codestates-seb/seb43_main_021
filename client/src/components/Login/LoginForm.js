@@ -3,10 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { 
-  loginState,
-  memberIdState,
-} from "../../stores/atoms";
+import { loginState, memberIdState } from "../../stores/atoms";
 const LoginFrom = () => {
   const navigate = useNavigate();
 
@@ -39,7 +36,7 @@ const LoginFrom = () => {
           `${process.env.REACT_APP_API_URL}/auth/login`,
           {
             username: email,
-            password: password,            
+            password: password,
           }
           // {
           //   withCredentials: true,
@@ -68,7 +65,7 @@ const LoginFrom = () => {
         });
     }
   };
-  
+
   return (
     <Body>
       <IdInputBox>
@@ -124,7 +121,7 @@ const IdInputBox = styled.div`
   justify-content: center;
 
   input {
-    background-color: #f5f5f5;
+    background-color: var(--white2-color);
     border: none;
     outline: none;
     width: 22rem;
@@ -139,7 +136,7 @@ const IdInputBox = styled.div`
   }
 
   input::placeholder {
-    color: #aaaaaa;
+    color: var(--white6-color);
   }
 `;
 
@@ -152,7 +149,7 @@ const PwInputBox = styled.div`
   justify-content: center;
 
   input {
-    background-color: #f5f5f5;
+    background-color: var(--white2-color);
     border: none;
     outline: none;
     width: 22rem;
@@ -167,7 +164,7 @@ const PwInputBox = styled.div`
   }
 
   input::placeholder {
-    color: #aaaaaa;
+    color: var(--white6-color);
   }
 `;
 
@@ -180,8 +177,8 @@ const LoginBtn = styled.div`
   justify-content: center;
 
   button {
-    background-color: #5170fd;
-    color: #ffffff;
+    background-color: var(--purple1-color);
+    color: var(--white1-color);
     border: none;
     width: 22rem;
     height: 2.8rem;
@@ -197,7 +194,7 @@ const LoginBtn = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   font-size: 11px;
   display: flex;
@@ -221,7 +218,7 @@ const UserInfo = styled.div`
 
 const SignUpBtn = styled.div`
   padding-right: 1rem;
-  border-color: #000000;
+  border-color: var(--black1-color);
   border-right-style: solid;
   border-right-width: 1px;
 
@@ -229,7 +226,7 @@ const SignUpBtn = styled.div`
     width: 3.5rem;
     border: none;
     outline: none;
-    background-color: #ffffff;
+    background-color: var(--white1-color);
     font-weight: bold;
     cursor: pointer;
   }
@@ -238,7 +235,7 @@ const SignUpBtn = styled.div`
 const FindId = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
-  border-color: #000000;
+  border-color: var(--black1-color);
   border-right-style: solid;
   border-right-width: 1px;
 
@@ -246,7 +243,7 @@ const FindId = styled.div`
     width: 4.5rem;
     border: none;
     outline: none;
-    background-color: #ffffff;
+    background-color: var(--white1-color);
     font-weight: bold;
   }
 `;
@@ -258,7 +255,7 @@ const FindPw = styled.div`
     width: 5rem;
     border: none;
     outline: none;
-    background-color: #ffffff;
+    background-color: var(--white1-color);
     font-weight: bold;
   }
 `;
@@ -272,8 +269,8 @@ const GuestLogIn = styled.div`
   justify-content: center;
 
   button {
-    background-color: #4636fc;
-    color: #ffffff;
+    background-color: var(--purple2-color);
+    color: var(--white1-color);
     border: none;
     width: 22rem;
     height: 2.8rem;

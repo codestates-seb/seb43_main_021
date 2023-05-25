@@ -3,21 +3,21 @@ import styled from "styled-components";
 import { BsGoogle } from "react-icons/bs";
 
 const SignUpOauth = () => {
-
-    return (
-        <Form>
-          <GgSignUpBtn>
-            <button> <BsGoogle /> Google로 회원가입 하기</button>
-          </GgSignUpBtn>
-        </Form>
-    )
-}
+  return (
+    <Form>
+      <GgSignUpBtn>
+        <button>
+          {" "}
+          <BsGoogle /> Google로 회원가입 하기
+        </button>
+      </GgSignUpBtn>
+    </Form>
+  );
+};
 
 export default SignUpOauth;
 
-const Form = styled.div`
-
-`;
+const Form = styled.div``;
 
 const GgSignUpBtn = styled.div`
   padding-top: 2rem;
@@ -27,8 +27,8 @@ const GgSignUpBtn = styled.div`
   justify-content: center;
 
   button {
-    border: 3px solid #000000;
-    background-color: #FFFFFF;
+    border: 3px solid var(--black1-color);
+    background-color: var(--white1-color);
     width: 22rem;
     height: 2.8rem;
     border-radius: 5px;

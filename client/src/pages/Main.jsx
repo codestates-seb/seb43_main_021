@@ -10,7 +10,7 @@ import Loading from "../components/UI/Loading/Loading";
 import useAccessToken from "../hooks/useAccessToken";
 
 const Home = () => {
-  const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구"];
+  const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구", "마포구"];
   const { data, isLoading, isError, error } = useGetItemList();
   console.log("메인 데이터", data);
 
@@ -70,7 +70,7 @@ const Footer = styled.div`
 const CreateAuctionButton = styled(BsPlusCircle)`
   font-size: 5rem;
   cursor: pointer;
-  color: #4636fc;
+  color: var(--purple2-color);
   margin-right: 1.5rem;
 `;
 

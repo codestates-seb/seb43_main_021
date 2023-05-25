@@ -7,10 +7,10 @@ export const Button2 = ({ name }) => {
 export default Button2;
 
 const Container = styled.div`
-  background-color: #f2f3f7;
+  background-color: var(--white2-color);
   width: 148px;
   height: 46px;
-  color: black;
+  color: var(--black1-color);
   font-size: 14px;
   border-radius: 10px;
   display: flex;
@@ -19,6 +19,6 @@ const Container = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: #e0e0e0bc;
+    background-color: var(--gray2-hover-color);
   }
 `;

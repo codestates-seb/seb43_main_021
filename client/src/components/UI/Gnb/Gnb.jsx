@@ -5,11 +5,11 @@ import { BsChatHeart } from "react-icons/bs";
 import { TbHammer } from "react-icons/tb";
 import { BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { useRecoilState } from 'recoil';
-import { loginState } from '../../../stores/atoms';
+import { useRecoilState } from "recoil";
+import { loginState } from "../../../stores/atoms";
 
 const Gnb = () => {
-  const [keepLoggedIn] = useRecoilState(loginState)
+  const [keepLoggedIn] = useRecoilState(loginState);
   return (
     <Wrapper>
       <Line />
@@ -34,21 +34,21 @@ const Gnb = () => {
           </NavItem>
         </CustomLink>
 
-        {keepLoggedIn===true?
-        <CustomLink to="/mypage">
-          <NavItem>
-            <BiUser className="icon" />
-            마이 페이지
-          </NavItem>
-        </CustomLink>
-        :
-        <CustomLink to="/login">
-          <NavItem>
-            <BiUser className="icon" />
-            마이 페이지
-          </NavItem>
-        </CustomLink>
-        }
+        {keepLoggedIn === true ? (
+          <CustomLink to="/mypage">
+            <NavItem>
+              <BiUser className="icon" />
+              마이 페이지
+            </NavItem>
+          </CustomLink>
+        ) : (
+          <CustomLink to="/login">
+            <NavItem>
+              <BiUser className="icon" />
+              마이 페이지
+            </NavItem>
+          </CustomLink>
+        )}
       </Container>
     </Wrapper>
   );
@@ -68,7 +68,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
-  background-color: white;
+  background-color: var(--white1-color);
   max-width: 1024px;
 
   .icon {
@@ -78,7 +78,7 @@ const Container = styled.div`
 `;
 
 const Line = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   max-width: 1024px;
 `;
 const NavItem = styled.div`

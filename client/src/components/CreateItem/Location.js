@@ -2,55 +2,63 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FiChevronDown } from "react-icons/fi";
 
-const Location = ({ titleList, showLocationWarning, setShowLocationWarning, selectLocation, setSelectLocation }) => {
-    const [select, setSelect] = useState(false);
-  
-    const onClickLocationSelect = (location) => {
-      setSelectLocation(location);
-      setSelect(false);
-      if (location !== "지역 설정") {
-        setShowLocationWarning(false);
-      }
-    };
-  
-    return (
-      <Container>
-        <Header>
-          <LeftContent>
-            <h2>지역 설정</h2>
-          </LeftContent>
-          <RightContent>
-            <Locations onClick={select ? () => setSelect(!select) : null} />
-            {titleList ? (
-              <>
-                <Title>{selectLocation}</Title>
-                <SelectTitle onClick={() => setSelect(!select)} />
-              </>
-            ) : (
-              <Title>{selectLocation}</Title>
-            )}
-          </RightContent>
-          {select ? (
-            <SelectBox>
-              {titleList.map((item, index) => (
-                <Li key={index} onClick={() => onClickLocationSelect(item)}>
-                  {item}
-                </Li>
-              ))}
-            </SelectBox>
-          ) : null}
-        </Header>
-          {showLocationWarning && selectLocation === "지역 설정" && (<Warning>지역을 설정해 주세요.</Warning>)}
-      </Container>
-    );
+const Location = ({
+  titleList,
+  showLocationWarning,
+  setShowLocationWarning,
+  selectLocation,
+  setSelectLocation,
+}) => {
+  const [select, setSelect] = useState(false);
+
+  const onClickLocationSelect = (location) => {
+    setSelectLocation(location);
+    setSelect(false);
+    if (location !== "지역 설정") {
+      setShowLocationWarning(false);
+    }
   };
+
+  return (
+    <Container>
+      <Header>
+        <LeftContent>
+          <h2>지역 설정</h2>
+        </LeftContent>
+        <RightContent>
+          <Locations onClick={select ? () => setSelect(!select) : null} />
+          {titleList ? (
+            <>
+              <Title>{selectLocation}</Title>
+              <SelectTitle onClick={() => setSelect(!select)} />
+            </>
+          ) : (
+            <Title>{selectLocation}</Title>
+          )}
+        </RightContent>
+        {select ? (
+          <SelectBox>
+            {titleList.map((item, index) => (
+              <Li key={index} onClick={() => onClickLocationSelect(item)}>
+                {item}
+              </Li>
+            ))}
+          </SelectBox>
+        ) : null}
+      </Header>
+      {showLocationWarning && selectLocation === "지역 설정" && (
+        <Warning>지역을 설정해 주세요.</Warning>
+      )}
+    </Container>
+  );
+};
 
 export default Location;
 
 const Container = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
-  border-color: hsl(210, 8%, 90%);
+  border-color: var(--white3-color);
   border-bottom-style: solid;
   border-bottom-width: 1px;
 `;
@@ -94,12 +102,12 @@ const SelectBox = styled.ul`
   top: 30px;
   right: 35px;
   border: 0.5px solid gray;
-  background-color: white;
+  background-color: var(--white1-color);
   width: 6rem;
   border-radius: 5px;
   font-size: 1rem;
   text-align: center;
-  `;
+`;
 
 const Li = styled.li`
   list-style: none;
@@ -107,16 +115,16 @@ const Li = styled.li`
   padding: 3px 0;
   cursor: pointer;
   &:hover {
-    background-color: lightgray;
+    background-color: var(--white5-color);
   }
 `;
 
 const Warning = styled.div`
-color: red;
-font-size: 13px;
-margin-top: 0.5rem;
-text-align: right;
-h2 {
+  color: var(--red1-color);
+  font-size: 13px;
+  margin-top: 0.5rem;
+  text-align: right;
+  h2 {
     margin: 0;
     padding: 0;
   }

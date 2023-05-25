@@ -13,8 +13,8 @@ export default function ChangePassword() {
 
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(""); //password error State
   const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState(""); //new password error State
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
-    useState(""); //confirmPassword error State
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =useState(""); //confirmPassword error State
+  const memberId=localStorage.getItem("memberId");   
 
   // PW
   const onChangePassword = (e) => {
@@ -78,16 +78,21 @@ export default function ChangePassword() {
     ) {
       axios
         .patch(
-          `${process.env.REACT_APP_API_URL}/member/profile/2`,
+          `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
           {
             password: newPassword,
           }
         )
+
         .then((res) => {
-          setPassword(res.data.password);
-          console.log(res.data.password);
-          console.log("비밀번호가 성공적으로 변경되었습니다!");
-          navigate("/mypage");
+          if(res.password===password){
+            setPasswordErrorMessage("기존의 비밀번호와 같습니다.")
+          }else{
+            setPassword(res.data.password);
+            console.log(res.data.password);
+            console.log("비밀번호가 성공적으로 변경되었습니다!");
+            navigate("/mypage");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -197,7 +202,7 @@ const InputTitle = styled.div`
   span {
     padding-left: 0.1rem;
     padding-bottom: 0.6rem;
-    color: red;
+    color: var(--red1-color);
     font-weight: bold;
   }
 `;
@@ -206,7 +211,7 @@ const InputField = styled.div`
   display: flex;
 
   input {
-    background-color: #f5f5f5;
+    background-color: var(--white2-color);
     border: none;
     outline: none;
     width: 96%;
@@ -217,7 +222,7 @@ const InputField = styled.div`
   }
 
   input::placeholder {
-    color: #aaaaaa;
+    color: var(--white6-color);
   }
 `;
 
@@ -252,7 +257,7 @@ const Permit = styled.div`
   }
 `;
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   padding-top: 0.5rem;
   font-size: 11px;
