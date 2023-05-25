@@ -36,7 +36,10 @@ function App() {
         <Route path="/chatting" element={<Chatting />} />
         <Route path="/category" element={<Category />} />
         <Route path="/createauction" element={<CreateAuction />} />
-        <Route path="/createbidding" element={<CreateBidding />} />
+        <Route
+          path="/createbidding/:auctionItemId"
+          element={<CreateBidding />}
+        />
         <Route
           path="/auctiondetail/:auctionItemId"
           element={<AuctionDetail />}
