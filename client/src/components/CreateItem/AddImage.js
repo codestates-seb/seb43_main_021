@@ -15,18 +15,12 @@ const AddImage = ({ imageSrcList, setImageSrcList }) => {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        newImageSrcList.push(e.target.result);
-        if (newImageSrcList.length === files.length) {
-          setImageSrcList((prevList) => [...prevList, ...newImageSrcList]);
-          setIsImageUploaded(true);
-        }
-      };
-
-      reader.readAsDataURL(file);
+      const imageUrl = URL.createObjectURL(file);
+      newImageSrcList.push(imageUrl);
     }
+
+    setImageSrcList((prevList) => [...prevList, ...newImageSrcList]);
+    setIsImageUploaded(true);
   };
 
   const onDeleteImage = (index) => {
@@ -85,7 +79,7 @@ const AddImages = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem 1.5rem 0;
-  border-bottom: 1px solid #f3f3f3;
+  border-bottom: 1px solid var(--white2-color);
 
   > div {
     display: flex;
@@ -100,7 +94,7 @@ const AddImages = styled.div`
     align-items: center;
     width: 4.8rem;
     height: 4.8rem;
-    background: #f2f3f7;
+    background: var(--white2-color);
     border-radius: 5%;
     cursor: pointer;
 
@@ -139,7 +133,7 @@ const DeleteButton = styled.button`
   background-color: transparent;
   border: none;
   font-size: 20px;
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   cursor: pointer;
 `;

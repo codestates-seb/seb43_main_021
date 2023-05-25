@@ -83,6 +83,7 @@ export default function ChangePassword() {
             password: newPassword,
           }
         )
+
         .then((res) => {
           if(res.password===password){
             setPasswordErrorMessage("기존의 비밀번호와 같습니다.")
@@ -201,7 +202,7 @@ const InputTitle = styled.div`
   span {
     padding-left: 0.1rem;
     padding-bottom: 0.6rem;
-    color: red;
+    color: var(--red1-color);
     font-weight: bold;
   }
 `;
@@ -210,7 +211,7 @@ const InputField = styled.div`
   display: flex;
 
   input {
-    background-color: #f5f5f5;
+    background-color: var(--white2-color);
     border: none;
     outline: none;
     width: 96%;
@@ -221,7 +222,7 @@ const InputField = styled.div`
   }
 
   input::placeholder {
-    color: #aaaaaa;
+    color: var(--white6-color);
   }
 `;
 
@@ -256,7 +257,7 @@ const Permit = styled.div`
   }
 `;
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   padding-top: 0.5rem;
   font-size: 11px;
