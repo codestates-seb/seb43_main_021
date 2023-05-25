@@ -4,14 +4,18 @@ import { RiHeartLine } from "react-icons/ri";
 import useGetAuctionItem from "../../../hooks/useGetAuctionItem";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import PeriodDateTime from "../../../utils/PeriodDateTime";
 
-const Footer = () => {
+const Footer = ({ bidItemStatus }) => {
   const { data } = useGetAuctionItem();
   const [auction, setAuction] = useState("");
-  const { bidItemId } = useParams();
+  const { auctionItemId, bidItemId } = useParams();
   const navigate = useNavigate();
   const myMemberId = localStorage.getItem("memberId");
   const auctionMemberId = data.members[0].memberId.toString();
+
+  console.log("파람스 2개", auctionItemId, bidItemId);
 
   useEffect(() => {
     setAuction(data?.auctionEnd);
@@ -19,11 +23,13 @@ const Footer = () => {
 
   const submitFavorite = () => {};
 
-  const handleButton = () => {
-    if (bidItemId) {
-      console.log("입찰 아이템이며 경매자이기 때문에 채팅하기!");
-    } else {
-      navigate("/createbidding");
+  const handleSelectItem = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}/${bidItemId}/select`
+      );
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -36,14 +42,36 @@ const Footer = () => {
           <DivisionLine />
           <AuctionEnd>
             <div>경매 마감일</div>
-            <div style={{ color: "gray" }}>{auction}</div>
+            <div style={{ color: "gray" }}>
+              <PeriodDateTime
+                createdDate={data.createdDate}
+                period={data.period}
+              />
+            </div>
           </AuctionEnd>
+
           {bidItemId ? (
-            auctionMemberId === myMemberId ? (
-              <BiddingButton onClick={handleButton}>채팅하기</BiddingButton>
-            ) : null
+            <>
+              {bidItemStatus === null || "AUCTION_BIDDING" ? (
+                <>
+                  {bidItemId ? (
+                    auctionMemberId === myMemberId ? (
+                      <BiddingButton onClick={handleSelectItem}>
+                        낙찰하기
+                      </BiddingButton>
+                    ) : null
+                  ) : null}
+                </>
+              ) : bidItemStatus === "AUCTION_SUCCESSFUL" ? (
+                <div>낙찰 완료</div>
+              ) : (
+                <div>기간만료</div>
+              )}
+            </>
           ) : auctionMemberId === myMemberId ? null : (
-            <BiddingButton onClick={handleButton}>입찰하기</BiddingButton>
+            <BiddingButton onClick={() => navigate("/createbidding")}>
+              입찰하기
+            </BiddingButton>
           )}
 
           {/* <BiddingButton onClick={handleButton}>
