@@ -14,7 +14,6 @@ export default function ChangePassword() {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(""); //password error State
   const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState(""); //new password error State
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =useState(""); //confirmPassword error State
-  const accessToken = localStorage.getItem("accessToken");  
   const memberId=localStorage.getItem("memberId");   
 
   // PW
