@@ -4,36 +4,56 @@ import { useNavigate } from "react-router-dom";
 import { IoIosCamera } from "react-icons/io";
 import { SlClose } from "react-icons/sl";
 import { BsChevronLeft } from "react-icons/bs";
+import BiddingLocation from "../components/ItemDetail/BiddingLocation";
+import axios from "axios";
 
 const CreateBidding = () => {
   const navigate = useNavigate();
 
-  const [imageSrcList, setImeageSrcList] = useState([]); // 이미지 등록
+  const [imageSrcList, setImageSrcList] = useState([]); // 이미지 등록
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [selectLocation, setSelectLocation] = useState("지역 설정")
   const [showTitleWarning, setShowTitleWarning] = useState(false);
   const [showTextWarning, setShowTextWarning] = useState(false);
+  const [showLocationWarning, setShowLocationWarning] = useState(false);
+  const accessToken = localStorage.getItem("accessToken");
 
-  const onUpload = (event) => {
+  const handleBack = () => {
+    window.history.back();
+  };
+
+  const onUpload = async (event) => {
     if (imageSrcList.length >= 10) {
       return;
     }
     const files = event.target.files;
-    const newImageSrcList = [];
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      newImageSrcList.push(URL.createObjectURL(file));
+      const formData = new FormData();
+      formData.append("multipartFile", file);
+  
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/images/upload/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        const imageUrl = response.data;
+  
+        setImageSrcList ((prevList) => [...prevList, imageUrl]);
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-    setImeageSrcList((prevList) => [...prevList, ...newImageSrcList]);
     setIsImageUploaded(true);
   };
 
   const onDeleteImage = (index) => {
-    setImeageSrcList((prevList) => {
+    setImageSrcList((prevList) => {
       const newList = [...prevList];
       newList.splice(index, 1);
       return newList;
@@ -50,7 +70,23 @@ const CreateBidding = () => {
     setShowTextWarning(false);
   };
 
-  const handleCreateBtnClick = () => {
+  const titleList = [
+    "지역 설정",
+    "강동구",
+    "노원구",
+    "중랑구",
+    "광진구",
+    "마포구",
+  ];
+
+  const LocationChange = (location) => {
+    setSelectLocation(location);
+    if (location !== "지역 설정") {
+      setShowLocationWarning(false);
+    }
+  };
+
+  const handleCreateBtnClick = async () => {
     if (title === "") {
       setShowTitleWarning(true);
     }
@@ -59,23 +95,47 @@ const CreateBidding = () => {
       setShowTextWarning(true);
     }
 
-    if (title !== "" && text !== "") {
+    if (selectLocation === "지역 설정") {
+      setShowLocationWarning(true);
     }
 
-    console.log(title, text, imageSrcList);
+    if (titleList[0] === selectLocation) {
+      setShowLocationWarning(true);
+    } else {
+      setShowLocationWarning(false);
+    }
+
+    if (title !== "" && text !== "" && selectLocation !== "지역 설정") {
+      try {
+        const data = {
+          bidItemName: title,
+          bidItemContent: text,
+          imageUrlList: imageSrcList,
+          location: selectLocation,
+        };
+
+        axios
+          .post(`${process.env.REACT_APP_API_URL}/bid_items/5`, data, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((res) => {
+            navigate("/main")
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
     <Wrapper>
       <Header>
-        <BackButton onClick={() => navigate("/")} />
+        <BackButton onClick={handleBack} />
         <HeaderTitle>
           <h2>입찰 등록하기</h2>
         </HeaderTitle>
-        <CreateBtn onClick={handleCreateBtnClick}>
-          <h2>완료</h2>
-        </CreateBtn>
-        {/* h2에 onClick={} 이벤트 넣기 */}
       </Header>
       <Container>
         <Body>
@@ -84,17 +144,17 @@ const CreateBidding = () => {
               <label htmlFor="file">
                 <IoIosCamera />
                 <h5>
-                  <span
-                    style={{
-                      color:
-                        isImageUploaded && imageSrcList.length > 0
-                          ? "red"
-                          : "inherit",
-                    }}
-                  >
-                    {imageSrcList.length}
-                  </span>
-                  /10
+                <span
+                  style={{
+                    color:
+                      isImageUploaded && imageSrcList.length > 0
+                        ? "red"
+                        : "inherit",
+                  }}
+                >
+                  {imageSrcList.length}
+                </span>
+                /10
                 </h5>
               </label>
               <input
@@ -133,8 +193,18 @@ const CreateBidding = () => {
             />
             {showTextWarning && <Warning>게시글 내용을 입력해주세요.</Warning>}
           </TextArea>
+          <BiddingLocation
+            titleList={titleList}
+            showLocationWarning={showLocationWarning}
+            selectLocation={selectLocation}
+            setSelectLocation={LocationChange}
+            setShowLocationWarning={setShowLocationWarning}
+          />
         </Body>
       </Container>
+        <CreateBtn>
+          <button onClick={handleCreateBtnClick}>등록하기</button>
+        </CreateBtn>
     </Wrapper>
   );
 };
@@ -151,7 +221,7 @@ const Header = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: left;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -173,11 +243,21 @@ const HeaderTitle = styled.div`
 `;
 
 const CreateBtn = styled.div`
-  margin-left: auto;
-  cursor: pointer;
-  h2 {
-    color: var(--orange1-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  button {
+    background-color: var(--purple1-color);
+    color: var(--white1-color);
+    border: none;
+    width: 20rem;
+    height: 2.8rem;
+    border-radius: 5px;
     font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
   }
 `;
 
@@ -250,21 +330,26 @@ const DeleteButton = styled.button`
 
 const Title = styled.div`
   padding: 2rem 0rem;
-  border-bottom: 1px solid #f3f3f3;
+  border-bottom: 1px solid var(--white2-color);
   outline: none;
+
   input {
     border: none;
     outline: none;
+    font-size: 25px;
+    width: 100%;
   }
 
   input::placeholder {
-    color: var(--white5-color);
+    color: var(--white4-color);
   }
 `;
 
 const TextArea = styled.div`
   padding: 2.2rem 0 1.5rem 0;
-  border-bottom: 1px solid var(--white2-color) textarea {
+  border-bottom: 1px solid var(--white2-color);
+
+  textarea {
     width: 100%;
     height: 12rem;
     box-sizing: border-box;
@@ -277,7 +362,7 @@ const TextArea = styled.div`
   }
 
   textarea::placeholder {
-    color: var(--white5-color);
+    color: var(--white4-color);
   }
 `;
 
