@@ -90,38 +90,6 @@ const CreateAuction = () => {
       setShowLocationWarning(false);
     }
 
-    // 이미지용 코드
-    /*const uploadImages = async () => {
-      const imageUrls = [];
-
-      try {
-        const formData = new FormData();
-
-        for (let i = 0; i < imageSrcList.length; i++) {
-          const imageFile = imageSrcList[i];
-          console.log("이미지 파일:", imageFile);
-          formData.append("multipartFile", imageFile);
-        }
-  
-        await axios.post (
-          `${process.env.REACT_APP_API_URL}/images/upload/`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        ).then (res =>{
-          imageUrls.push(res.data.imageUrl);
-
-        });  
-      } catch (error) {
-        console.log("이미지 업로드 실패:", error);
-      }
-
-      return imageUrls;
-    }; */
-
     if (
       title !== "" &&
       text !== "" &&
@@ -129,17 +97,14 @@ const CreateAuction = () => {
       selectLocation !== "지역 설정"
     ) {
       try {
-        //const imageUrls = await uploadImages();
 
         const data = {
           name: title,
           period: parseInt(auctionPeriod),
           content: text,
           location: selectLocation,
-          imageUrlList: imageSrcList, // imageUrls, imageSrcList
+          imageUrlList: imageSrcList,
         };
-
-        console.log("전송 데이터:", data);
 
         axios
           .post(`${process.env.REACT_APP_API_URL}/auction_items`, data, {
@@ -148,7 +113,6 @@ const CreateAuction = () => {
             },
           })
           .then((res) => {
-            console.log("전송 성공:", res.data);
             navigate("/main");
           });
       } catch (err) {
