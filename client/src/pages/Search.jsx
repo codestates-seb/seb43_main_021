@@ -3,13 +3,20 @@ import styled from "styled-components";
 import { FiChevronLeft } from "react-icons/fi";
 import Gnb from "../components/UI/Gnb/Gnb";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Item from "../components/UI/Item/Item";
+import { CiCircleRemove } from "react-icons/ci";
+import { useLocation } from "react-router-dom";
 
 const searchDummy = ["맥북", "노트북", "나이키 조던1 스캇", "에어팟", "선크림"];
 
 const Search = () => {
   const [searchData, setSearchData] = useState([]);
   const [searchWord, setSearchWord] = useState("");
+  const [searchResults, setSearchResults] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     const localData = () => {
       const storedData = localStorage.getItem("searchData");
@@ -24,7 +31,14 @@ const Search = () => {
   }, []);
 
   const handleBack = () => {
-    window.history.back();
+    // window.history.back();
+    // navigate(-1);
+    if (location.pathname === "/search" && searchWord) {
+      setSearchResults(null);
+      setSearchWord("");
+    } else {
+      navigate(-1);
+    }
   };
 
   const handelInputChange = (e) => {
@@ -36,11 +50,23 @@ const Search = () => {
       search();
       searchData.unshift(searchWord);
       localStorage.setItem("searchData", JSON.stringify(searchData));
-      setSearchWord("");
+      // setSearchWord("");
     }
   };
-  const search = () => {
-    navigate(`/search`);
+
+  const search = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/auction_items/search?keyword=${searchWord}`
+      );
+      setSearchResults(response.data);
+      console.log(response);
+      // navigate(`/search?keyword=${searchWord}`);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // navigate(`/search`);
   };
 
   const deleteSearch = (deleteWord) => {
@@ -56,10 +82,26 @@ const Search = () => {
     localStorage.setItem("searchData", JSON.stringify([]));
   };
 
+  const recentWordSearch = async (word) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/auction_items/search?keyword=${word}`
+      );
+      setSearchResults(response.data);
+      setSearchWord(word);
+      console.log(response);
+      // navigate(`/search?keyword=${word}`);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // navigate(`/search`);
+  };
+
   return (
     <>
       <SearchHeader>
-        <BackButton onClick={handleBack} />
+        <BackButton onClick={() => handleBack()} />
         <SearchInput
           type="text"
           placeholder="검색어를 입력해주세요."
@@ -67,32 +109,46 @@ const Search = () => {
           onChange={handelInputChange}
           onKeyDown={handleEnterPress}
         ></SearchInput>
+        <CiCircleRemove />
       </SearchHeader>
-      <SearchBody>
-        <RecentSearch>최근 검색어</RecentSearch>
-        <DeleteAllSearch onClick={deleteAllData}>모두 지우기</DeleteAllSearch>
-      </SearchBody>
-      <SearchWrapper>
-        {searchData.map((word, index) => (
-          <SearchContainer
-            key={index}
-            onClick={() => navigate(`/search/${word}`)}
-          >
-            <SearchWords>
-              <SearchWord>{word}</SearchWord>
-              <SearchWordDelete
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteSearch(word);
+      {searchResults ? (
+        <>
+          <Line />
+          <Item item={searchResults} />
+        </>
+      ) : (
+        <>
+          <SearchBody>
+            <RecentSearch>최근 검색어</RecentSearch>
+            <DeleteAllSearch onClick={deleteAllData}>
+              모두 지우기
+            </DeleteAllSearch>
+          </SearchBody>
+          <SearchWrapper>
+            {searchData.map((word, index) => (
+              <SearchContainer
+                key={index}
+                onClick={() => {
+                  recentWordSearch(word);
                 }}
               >
-                X
-              </SearchWordDelete>
-            </SearchWords>
-            <SearchLine />
-          </SearchContainer>
-        ))}
-      </SearchWrapper>
+                <SearchWords>
+                  <SearchWord>{word}</SearchWord>
+                  <SearchWordDelete
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteSearch(word);
+                    }}
+                  >
+                    X
+                  </SearchWordDelete>
+                </SearchWords>
+                <SearchLine />
+              </SearchContainer>
+            ))}
+          </SearchWrapper>
+        </>
+      )}
       <Footer>
         <Gnb />
       </Footer>
@@ -128,6 +184,12 @@ const SearchBody = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+const Line = styled.div`
+  border: 0.5px solid #cccccc;
+  margin: 0 1rem;
+`;
+
 const RecentSearch = styled.div`
   margin: 1rem;
 `;

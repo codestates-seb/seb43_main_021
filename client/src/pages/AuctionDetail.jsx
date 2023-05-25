@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useGetAuctionItem from "../hooks/useGetAuctionItem";
 import Footer from "../components/UI/Footer/Footer";
 import Loading from "../components/UI/Loading/Loading";
-import img2 from "../assets/images/img2.jpg";
+import noImage from "../assets/images/noimage.png";
 import FormatDateTime from "../utils/FormatDateTime";
 import ItemDot from "../components/ItemDetail/ItemDot";
 import defaultUserImg from "../assets/images/defaultUserImg.jpg";
@@ -19,7 +19,7 @@ const AuctionDetail = () => {
     useGetAuctionItem();
   const [modal, setModal] = useRecoilState(AuctionConfirm);
   const navigate = useNavigate();
-  const img = [img2];
+  const img = [noImage];
 
   console.log("옥션디테일 데이터", data);
   if (isLoading) {
@@ -96,7 +96,7 @@ const AuctionDetail = () => {
               {i.imageUrlList.length > 0 ? (
                 <ItemImg src={i.imageUrlList[0]} />
               ) : (
-                <ItemImg src={img2} />
+                <ItemImg src={noImage} />
               )}
               <ItemTitle>{i.bidItemName}</ItemTitle>
             </BiddingItem>
@@ -105,7 +105,7 @@ const AuctionDetail = () => {
       ) : (
         <NothingMessage>아직 등록된 입찰 내역이 없습니다.</NothingMessage>
       )}
-      <Footer 멤버아이디={data.memberId} />
+      <Footer />
     </Wrapper>
   );
 };
@@ -217,10 +217,11 @@ const BiddingItem = styled.div`
 `;
 
 const ItemImg = styled.img`
-  width: 100%;
+  width: 90%;
   height: 75%;
   object-fit: cover;
   border-radius: 5px;
+  border: 0.1px solid gray;
 `;
 
 const ItemTitle = styled.div`
