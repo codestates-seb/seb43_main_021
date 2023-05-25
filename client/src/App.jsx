@@ -81,15 +81,11 @@ const GlobalStyle = createGlobalStyle`
     
     --white1-color: #ffffff;
     /* {
-      --UnderAuction-AuctionItemDisplay-color: white;
-    --SignUpPages-BodyBackground-color: #ffffff;
-    --CreateAuctionPages-CreateBtnText-color: #ffffff;
+    --SignUpPages-BodyBackground-color: #ffffff;    
     } */
 
     --white2-color: #f2f3f7;
-  /* {
-    --UnderAuction-AuctionDisplay-color: #f2f3f7;
-    --AuctionCompleted-AuctionDisplay-color: #f2f3f7;
+  /* {    
     --SignUpPages-ContainerBackground-color: #f2f3f7;
   
 
@@ -102,35 +98,24 @@ const GlobalStyle = createGlobalStyle`
     --SignUpPages-HeaderBorder-color: hsl(210, 8%, 90%);
     --CreateAuctionPages-HeaderBorder-color: hsl(210, 8%, 90%);
 } */
-
   --white4-color: #dfdfdf;
-
-/* {
-    --UnderAuction-ContentArea-color: #d1d3d7;
-    --AuctionCompleted-AuctionItemDisplay-color: #d1d3d7;
-} */
-
   --white5-color: #cccccc;
-/* {
-    --MyPageHeader-Line-color: #cccccc;
-} */
-
---white6-color: #aaaaaa;
---purple1-color: #5170fd;
-/* {--CreateAuctionPages-CreateBtnBackground-color: #5170fd;} */
---purple2-color: #4636fc;
---purple3-color: #3b29fb;
---purple4-color: #7c43f8;
---red1-color:#ff0000;
---blackCover-color: rgba(0, 0, 0, 0.5);
---black1-color: #000000;
---blue1-color: #0000ff;
---gray1-color: #808080;
---gray2-color: #9c9c9c;
---gray2-hover-color: #e0e0e0bc;
---gray3-color: #9c9c9c;
---purple4-color: #7c43f8;
---orange1-color: #ff7e36;
+  --white6-color: #aaaaaa;
+  --purple1-color: #5170fd;
+  /* {--CreateAuctionPages-CreateBtnBackground-color: #5170fd;} */
+  --purple2-color: #4636fc;
+  --purple3-color: #3b29fb;
+  --purple4-color: #7c43f8;
+  --red1-color:#ff0000;
+  --blackCover-color: rgba(0, 0, 0, 0.5);
+  --black1-color: #000000;
+  --blue1-color: #0000ff;
+  --gray1-color: #808080;
+  --gray2-color: #9c9c9c;
+  --gray2-hover-color: #e0e0e0bc;
+  --gray3-color: #9c9c9c;
+  --purple4-color: #7c43f8;
+  --orange1-color: #ff7e36;
 
   }
 

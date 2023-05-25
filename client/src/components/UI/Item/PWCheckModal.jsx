@@ -7,13 +7,16 @@ import ItemButton2 from "../Button/Button2";
 import ItemButton1 from "../Button/Button1";
 import axios from "axios";
 export const PWCheckModal = () => {
-  const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
+  const navigate = useNavigate();  
 
   const [goPage, setGoPage] = useRecoilState(moveModalState);
   const [pwCheckValue, setPwCheckValue] = useState("");
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
-    useState("");
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState("");
+
+  const accessToken = localStorage.getItem("accessToken");  
+  const memberId=localStorage.getItem("memberId");   
+  
+
 
   const openModalHandler = () => {
     setGoPage(!goPage);
@@ -25,27 +28,34 @@ export const PWCheckModal = () => {
   const onClickDeleteUser = () => {
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/member/2`,
+        `${process.env.REACT_APP_API_URL}/member/${memberId}`,
         {
           headers: {
             Authorization: accessToken,
           },
-        },
-        {
-          password: pwCheckValue,
-        }
+        },   
+        // {
+        //   password:pwCheckValue,
+        // }
       )
       .then((res) => {
-        if (res.password === pwCheckValue) {
-          navigate("/");
-        } else {
-          setConfirmPasswordErrorMessage("비밀번호가 일치하지 않습니다.");
+        if(res.data.password===pwCheckValue){        
+          console.log(res.data.password)
+          console.log(pwCheckValue)
+          navigate('/')
+        }else{
+          setConfirmPasswordErrorMessage("비밀번호가 일치하지 않습니다.")
+          console.log(res.data.password)
+          console.log(pwCheckValue)
+
         }
       })
       .catch((error) => {
         console.log(error);
       });
+
   };
+
   return (
     <ModalWrapper>
       <ModalContainer>
