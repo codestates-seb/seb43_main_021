@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import {
   selectedImageState,
-  profileNicknameState,
-  // memberIdState,
+  profileNicknameState,  
 } from "../../stores/atoms";
 import { VscAccount } from "react-icons/vsc";
 import { CiReceipt } from "react-icons/ci";
@@ -15,12 +14,11 @@ import axios from "axios";
 
 export default function UserPageTop() {
   const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState); //image상태
-  const [userNickname, setUserNickname] = useRecoilState(profileNicknameState);
-  // const [memberId] = useRecoilState(memberIdState);
+  const [userNickname, setUserNickname] = useRecoilState(profileNicknameState);  
   const accessToken = localStorage.getItem("accessToken");
   const memberId = localStorage.getItem("memberId");
 
-  //header에다가 엑세스토큰 넣어서 보내기
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/member/${memberId}`, {
@@ -32,8 +30,7 @@ export default function UserPageTop() {
       })
       .then((res) => {
         const { data } = res;
-        setUserNickname(data.nickName);
-        // setSelectedImage(data.imageUrlList)
+        setUserNickname(data.nickName);        
       })
       .catch((err) => {
         console.log(err);

@@ -23,7 +23,7 @@ export default function MyPage() {
   const [logOutClick] = useRecoilState(LogOutModalState);
   const [goPage] = useRecoilState(moveModalState);
   const [keepLoggedIn] = useRecoilState(loginState);
-  useAccessToken(); // useAccessToken만 쓰면 토큰을 가져올수있다
+  useAccessToken(); 
 
   return (
     <Wrapper>
