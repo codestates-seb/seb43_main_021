@@ -130,8 +130,9 @@ const GlobalStyle = createGlobalStyle`
 --gray2-hover-color: #e0e0e0bc;
 --gray3-color: #9c9c9c;
 --purple4-color: #7c43f8;
-  }
 --orange1-color: #ff7e36;
+
+  }
 
 
   @media screen  and (min-width: 416px) {
