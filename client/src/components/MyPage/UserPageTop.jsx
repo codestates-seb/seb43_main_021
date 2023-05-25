@@ -1,9 +1,10 @@
-import React, { useEffect, useState}from "react";
+import React, { useEffect }from "react";
 import styled from "styled-components";
 import { useRecoilState } from 'recoil';
 import {
   selectedImageState,
-  profileNicknameState
+  profileNicknameState,
+  // memberIdState,
 } from '../../stores/atoms';
 import { VscAccount } from "react-icons/vsc";
 import { CiReceipt } from"react-icons/ci"
@@ -12,30 +13,40 @@ import { BiHeart } from "react-icons/bi";
 import { Link } from "react-router-dom"
 import axios from 'axios';
 
+
 export default function UserPageTop(){
-  const [selectedImage] = useRecoilState(selectedImageState);  //image상태
+  const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState);  //image상태
   const [userNickname, setUserNickname] = useRecoilState(profileNicknameState);
-  const accessToken = localStorage.getItem("accessToken");
-  // const [userInfoId,setUserInfoId] = useState(0)
+  // const [memberId] = useRecoilState(memberIdState);
+  const accessToken = localStorage.getItem("accessToken");  
+  const memberId=localStorage.getItem("memberId");   
+  
+  
+  
+
   //header에다가 엑세스토큰 넣어서 보내기 
-  useEffect(()=>{
-    axios
-  .get(
-    `${process.env.REACT_APP_API_URL}/member/2`,        
-    {
-      headers: {
-        Authorization: accessToken,
-      },
-    }
-  )
-  .then((res)=>{
-    const {data} = res    
-    setUserNickname(data.nickName);
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
-  },[setUserNickname])
+  useEffect(()=>{    
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/member/${memberId}`,
+          {
+            headers: {
+              Authorization: accessToken,
+              memberId: memberId,
+              imageUrlList:selectedImage,
+            },
+          }       
+        )
+        .then((res) => {
+          const { data } = res;
+          setUserNickname(data.nickName);
+          // setSelectedImage(data.imageUrlList)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    
+  }, [setUserNickname,setSelectedImage,accessToken,memberId, selectedImage]);
 
   return(
     <Wrapper>

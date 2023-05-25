@@ -24,8 +24,6 @@ export default function MyPage() {
   const [goPage] = useRecoilState(moveModalState);
   const  [keepLoggedIn] = useRecoilState(loginState)
   useAccessToken();// useAccessToken만 쓰면 토큰을 가져올수있다
-  console.log(keepLoggedIn)
-  console.log(useAccessToken)
 
 
 

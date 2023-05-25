@@ -39,7 +39,11 @@ export const loginState = atom({
   key: "loginState",
   default: false,
 });
-
+//memberID State
+export const memberIdState = atom({
+  key: 'memberIdState',
+  default: null,
+});
 // // access token의 존재 여부 확인
 // export const accessTokenSelector = selector({
 //   key: "accessTokenSelector",
