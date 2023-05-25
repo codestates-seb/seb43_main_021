@@ -69,7 +69,9 @@ const Footer = ({ bidItemStatus }) => {
               )}
             </>
           ) : auctionMemberId === myMemberId ? null : (
-            <BiddingButton onClick={() => navigate("/createbidding")}>
+            <BiddingButton
+              onClick={() => navigate(`/createbidding/${auctionItemId}`)}
+            >
               입찰하기
             </BiddingButton>
           )}
