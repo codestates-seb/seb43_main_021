@@ -57,7 +57,7 @@ const BiddingDetail = () => {
         <FormatDateTime dateTime={data.createdDate} />
       </AutcionInfo>
       <AuctionContent>{data.bidItemContent}</AuctionContent>
-      <Footer />
+      <Footer bidItemStatus={data.bidItemStatus} />
     </Wrapper>
   );
 };
