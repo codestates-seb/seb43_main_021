@@ -33,7 +33,7 @@ export default function ChangePassword() {
       setPasswordErrorMessage("");
     }
   };
-
+  
   // New PW
   const onChangeNewPassword = (e) => {
     const value = e.target.value;
@@ -85,12 +85,12 @@ export default function ChangePassword() {
         )
 
         .then((res) => {
-          if(res.password===password){
+          if(res.data.password===password){
             setPasswordErrorMessage("기존의 비밀번호와 같습니다.")
           }else{
             setPassword(res.data.password);
             console.log(res.data.password);
-            console.log("비밀번호가 성공적으로 변경되었습니다!");
+            alert("비밀번호가 성공적으로 변경되었습니다!");
             navigate("/mypage");
           }
         })
@@ -100,7 +100,7 @@ export default function ChangePassword() {
     } else {
       console.log("필수 입력 영역을 모두 올바르게 작성해주세요.");
       setPasswordErrorMessage(
-        !password || passwordErrorMessage
+        !password || passwordErrorMessage 
           ? passwordErrorMessage || "비밀번호를 입력해주세요."
           : ""
       );

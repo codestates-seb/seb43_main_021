@@ -1,18 +1,38 @@
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { modalState, moveModalState } from "../../../stores/atoms";
+import { useNavigate } from "react-router-dom";
+import { modalState, loginState } from "../../../stores/atoms";
 import { Button2 } from "../Button/Button2";
 import { Button1 } from "../Button/Button1";
-
+import axios from "axios";
 export const Modal = () => {
+  const navigate = useNavigate();  
+
+  const [, setLogin] = useRecoilState(loginState);
   const [isOpen, setIsOpen] = useRecoilState(modalState);
-  const [goPage, setGoPage] = useRecoilState(moveModalState);
+  const memberId=localStorage.getItem("memberId");   
+  
   const openModalHandler = () => {
     setIsOpen(!isOpen);
   };
-  const moveModalHandler = () => {
-    setIsOpen(!isOpen);
-    setGoPage(!goPage);
+  const onClickDeleteUser = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("memberId");
+
+
+    axios
+          .delete(`${process.env.REACT_APP_API_URL}/member/profile/${memberId}`, {    
+          })
+          .then((res) => {
+            alert('회원이 탈퇴되었습니다.');
+            setLogin(false)
+            setIsOpen(!isOpen);   
+            navigate('/');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
   };
   return (
     <ModalWrapper>
@@ -23,7 +43,7 @@ export const Modal = () => {
           <Cancellation onClick={openModalHandler}>
             <Button2 name={"취소"} />
           </Cancellation>
-          <Permit onClick={moveModalHandler}>
+          <Permit onClick={onClickDeleteUser}>
             <Button1 name={"확인"} />
           </Permit>
         </ButtonArea>

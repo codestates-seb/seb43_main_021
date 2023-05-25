@@ -6,32 +6,28 @@ import Gnb from "../components/UI/Gnb/Gnb";
 import MyPageHeader from "../components/UI/Header/MyPageHeader";
 import {
   modalState,
-  LogOutModalState,
-  moveModalState,
+  LogOutModalState,  
   loginState,
 } from "../stores/atoms";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
-import { PWCheckModal } from "../components/UI/Item/PWCheckModal";
 import useAccessToken from "../hooks/useAccessToken";
 
 export default function MyPage() {
   const navigate = useNavigate();
   const [isOpen] = useRecoilState(modalState);
-  const [logOutClick] = useRecoilState(LogOutModalState);
-  const [goPage] = useRecoilState(moveModalState);
+  const [logOutClick] = useRecoilState(LogOutModalState);  
   const [keepLoggedIn] = useRecoilState(loginState);
-  useAccessToken(); // useAccessToken만 쓰면 토큰을 가져올수있다
+  useAccessToken(); 
 
   return (
     <Wrapper>
       {keepLoggedIn === true ? (
         <>
           {isOpen && <Modal />}
-          {logOutClick && <LogOutModal />}
-          {goPage && <PWCheckModal />}
+          {logOutClick && <LogOutModal />}          
           <MyPageHeader title={"마이 페이지"} />
           <UserPageTop />
           <Line />
@@ -40,8 +36,8 @@ export default function MyPage() {
             <Gnb />
           </Footer>
         </>
-      ) : (
-        navigate("/login")
+      ) : (        
+        navigate("/login")        
       )}
     </Wrapper>
   );
