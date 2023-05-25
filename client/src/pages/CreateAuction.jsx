@@ -93,11 +93,10 @@ const CreateAuction = () => {
   
         for (let i = 0; i < imageSrcList.length; i++) {
           const imageFile = imageSrcList[i];
-          console.log("이미지 파일:", imageFile);
           formData.append("multipartFile", imageFile);
         }
   
-        const res = await axios.post (
+        await axios.post (
           `${process.env.REACT_APP_API_URL}/images/upload`,
           formData,
           {
@@ -105,9 +104,10 @@ const CreateAuction = () => {
               "Content-Type": "multipart/form-data"
             },
           }
-        );
-  
-        imageUrls.push(res.data.imageUrl);
+        ).then (res =>{
+          imageUrls.push(res.data.imageUrl);
+
+        });  
       } catch (error) {
         console.log("이미지 업로드 실패:", error);
       }
@@ -117,7 +117,7 @@ const CreateAuction = () => {
 
     if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
       try {
-        const imageUrls = await uploadImages(imageSrcList);
+        const imageUrls = await uploadImages();
 
         const data = {
           name: title,
