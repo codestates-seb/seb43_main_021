@@ -5,15 +5,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ItemButton2 from "../Button/Button2";
 import ItemButton1 from "../Button/Button1";
-import axios from 'axios';
+import axios from "axios";
 export const PWCheckModal = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
 
   const [goPage, setGoPage] = useRecoilState(moveModalState);
   const [pwCheckValue, setPwCheckValue] = useState("");
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState("");
-  
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState("");
 
   const openModalHandler = () => {
     setGoPage(!goPage);
@@ -22,7 +22,7 @@ export const PWCheckModal = () => {
     const value = e.target.value;
     setPwCheckValue(value);
   };
-  const onClickDeleteUser = ()=>{
+  const onClickDeleteUser = () => {
     axios
       .get(
         `${process.env.REACT_APP_API_URL}/member/2`,
@@ -32,32 +32,36 @@ export const PWCheckModal = () => {
           },
         },
         {
-          password:pwCheckValue,
+          password: pwCheckValue,
         }
       )
       .then((res) => {
-        if(res.password===pwCheckValue){
-          navigate('/')
-        }else{
-          setConfirmPasswordErrorMessage("비밀번호가 일치하지 않습니다.")
+        if (res.password === pwCheckValue) {
+          navigate("/");
+        } else {
+          setConfirmPasswordErrorMessage("비밀번호가 일치하지 않습니다.");
         }
       })
       .catch((error) => {
         console.log(error);
       });
-  
-  }
+  };
   return (
     <ModalWrapper>
       <ModalContainer>
-        <WarningText>{confirmPasswordErrorMessage? confirmPasswordErrorMessage: "*회원을 탈퇴합니다"}</WarningText>
+        <WarningText>
+          {confirmPasswordErrorMessage
+            ? confirmPasswordErrorMessage
+            : "*회원을 탈퇴합니다"}
+        </WarningText>
         비밀번호를 입력하세요
         <ContainerContnet>
           비밀번호:
-          <PWArea 
-          type="password"
-          value={pwCheckValue}
-          onChange={onChangePwvalue}></PWArea>
+          <PWArea
+            type="password"
+            value={pwCheckValue}
+            onChange={onChangePwvalue}
+          ></PWArea>
         </ContainerContnet>
         <ButtonArea>
           <Cancellation onClick={openModalHandler}>
@@ -76,7 +80,7 @@ const ModalWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--blackCover-color);
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -88,7 +92,7 @@ const ModalContainer = styled.div`
   display: flex;
   width: 338px;
   height: 170px;
-  background-color: white;
+  background-color: var(--white1-color);
   flex-direction: column;
   border-radius: 10px;
   position: relative;
@@ -124,13 +128,13 @@ const Permit = styled.div`
 const PWArea = styled.input`
   height: 2rem;
   width: 14.5rem;
-  background-color: white;
+  background-color: var(--white1-color);
 
   margin-left: 0.25rem;
 `;
 const WarningText = styled.div`
   font-size: 13px;
-  color: red;
+  color: var(--red1-color);
   padding: 0.5rem 0;
   display: flex;
   justify-content: center;

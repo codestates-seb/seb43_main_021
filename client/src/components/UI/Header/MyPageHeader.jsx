@@ -5,7 +5,7 @@ const Header = ({ title }) => {
   return (
     <>
       <Wrapper>
-        <Title>{title}</Title>                  
+        <Title>{title}</Title>
       </Wrapper>
       <Line />
     </>
@@ -15,7 +15,7 @@ const Header = ({ title }) => {
 export default Header;
 
 const Wrapper = styled.div`
-  height: 5.5rem;  
+  height: 5.5rem;
   display: flex;
   font-size: 23px;
   font-weight: bold;
@@ -26,6 +26,6 @@ const Title = styled.div`
   margin-left: 1.5rem;
 `;
 const Line = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   width: 100%;
 `;

@@ -2,25 +2,28 @@ import React from "react";
 import styled from "styled-components";
 
 const Period = ({ auctionPeriod, enterNumbersOnly, showPeriodWarning }) => {
-
-    return (
-        <AuctionPeriod>
-          <LeftContent>
-            <h2>경매 기간</h2>
-            <h4>※ 경매 기간은 최소 1일부터 30일까지 설정할 수 있어요.</h4>
-          </LeftContent>
-          <RightContent>
-            <PeriodData>
-                <PeriodInput>
-                    <input type="text" value={auctionPeriod} onChange={enterNumbersOnly} />
-                </PeriodInput>
-                <h2>일</h2>
-            </PeriodData>
-          {showPeriodWarning && <Warning>경매 기간을 입력해주세요.</Warning>}
-          </RightContent>
-        </AuctionPeriod>
-    )
-}
+  return (
+    <AuctionPeriod>
+      <LeftContent>
+        <h2>경매 기간</h2>
+        <h4>※ 경매 기간은 최소 1일부터 30일까지 설정할 수 있어요.</h4>
+      </LeftContent>
+      <RightContent>
+        <PeriodData>
+          <PeriodInput>
+            <input
+              type="text"
+              value={auctionPeriod}
+              onChange={enterNumbersOnly}
+            />
+          </PeriodInput>
+          <h2>일</h2>
+        </PeriodData>
+        {showPeriodWarning && <Warning>경매 기간을 입력해주세요.</Warning>}
+      </RightContent>
+    </AuctionPeriod>
+  );
+};
 
 export default Period;
 
@@ -28,22 +31,21 @@ const AuctionPeriod = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  `;
+`;
 
 const LeftContent = styled.div`
-    h2 {
-      padding-top: 1.2rem;
-      padding-bottom: 0.8rem;
-    }
-    
-    h4 {
-      padding-left: 1rem;
-      color: #D2D2D4;
-    }
-;`
+  h2 {
+    padding-top: 1.2rem;
+    padding-bottom: 0.8rem;
+  }
 
-const RightContent = styled.div`
+  h4 {
+    padding-left: 1rem;
+    color: var(--white4-color);
+  }
 `;
+
+const RightContent = styled.div``;
 
 const PeriodData = styled.div`
   display: flex;
@@ -78,7 +80,7 @@ const PeriodInput = styled.div`
 `;
 
 const Warning = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-size: 13px;
   text-align: center;
   margin-top: 0.5rem;

@@ -78,7 +78,7 @@ const SelectBox = styled.ul`
   top: 80px;
   left: 20px;
   border: 0.5px solid gray;
-  background-color: white;
+  background-color: var(--white1-color);
   padding: 0.5rem 0 0.5rem 0.5rem;
   width: 6rem;
   border-radius: 5px;
@@ -112,7 +112,7 @@ const CustomLink = styled(Link)`
 `;
 
 const Line = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   width: 100%;
 `;
 

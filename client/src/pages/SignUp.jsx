@@ -6,13 +6,13 @@ import SignUpForm from "../components/SignUp/SignUpForm";
 import SignUpOauth from "../components/SignUp/SignUpOauth";
 
 const SignUp = () => {
-
   const navigate = useNavigate();
 
   return (
     <Wrapper>
       <Header>
-        <BackButton onClick={() => navigate('/')} /> {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
+        <BackButton onClick={() => navigate("/")} />{" "}
+        {/* onClick={() => navigate{"/Home"}} 이벤트 넣기 */}
         <HeaderTitle>
           <h2>회원가입</h2>
         </HeaderTitle>
@@ -24,7 +24,7 @@ const SignUp = () => {
         </Body>
       </Container>
     </Wrapper>
-  )
+  );
 };
 
 export default SignUp;
@@ -42,7 +42,7 @@ const Header = styled.div`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  border-color: hsl(210, 8%, 90%);
+  border-color: var(--white3-color);
   border-bottom-style: solid;
   border-bottom-width: 1px;
 `;
@@ -61,12 +61,12 @@ const HeaderTitle = styled.div`
 `;
 
 const Container = styled.div`
-  background-color: #F2F3F7;
+  background-color: var(--white2-color);
   padding: 1rem;
   width: 100%;
 `;
 
 const Body = styled.div`
-  background-color: #ffffff;
+  background-color: var(--white1-color);
   padding: 1rem;
 `;

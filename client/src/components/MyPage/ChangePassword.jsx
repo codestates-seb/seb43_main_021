@@ -77,12 +77,9 @@ export default function ChangePassword() {
       !confirmPasswordErrorMessage
     ) {
       axios
-        .patch(
-          `${process.env.REACT_APP_API_URL}/member/profile/2`,
-          {
-            password: newPassword,
-          }
-        )
+        .patch(`${process.env.REACT_APP_API_URL}/member/profile/2`, {
+          password: newPassword,
+        })
         .then((res) => {
           setPassword(res.data.password);
           console.log(res.data.password);
@@ -197,7 +194,7 @@ const InputTitle = styled.div`
   span {
     padding-left: 0.1rem;
     padding-bottom: 0.6rem;
-    color: red;
+    color: var(--red1-color);
     font-weight: bold;
   }
 `;
@@ -206,7 +203,7 @@ const InputField = styled.div`
   display: flex;
 
   input {
-    background-color: #f5f5f5;
+    background-color: var(--white2-color);
     border: none;
     outline: none;
     width: 96%;
@@ -217,7 +214,7 @@ const InputField = styled.div`
   }
 
   input::placeholder {
-    color: #aaaaaa;
+    color: var(--white6-color);
   }
 `;
 
@@ -252,7 +249,7 @@ const Permit = styled.div`
   }
 `;
 const ErrorMessage = styled.div`
-  color: red;
+  color: var(--red1-color);
   font-weight: bold;
   padding-top: 0.5rem;
   font-size: 11px;

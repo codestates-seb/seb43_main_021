@@ -92,14 +92,14 @@ const Flexible = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: var(--white1-color);
 `;
 const Wrapper = styled.div`
   width: 416px;
   display: flex;
   flex-direction: column;
   padding-bottom: 15%;
-  background-color: white;
+  background-color: var(--white1-color);
   align-items: center;
 `;
 
@@ -111,7 +111,7 @@ const TitelContainer = styled.div`
   width: 100%;
   text-align: center;
   justify-content: space-between;
-  background-color: white;
+  background-color: var(--white1-color);
 `;
 const LogoContainer = styled.div`
   margin: 0.5rem;
@@ -204,8 +204,8 @@ const LoginBtn = styled.div`
 
 const Button = styled.button`
   background-color: ${(props) =>
-    props.color === "blue" ? "#5170fd" : "#4636fc"};
-  color: #ffffff;
+    props.color === "blue" ? "var(--purple1-color);" : "var(--purple2-color);"};
+  color: var(--white1-color);
   border: none;
   width: 20rem;
   height: 2.8rem;

@@ -188,7 +188,7 @@ const BidInfo = styled.div`
 `;
 
 const AuctionLine = styled.div`
-  border: 0.5px solid #cccccc;
+  border: 0.5px solid var(--white5-color);
   width: 100%;
 `;
 
@@ -207,7 +207,7 @@ const AuctionInfoText = styled.div`
   overflow-x: scroll;
 
   span {
-    color: red;
+    color: var(--red1-color);
     font-size: 0.65rem;
   }
 `;
@@ -216,14 +216,14 @@ const Buttom = styled.button`
   height: 1.5rem;
   width: 5.5rem;
   border-radius: 5px;
-  background-color: white;
-  border: 1px solid #dcdcdc;
+  background-color: var(--white1-color);
+  border: 1px solid var(--white2-color);
   cursor: pointer;
   font-weight: bold;
   margin-top: 0.1rem;
 
   &:hover {
-    background-color: #dfdfdf;
+    background-color: var(--white4-color);
   }
 `;
 
@@ -260,9 +260,9 @@ const UserImg = styled.img`
 `;
 
 const AdminContent = styled.div`
-  background-color: #7c43f8;
+  background-color: var(--purple4-color);
   padding: 1rem 0.5rem;
-  color: white;
+  color: var(--white1-color);
   border-radius: 26px;
   text-align: center;
   width: 25rem;
@@ -272,7 +272,7 @@ const AdminContent = styled.div`
 `;
 
 const Content = styled.div`
-  background-color: #f2f3f6;
+  background-color: var(--white2-color);
   padding: 0.5rem;
   border-radius: 10px;
 `;
@@ -280,14 +280,14 @@ const Content = styled.div`
 const ContentTime = styled.div`
   font-size: 0.75rem;
   font-weight: bold;
-  color: #9c9c9c;
+  color: var(--gray2-color);
   white-space: nowrap;
   align-self: flex-end;
 `;
 
 const UserContent = styled.div`
-  background-color: #4b3bfa;
-  color: white;
+  background-color: var(--purple2-color);
+  color: var(--white1-color);
   padding: 0.5rem;
   border-radius: 10px;
 `;
@@ -295,7 +295,7 @@ const UserContent = styled.div`
 const UserContentTime = styled.div`
   font-size: 0.75rem;
   font-weight: bold;
-  color: #9c9c9c;
+  color: var(--gray2-color);
   white-space: nowrap;
   align-self: flex-end;
 `;
@@ -305,7 +305,7 @@ const ChattingFooter = styled.div`
   width: 100%;
   position: fixed;
   bottom: 0;
-  background-color: white;
+  background-color: var(--white1-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -319,11 +319,11 @@ const ChattingFooter = styled.div`
 const SendImg = styled(HiOutlinePlusSm)`
   width: 4rem;
   font-size: 2rem;
-  color: #595959;
+  color: var(--gray3-color);
   cursor: pointer;
 
   &:hover {
-    color: #868686;
+    color: var(--gray1-color);
   }
 `;
 
@@ -332,7 +332,7 @@ const ChattingInput = styled.input`
   height: 2.5rem;
   border-radius: 20px;
   border: none;
-  background-color: #f2f3f6;
+  background-color: var(--white2-color);
   padding-left: 1rem;
 `;
 
@@ -341,10 +341,10 @@ const SubmitButton = styled(IoTriangleOutline)`
   transform: rotate(90deg);
   cursor: pointer;
   font-size: 2rem;
-  color: #7e7e7e;
+  color: var(--gray1-color);
 
   &:hover {
-    color: #a6a6a6;
+    color: var(--gray2-color);
   }
 `;
 
@@ -354,7 +354,7 @@ const ImageContainer = styled.div`
   width: 100%;
   position: fixed;
   bottom: 4rem;
-  background-color: white;
+  background-color: var(--white1-color);
   display: flex;
   overflow-x: auto;
 `;
@@ -369,12 +369,12 @@ const DeleteButton = styled.div`
   right: 0;
   border: none;
   font-size: 1.25rem;
-  color: black;
+  color: var(--black1-color);
   font-weight: bold;
   cursor: pointer;
 
   &:hover {
-    color: #626262;
+    color: var(--gray3-color);
     cursor: pointer;
   }
 `;
