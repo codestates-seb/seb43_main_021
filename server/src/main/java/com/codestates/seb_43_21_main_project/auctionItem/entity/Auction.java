@@ -114,5 +114,13 @@ public class Auction extends Auditable {
         this.member = member;
     }
 
+    public void selectBidItem(BidItem bidItem) {
+        bidItem.setBidItemStatus(BidItem.BidItemStatus.AUCTION_SUCCESSFUL);
 
+        for (BidItem otherBidItem : bidItems) {
+            if (!otherBidItem.equals(bidItem)) {
+                otherBidItem.setBidItemStatus(BidItem.BidItemStatus.AUCTION_EXPIRATION);
+            }
+        }
+    }
 }

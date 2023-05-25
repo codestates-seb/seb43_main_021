@@ -5,8 +5,11 @@ import com.codestates.seb_43_21_main_project.auctionItem.dto.AuctionDto;
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
 import com.codestates.seb_43_21_main_project.auctionItem.mapper.AuctionMapper;
 import com.codestates.seb_43_21_main_project.auctionItem.service.AuctionService;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
+import com.codestates.seb_43_21_main_project.bidItem.service.BidItemService;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
+import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,8 @@ public class AuctionController {
 
     private final AuctionService auctionService;
     private final AuctionMapper mapper;
+    private final ContextHolederUtils contextHolederUtils;
+    private final BidItemService bidItemService;
 
     @PostMapping()
     public ResponseEntity postAuction(@Valid @RequestBody AuctionDto.Post requestBody) {
@@ -105,6 +110,15 @@ public class AuctionController {
         return  new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctions),HttpStatus.OK);
     }
 
+    @PostMapping("/{auction_item_id}/{bid_item_id}/select")
+    public void selectBidItem(@PathVariable("auction_item_id") Long auctionId,
+                              @PathVariable("bid_item_id") Long bidItemId) {
+        Long memberId = contextHolederUtils.getAuthMemberId();
+        Auction auction = auctionService.findVerifiedAuction(auctionId);
+        BidItem bidItem = bidItemService.findBidItem(bidItemId);
 
-
+        auction.selectBidItem(bidItem);
+        auction.setAuctionStatus(Auction.AuctionStatus.AUCTION_SUCCESSFUL);
+        auctionService.updateAuction(auction);
+    }
 }
