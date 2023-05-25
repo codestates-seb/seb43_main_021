@@ -87,34 +87,37 @@ const CreateAuction = () => {
     // 이미지용 코드
     const uploadImages = async () => {
       const imageUrls = [];
-
-      for (const imageSrc of imageSrcList) {
-        try {
-          const formData = new FormData();
-          FormData.append("image", imageSrc);
-
-          const res = await axios.post (
-            `${process.env.REACT_APP_API_URL}/images/upload`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${accessToken}`, 
-              },
-            }
-          );
-
-          imageUrls.push(res.data.imageUrl);
-        } catch (error) {
-          console.log("이미지 업로드 실패:", error);
+  
+      try {
+        const formData = new FormData();
+  
+        for (let i = 0; i < imageSrcList.length; i++) {
+          const imageFile = imageSrcList[i];
+          console.log("이미지 파일:", imageFile);
+          formData.append("multipartFile", imageFile);
         }
+  
+        const res = await axios.post (
+          `${process.env.REACT_APP_API_URL}/images/upload`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            },
+          }
+        );
+  
+        imageUrls.push(res.data.imageUrl);
+      } catch (error) {
+        console.log("이미지 업로드 실패:", error);
       }
+  
       return imageUrls;
     };
 
     if (title !== "" && text !== "" && auctionPeriod !== "" && selectLocation !== "지역 설정") {
       try {
-        const imageUrls = await uploadImages();
+        const imageUrls = await uploadImages(imageSrcList);
 
         const data = {
           name: title,

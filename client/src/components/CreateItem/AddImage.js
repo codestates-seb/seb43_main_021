@@ -15,18 +15,12 @@ const AddImage = ({ imageSrcList, setImageSrcList }) => {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        newImageSrcList.push(e.target.result);
-        if (newImageSrcList.length === files.length) {
-          setImageSrcList((prevList) => [...prevList, ...newImageSrcList]);
-          setIsImageUploaded(true);
-        }
-      };
-
-      reader.readAsDataURL(file);
+      const imageUrl = URL.createObjectURL(file);
+      newImageSrcList.push(imageUrl);
     }
+    
+    setImageSrcList((prevList) => [...prevList, ...newImageSrcList]);
+    setIsImageUploaded(true);
   };
 
   const onDeleteImage = (index) => {
