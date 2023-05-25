@@ -79,30 +79,13 @@ const GlobalStyle = createGlobalStyle`
 
 
     
-    --white1-color: #ffffff;
-    /* {
-    --SignUpPages-BodyBackground-color: #ffffff;    
-    } */
-
-    --white2-color: #f2f3f7;
-  /* {    
-    --SignUpPages-ContainerBackground-color: #f2f3f7;
-  
-
-  } */
-
-
+  --white1-color: #ffffff;
+  --white2-color: #f2f3f7;
   --white3-color: #e3e6e8;
-  /* {
-      --LoginPages-HeaderBorder-color: #e3e6e8;
-    --SignUpPages-HeaderBorder-color: hsl(210, 8%, 90%);
-    --CreateAuctionPages-HeaderBorder-color: hsl(210, 8%, 90%);
-} */
   --white4-color: #dfdfdf;
   --white5-color: #cccccc;
   --white6-color: #aaaaaa;
   --purple1-color: #5170fd;
-  /* {--CreateAuctionPages-CreateBtnBackground-color: #5170fd;} */
   --purple2-color: #4636fc;
   --purple3-color: #3b29fb;
   --purple4-color: #7c43f8;

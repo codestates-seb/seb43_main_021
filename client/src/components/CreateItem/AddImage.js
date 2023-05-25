@@ -2,24 +2,35 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { IoIosCamera } from "react-icons/io";
 import { SlClose } from "react-icons/sl";
+import axios from "axios";
 
 const AddImage = ({ imageSrcList, setImageSrcList }) => {
   const [isImageUploaded, setIsImageUploaded] = useState(false);
 
-  const onUpload = (event) => {
+  const onUpload = async (event) => {
     if (imageSrcList.length >= 10) {
       return;
     }
     const files = event.target.files;
-    const newImageSrcList = [];
-
+  
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const imageUrl = URL.createObjectURL(file);
-      newImageSrcList.push(imageUrl);
+      const formData = new FormData();
+      formData.append("multipartFile", file);
+  
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/images/upload/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        const imageUrl = response.data;
+  
+        setImageSrcList((prevList) => [...prevList, imageUrl]);
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-    setImageSrcList((prevList) => [...prevList, ...newImageSrcList]);
     setIsImageUploaded(true);
   };
 
@@ -62,7 +73,7 @@ const AddImage = ({ imageSrcList, setImageSrcList }) => {
       <ImageList className="image-preview">
         {imageSrcList.map((src, index) => (
           <ImageWrapper key={index}>
-            <img src={src} alt={"이미지 미리보기"} />
+            <Image src={src} alt={"이미지 미리보기"} />
             <DeleteButton onClick={() => onDeleteImage(index)}>
               <SlClose />
             </DeleteButton>
@@ -109,12 +120,21 @@ const AddImages = styled.div`
   }
 
   img {
-    width: 4.8rem;
-    height: 4.7rem;
-    margin-left: 1rem;
-    border-radius: 5%;
+  width: 4.8rem;
+  height: 4.7rem;
+  margin-left: 1rem;
+  border-radius: 5%;
+  object-fit: contain;
   }
 `;
+
+const Image = styled.img`
+  width: 4.8rem;
+  height: 4.7rem;
+  margin-left: 1rem;
+  border-radius: 5%;
+  object-fit: contain;
+`
 
 const ImageList = styled.div`
   display: flex;
