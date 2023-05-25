@@ -1,6 +1,7 @@
 package com.codestates.seb_43_21_main_project.bidItem.dto;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
+import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class BidItemResponseDto {
 
     private LocalDateTime modifiedDate;
 
-    private Enum bidItemStatus;
+    private BidItem.BidItemStatus bidItemStatus;
 
     private String location;
 
