@@ -13,8 +13,9 @@ export default function ChangePassword() {
 
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(""); //password error State
   const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState(""); //new password error State
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
-    useState(""); //confirmPassword error State
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =useState(""); //confirmPassword error State
+  const accessToken = localStorage.getItem("accessToken");  
+  const memberId=localStorage.getItem("memberId");   
 
   // PW
   const onChangePassword = (e) => {
@@ -78,16 +79,20 @@ export default function ChangePassword() {
     ) {
       axios
         .patch(
-          `${process.env.REACT_APP_API_URL}/member/profile/2`,
+          `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
           {
             password: newPassword,
           }
         )
         .then((res) => {
-          setPassword(res.data.password);
-          console.log(res.data.password);
-          console.log("비밀번호가 성공적으로 변경되었습니다!");
-          navigate("/mypage");
+          if(res.password===password){
+            setPasswordErrorMessage("기존의 비밀번호와 같습니다.")
+          }else{
+            setPassword(res.data.password);
+            console.log(res.data.password);
+            console.log("비밀번호가 성공적으로 변경되었습니다!");
+            navigate("/mypage");
+          }
         })
         .catch((err) => {
           console.log(err);
