@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import { selectedImageState, profileNicknameState } from "../../stores/atoms";
+import { 
+  selectedImageState,
+  profileNicknameState,
+  memberIdState, } from "../../stores/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineCamera } from "react-icons/ai";
@@ -10,17 +13,17 @@ import { SlClose } from "react-icons/sl";
 import axios from "axios";
 import { Button2 } from "../UI/Button/Button2";
 import { Button1 } from "../UI/Button/Button1";
-export default function UserEditBody({
-  nickName,
+export default function UserEditBody({  
   onImageChange,
   onNicknameChange,
 }) {
   const navigate = useNavigate();
-
+  const [memberId] = useRecoilState(memberIdState);
   const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState); //image상태
-  const [profileNickname, setProfileNickname] =
-    useRecoilState(profileNicknameState); //nickname상태
+  const [profileNickname, setProfileNickname] = useRecoilState(profileNicknameState); //nickname상태
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState(""); //nickname errormessage 상태
+  const accessToken = localStorage.getItem("accessToken");
+
   const fileInputRef = useRef(null);
   const nicknameInputRef = useRef();
 
@@ -69,15 +72,22 @@ export default function UserEditBody({
     console.log("Profile Nickname:", profileNickname);
     const requestBody = {
       nickName: profileNickname,
+      imageUrlList: selectedImage,
     };
 
     axios
       .patch(
-        `${process.env.REACT_APP_API_URL}/member/profile/2`,
-        requestBody
+        `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
+        requestBody,        
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        },        
       )
       .then((res) => {
         setProfileNickname(res.nickName);
+        setSelectedImage(res.imageUrlList);
         navigate("/mypage");
       })
       .catch((err) => {
@@ -117,7 +127,7 @@ export default function UserEditBody({
         type="text"
         placeholder="nickname"
         onChange={onChangeNickname}
-        value={profileNickname}
+        value={profileNickname || ''}
       ></NickNameInput>
       {nicknameErrorMessage && (
         <ErrorMessage>{nicknameErrorMessage}</ErrorMessage>

@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { loginState } from "../../stores/atoms";
+import { 
+  loginState,
+  memberIdState,
+} from "../../stores/atoms";
 const LoginFrom = () => {
   const navigate = useNavigate();
 
   const [, setKeepLoggedIn] = useRecoilState(loginState);
+  const [, setMemberId] = useRecoilState(memberIdState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +39,7 @@ const LoginFrom = () => {
           `${process.env.REACT_APP_API_URL}/auth/login`,
           {
             username: email,
-            password: password,
+            password: password,            
           }
           // {
           //   withCredentials: true,
@@ -50,6 +54,8 @@ const LoginFrom = () => {
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
             localStorage.setItem("memberId", memberId);
+
+            setMemberId(memberId);
             setKeepLoggedIn(true);
             navigate("/main");
           } else {
@@ -62,7 +68,7 @@ const LoginFrom = () => {
         });
     }
   };
-
+  
   return (
     <Body>
       <IdInputBox>
