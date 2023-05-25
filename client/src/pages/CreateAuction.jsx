@@ -91,7 +91,7 @@ const CreateAuction = () => {
     }
 
     // 이미지용 코드
-    const uploadImages = async () => {
+    /*const uploadImages = async () => {
       const imageUrls = [];
 
       try {
@@ -99,11 +99,12 @@ const CreateAuction = () => {
 
         for (let i = 0; i < imageSrcList.length; i++) {
           const imageFile = imageSrcList[i];
+          console.log("이미지 파일:", imageFile);
           formData.append("multipartFile", imageFile);
         }
   
         await axios.post (
-          `${process.env.REACT_APP_API_URL}/images/upload`,
+          `${process.env.REACT_APP_API_URL}/images/upload/`,
           formData,
           {
             headers: {
@@ -119,7 +120,7 @@ const CreateAuction = () => {
       }
 
       return imageUrls;
-    };
+    }; */
 
     if (
       title !== "" &&
@@ -128,14 +129,14 @@ const CreateAuction = () => {
       selectLocation !== "지역 설정"
     ) {
       try {
-        const imageUrls = await uploadImages();
+        //const imageUrls = await uploadImages();
 
         const data = {
           name: title,
           period: parseInt(auctionPeriod),
           content: text,
           location: selectLocation,
-          imageUrlList: imageUrls,
+          imageUrlList: imageSrcList, // imageUrls, imageSrcList
         };
 
         console.log("전송 데이터:", data);
