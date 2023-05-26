@@ -36,13 +36,13 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer; // JWT 설정 추가
     private final CustomAuthorityUtils customAuthorityUtils; // JWT 검증필터 DI 를 위해 추가
 
-    @Bean
+       @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .cors((Customizer<<CorsConfigurer<HttpSecurity>>) corsConfigurationSource())    // corsConfigurationSource Bean 을 이용
+                .cors((Customizer<CorsConfigurer<HttpSecurity>>) corsConfigurationSource())   // corsConfigurationSource Bean 을 이용
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 // 세션 생성 비활성화 (토큰방식) JwtVerificationFilter 에서 SecurityContextHolder 에 추가되게 해놓음
                 .and()
@@ -61,6 +61,7 @@ public class SecurityConfiguration {
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
