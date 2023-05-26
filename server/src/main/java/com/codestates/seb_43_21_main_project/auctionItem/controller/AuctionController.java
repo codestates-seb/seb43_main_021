@@ -110,11 +110,11 @@ public class AuctionController {
         return  new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctions),HttpStatus.OK);
     }
 
-    @PostMapping("/{auction_item_id}/{bid_item_id}/select")
-    public void selectBidItem(@PathVariable("auction_item_id") Long auctionId,
+    @PostMapping("/{auction_items_id}/{bid_item_id}/select")
+    public void selectBidItem(@PathVariable("auction_items_id") Long auctionItemsId,
                               @PathVariable("bid_item_id") Long bidItemId) {
         Long memberId = contextHolederUtils.getAuthMemberId();
-        Auction auction = auctionService.findVerifiedAuction(auctionId);
+        Auction auction = auctionService.findVerifiedAuction(auctionItemsId);
         BidItem bidItem = bidItemService.findBidItem(bidItemId);
 
         auction.selectBidItem(bidItem);
