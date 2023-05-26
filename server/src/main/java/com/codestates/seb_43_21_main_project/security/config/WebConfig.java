@@ -6,17 +6,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000/")
-                .allowedOrigins("http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com")
-                .allowedMethods("GET", "POST", "PATCH", "PUT","DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3000);
+    @Bean
+    public WebMvcConfigurer corsConfigurer(){
+        return new WebMvcConfigurer(){
+            @Override
+            public void addCorsMappings(CorsRegistry corsRegistry) {
+                corsRegistry.addMapping("/**")
+                        .allowedOriginPatterns("*")
+                        .allowedHeaders("*")
+                        .allowedMethods("GET", "POST", "PATCH", "PUT","DELETE")
+                        .exposedHeaders("Authorization","RefreshToken","memberId")
+                }
+        };
     }
 }
