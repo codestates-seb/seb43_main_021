@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
                         .allowedOriginPatterns("*")
                         .allowedHeaders("*")
                         .allowedMethods("GET", "POST", "PATCH", "PUT","DELETE")
-                        .exposedHeaders("Authorization","RefreshToken","memberId")
+                        .exposedHeaders("Authorization","RefreshToken","memberId");
                 }
         };
     }
