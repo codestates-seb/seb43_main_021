@@ -17,7 +17,7 @@ public class SecurityCorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("http://localhost:3000");
+        config.addAllowedOriginPattern("http://localhost:3000","http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com");
         config.addExposedHeader("Authorization");
         config.addExposedHeader("Refresh");
         config.addExposedHeader("memberId");
