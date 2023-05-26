@@ -52,6 +52,7 @@
 + API 명세서 : [링크](https://www.notion.so/codestates/5f81b2a8f9c74ba7bdae616f46dd378b?v=ec51e24bbb7e48389129c508081eb106&p=2be28425e35a4d5b9468b69afbfff79d&pm=s)
 + 화면 정의서 : [링크](https://www.figma.com/file/uoIAJ7hF9wxP4SosbVGj5A/SEB_43_Main?type=design&node-id=0-1&t=ycBaLHRSXRj5gF41-0)
 + ERD
+
 ![ERD](https://github.com/codestates-seb/seb43_main_021/assets/120040832/78b6ff87-c374-43ba-9040-0cd10fb96025)
 
 
