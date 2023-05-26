@@ -1,6 +1,9 @@
 server:
 #  address: localhost #설정된 주소로만 바인딩된다.
   port: 8080
+  servlet:
+    header:
+      referrer-policy: strict-origin-when-cross-origin
 
 spring:
   datasource:
