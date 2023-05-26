@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .cors(corsConfigurationSoucre())    // corsConfigurationSource Bean 을 이용
+                .cors(corsConfigurationSource())    // corsConfigurationSource Bean 을 이용
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 // 세션 생성 비활성화 (토큰방식) JwtVerificationFilter 에서 SecurityContextHolder 에 추가되게 해놓음
                 .and()
