@@ -38,7 +38,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer; // JWT 설정 추가
     private final CustomAuthorityUtils customAuthorityUtils; // JWT 검증필터 DI 를 위해 추가
 
-       @Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().disable()
@@ -75,7 +75,8 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com"));
-        configuration.setAllowedHeaders(Arrays.asList("GET","POST","PATCH","DELETE","OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH","DELETE","OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.addExposedHeader("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
