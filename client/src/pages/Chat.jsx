@@ -8,21 +8,21 @@ const Chat = () => {
   const memberId = localStorage.getItem("memberId");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!memberId) {
-      navigate("/login");
-    }
-  }, [memberId]);
-
   return (
     <>
-      <Container>
-        <Header title={"채팅"} />
-      </Container>
-      <ChatItem />
-      <Footer>
-        <Gnb />
-      </Footer>
+      {memberId ? (
+        <>
+          <Container>
+            <Header title={"채팅"} />
+          </Container>
+          <ChatItem />
+          <Footer>
+            <Gnb />
+          </Footer>
+        </>
+      ) : (
+        navigate("/login")
+      )}
     </>
   );
 };
