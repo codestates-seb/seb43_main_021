@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -18,12 +18,14 @@ const Item = ({ item }) => {
 
   // {member.slice(0, 19) + (member.length > 19 ? "..." : "")}님의 물품으로
 
-  useState(() => {
+  useEffect(() => {
     if (location !== "전체") {
       const itemFilterd = item.filter((item) => item.location === location);
       setItemList(itemFilterd);
+    } else {
+      setItemList(item);
     }
-  }, [location]);
+  }, [location, item]);
 
   return (
     <div>
