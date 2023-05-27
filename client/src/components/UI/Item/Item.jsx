@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import noImage from "../../../assets/images/noimage.png";
 import FormatDateTime from "../../../utils/FormatDateTime";
 import PeriodDateTime from "../../../utils/PeriodDateTime";
+import { useRecoilValue } from "recoil";
+import { selectLocation } from "../../../stores/atoms";
 
 const Item = ({ item }) => {
+  const [itemList, setItemList] = useState(item);
+  const location = useRecoilValue(selectLocation);
   const navigate = useNavigate();
   const handleToAuctionDetail = (id) => {
     navigate(`/AuctionDetail/${id}`);
   };
+
   // {member.slice(0, 19) + (member.length > 19 ? "..." : "")}님의 물품으로
+
+  useState(() => {
+    if (location !== "전체") {
+      const itemFilterd = item.filter((item) => item.location === location);
+      setItemList(itemFilterd);
+    }
+  }, [location]);
 
   return (
     <div>
-      {item.map((item) => (
+      {itemList.map((item) => (
         <React.Fragment key={item.auctionItemId}>
           <Container onClick={() => handleToAuctionDetail(item.auctionItemId)}>
             <ItemLeft>

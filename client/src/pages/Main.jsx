@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Header from "../components/UI/Header/Header";
 import Item from "../components/UI/Item/Item";
 import { BsPlusCircle } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useGetItemList from "../hooks/useGetItemList";
 import Loading from "../components/UI/Loading/Loading";
 import useAccessToken from "../hooks/useAccessToken";
@@ -12,10 +12,10 @@ import useAccessToken from "../hooks/useAccessToken";
 const Home = () => {
   const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구", "마포구"];
   const { data, isLoading, isError, error } = useGetItemList();
+  const navigate = useNavigate();
   console.log("main data:", data);
-
-  const login = useAccessToken();
-  console.log("isLoggedIn:", login);
+  const memberId = localStorage.getItem("memberId");
+  useAccessToken();
 
   if (isLoading) {
     return (
@@ -33,15 +33,22 @@ const Home = () => {
   //   return <div>Home useQuery의 getData 함수 실행 이후에 표시됨</div>;
   // }
 
+  const handleCAB = () => {
+    if (memberId) {
+      navigate("/createauction");
+    } else {
+      alert("로그인 후 경매를 등록할 수 있습니다.");
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       <Wrapper>
         <Header titleList={titleList} />
         <Item item={data} />
-        <LinkContainer>
-          <CustomLink to="/createauction">
-            <CreateAuctionButton />
-          </CustomLink>
+        <LinkContainer onClick={handleCAB}>
+          <CreateAuctionButton />
         </LinkContainer>
       </Wrapper>
       <Footer>
@@ -80,9 +87,4 @@ const LinkContainer = styled.div`
   max-width: 1024px;
   display: flex;
   justify-content: flex-end;
-`;
-
-const CustomLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
 `;

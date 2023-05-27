@@ -4,10 +4,12 @@ import { FiBell } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { FiChevronLeft, FiChevronDown } from "react-icons/fi";
+import { useSetRecoilState } from "recoil";
+import { selectLocation } from "../../../stores/atoms";
 
 const Header = ({ title, titleList, chatTitle }) => {
   const [select, setSelect] = useState(false);
-  const [selectLocation, setSelectLocation] = useState("전체");
+  const [Location, setLocation] = useSetRecoilState(selectLocation);
 
   const handleBack = () => {
     window.history.back();
@@ -17,7 +19,7 @@ const Header = ({ title, titleList, chatTitle }) => {
     <>
       <Container onClick={select ? () => setSelect(!select) : null}>
         {chatTitle ? <BackButton onClick={handleBack} /> : null}
-        {titleList ? <Title>{selectLocation}</Title> : <Title>{title}</Title>}
+        {titleList ? <Title>{Location}</Title> : <Title>{title}</Title>}
         {titleList ? <SelectTitle onClick={() => setSelect(!select)} /> : null}
         {select ? (
           <SelectBox>
@@ -25,7 +27,7 @@ const Header = ({ title, titleList, chatTitle }) => {
               <Li
                 key={index}
                 onClick={() => {
-                  setSelectLocation(item);
+                  setLocation(item);
                   setSelect(!select);
                 }}
               >

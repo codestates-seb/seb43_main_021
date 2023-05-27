@@ -22,8 +22,6 @@ const CreateBidding = () => {
 
   const accessToken = localStorage.getItem("accessToken");
 
-  console.log("입찰 등록- 옥션 아이디", auctionItemId);
-
   const handleBack = () => {
     window.history.back();
   };
