@@ -94,7 +94,7 @@ const Footer = ({ bidItemStatus }) => {
 const Wrapper = styled.div`
   height: 5rem;
   width: 100%;
-  max-width: 1024;
+  max-width: 1024px;
   bottom: 0;
   position: fixed;
   background-color: var(--white1-color);

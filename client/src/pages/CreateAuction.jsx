@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BsChevronLeft } from "react-icons/bs";
@@ -22,6 +22,14 @@ const CreateAuction = () => {
   const [showLocationWarning, setShowLocationWarning] = useState(false);
   const [imageSrcList, setImageSrcList] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
+  const memberId = localStorage.getItem("memberId");
+
+  useEffect(() => {
+    if (!memberId) {
+      alert("로그인 후 경매를 등록할 수 있습니다.");
+      navigate("/login");
+    }
+  }, []);
 
   const enterNumbersOnly = (event) => {
     let input = event.target.value;
@@ -97,7 +105,6 @@ const CreateAuction = () => {
       selectLocation !== "지역 설정"
     ) {
       try {
-
         const data = {
           name: title,
           period: parseInt(auctionPeriod),
