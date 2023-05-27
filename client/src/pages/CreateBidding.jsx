@@ -102,15 +102,15 @@ const CreateBidding = () => {
       setShowTextWarning(true);
     }
 
-    if (selectLocation === "지역 설정") {
-      setShowLocationWarning(true);
-    }
+    // if (selectLocation === "지역 설정") {
+    //   setShowLocationWarning(true);
+    // }
 
-    if (titleList[0] === selectLocation) {
-      setShowLocationWarning(true);
-    } else {
-      setShowLocationWarning(false);
-    }
+    // if (titleList[0] === selectLocation) {
+    //   setShowLocationWarning(true);
+    // } else {
+    //   setShowLocationWarning(false);
+    // }
 
     if (title !== "" && text !== "" && selectLocation !== "지역 설정") {
       try {
@@ -118,7 +118,7 @@ const CreateBidding = () => {
           bidItemName: title,
           bidItemContent: text,
           imageUrlList: imageSrcList,
-          location: selectLocation,
+          // location: selectLocation,
         };
 
         axios
@@ -127,7 +127,7 @@ const CreateBidding = () => {
             data,
             {
               headers: {
-                Authorization: accessToken,
+                Authorization: `Bearer ${accessToken}`,
               },
             }
           )

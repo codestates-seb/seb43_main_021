@@ -14,8 +14,9 @@ const Footer = ({ bidItemStatus }) => {
   const navigate = useNavigate();
   const myMemberId = localStorage.getItem("memberId");
   const auctionMemberId = data.members[0].memberId.toString();
+  const accessToken = localStorage.getItem("accessToken");
 
-  console.log("파람스 2개", auctionItemId, bidItemId);
+  console.log("auctionItemId, bidItemId", auctionItemId, bidItemId);
 
   useEffect(() => {
     setAuction(data?.auctionEnd);
@@ -26,7 +27,12 @@ const Footer = ({ bidItemStatus }) => {
   const handleSelectItem = async () => {
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}/${bidItemId}/select`
+        `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}/${bidItemId}/select`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
       );
     } catch (error) {
       alert(error);
@@ -88,6 +94,7 @@ const Footer = ({ bidItemStatus }) => {
 const Wrapper = styled.div`
   height: 5rem;
   width: 100%;
+  max-width: 1024;
   bottom: 0;
   position: fixed;
   background-color: var(--white1-color);

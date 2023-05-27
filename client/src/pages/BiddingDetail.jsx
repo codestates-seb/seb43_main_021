@@ -13,7 +13,7 @@ const BiddingDetail = () => {
   const { data, isLoading, isError, error } = useGetBiddingItem();
   const img = [noImage];
 
-  console.log("비딩 디테일", data);
+  console.log("bidItemData:", data);
 
   if (isLoading) {
     return (
