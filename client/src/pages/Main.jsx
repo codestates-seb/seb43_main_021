@@ -12,7 +12,7 @@ import useAccessToken from "../hooks/useAccessToken";
 const Home = () => {
   const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구", "마포구"];
   const { data, isLoading, isError, error } = useGetItemList();
-  console.log("메인 데이터", data);
+  console.log("main data:", data);
 
   const login = useAccessToken();
   console.log("isLoggedIn:", login);

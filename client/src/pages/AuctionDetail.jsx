@@ -21,7 +21,7 @@ const AuctionDetail = () => {
   const navigate = useNavigate();
   const img = [noImage];
 
-  console.log("옥션디테일 데이터", data);
+  console.log("autcionData:", data);
   if (isLoading) {
     return (
       <div>
