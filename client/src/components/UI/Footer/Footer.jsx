@@ -39,6 +39,15 @@ const Footer = ({ bidItemStatus }) => {
     }
   };
 
+  const handleCB = () => {
+    if (myMemberId) {
+      navigate(`/createbidding/${auctionItemId}`);
+    } else {
+      alert("로그인 후 입찰할 수 있습니다.");
+      navigate("/login");
+    }
+  };
+
   return (
     <>
       <Wrapper>
@@ -75,11 +84,7 @@ const Footer = ({ bidItemStatus }) => {
               )}
             </>
           ) : auctionMemberId === myMemberId ? null : (
-            <BiddingButton
-              onClick={() => navigate(`/createbidding/${auctionItemId}`)}
-            >
-              입찰하기
-            </BiddingButton>
+            <BiddingButton onClick={() => handleCB()}>입찰하기</BiddingButton>
           )}
 
           {/* <BiddingButton onClick={handleButton}>
