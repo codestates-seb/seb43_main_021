@@ -5,17 +5,21 @@ import Header from "../components/UI/Header/Header";
 import ChatItem from "../components/Chat/ChatItem";
 import { useNavigate } from "react-router-dom";
 import useAccessToken from "../hooks/useAccessToken";
-import { loginState } from "../stores/atoms";
-import { useRecoilState } from "recoil";
 
 const Chat = () => {
-  const [login] = useRecoilState(loginState);
   useAccessToken();
   const navigate = useNavigate();
+  const memberId = localStorage.getItem("memberId");
+
+  useEffect(() => {
+    if (!memberId) {
+      navigate("/login");
+    }
+  }, [memberId]);
 
   return (
-    <>
-      {login === true ? (
+    <Container>
+      {memberId ? (
         <>
           <Container>
             <Header title={"채팅"} />
@@ -25,10 +29,8 @@ const Chat = () => {
             <Gnb />
           </Footer>
         </>
-      ) : (
-        navigate("/login")
-      )}
-    </>
+      ) : null}
+    </Container>
   );
 };
 const Container = styled.div``;
