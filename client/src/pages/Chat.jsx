@@ -4,13 +4,18 @@ import Gnb from "../components/UI/Gnb/Gnb";
 import Header from "../components/UI/Header/Header";
 import ChatItem from "../components/Chat/ChatItem";
 import { useNavigate } from "react-router-dom";
+import useAccessToken from "../hooks/useAccessToken";
+import { loginState } from "../stores/atoms";
+import { useRecoilState } from "recoil";
+
 const Chat = () => {
-  const memberId = localStorage.getItem("memberId");
+  const [login] = useRecoilState(loginState);
+  useAccessToken();
   const navigate = useNavigate();
 
   return (
     <>
-      {memberId ? (
+      {login === true ? (
         <>
           <Container>
             <Header title={"채팅"} />
