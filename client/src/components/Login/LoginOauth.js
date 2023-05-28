@@ -3,11 +3,18 @@ import styled from "styled-components";
 import { BsGoogle } from "react-icons/bs";
 
 const LoginOauth = () => {
+
+  const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const oAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&response_type=code&scope=email%20profile&redirect_uri=https://localhost:3000&scope=https://www.googleapis.com/auth/userinfo.email`;
+
+  const onClickGoogleLogin = () => {
+    window.location.assign(oAuthURL);
+  }
+
   return (
     <Body>
       <GgLonInBtn>
-        <button>
-          {" "}
+        <button onClick={onClickGoogleLogin}>
           <BsGoogle /> Google로 로그인 하기
         </button>
       </GgLonInBtn>
@@ -35,6 +42,7 @@ const GgLonInBtn = styled.div`
     border-radius: 5px;
     font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
 
     @media screen and (min-width: 768px) {
       width: 28rem;

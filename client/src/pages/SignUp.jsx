@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BsChevronLeft } from "react-icons/bs";
 import SignUpForm from "../components/SignUp/SignUpForm";
-import SignUpOauth from "../components/SignUp/SignUpOauth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -17,12 +16,9 @@ const SignUp = () => {
           <h2>회원가입</h2>
         </HeaderTitle>
       </Header>
-      <Container>
         <Body>
           <SignUpForm />
-          <SignUpOauth />
         </Body>
-      </Container>
     </Wrapper>
   );
 };
@@ -58,12 +54,6 @@ const HeaderTitle = styled.div`
     font-size: 15px;
     font-weight: bold;
   }
-`;
-
-const Container = styled.div`
-  background-color: var(--white2-color);
-  padding: 1rem;
-  width: 100%;
 `;
 
 const Body = styled.div`
