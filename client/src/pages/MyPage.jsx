@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import styled from "styled-components";
 import UserPageTop from "../components/MyPage/UserPageTop";
 import UserInfo from "../components/MyPage/UserInfo";
@@ -15,13 +15,20 @@ import { Modal } from "../components/UI/Item/Modal";
 import { LogOutModal } from "../components/MyPage/LogOutModal";
 import useAccessToken from "../hooks/useAccessToken";
 
+
 export default function MyPage() {
   const navigate = useNavigate();
   const [isOpen] = useRecoilState(modalState);
   const [logOutClick] = useRecoilState(LogOutModalState);  
   const [keepLoggedIn] = useRecoilState(loginState);
   useAccessToken(); 
-
+  useEffect(()=>{
+    if(keepLoggedIn===false){
+      navigate("/login")   
+    }else{
+      navigate("/mypage")   
+    }
+  },[navigate,keepLoggedIn])
   return (
     <Wrapper>
       {keepLoggedIn === true ? (
@@ -37,7 +44,7 @@ export default function MyPage() {
           </Footer>
         </>
       ) : (        
-        navigate("/login")        
+        null     
       )}
     </Wrapper>
   );
