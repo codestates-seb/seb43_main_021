@@ -4,7 +4,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { loginState, memberIdState } from "../../stores/atoms";
+
 const LoginFrom = () => {
+
   const navigate = useNavigate();
 
   const [, setKeepLoggedIn] = useRecoilState(loginState);
@@ -92,16 +94,10 @@ const LoginFrom = () => {
         <SignUpBtn>
           <button onClick={() => navigate("/signup")}>회원가입</button>
         </SignUpBtn>
-        <FindId>
-          <button>이메일찾기</button>
-        </FindId>
-        <FindPw>
-          <button>비밀번호찾기</button>
-        </FindPw>
+        <GuestLogIn>
+          <button>게스트 로그인</button>
+        </GuestLogIn>
       </UserInfo>
-      <GuestLogIn>
-        <button>게스트 로그인</button>
-      </GuestLogIn>
     </Body>
   );
 };
@@ -232,54 +228,14 @@ const SignUpBtn = styled.div`
   }
 `;
 
-const FindId = styled.div`
-  padding-left: 1rem;
-  padding-right: 1rem;
-  border-color: var(--black1-color);
-  border-right-style: solid;
-  border-right-width: 1px;
-
-  button {
-    width: 4.5rem;
-    border: none;
-    outline: none;
-    background-color: var(--white1-color);
-    font-weight: bold;
-  }
-`;
-
-const FindPw = styled.div`
-  padding-left: 1rem;
-
-  button {
-    width: 5rem;
-    border: none;
-    outline: none;
-    background-color: var(--white1-color);
-    font-weight: bold;
-  }
-`;
-
 const GuestLogIn = styled.div`
-  padding-top: 4rem;
-  padding-bottom: 1rem;
   padding-left: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   button {
-    background-color: var(--purple2-color);
-    color: var(--white1-color);
+    width: 6rem;
     border: none;
-    width: 22rem;
-    height: 2.8rem;
-    border-radius: 5px;
-    font-size: 15px;
+    outline: none;
+    background-color: var(--white1-color);
     font-weight: bold;
-
-    @media screen and (min-width: 768px) {
-      width: 28rem;
-    }
   }
 `;
