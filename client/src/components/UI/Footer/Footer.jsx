@@ -14,8 +14,9 @@ const Footer = ({ bidItemStatus }) => {
   const navigate = useNavigate();
   const myMemberId = localStorage.getItem("memberId");
   const auctionMemberId = data.members[0].memberId.toString();
+  const accessToken = localStorage.getItem("accessToken");
 
-  console.log("파람스 2개", auctionItemId, bidItemId);
+  console.log("auctionItemId, bidItemId", auctionItemId, bidItemId);
 
   useEffect(() => {
     setAuction(data?.auctionEnd);
@@ -26,10 +27,24 @@ const Footer = ({ bidItemStatus }) => {
   const handleSelectItem = async () => {
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}/${bidItemId}/select`
+        `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}/${bidItemId}/select`,
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
       );
     } catch (error) {
       alert(error);
+    }
+  };
+
+  const handleCB = () => {
+    if (myMemberId) {
+      navigate(`/createbidding/${auctionItemId}`);
+    } else {
+      alert("로그인 후 입찰할 수 있습니다.");
+      navigate("/login");
     }
   };
 
@@ -41,13 +56,19 @@ const Footer = ({ bidItemStatus }) => {
           <Favorite onClick={submitFavorite} />
           <DivisionLine />
           <AuctionEnd>
-            <div>경매 마감일</div>
-            <div style={{ color: "gray" }}>
-              <PeriodDateTime
-                createdDate={data.createdDate}
-                period={data.period}
-              />
-            </div>
+            {data.auctionStatus === "AUCTION_BIDDING" ? (
+              <>
+                <div>경매 마감일</div>
+                <div style={{ color: "var(--gray1-color)" }}>
+                  <PeriodDateTime
+                    createdDate={data.createdDate}
+                    period={data.period}
+                  />
+                </div>
+              </>
+            ) : (
+              "경매 종료"
+            )}
           </AuctionEnd>
 
           {bidItemId ? (
@@ -69,11 +90,7 @@ const Footer = ({ bidItemStatus }) => {
               )}
             </>
           ) : auctionMemberId === myMemberId ? null : (
-            <BiddingButton
-              onClick={() => navigate(`/createbidding/${auctionItemId}`)}
-            >
-              입찰하기
-            </BiddingButton>
+            <BiddingButton onClick={() => handleCB()}>입찰하기</BiddingButton>
           )}
 
           {/* <BiddingButton onClick={handleButton}>
@@ -88,6 +105,7 @@ const Footer = ({ bidItemStatus }) => {
 const Wrapper = styled.div`
   height: 5rem;
   width: 100%;
+  max-width: 1024px;
   bottom: 0;
   position: fixed;
   background-color: var(--white1-color);
@@ -100,6 +118,7 @@ const FooterLine = styled.div`
 
 const FooterContainer = styled.div`
   display: flex;
+  height: 4.5rem;
 `;
 
 const Favorite = styled(RiHeartLine)`
@@ -119,9 +138,11 @@ const DivisionLine = styled.div`
 `;
 
 const AuctionEnd = styled.div`
-  margin-top: 1.1rem;
   margin-left: 1rem;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const BiddingButton = styled.button`

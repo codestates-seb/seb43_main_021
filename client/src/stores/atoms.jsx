@@ -41,23 +41,9 @@ export const loginState = atom({
 });
 //memberID State
 export const memberIdState = atom({
-  key: 'memberIdState',
+  key: "memberIdState",
   default: null,
 });
-// // access token의 존재 여부 확인
-// export const accessTokenSelector = selector({
-//   key: "accessTokenSelector",
-//   get: ({ get }) => {
-//     const accessToken = localStorage.getItem("accessToken");
-//     return !!accessToken;
-//   },
-// });
-
-// // 로그인 상태
-// export const loginState = atom({
-//   key: "loginState",
-//   default: accessTokenSelector,
-// });
 
 // 회원탈퇴 상태
 export const withdrawalState = atom({
@@ -72,4 +58,10 @@ export const socketState = atom({
 export const AuctionConfirm = atom({
   key: "AuctionConfirm",
   default: null,
+});
+
+// 지역 상태
+export const selectLocation = atom({
+  key: "selectLocation",
+  default: "전체",
 });

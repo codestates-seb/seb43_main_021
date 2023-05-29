@@ -18,7 +18,6 @@ const useGetAuctionItem = () => {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}`
     );
-    console.log("겟옥션 데이터", response.data);
     return response.data;
   };
 

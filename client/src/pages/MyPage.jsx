@@ -4,11 +4,7 @@ import UserPageTop from "../components/MyPage/UserPageTop";
 import UserInfo from "../components/MyPage/UserInfo";
 import Gnb from "../components/UI/Gnb/Gnb";
 import MyPageHeader from "../components/UI/Header/MyPageHeader";
-import {
-  modalState,
-  LogOutModalState,  
-  loginState,
-} from "../stores/atoms";
+import { modalState, LogOutModalState, loginState } from "../stores/atoms";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { Modal } from "../components/UI/Item/Modal";
@@ -18,16 +14,16 @@ import useAccessToken from "../hooks/useAccessToken";
 export default function MyPage() {
   const navigate = useNavigate();
   const [isOpen] = useRecoilState(modalState);
-  const [logOutClick] = useRecoilState(LogOutModalState);  
+  const [logOutClick] = useRecoilState(LogOutModalState);
   const [keepLoggedIn] = useRecoilState(loginState);
-  useAccessToken(); 
+  useAccessToken();
 
   return (
     <Wrapper>
       {keepLoggedIn === true ? (
         <>
           {isOpen && <Modal />}
-          {logOutClick && <LogOutModal />}          
+          {logOutClick && <LogOutModal />}
           <MyPageHeader title={"마이 페이지"} />
           <UserPageTop />
           <Line />
@@ -36,8 +32,8 @@ export default function MyPage() {
             <Gnb />
           </Footer>
         </>
-      ) : (        
-        navigate("/login")        
+      ) : (
+        navigate("/login")
       )}
     </Wrapper>
   );

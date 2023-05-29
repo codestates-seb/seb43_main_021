@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoIosCamera } from "react-icons/io";
@@ -19,10 +19,15 @@ const CreateBidding = () => {
   const [showTitleWarning, setShowTitleWarning] = useState(false);
   const [showTextWarning, setShowTextWarning] = useState(false);
   const [showLocationWarning, setShowLocationWarning] = useState(false);
-
+  const memberId = localStorage.getItem("memberId");
   const accessToken = localStorage.getItem("accessToken");
 
-  console.log("입찰 등록- 옥션 아이디", auctionItemId);
+  useEffect(() => {
+    if (!memberId) {
+      alert("로그인 후 입찰할 수 있습니다.");
+      navigate("/login");
+    }
+  }, [memberId]);
 
   const handleBack = () => {
     window.history.back();
@@ -102,15 +107,15 @@ const CreateBidding = () => {
       setShowTextWarning(true);
     }
 
-    if (selectLocation === "지역 설정") {
-      setShowLocationWarning(true);
-    }
+    // if (selectLocation === "지역 설정") {
+    //   setShowLocationWarning(true);
+    // }
 
-    if (titleList[0] === selectLocation) {
-      setShowLocationWarning(true);
-    } else {
-      setShowLocationWarning(false);
-    }
+    // if (titleList[0] === selectLocation) {
+    //   setShowLocationWarning(true);
+    // } else {
+    //   setShowLocationWarning(false);
+    // }
 
     if (title !== "" && text !== "" && selectLocation !== "지역 설정") {
       try {
@@ -118,7 +123,7 @@ const CreateBidding = () => {
           bidItemName: title,
           bidItemContent: text,
           imageUrlList: imageSrcList,
-          location: selectLocation,
+          // location: selectLocation,
         };
 
         axios
@@ -127,7 +132,7 @@ const CreateBidding = () => {
             data,
             {
               headers: {
-                Authorization: accessToken,
+                Authorization: `Bearer ${accessToken}`,
               },
             }
           )

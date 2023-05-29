@@ -31,10 +31,10 @@ const Bidding = () => {
 };
 const Wrapper = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    width: 75%;
+  }
 `;
 
 const BidContainer = styled.div``;

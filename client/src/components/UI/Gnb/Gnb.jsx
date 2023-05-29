@@ -27,13 +27,21 @@ const Gnb = () => {
           </NavItem>
         </CustomLink>
 
-        <CustomLink to="/chat">
-          <NavItem>
-            <BsChatHeart className="icon" />
-            채팅
-          </NavItem>
-        </CustomLink>
-
+        {keepLoggedIn === true ? (
+          <CustomLink to="/chat">
+            <NavItem>
+              <BsChatHeart className="icon" />
+              채팅
+            </NavItem>
+          </CustomLink>
+        ) : (
+          <CustomLink to="/login">
+            <NavItem>
+              <BsChatHeart className="icon" />
+              채팅
+            </NavItem>
+          </CustomLink>
+        )}
         {keepLoggedIn === true ? (
           <CustomLink to="/mypage">
             <NavItem>
