@@ -68,6 +68,15 @@ const LoginFrom = () => {
     }
   };
 
+  const onClickGuestLogin = () => {
+
+    const guestEmail = "guest1@qa.com";
+    const guestPassword = "1q2w";
+
+    setEmail(guestEmail);
+    setPassword(guestPassword);
+  };
+
   return (
     <Body>
       <IdInputBox>
@@ -95,7 +104,7 @@ const LoginFrom = () => {
           <button onClick={() => navigate("/signup")}>회원가입</button>
         </SignUpBtn>
         <GuestLogIn>
-          <button>게스트 로그인</button>
+          <button onClick={onClickGuestLogin}>게스트 로그인</button>
         </GuestLogIn>
       </UserInfo>
     </Body>
@@ -237,5 +246,6 @@ const GuestLogIn = styled.div`
     outline: none;
     background-color: var(--white1-color);
     font-weight: bold;
+    cursor: pointer;
   }
 `;
