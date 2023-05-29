@@ -222,7 +222,7 @@ const SignUpForm = () => {
             type="text"
             value={nickName}
             onChange={onChangeNickName}
-            placeholder="공백 / 특수문자 제외, 영문 및 영문+숫자 2글자 이상"
+            placeholder="공백 / 특수문자 제외, 한글, 숫자 2글자 이상"
           ></input>
         </InputField>
       </InputWrapper>
