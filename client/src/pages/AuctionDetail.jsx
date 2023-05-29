@@ -201,7 +201,7 @@ const BiddingItemGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  margin: 0 1rem 1rem 1rem;
+  margin: 0 1rem 2rem 1rem;
 `;
 
 const NothingMessage = styled.div`

@@ -4,31 +4,45 @@ import tresh from "../../assets/lotties/tresh.json";
 import x from "../../assets/lotties/x_circle.json";
 import { styled } from "styled-components";
 
+const isScreenWide = window.innerWidth > 768;
+
 const interactivity1 = {
   mode: "scroll",
-
-  actions: [
-    {
-      visibility: [0.2, 0.35], // 처음에 애니메이션 실행되도록 변경
-      type: "seek",
-      frames: [0, 65],
-    },
-    {
-      visibility: [0.35, 0.5], // 처음에 애니메이션 실행되도록 변경
-      type: "seek",
-      frames: [65, 170],
-    },
-    {
-      visibility: [0.55, 0.7],
-      type: "stop",
-      frames: [0, 0],
-    },
-    // {
-    //   visibility: [0.45, 1.0], // 스크롤을 내릴 때 점점 사라지도록 변경
-    //   type: "seek",
-    //   frames: [135, 90],
-    // },
-  ],
+  actions: isScreenWide
+    ? [
+        {
+          visibility: [0.2, 0.35], // 처음에 애니메이션 실행되도록 변경
+          type: "seek",
+          frames: [0, 65],
+        },
+        {
+          visibility: [0.35, 0.5], // 처음에 애니메이션 실행되도록 변경
+          type: "seek",
+          frames: [65, 170],
+        },
+        {
+          visibility: [0.55, 0.7],
+          type: "stop",
+          frames: [0, 0],
+        },
+      ]
+    : [
+        {
+          visibility: [0.2, 0.35], // 처음에 애니메이션 실행되도록 변경
+          type: "seek",
+          frames: [0, 65],
+        },
+        {
+          visibility: [0.35, 0.5], // 처음에 애니메이션 실행되도록 변경
+          type: "seek",
+          frames: [65, 170],
+        },
+        {
+          visibility: [0.55, 0.7],
+          type: "stop",
+          frames: [0, 0],
+        },
+      ],
 };
 
 const interactivity2 = {
@@ -45,31 +59,8 @@ const interactivity2 = {
       type: "seek",
       frames: [0, 90],
     },
-
-    // {
-    //   visibility: [0.45, 1.0], // 스크롤을 내릴 때 점점 사라지도록 변경
-    //   type: "seek",
-    //   frames: [135, 90],
-    // },
   ],
 };
-
-// const interactivity3 = {
-//   mode: "scroll",
-
-//   actions: [
-//     {
-//       visibility: [0.7, 0.85], // 처음에 애니메이션 실행되도록 변경
-//       type: "stop",
-//       frames: [390],
-//     },
-//     {
-//       visibility: [0, 0.9], // 처음에 애니메이션 실행되도록 변경
-//       type: "seek",
-//       frames: [100, 355],
-//     },
-//   ],
-// };
 
 const Tresh = () => {
   return (
@@ -80,9 +71,6 @@ const Tresh = () => {
       <XCircle>
         <Lottie animationData={x} interactivity={interactivity2} />
       </XCircle>
-      {/* <BidContainer>
-        <Lottie animationData={bid} interactivity={interactivity3} />
-      </BidContainer> */}
     </Wrapper>
   );
 };

@@ -8,11 +8,6 @@ const interactivity = {
   mode: "scroll",
 
   actions: [
-    // {
-    //   visibility: [0.0, 0.2], // 처음에 애니메이션 실행되도록 변경
-    //   type: "stop",
-    //   frames: [0, 0],
-    // },
     {
       visibility: [0.1, 0.5], // 처음에 애니메이션 실행되도록 변경
       type: "seek",
@@ -44,6 +39,11 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   width: 130%;
+
+  @media screen and (min-width: 768px) {
+    width: 110%;
+    margin-bottom: -30%;
+  }
 `;
 
 export default Complete;
