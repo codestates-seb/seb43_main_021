@@ -36,7 +36,9 @@ const Landing = () => {
             <H1>'니꺼내꺼' 하자!</H1>
           </Title>
         </LandingContent>
-        <ItemLottie />
+        <ItemLottieContainer>
+          <ItemLottie />
+        </ItemLottieContainer>
         <H3Container>
           <H3>더 이상 가치 있는 물건들이 버려지지 않도록,</H3>
           <H3>'니꺼내꺼'는 경매로 서로의 가치를 교환합니다.</H3>
@@ -53,12 +55,6 @@ const Landing = () => {
           <Logo3 src={logo3} />
           <Complete />
         </MainLogoContainer>
-        {/* <ImageContainer>
-        <LandingImage>
-          <ItemLottie />
-          <Loading />
-        </LandingImage>
-      </ImageContainer> */}
 
         <LoginBtn>
           <Button
@@ -98,9 +94,14 @@ const Wrapper = styled.div`
   width: 416px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 15%;
+  padding-bottom: 1rem;
   background-color: var(--white1-color);
   align-items: center;
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    padding-bottom: 0;
+  }
 `;
 
 const TitelContainer = styled.div`
@@ -132,13 +133,10 @@ const Logo3 = styled.img`
   width: 100%;
   height: auto;
   margin-bottom: -10%;
-`;
 
-const Menu = styled.div`
-  margin: 0.5rem;
-  /* font-size: 7lvw; */
-  font-size: 1.6rem;
-  cursor: pointer;
+  @media screen and (min-width: 768px) {
+    width: 85%;
+  }
 `;
 
 const LandingContent = styled.div`
@@ -147,6 +145,16 @@ const LandingContent = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 36%;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 19%;
+  }
+`;
+
+const ItemLottieContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    width: 70%;
+  }
 `;
 
 const Title = styled.div`
@@ -156,16 +164,27 @@ const Title = styled.div`
 `;
 const H1 = styled.h1`
   font-size: 3rem;
+  @media screen and (min-width: 768px) {
+    font-size: 4.5rem;
+  }
 `;
 const H2 = styled.h2`
   font-weight: 400;
   margin-bottom: 0.5rem;
   font-size: 2rem;
+
+  @media screen and (min-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const H3 = styled.h3`
   font-weight: 400;
   font-size: 1.2rem;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.7rem;
+  }
 `;
 
 const H3Container = styled.div`
@@ -181,17 +200,30 @@ const H4Container = styled.div``;
 const H4 = styled.h3`
   font-weight: 500;
   font-size: 1.5rem;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2.3rem;
+  }
 `;
 
 const TreshContainer = styled.div`
   width: 100%;
   margin-top: -15%;
   margin-bottom: 20%;
+
+  @media screen and (min-width: 768px) {
+    width: 80%;
+    margin-top: -10%;
+    margin-bottom: 15%;
+  }
 `;
 
 const MainLogoContainer = styled.div`
   margin-top: 20%;
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const LoginBtn = styled.div`
@@ -216,7 +248,7 @@ const Button = styled.button`
   cursor: pointer;
 
   @media screen and (min-width: 768px) {
-    width: 32rem;
+    width: 28rem;
     font-size: 1.2rem;
     font-size: 1.2rem;
   }

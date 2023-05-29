@@ -56,7 +56,9 @@ const Item = ({ item }) => {
             </ItemLeft>
             <ItemRight>
               <AuctionState>
-                {item.auctionState ? "거래 완료!" : "입찰 중"}
+                {item.auctionStatus === "AUCTION_BIDDING"
+                  ? "입찰 중!"
+                  : "경매 종료"}
               </AuctionState>
               <AiOutlineHeart className="icon" />
               {/* {item.heart} */}

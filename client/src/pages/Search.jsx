@@ -5,7 +5,7 @@ import Gnb from "../components/UI/Gnb/Gnb";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Item from "../components/UI/Item/Item";
-import { CiCircleRemove } from "react-icons/ci";
+import { HiX } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 
 const searchDummy = ["맥북", "노트북", "나이키 조던1 스캇", "에어팟", "선크림"];
@@ -108,8 +108,10 @@ const Search = () => {
           value={searchWord}
           onChange={handelInputChange}
           onKeyDown={handleEnterPress}
-        ></SearchInput>
-        <CiCircleRemove />
+        />
+        {searchWord ? (
+          <RemoveCircle color="gray" onClick={() => setSearchWord("")} />
+        ) : null}
       </SearchHeader>
       {searchResults ? (
         <>
@@ -140,7 +142,7 @@ const Search = () => {
                       deleteSearch(word);
                     }}
                   >
-                    X
+                    <HiX />
                   </SearchWordDelete>
                 </SearchWords>
                 <SearchLine />
@@ -161,6 +163,8 @@ const SearchHeader = styled.div`
   display: flex;
   font-size: 23px;
   font-weight: 700;
+  max-width: 1024px;
+  position: relative;
 `;
 
 const BackButton = styled(FiChevronLeft)`
@@ -185,6 +189,15 @@ const SearchBody = styled.div`
   justify-content: space-between;
 `;
 
+const RemoveCircle = styled(HiX)`
+  position: absolute;
+  right: 30px;
+  top: 45px;
+  color: gray;
+  cursor: pointer;
+  font-size: 1.2rem;
+`;
+
 const Line = styled.div`
   border: 0.5px solid var(--white5-color);
   margin: 0 1rem;
@@ -204,7 +217,7 @@ const SearchWrapper = styled.div`
   grid-gap: 1rem;
   margin: 0 1rem;
 
-  @media screen and (min-width: 650px) {
+  @media screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1rem;

@@ -56,13 +56,19 @@ const Footer = ({ bidItemStatus }) => {
           <Favorite onClick={submitFavorite} />
           <DivisionLine />
           <AuctionEnd>
-            <div>경매 마감일</div>
-            <div style={{ color: "gray" }}>
-              <PeriodDateTime
-                createdDate={data.createdDate}
-                period={data.period}
-              />
-            </div>
+            {data.auctionStatus === "AUCTION_BIDDING" ? (
+              <>
+                <div>경매 마감일</div>
+                <div style={{ color: "var(--gray1-color)" }}>
+                  <PeriodDateTime
+                    createdDate={data.createdDate}
+                    period={data.period}
+                  />
+                </div>
+              </>
+            ) : (
+              "경매 종료"
+            )}
           </AuctionEnd>
 
           {bidItemId ? (
@@ -112,6 +118,7 @@ const FooterLine = styled.div`
 
 const FooterContainer = styled.div`
   display: flex;
+  height: 4.5rem;
 `;
 
 const Favorite = styled(RiHeartLine)`
@@ -131,9 +138,11 @@ const DivisionLine = styled.div`
 `;
 
 const AuctionEnd = styled.div`
-  margin-top: 1.1rem;
   margin-left: 1rem;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const BiddingButton = styled.button`
