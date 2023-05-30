@@ -7,6 +7,7 @@ import FormatDateTime from "../../../utils/FormatDateTime";
 import PeriodDateTime from "../../../utils/PeriodDateTime";
 import { useRecoilValue } from "recoil";
 import { selectLocation } from "../../../stores/atoms";
+import Line from "../Line/Line";
 
 const Item = ({ item }) => {
   const [itemList, setItemList] = useState(item);
@@ -122,10 +123,6 @@ const ItemRight = styled.div`
 const AuctionState = styled.div`
   color: var(--red1-color);
   font-weight: bold;
-`;
-
-const Line = styled.div`
-  border: 0.5px solid var(--white5-color);
 `;
 
 export default Item;

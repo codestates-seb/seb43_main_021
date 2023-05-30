@@ -71,14 +71,13 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
-    
   }
 
   #root {
     max-width: 416px;
     width: 100%;
     min-height: 100vh; 
-    background-color: var(--white1-color);
+    
 
 
     

@@ -29,7 +29,7 @@ const CreateAuction = () => {
       alert("로그인 후 경매를 등록할 수 있습니다.");
       navigate("/login");
     }
-  }, [memberId]);
+  }, [memberId, navigate]);
 
   const enterNumbersOnly = (event) => {
     let input = event.target.value;

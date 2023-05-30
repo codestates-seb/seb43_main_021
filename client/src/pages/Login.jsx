@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { BsChevronLeft } from "react-icons/bs";
 import LoginFrom from "../components/Login/LoginForm";
 import LoginOauth from "../components/Login/LoginOauth";
 
 const Login = () => {
-  const navigate = useNavigate();
+
+  const handleBack = () => {
+    window.history.back();
+  };
 
   return (
     <Wrapper>
       <Header>
-        <BackButton onClick={() => navigate("/")} />
+        <BackButton onClick={handleBack} />
         <HeaderTitle>
           <h2>로그인</h2>
         </HeaderTitle>
