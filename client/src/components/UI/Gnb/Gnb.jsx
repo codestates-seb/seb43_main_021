@@ -10,7 +10,9 @@ import { loginState } from "../../../stores/atoms";
 import Line from "../Line/Line";
 
 const Gnb = () => {
-  const [keepLoggedIn] = useRecoilState(loginState);
+  // const [keepLoggedIn] = useRecoilState(loginState);
+  const memberId = localStorage.getItem("memberId");
+
   return (
     <Wrapper>
       <Line />
@@ -28,7 +30,7 @@ const Gnb = () => {
           </NavItem>
         </CustomLink>
 
-        {keepLoggedIn === true ? (
+        {memberId ? (
           <CustomLink to="/chat">
             <NavItem>
               <BsChatHeart className="icon" />
@@ -43,7 +45,7 @@ const Gnb = () => {
             </NavItem>
           </CustomLink>
         )}
-        {keepLoggedIn === true ? (
+        {memberId ? (
           <CustomLink to="/mypage">
             <NavItem>
               <BiUser className="icon" />
