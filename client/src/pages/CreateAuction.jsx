@@ -37,6 +37,9 @@ const CreateAuction = () => {
       setAuctionPeriod(reItem.period);
       setSelectLocation(reItem.location);
     }
+    return () => {
+      setReItem([]);
+    };
   }, [memberId, navigate]);
 
   const enterNumbersOnly = (event) => {

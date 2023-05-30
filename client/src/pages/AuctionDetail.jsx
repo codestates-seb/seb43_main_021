@@ -222,6 +222,7 @@ const BiddingItem = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: -15%;
+  cursor: pointer;
 `;
 
 const ItemImg = styled.img`

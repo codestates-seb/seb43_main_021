@@ -34,6 +34,9 @@ const CreateBidding = () => {
       setText(reItem.bidItemContent);
       setSelectLocation(reItem.location);
     }
+    return () => {
+      setReItem([]);
+    };
   }, [memberId]);
 
   console.log("비딩 만들기", reItem);
