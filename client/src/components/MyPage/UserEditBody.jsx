@@ -53,7 +53,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
           },
         });
         const imageUrl = response.data;
-        setSelectedImage(imageUrl)
+        setSelectedImage([imageUrl])
       } catch (error) {
         console.error(error);
       }
@@ -94,6 +94,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       nickName: profileNickname,
       imageUrlList: selectedImage,
     };
+    console.log("requestBody:", requestBody);
     
     axios
       .patch(

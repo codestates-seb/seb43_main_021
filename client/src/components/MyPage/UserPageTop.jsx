@@ -31,7 +31,7 @@ export default function UserPageTop() {
       })
       .then((res) => {
         const { data } = res;
-        setUserNickname(data.nickName);        
+        setUserNickname(data.nickName);     
       })
       .catch((err) => {
         console.log(err);
