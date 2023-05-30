@@ -89,6 +89,8 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
   };
 
   const handleSubmit = () => {
+    console.log("Selected Image:", selectedImage);
+    console.log("Profile Nickname:", profileNickname);
     const requestBody = {
       nickName: profileNickname,
       imageUrlList: selectedImage,
