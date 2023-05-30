@@ -1,7 +1,6 @@
 import { atom } from "recoil";
 import { chatContent } from "../assets/dummyChatData";
 
-
 //modal on/off기능
 export const modalState = atom({
   key: "modalState",
@@ -88,4 +87,10 @@ export const recoilNewChat = atom({
 export const reviseItem = atom({
   key: "reviseItem",
   default: [],
+});
+
+//채팅 낙찰
+export const recoilChoice = atom({
+  key: "recoilChoice",
+  default: false,
 });
