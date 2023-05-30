@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PeriodDateTime from "../../../utils/PeriodDateTime";
+import { useRecoilState } from "recoil";
+import { reviseItem } from "../../../stores/atoms";
 
 const Footer = ({ bidItemStatus }) => {
   const { data } = useGetAuctionItem();
@@ -15,8 +17,10 @@ const Footer = ({ bidItemStatus }) => {
   const myMemberId = localStorage.getItem("memberId");
   const auctionMemberId = data.members[0].memberId.toString();
   const accessToken = localStorage.getItem("accessToken");
+  const [reItem, setReItem] = useRecoilState(reviseItem);
 
   console.log("auctionItemId, bidItemId", auctionItemId, bidItemId);
+  console.log("푸터", auctionMemberId, myMemberId);
 
   useEffect(() => {
     setAuction(data?.auctionEnd);
@@ -41,6 +45,7 @@ const Footer = ({ bidItemStatus }) => {
 
   const handleCB = () => {
     if (myMemberId) {
+      setReItem([]);
       navigate(`/createbidding/${auctionItemId}`);
     } else {
       alert("로그인 후 입찰할 수 있습니다.");
@@ -50,54 +55,53 @@ const Footer = ({ bidItemStatus }) => {
 
   return (
     <>
-      <Wrapper>
-        <FooterLine />
-        <FooterContainer>
-          <Favorite onClick={submitFavorite} />
-          <DivisionLine />
-          <AuctionEnd>
-            {data.auctionStatus === "AUCTION_BIDDING" ? (
-              <>
-                <div>경매 마감일</div>
-                <div style={{ color: "var(--gray1-color)" }}>
-                  <PeriodDateTime
-                    createdDate={data.createdDate}
-                    period={data.period}
-                  />
-                </div>
-              </>
-            ) : (
-              "경매 종료"
-            )}
-          </AuctionEnd>
-
-          {bidItemId ? (
-            <>
-              {bidItemStatus === null || "AUCTION_BIDDING" ? (
+      {data ? (
+        <Wrapper>
+          <FooterLine />
+          <FooterContainer>
+            <Favorite onClick={submitFavorite} />
+            <DivisionLine />
+            <AuctionEnd>
+              {data.auctionStatus === "AUCTION_BIDDING" ? (
                 <>
-                  {bidItemId ? (
-                    auctionMemberId === myMemberId ? (
-                      <BiddingButton onClick={handleSelectItem}>
-                        낙찰하기
-                      </BiddingButton>
-                    ) : null
-                  ) : null}
+                  <div>경매 마감일</div>
+                  <div style={{ color: "var(--gray1-color)" }}>
+                    <PeriodDateTime
+                      createdDate={data.createdDate}
+                      period={data.period}
+                    />
+                  </div>
                 </>
-              ) : bidItemStatus === "AUCTION_SUCCESSFUL" ? (
-                <div>낙찰 완료</div>
               ) : (
-                <div>기간만료</div>
+                "경매 종료"
               )}
-            </>
-          ) : auctionMemberId === myMemberId ? null : (
-            <BiddingButton onClick={() => handleCB()}>입찰하기</BiddingButton>
-          )}
+            </AuctionEnd>
 
-          {/* <BiddingButton onClick={handleButton}>
-            {biddingId ? "채팅하기" : 멤버아이디 ? null : "입찰하기"}
-          </BiddingButton> */}
-        </FooterContainer>
-      </Wrapper>
+            {bidItemId ? (
+              <>
+                {bidItemStatus === null || "AUCTION_BIDDING" ? (
+                  <>
+                    {bidItemId ? (
+                      auctionMemberId === myMemberId ? (
+                        <BiddingButton onClick={handleSelectItem}>
+                          낙찰하기
+                        </BiddingButton>
+                      ) : null
+                    ) : null}
+                  </>
+                ) : bidItemStatus === "AUCTION_SUCCESSFUL" ? (
+                  <div>낙찰 완료</div>
+                ) : (
+                  <div>기간만료</div>
+                )}
+              </>
+            ) : auctionMemberId === myMemberId ? null : data.auctionStatus ===
+              "AUCTION_BIDDING" ? (
+              <BiddingButton onClick={() => handleCB()}>입찰하기</BiddingButton>
+            ) : null}
+          </FooterContainer>
+        </Wrapper>
+      ) : null}
     </>
   );
 };

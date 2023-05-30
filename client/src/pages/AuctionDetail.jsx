@@ -21,6 +21,7 @@ const AuctionDetail = () => {
   const [modal, setModal] = useRecoilState(AuctionConfirm);
   const navigate = useNavigate();
   const img = [noImage];
+  const memberId = localStorage.getItem("memberId");
 
   console.log("autcionData:", data);
   if (isLoading) {
@@ -46,7 +47,9 @@ const AuctionDetail = () => {
 
   return (
     <Wrapper>
-      {modal ? <ItemEditModal auction_item_id={data.auction_item_id} /> : null}
+      {modal ? (
+        <ItemEditModal auction_item_id={data.auctionItemId} data={data} />
+      ) : null}
       <AuctionImgContainer>
         {data.imageUrlList.length > 0 ? (
           <ItemImage images={data.imageUrlList} />
@@ -55,7 +58,7 @@ const AuctionDetail = () => {
         )}
         <BackButton onClick={handleBack} />
         <div onClick={() => setModal(!modal)}>
-          <ItemDot />
+          {Number(memberId) === data.members[0].memberId ? <ItemDot /> : null}
         </div>
       </AuctionImgContainer>
 
@@ -108,7 +111,10 @@ const AuctionDetail = () => {
       ) : (
         <NothingMessage>아직 등록된 입찰 내역이 없습니다.</NothingMessage>
       )}
-      <Footer />
+      <Footer
+        auctionStatus={data.auctionStatus}
+        auctionMemberId={data.members[0].memberId.toString()}
+      />
     </Wrapper>
   );
 };

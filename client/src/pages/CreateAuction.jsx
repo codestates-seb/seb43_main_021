@@ -7,6 +7,8 @@ import ItemBody from "../components/CreateItem/ItemBody";
 import Location from "../components/CreateItem/Location";
 import Period from "../components/CreateItem/Period";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { reviseItem } from "../stores/atoms";
 
 const CreateAuction = () => {
   const navigate = useNavigate();
@@ -23,11 +25,17 @@ const CreateAuction = () => {
   const [imageSrcList, setImageSrcList] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
   const memberId = localStorage.getItem("memberId");
+  const [reItem, setReItem] = useRecoilState(reviseItem);
 
   useEffect(() => {
     if (!memberId) {
       alert("로그인 후 경매를 등록할 수 있습니다.");
       navigate("/login");
+    } else if (reItem.length !== 0) {
+      setTitle(reItem.name);
+      setText(reItem.content);
+      setAuctionPeriod(reItem.period);
+      setSelectLocation(reItem.location);
     }
   }, [memberId, navigate]);
 
@@ -128,6 +136,63 @@ const CreateAuction = () => {
     }
   };
 
+  const handleReviseBtnClick = async () => {
+    if (title === "") {
+      setShowTitleWarning(true);
+    }
+
+    if (text === "") {
+      setShowTextWarning(true);
+    }
+
+    if (auctionPeriod === "") {
+      setShowPeriodWarning(true);
+    }
+
+    if (selectLocation === "지역 설정") {
+      setShowLocationWarning(true);
+    }
+
+    if (titleList[0] === selectLocation) {
+      setShowLocationWarning(true);
+    } else {
+      setShowLocationWarning(false);
+    }
+
+    if (
+      title !== "" &&
+      text !== "" &&
+      auctionPeriod !== "" &&
+      selectLocation !== "지역 설정"
+    ) {
+      try {
+        const data = {
+          name: title,
+          period: parseInt(auctionPeriod),
+          content: text,
+          location: selectLocation,
+          imageUrlList: imageSrcList,
+        };
+
+        axios
+          .patch(
+            `${process.env.REACT_APP_API_URL}/auction_items/${reItem.auctionItemId}`,
+            data,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
+          .then((res) => {
+            navigate("/main");
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -165,7 +230,11 @@ const CreateAuction = () => {
         </Body>
       </Container>
       <CreateBtn>
-        <button onClick={handleCreateBtnClick}>등록하기</button>
+        {reItem.length === 0 ? (
+          <button onClick={handleCreateBtnClick}>등록하기</button>
+        ) : (
+          <button onClick={handleReviseBtnClick}>수정하기</button>
+        )}
       </CreateBtn>
     </Wrapper>
   );
