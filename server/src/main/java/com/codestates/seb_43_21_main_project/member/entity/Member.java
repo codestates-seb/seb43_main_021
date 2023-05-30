@@ -1,6 +1,7 @@
 package com.codestates.seb_43_21_main_project.member.entity;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
+
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.chat.entity.ChatRoom;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -59,6 +60,8 @@ public class Member {
     @JsonBackReference
     @OneToMany(mappedBy = "member")
     private List<BidItem> bidItems = new ArrayList<>();
+
+
 
     //@JsonIgnore
     //@OneToMany(mappedBy = "member")
