@@ -236,6 +236,7 @@ const LoginBtn = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  z-index: 10;
 `;
 
 const Button = styled.button`

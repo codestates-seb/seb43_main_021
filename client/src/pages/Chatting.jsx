@@ -11,6 +11,7 @@ import {
   AuctionConfirm,
   recoilChatContent,
   recoilChatContentList,
+  recoilChoice,
   recoilNewChat,
 } from "../stores/atoms";
 import { HiOutlinePlusSm } from "react-icons/hi";
@@ -25,7 +26,7 @@ const Chatting = () => {
   const [imageSrcList, setImeageSrcList] = useState([]); // 이미지 등록
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
   const [chatting, setChatting] = useState("");
-  const [choice, setChoice] = useState(false); // 경매 낙찰 여부
+  const [choice, setChoice] = useRecoilState(recoilChoice); // 경매 낙찰 여부
   const navigate = useNavigate();
   const [reChatContentList] = useRecoilState(recoilChatContentList);
 
@@ -83,8 +84,13 @@ const Chatting = () => {
     setChatContentList((prevList) => [...prevList, newChat]);
   });
 
+  const adminMutation = useMutation((adminChat) => {
+    setChatContentList((prevList) => [...prevList, adminChat]);
+  });
+
   const submitChatting = () => {
     const newChat = {
+      chatRoomId: 1,
       chatContent_id: Math.random(),
       member_id: 0,
       img: img2,
@@ -108,8 +114,9 @@ const Chatting = () => {
     const adminChat = {
       chatContentList_id: Math.random(),
       member_id: "admin",
+      chatRoomId: 1,
     };
-    mutation.mutate(adminChat);
+    adminMutation.mutate(adminChat);
   };
 
   return (
