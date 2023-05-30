@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import { chatContent } from "../assets/dummyChatData";
 
+
 //modal on/off기능
 export const modalState = atom({
   key: "modalState",

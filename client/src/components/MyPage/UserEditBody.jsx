@@ -25,21 +25,41 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
   const fileInputRef = useRef(null);
   const nicknameInputRef = useRef();
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async(e) => {
+    // const file = e.target.files[0];
+
+    // if (file) {
+    //   const reader = new FileReader();
+
+    //   reader.onload = () => {
+    //     setSelectedImage(reader.result);
+    //   };
+
+    //   reader.readAsDataURL(file);
+    //   onImageChange(reader.result);
+    // }else {
+    //   setSelectedImage([]);
+    // }
     const file = e.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
+    if (file){
+      const formData = new FormData();
+      formData.append("multipartFile", file);
 
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-      };
-
-      reader.readAsDataURL(file);
-      onImageChange(reader.result);
-    }else {
-      setSelectedImage([]);
-    }
+      try{
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/images/upload/`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        const imageUrl = response.data;
+        setSelectedImage(imageUrl)
+      } catch (error) {
+        console.error(error);
+      }
+    }  else {
+      setSelectedImage(!selectedImage);
+    }  
   };
   const handleProfileClick = () => {
     fileInputRef.current.click();
@@ -74,7 +94,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       nickName: profileNickname,
       imageUrlList: selectedImage,
     };
-
+    
     axios
       .patch(
         `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
@@ -92,7 +112,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       })
       .catch((err) => {
         navigate("/mypage");
-        console.log(err);
+        console.log(err);        
       });
   };
   return (
@@ -143,7 +163,6 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
     </Wrapper>
   );
 }
-
 const Wrapper = styled.div`
   width: 100%;
   span {
