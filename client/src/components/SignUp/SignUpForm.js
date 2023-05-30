@@ -119,7 +119,6 @@ const SignUpForm = () => {
       !nicknameErrorMessage &&
       !phoneErrorMessage
     ) {
-      console.log("회원가입이 성공적으로 완료되었습니다!");
 
       return axios
         .post(`${process.env.REACT_APP_API_URL}/member`, {
@@ -130,7 +129,7 @@ const SignUpForm = () => {
         })
         .then((response) => {
           const { data } = response;
-          console.log("회원가입 응답:", data);
+          // console.log("회원가입 응답:", data);
           navigate("/main");
         })
         .catch((error) => {
