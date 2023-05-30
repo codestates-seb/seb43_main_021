@@ -96,7 +96,6 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       imageUrlList: selectedImage,
     };
     console.log("requestBody:", requestBody);
-
     axios
       .patch(
         `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
