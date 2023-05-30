@@ -1,39 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import defaultUserImg from "../../assets/images/defaultUserImg.jpg";
 import Line from "../UI/Line/Line";
-
-const dummyData = [
-  {
-    id: "1",
-    name: "아차산라이더",
-    location: "군자동",
-    time: "3시간 전",
-    content: "안녕하세요 ㅎㅎㅎ",
-    img: defaultUserImg,
-  },
-  {
-    id: "2",
-    name: "김하민",
-    location: "성수동",
-    time: "1시간 전",
-    content: "저는 5시 쯤 가능할 것 같습니다~~",
-    img: defaultUserImg,
-  },
-];
+import { chatList } from "../../assets/dummyChatData";
 
 const ChatItem = () => {
   const navigate = useNavigate();
 
-  const handleChatting = () => {
-    navigate("/chatting");
+  const handleChatting = (chatId) => {
+    navigate(`/chatting/${chatId}`);
   };
   return (
     <>
-      {dummyData.map((item) => (
-        <div key={item.id}>
-          <Container onClick={handleChatting}>
+      {chatList.map((item) => (
+        <div key={item.chatRoomId}>
+          <Container onClick={() => handleChatting(item.chatRoomId)}>
             <LeftItem>
               <UserImg src={item.img} />
               <ChatDetail>
