@@ -89,13 +89,16 @@ const SignUpForm = () => {
   // phone
   const onChangePhoneNumber = (e) => {
     const value = e.target.value;
-    const numericValue = value.replace(/[^0-9]/g, '');
+    const numericValue = value.replace(/[^0-9]/g, "");
     const newPhoneValue = numericValue.slice(0, 11);
-  
-    const formattedValue = newPhoneValue.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
-  
+
+    const formattedValue = newPhoneValue.replace(
+      /^(\d{3})(\d{4})(\d{4})$/,
+      "$1-$2-$3"
+    );
+
     setPhoneNumber(formattedValue);
-  
+
     if (
       formattedValue.length !== 13 ||
       !/^\d{3}-\d{4}-\d{4}$/.test(formattedValue)
@@ -119,7 +122,6 @@ const SignUpForm = () => {
       !nicknameErrorMessage &&
       !phoneErrorMessage
     ) {
-
       return axios
         .post(`${process.env.REACT_APP_API_URL}/member`, {
           email,
@@ -129,7 +131,6 @@ const SignUpForm = () => {
         })
         .then((response) => {
           const { data } = response;
-          // console.log("회원가입 응답:", data);
           navigate("/main");
         })
         .catch((error) => {
@@ -137,7 +138,6 @@ const SignUpForm = () => {
           setSignupFailed("회원가입에 실패했습니다.");
         });
     } else {
-      console.log("필수 입력 영역을 모두 올바르게 작성해주세요.");
       setEmailErrorMessage(
         !email || emailErrorMessage
           ? emailErrorMessage || "이메일을 입력해주세요."

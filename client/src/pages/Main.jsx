@@ -8,12 +8,16 @@ import { Link, useNavigate } from "react-router-dom";
 import useGetItemList from "../hooks/useGetItemList";
 import Loading from "../components/UI/Loading/Loading";
 import useAccessToken from "../hooks/useAccessToken";
+import { reviseStatus } from "../stores/atoms";
+import { useRecoilState } from "recoil";
 
 const Home = () => {
   const titleList = ["전체", "강동구", "노원구", "중랑구", "광진구", "마포구"];
   const { data, isLoading, isError, error } = useGetItemList();
   const navigate = useNavigate();
-  console.log("main data:", data);
+  const [reStatus, setReStatus] = useRecoilState(reviseStatus);
+
+  // console.log("main data:", data);
   const memberId = localStorage.getItem("memberId");
   useAccessToken();
 
@@ -35,6 +39,7 @@ const Home = () => {
 
   const handleCAB = () => {
     if (memberId) {
+      setReStatus(false);
       navigate("/createauction");
     } else {
       alert("로그인 후 경매를 등록할 수 있습니다.");

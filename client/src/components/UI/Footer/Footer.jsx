@@ -6,38 +6,42 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PeriodDateTime from "../../../utils/PeriodDateTime";
+import Loading from "../Loading/Loading";
+import { reviseStatus } from "../../../stores/atoms";
 import { useRecoilState } from "recoil";
-import { reviseItem } from "../../../stores/atoms";
 
 const Footer = ({ bidItemStatus }) => {
-  const { data } = useGetAuctionItem();
-  const [auction, setAuction] = useState("");
+  const { auctionData, isLoading } = useGetAuctionItem();
+  const [reStatus, setReStatus] = useRecoilState(reviseStatus);
+
   const { auctionItemId, bidItemId } = useParams();
   const navigate = useNavigate();
   const myMemberId = localStorage.getItem("memberId");
-  const auctionMemberId = data.members[0].memberId.toString();
   const accessToken = localStorage.getItem("accessToken");
-  const [reItem, setReItem] = useRecoilState(reviseItem);
 
-  console.log("auctionItemId, bidItemId", auctionItemId, bidItemId);
-  console.log("푸터", auctionMemberId, myMemberId);
+  let auctionMemberId = "";
 
-  useEffect(() => {
-    setAuction(data?.auctionEnd);
-  }, [data, setAuction]);
+  if (isLoading) {
+    return <Loading />;
+  }
 
+  if (auctionData) {
+    auctionMemberId = auctionData.members[0].memberId.toString();
+  }
   const submitFavorite = () => {};
 
   const handleSelectItem = async () => {
     try {
       await axios.post(
         `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}/${bidItemId}/select`,
+        {},
         {
           headers: {
             Authorization: accessToken,
           },
         }
       );
+      alert("낙찰 확정 되었습니다!");
     } catch (error) {
       alert(error);
     }
@@ -45,6 +49,7 @@ const Footer = ({ bidItemStatus }) => {
 
   const handleCB = () => {
     if (myMemberId) {
+      setReStatus(false);
       navigate(`/createbidding/${auctionItemId}`);
     } else {
       alert("로그인 후 입찰할 수 있습니다.");
@@ -54,20 +59,20 @@ const Footer = ({ bidItemStatus }) => {
 
   return (
     <>
-      {data ? (
+      {auctionMemberId ? (
         <Wrapper>
           <FooterLine />
           <FooterContainer>
             <Favorite onClick={submitFavorite} />
             <DivisionLine />
             <AuctionEnd>
-              {data.auctionStatus === "AUCTION_BIDDING" ? (
+              {auctionData.auctionStatus === "AUCTION_BIDDING" ? (
                 <>
                   <div>경매 마감일</div>
                   <div style={{ color: "var(--gray1-color)" }}>
                     <PeriodDateTime
-                      createdDate={data.createdDate}
-                      period={data.period}
+                      createdDate={auctionData.createdDate}
+                      period={auctionData.period}
                     />
                   </div>
                 </>
@@ -81,7 +86,8 @@ const Footer = ({ bidItemStatus }) => {
                 {bidItemStatus === null || "AUCTION_BIDDING" ? (
                   <>
                     {bidItemId ? (
-                      auctionMemberId === myMemberId ? (
+                      auctionMemberId === myMemberId &&
+                      bidItemStatus === "AUCTION_BIDDING" ? (
                         <BiddingButton onClick={handleSelectItem}>
                           낙찰하기
                         </BiddingButton>
@@ -94,7 +100,8 @@ const Footer = ({ bidItemStatus }) => {
                   <div>기간만료</div>
                 )}
               </>
-            ) : auctionMemberId === myMemberId ? null : data.auctionStatus ===
+            ) : auctionMemberId ===
+              myMemberId ? null : auctionData.auctionStatus ===
               "AUCTION_BIDDING" ? (
               <BiddingButton onClick={() => handleCB()}>입찰하기</BiddingButton>
             ) : null}

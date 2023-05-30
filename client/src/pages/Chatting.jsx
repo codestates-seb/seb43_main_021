@@ -136,7 +136,7 @@ const Chatting = () => {
               onClick={() => navigate("/AuctionDetail/0")}
             />
             <AuctionInfoText>
-              <div>투애니원 앨범입니다~~~~~~</div>
+              <div>투애니원 앨범입니당</div>
               {choice ? (
                 <div>낙찰 완료!</div>
               ) : (

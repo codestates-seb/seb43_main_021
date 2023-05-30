@@ -13,7 +13,6 @@ const useGetAuctionItem = () => {
   //     }, 100);
   //   });
   // };
-
   const getData = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}/auction_items/${auctionItemId}`
@@ -21,12 +20,15 @@ const useGetAuctionItem = () => {
     return response.data;
   };
 
-  const { data, isLoading, isError, error } = useQuery(
-    ["getData", auctionItemId],
-    getData
-  );
+  const {
+    data: auctionData,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useQuery(["getData", auctionItemId], getData);
 
-  return { data, isLoading, isError, error, auctionItemId };
+  return { auctionData, isLoading, isError, error, isSuccess, auctionItemId };
 };
 
 export default useGetAuctionItem;

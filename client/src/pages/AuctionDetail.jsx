@@ -14,16 +14,17 @@ import ItemEditModal from "../components/UI/Modal/ItemEditModal";
 import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../stores/atoms";
 import Line from "../components/UI/Line/Line";
+import { HiOutlineHome } from "react-icons/hi";
 
 const AuctionDetail = () => {
-  const { data, isLoading, isError, error, auctionItemId } =
+  const { auctionData, isLoading, isError, error, auctionItemId } =
     useGetAuctionItem();
   const [modal, setModal] = useRecoilState(AuctionConfirm);
   const navigate = useNavigate();
   const img = [noImage];
   const memberId = localStorage.getItem("memberId");
 
-  console.log("autcionData:", data);
+  console.log("autcionData:", auctionData);
   if (isLoading) {
     return (
       <div>
@@ -48,53 +49,63 @@ const AuctionDetail = () => {
   return (
     <Wrapper>
       {modal ? (
-        <ItemEditModal auction_item_id={data.auctionItemId} data={data} />
+        <ItemEditModal
+          auction_item_id={auctionData.auctionItemId}
+          data={auctionData}
+        />
       ) : null}
       <AuctionImgContainer>
-        {data.imageUrlList.length > 0 ? (
-          <ItemImage images={data.imageUrlList} />
+        {auctionData.imageUrlList.length > 0 ? (
+          <ItemImage images={auctionData.imageUrlList} />
         ) : (
           <ItemImage images={img} />
         )}
         <BackButton onClick={handleBack} />
+        <HomeButtom onClick={() => navigate("/main")} />
         <div onClick={() => setModal(!modal)}>
-          {Number(memberId) === data.members[0].memberId ? <ItemDot /> : null}
+          {Number(memberId) === auctionData.members[0].memberId ? (
+            <ItemDot />
+          ) : null}
         </div>
       </AuctionImgContainer>
 
       <UserInfoContainer>
-        {data.members[0].imageUrlList.length ? (
-          <UserImg src={data.members[0].imageUrlList} />
+        {auctionData.members[0].imageUrlList.length ? (
+          <UserImg src={auctionData.members[0].imageUrlList} />
         ) : (
           <UserImg src={defaultUserImg} />
         )}
         <UserText>
-          {data.members[0].nickName ? (
-            <div>{data.members[0].nickName}</div>
+          {auctionData.members[0].nickName ? (
+            <div>{auctionData.members[0].nickName}</div>
           ) : (
             "유저 이름이 없음"
           )}
           <div className="userLocation">
-            {data.location ? <>{data.location}</> : "지역 정보 없음"}
+            {auctionData.location ? (
+              <>{auctionData.location}</>
+            ) : (
+              "지역 정보 없음"
+            )}
           </div>
         </UserText>
       </UserInfoContainer>
       <div className="line">
         <Line />
       </div>
-      <AuctionTitle>{data.name} </AuctionTitle>
+      <AuctionTitle>{auctionData.name} </AuctionTitle>
       <AutcionInfo>
-        <FormatDateTime dateTime={data.createdDate} />
+        <FormatDateTime dateTime={auctionData.createdDate} />
       </AutcionInfo>
-      <AuctionContent>{data.content}</AuctionContent>
-      <AuctionSummary>{data.auctionSummary}</AuctionSummary>
+      <AuctionContent>{auctionData.content}</AuctionContent>
+      <AuctionSummary>{auctionData.auctionSummary}</AuctionSummary>
       <div className="line">
         <Line />
       </div>
       <BiddingList>입찰 목록</BiddingList>
-      {data.bidItems.length > 0 ? (
+      {auctionData.bidItems.length > 0 ? (
         <BiddingItemGrid>
-          {data.bidItems.map((i) => (
+          {auctionData.bidItems.map((i) => (
             <BiddingItem
               key={i.bidItemId}
               onClick={() => handleToBiddingDetail(auctionItemId, i.bidItemId)}
@@ -112,8 +123,8 @@ const AuctionDetail = () => {
         <NothingMessage>아직 등록된 입찰 내역이 없습니다.</NothingMessage>
       )}
       <Footer
-        auctionStatus={data.auctionStatus}
-        auctionMemberId={data.members[0].memberId.toString()}
+        auctionStatus={auctionData.auctionStatus}
+        auctionMemberId={auctionData.members[0].memberId.toString()}
       />
     </Wrapper>
   );
@@ -139,12 +150,37 @@ const AuctionImgContainer = styled.div`
 
 const BackButton = styled(IoArrowBackOutline)`
   position: absolute;
-  top: 2.5%;
-  left: 2.5%;
+  /* top: 2.5%;
+  left: 2.5%; */
+  top: 0.7rem;
+  left: 0.7rem;
+
   font-size: 2rem;
   z-index: 10;
-  color: var(--white2-color);
+  color: var(--white3-color);
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    font-size: 3.5rem;
+    top: 1.2rem;
+    left: 1rem;
+  }
+`;
+
+const HomeButtom = styled(HiOutlineHome)`
+  position: absolute;
+  top: 0.65rem;
+  left: 2.8rem;
+  font-size: 2rem;
+  z-index: 10;
+  color: var(--white3-color);
+  cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    font-size: 3rem;
+    top: 1.4rem;
+    left: 4.4rem;
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -209,7 +245,7 @@ const BiddingItemGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  margin: 0 1rem 2rem 1rem;
+  margin: 0 1rem 1rem 1rem;
 `;
 
 const NothingMessage = styled.div`
@@ -221,7 +257,6 @@ const NothingMessage = styled.div`
 const BiddingItem = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: -15%;
   cursor: pointer;
 `;
 

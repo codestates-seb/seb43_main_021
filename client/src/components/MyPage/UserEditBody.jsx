@@ -1,10 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import {
-  selectedImageState,
-  profileNicknameState,  
-} from "../../stores/atoms";
+import { selectedImageState, profileNicknameState } from "../../stores/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
 import { AiOutlineCamera } from "react-icons/ai";
@@ -20,12 +17,12 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
     useRecoilState(profileNicknameState); //nickname상태
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState(""); //nickname errormessage 상태
   const accessToken = localStorage.getItem("accessToken");
-  const memberId=localStorage.getItem("memberId"); 
+  const memberId = localStorage.getItem("memberId");
 
   const fileInputRef = useRef(null);
   const nicknameInputRef = useRef();
 
-  const handleImageChange = async(e) => {
+  const handleImageChange = async (e) => {
     // const file = e.target.files[0];
 
     // if (file) {
@@ -42,24 +39,28 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
     // }
     const file = e.target.files[0];
 
-    if (file){
+    if (file) {
       const formData = new FormData();
       formData.append("multipartFile", file);
 
-      try{
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/images/upload/`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/images/upload/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         const imageUrl = response.data;
-        setSelectedImage(imageUrl)
+        setSelectedImage(imageUrl);
       } catch (error) {
         console.error(error);
       }
-    }  else {
+    } else {
       setSelectedImage(!selectedImage);
-    }  
+    }
   };
   const handleProfileClick = () => {
     fileInputRef.current.click();
@@ -88,13 +89,11 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
   };
 
   const handleSubmit = () => {
-    console.log("Selected Image:", selectedImage);
-    console.log("Profile Nickname:", profileNickname);
     const requestBody = {
       nickName: profileNickname,
       imageUrlList: selectedImage,
     };
-    
+
     axios
       .patch(
         `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
@@ -112,7 +111,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       })
       .catch((err) => {
         navigate("/mypage");
-        console.log(err);        
+        console.log(err);
       });
   };
   return (

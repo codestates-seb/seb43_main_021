@@ -21,12 +21,17 @@ const useGetBiddingItem = () => {
     return response.data;
   };
 
-  const { data, isLoading, isError, error } = useQuery(
+  const {
+    data: bidData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery(
     ["getBidItemData", `${auctionItemId}.${bidItemId}`],
     getBidItemData
   );
 
-  return { data, isLoading, isError, error };
+  return { bidData, isLoading, isError, error };
 };
 
 export default useGetBiddingItem;

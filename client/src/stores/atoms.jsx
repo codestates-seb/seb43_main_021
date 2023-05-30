@@ -89,8 +89,18 @@ export const reviseItem = atom({
   default: [],
 });
 
+export const reviseStatus = atom({
+  key: "reviseStatus",
+  default: false,
+});
+
 //채팅 낙찰
 export const recoilChoice = atom({
   key: "recoilChoice",
   default: false,
+});
+
+export const reviseBidId = atom({
+  key: "reviseBidId",
+  default: null,
 });

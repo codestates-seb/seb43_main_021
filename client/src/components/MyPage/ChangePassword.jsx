@@ -13,8 +13,9 @@ export default function ChangePassword() {
 
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(""); //password error State
   const [newPasswordErrorMessage, setNewPasswordErrorMessage] = useState(""); //new password error State
-  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =useState(""); //confirmPassword error State
-  const memberId=localStorage.getItem("memberId");   
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState(""); //confirmPassword error State
+  const memberId = localStorage.getItem("memberId");
 
   // PW
   const onChangePassword = (e) => {
@@ -33,7 +34,7 @@ export default function ChangePassword() {
       setPasswordErrorMessage("");
     }
   };
-  
+
   // New PW
   const onChangeNewPassword = (e) => {
     const value = e.target.value;
@@ -77,18 +78,15 @@ export default function ChangePassword() {
       !confirmPasswordErrorMessage
     ) {
       axios
-        .patch(
-          `${process.env.REACT_APP_API_URL}/member/profile/${memberId}`,
-          {
-            password: newPassword,
-          }
-        )
+        .patch(`${process.env.REACT_APP_API_URL}/member/profile/${memberId}`, {
+          password: newPassword,
+        })
 
         .then((res) => {
-          if(res.data.password===password){
-            setPasswordErrorMessage("기존의 비밀번호와 같습니다.")
-          }else{
-            setPassword(res.data.password);            
+          if (res.data.password === password) {
+            setPasswordErrorMessage("기존의 비밀번호와 같습니다.");
+          } else {
+            setPassword(res.data.password);
             alert("비밀번호가 성공적으로 변경되었습니다!");
             navigate("/mypage");
           }
@@ -97,9 +95,8 @@ export default function ChangePassword() {
           console.log(err);
         });
     } else {
-      console.log("필수 입력 영역을 모두 올바르게 작성해주세요.");
       setPasswordErrorMessage(
-        !password || passwordErrorMessage 
+        !password || passwordErrorMessage
           ? passwordErrorMessage || "비밀번호를 입력해주세요."
           : ""
       );
