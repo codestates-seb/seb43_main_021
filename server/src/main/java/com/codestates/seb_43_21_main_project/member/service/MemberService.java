@@ -50,6 +50,8 @@ public class MemberService {
         Optional.ofNullable(member.getPhoneNumber())
                 .ifPresent(findMember::setPhoneNumber);
         verifyExistsNickName(member.getNickName()); // 업데이트할때 닉네임 중복확인
+        Optional.ofNullable(member.getImageUrlList())
+                .ifPresent(findMember::setImageUrlList);
 
         return memberRepository.save(findMember);
     }

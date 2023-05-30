@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoIosCamera } from "react-icons/io";
 import { SlClose } from "react-icons/sl";
 import { BsChevronLeft } from "react-icons/bs";
@@ -9,17 +9,20 @@ import axios from "axios";
 
 const CreateBidding = () => {
   const navigate = useNavigate();
-
+  const { auctionItemId } = useParams();
   const [imageSrcList, setImageSrcList] = useState([]); // 이미지 등록
   const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-  const [selectLocation, setSelectLocation] = useState("지역 설정")
+  const [selectLocation, setSelectLocation] = useState("지역 설정");
   const [showTitleWarning, setShowTitleWarning] = useState(false);
   const [showTextWarning, setShowTextWarning] = useState(false);
   const [showLocationWarning, setShowLocationWarning] = useState(false);
+
   const accessToken = localStorage.getItem("accessToken");
+
+  console.log("입찰 등록- 옥션 아이디", auctionItemId);
 
   const handleBack = () => {
     window.history.back();
@@ -35,16 +38,20 @@ const CreateBidding = () => {
       const file = files[i];
       const formData = new FormData();
       formData.append("multipartFile", file);
-  
+
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/images/upload/`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/images/upload/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         const imageUrl = response.data;
-  
-        setImageSrcList ((prevList) => [...prevList, imageUrl]);
+
+        setImageSrcList((prevList) => [...prevList, imageUrl]);
       } catch (error) {
         console.error(error);
       }
@@ -95,15 +102,15 @@ const CreateBidding = () => {
       setShowTextWarning(true);
     }
 
-    if (selectLocation === "지역 설정") {
-      setShowLocationWarning(true);
-    }
+    // if (selectLocation === "지역 설정") {
+    //   setShowLocationWarning(true);
+    // }
 
-    if (titleList[0] === selectLocation) {
-      setShowLocationWarning(true);
-    } else {
-      setShowLocationWarning(false);
-    }
+    // if (titleList[0] === selectLocation) {
+    //   setShowLocationWarning(true);
+    // } else {
+    //   setShowLocationWarning(false);
+    // }
 
     if (title !== "" && text !== "" && selectLocation !== "지역 설정") {
       try {
@@ -111,17 +118,21 @@ const CreateBidding = () => {
           bidItemName: title,
           bidItemContent: text,
           imageUrlList: imageSrcList,
-          location: selectLocation,
+          // location: selectLocation,
         };
 
         axios
-          .post(`${process.env.REACT_APP_API_URL}/bid_items/5`, data, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
+          .post(
+            `${process.env.REACT_APP_API_URL}/bid_items/${auctionItemId}`,
+            data,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
           .then((res) => {
-            navigate("/main")
+            navigate("/main");
           });
       } catch (err) {
         console.log(err);
@@ -144,17 +155,17 @@ const CreateBidding = () => {
               <label htmlFor="file">
                 <IoIosCamera />
                 <h5>
-                <span
-                  style={{
-                    color:
-                      isImageUploaded && imageSrcList.length > 0
-                        ? "red"
-                        : "inherit",
-                  }}
-                >
-                  {imageSrcList.length}
-                </span>
-                /10
+                  <span
+                    style={{
+                      color:
+                        isImageUploaded && imageSrcList.length > 0
+                          ? "red"
+                          : "inherit",
+                    }}
+                  >
+                    {imageSrcList.length}
+                  </span>
+                  /10
                 </h5>
               </label>
               <input
@@ -202,9 +213,9 @@ const CreateBidding = () => {
           />
         </Body>
       </Container>
-        <CreateBtn>
-          <button onClick={handleCreateBtnClick}>등록하기</button>
-        </CreateBtn>
+      <CreateBtn>
+        <button onClick={handleCreateBtnClick}>등록하기</button>
+      </CreateBtn>
     </Wrapper>
   );
 };

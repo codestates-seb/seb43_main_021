@@ -10,11 +10,12 @@ const useGetItemList = () => {
   //     }, 1000);
   //   });
   // };
+
   const getItemData = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}/auction_items`
     );
-    console.log("리액트쿼리 데이터", response.data);
+
     return response.data;
   };
 

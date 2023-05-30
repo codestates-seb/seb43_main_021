@@ -27,6 +27,7 @@ export default function UserPageTop() {
           memberId: memberId,
           imageUrlList: selectedImage,
         },
+        
       })
       .then((res) => {
         const { data } = res;
