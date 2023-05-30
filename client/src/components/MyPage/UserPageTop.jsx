@@ -41,12 +41,11 @@ export default function UserPageTop() {
   return (
     <Wrapper>
       <ProfileIcon to="/useredit">
-        {selectedImage ? (
+        {selectedImage.length===0 &&<VscAccount/>}
+        {selectedImage.length >0 && (
           <div>
             <img src={selectedImage} alt="프로필 이미지" />
           </div>
-        ) : (
-          <VscAccount />
         )}
       </ProfileIcon>
       <UserName>{userNickname}</UserName>

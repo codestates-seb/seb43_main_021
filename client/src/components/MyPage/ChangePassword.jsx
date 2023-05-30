@@ -88,8 +88,7 @@ export default function ChangePassword() {
           if(res.data.password===password){
             setPasswordErrorMessage("기존의 비밀번호와 같습니다.")
           }else{
-            setPassword(res.data.password);
-            console.log(res.data.password);
+            setPassword(res.data.password);            
             alert("비밀번호가 성공적으로 변경되었습니다!");
             navigate("/mypage");
           }
