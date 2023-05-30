@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Loading from "../../UI/Loading/Loading";
 
 export default function AuctionCompleted() {
+  const memberId=localStorage.getItem("memberId"); 
   const { data, isLoading, isError, error } = useGetItemList();
   if (isLoading) {
     return (
@@ -19,8 +20,8 @@ export default function AuctionCompleted() {
   }
 
   const completedAuctions = data
-    ? data.filter((item) => item.auctionState)
-    : [];
+    ? data.filter((item) => item.auctionStatus === 'AUCTION_EXPIRATION'&&item.members[0].memberId.toString()===memberId)
+    : [];    
   return (
     <Wrapper>
       {completedAuctions.length === 0 ? (

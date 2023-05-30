@@ -3,7 +3,10 @@ import useGetItemList from "../../../hooks/useGetItemList";
 import Item from "../../UI/Item/Item";
 import { Link } from "react-router-dom";
 import Loading from "../../UI/Loading/Loading";
+
 export default function UnderAuction() {
+  const memberId=localStorage.getItem("memberId"); 
+
   const { data, isLoading, isError, error } = useGetItemList();
   if (isLoading) {
     return (
@@ -16,11 +19,11 @@ export default function UnderAuction() {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
-
+//내 경매내역
+// 리스트에 맴버 아이디가있다
   const completedAuctions = data
-    ? data.filter((item) => !item.auctionState)    
-    : [];
-    console.log(completedAuctions.auctionState)
+    ? data.filter((item) => item.auctionStatus ==='AUCTION_BIDDING'&&item.members[0].memberId.toString()===memberId)    
+    : [];    
   return (
     <Wrapper>
       {completedAuctions.length === 0 ? (
