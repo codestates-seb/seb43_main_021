@@ -74,10 +74,10 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com"));
+        configuration.setAllowedOrigins(Arrays.asList("http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com","http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PATCH","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.addExposedHeader("*");
+        configuration.addExposedHeader("*"); //""에 토큰 이름
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
