@@ -3,15 +3,17 @@ import Header from "../components/UI/Header/Header";
 import { styled } from "styled-components";
 import img2 from "../assets/images/img2.jpg";
 import img1 from "../assets/images/img1.jpeg";
-
+import dayjs from "dayjs";
 import { IoTriangleOutline } from "react-icons/io5";
 import ConfirmModal from "../components/UI/Modal/ConfirmModal";
 import { useRecoilState } from "recoil";
-import { AuctionConfirm } from "../stores/atoms";
-import { chatContent1 } from "../assets/dummyChatData";
+import { AuctionConfirm, recoilChatContentList } from "../stores/atoms";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { SlClose } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
+import Line from "../components/UI/Line/Line";
+import { useMutation, useQueryClient, useQuery } from "react-query";
+import ChatTime from "../utils/ChatTime";
 
 const Chatting = () => {
   const [modal, setModal] = useRecoilState(AuctionConfirm);
@@ -20,6 +22,10 @@ const Chatting = () => {
   const [chatting, setChatting] = useState("");
   const [choice, setChoice] = useState(false); // 경매 낙찰 여부
   const navigate = useNavigate();
+  const [chatContentList, setChatContentList] = useRecoilState(
+    recoilChatContentList
+  );
+  const now = dayjs();
 
   const onUpload = (event) => {
     if (imageSrcList.length >= 10) {
@@ -45,21 +51,44 @@ const Chatting = () => {
       return newList;
     });
   };
+  const queryClient = useQueryClient();
+
+  queryClient.setQueriesData(["chatContentList", 1], { chatContentList });
+
+  const { data } = useQuery(["chatContentList", 1], () => {
+    queryClient.getQueryData(["chatContentList", 1]);
+  });
+  const mutation = useMutation((newChat) => {
+    setChatContentList((prevList) => [...prevList, newChat]);
+  });
 
   const submitChatting = () => {
-    console.log(chatting, imageSrcList);
+    const newChat = {
+      chatContent_id: Math.random(),
+      member_id: 0,
+      img: img2,
+      content: chatting,
+      createdate: <ChatTime now={now.toString()} />,
+    };
+    mutation.mutate(newChat);
+
     setChatting("");
     setImeageSrcList([]);
   };
 
   const handleEnterPress = (e) => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && chatting !== "") {
       submitChatting();
     }
   };
 
   const auctionComplete = () => {
     setChoice(true);
+    const adminChat = {
+      chatContentList_id: Math.random(),
+      member_id: "admin",
+    };
+    mutation.mutate(adminChat);
   };
 
   return (
@@ -88,7 +117,13 @@ const Chatting = () => {
                 </div>
               )}
               {choice ? null : (
-                <Buttom onClick={() => setModal(!modal)}>낙찰 하기</Buttom>
+                <Buttom
+                  onClick={() => {
+                    setModal(!modal);
+                  }}
+                >
+                  낙찰 하기
+                </Buttom>
               )}
             </AuctionInfoText>
           </AuctionImgText>
@@ -106,27 +141,29 @@ const Chatting = () => {
           </AuctionImgText>
         </BidInfo>
       </AuctionAndBid>
-      <AuctionLine />
+      <Line />
       <ChattingBody imageSrcList={imageSrcList}>
-        {chatContent1.map((chat, index) =>
-          //로컬스토리지의 유저 정보와 같을 경우로 수정예정
-          chat.member_id === 1 ? (
-            <UserChatContents key={index}>
-              <UserContentTime>{chat.createdate}</UserContentTime>
-              <UserContent>{chat.content}</UserContent>
-            </UserChatContents>
-          ) : chat.member_id === "admin" ? (
-            <AdminContent>
-              🎉 낙찰 되었습니다! 상대방과 거래 약속을 잡아보세요. 🎉
-            </AdminContent>
-          ) : (
-            <ChatContents key={index}>
-              <UserImg src={chat.img} />
-              <Content>{chat.content}</Content>
-              <ContentTime>{chat.createdate}</ContentTime>
-            </ChatContents>
-          )
-        )}
+        {data
+          ? data.chatContentList.map((chat) =>
+              //로컬스토리지의 유저 정보와 같을 경우로 수정예정
+              chat.member_id === 0 ? (
+                <UserChatContents key={chat.chatContent_id}>
+                  <UserContentTime>{chat.createdate}</UserContentTime>
+                  <UserContent>{chat.content}</UserContent>
+                </UserChatContents>
+              ) : chat.member_id === "admin" ? (
+                <AdminContent key={"admin"}>
+                  🎉 낙찰 되었습니다! 상대방과 거래 약속을 잡아보세요. 🎉
+                </AdminContent>
+              ) : (
+                <ChatContents key={chat.chatContent_id}>
+                  <UserImg src={chat.img} />
+                  <Content>{chat.content}</Content>
+                  <ContentTime>{chat.createdate}</ContentTime>
+                </ChatContents>
+              )
+            )
+          : null}
       </ChattingBody>
       <ChattingFooter>
         <div>
@@ -143,6 +180,8 @@ const Chatting = () => {
           />
         </div>
         <ChattingInput
+          type="text"
+          required
           placeholder="메시지 보내기"
           value={chatting}
           onChange={(e) => setChatting(e.target.value)}
@@ -185,11 +224,6 @@ const BidInfo = styled.div`
   height: 5rem;
   padding: 0.5rem;
   border-left: 0.5px solid gray;
-`;
-
-const AuctionLine = styled.div`
-  border: 0.5px solid var(--white5-color);
-  width: 100%;
 `;
 
 const AuctionImg = styled.img`

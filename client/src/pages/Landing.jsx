@@ -94,7 +94,7 @@ const Wrapper = styled.div`
   width: 416px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   background-color: var(--white1-color);
   align-items: center;
 
@@ -132,10 +132,10 @@ const Logo4 = styled.img`
 const Logo3 = styled.img`
   width: 100%;
   height: auto;
-  margin-bottom: -10%;
+  /* margin-bottom: -10%; */
 
   @media screen and (min-width: 768px) {
-    width: 85%;
+    width: 75%;
   }
 `;
 
@@ -219,11 +219,15 @@ const TreshContainer = styled.div`
 `;
 
 const MainLogoContainer = styled.div`
-  margin-top: 20%;
-  width: 80%;
+  margin-top: 30%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (min-width: 768px) {
+    width: 75%;
+  }
 `;
 
 const LoginBtn = styled.div`
@@ -248,7 +252,7 @@ const Button = styled.button`
   cursor: pointer;
 
   @media screen and (min-width: 768px) {
-    width: 28rem;
+    width: 26rem;
     font-size: 1.2rem;
     font-size: 1.2rem;
   }
