@@ -7,7 +7,7 @@ import Line from "../UI/Line/Line";
 const dummyData = [
   {
     id: "1",
-    name: "임태영",
+    name: "아차산라이더",
     location: "군자동",
     time: "3시간 전",
     content: "안녕하세요 ㅎㅎㅎ",
