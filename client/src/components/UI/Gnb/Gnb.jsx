@@ -7,6 +7,7 @@ import { BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../../stores/atoms";
+import Line from "../Line/Line";
 
 const Gnb = () => {
   const [keepLoggedIn] = useRecoilState(loginState);
@@ -85,10 +86,6 @@ const Container = styled.div`
   }
 `;
 
-const Line = styled.div`
-  border: 0.5px solid var(--white5-color);
-  max-width: 1024px;
-`;
 const NavItem = styled.div`
   display: flex;
   flex-direction: column;

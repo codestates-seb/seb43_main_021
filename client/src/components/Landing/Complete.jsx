@@ -9,14 +9,19 @@ const interactivity = {
 
   actions: [
     {
-      visibility: [0.1, 0.5], // 처음에 애니메이션 실행되도록 변경
-      type: "seek",
+      visibility: [0, 0.25], // 처음에 애니메이션 실행되도록 변경
+      type: "stop",
+      frames: [1],
+    },
+    {
+      visibility: [0.47, 0.55], // 처음에 애니메이션 실행되도록 변경
+      type: "loop",
       frames: [0, 120],
     },
     {
-      visibility: [0.5, 1], // 처음에 애니메이션 실행되도록 변경
-      type: "loop",
-      frames: [20, 120],
+      visibility: [0.25, 0.6], // 처음에 애니메이션 실행되도록 변경
+      type: "seek",
+      frames: [0, 120],
     },
   ],
 };
@@ -38,11 +43,14 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Container = styled.div`
-  width: 130%;
+  width: 140%;
+  margin-bottom: -10%;
 
   @media screen and (min-width: 768px) {
-    width: 110%;
-    margin-bottom: -30%;
+    width: 125%;
+    margin-top: -8%;
+
+    margin-bottom: -25%;
   }
 `;
 

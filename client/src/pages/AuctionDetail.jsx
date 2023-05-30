@@ -13,6 +13,7 @@ import defaultUserImg from "../assets/images/defaultUserImg.jpg";
 import ItemEditModal from "../components/UI/Modal/ItemEditModal";
 import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../stores/atoms";
+import Line from "../components/UI/Line/Line";
 
 const AuctionDetail = () => {
   const { data, isLoading, isError, error, auctionItemId } =
@@ -77,14 +78,18 @@ const AuctionDetail = () => {
           )}
         </UserText>
       </UserInfoContainer>
-      <UnderLine />
+      <div className="line">
+        <Line />
+      </div>
       <AuctionTitle>{data.name} </AuctionTitle>
       <AutcionInfo>
         <FormatDateTime dateTime={data.createdDate} />
       </AutcionInfo>
       <AuctionContent>{data.content}</AuctionContent>
       <AuctionSummary>{data.auctionSummary}</AuctionSummary>
-      <UnderLine />
+      <div className="line">
+        <Line />
+      </div>
       <BiddingList>입찰 목록</BiddingList>
       {data.bidItems.length > 0 ? (
         <BiddingItemGrid>
@@ -116,6 +121,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 6rem;
+
+  .line {
+    margin: 0 1rem;
+  }
 `;
 
 const AuctionImgContainer = styled.div`
@@ -184,11 +193,6 @@ const AuctionSummary = styled.div`
   font-size: 0.75rem;
   font-weight: bold;
   color: var(--gray1-color);
-`;
-
-const UnderLine = styled.div`
-  border: 0.5px solid var(--white5-color);
-  margin: 0 1rem;
 `;
 
 const BiddingList = styled.div`

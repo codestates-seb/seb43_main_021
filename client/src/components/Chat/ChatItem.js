@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import defaultUserImg from "../../assets/images/defaultUserImg.jpg";
+import Line from "../UI/Line/Line";
 
 const dummyData = [
   {
@@ -47,7 +48,7 @@ const ChatItem = () => {
               <ItemImg />
             </RightItem>
           </Container>
-          <UnderLine />
+          <Line />
         </div>
       ))}
     </>
@@ -98,10 +99,6 @@ const ItemImg = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   border: 0.5px solid black;
-`;
-
-const UnderLine = styled.div`
-  border: 0.5px solid var(--white4-color);
 `;
 
 export default ChatItem;

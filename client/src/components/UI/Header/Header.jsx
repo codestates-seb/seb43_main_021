@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { FiChevronLeft, FiChevronDown } from "react-icons/fi";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { selectLocation } from "../../../stores/atoms";
+import Line from "../Line/Line";
 
 const Header = ({ title, titleList, chatTitle }) => {
   const [select, setSelect] = useState(false);
@@ -111,11 +112,6 @@ const Notice = styled.div`
 const CustomLink = styled(Link)`
   text-decoration: none;
   color: inherit;
-`;
-
-const Line = styled.div`
-  border: 0.5px solid var(--white5-color);
-  width: 100%;
 `;
 
 const Search = styled(BsSearch)`
