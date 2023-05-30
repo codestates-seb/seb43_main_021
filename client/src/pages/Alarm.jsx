@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BsChevronLeft } from "react-icons/bs";
+import AlarmItem from "../components/Alarm/AlarmItem";
+import { useNavigate } from "react-router-dom";
 
 const Alarm = () => {
+  const [isAllDeleted, setIsAllDeleted] = useState(false);
+  const navigate = useNavigate();
+
   const handleBack = () => {
-    window.history.back();
+    navigate(-1);
+  };
+
+  const onClickDeleteAll = () => {
+    setIsAllDeleted(true);
   };
 
   return (
@@ -14,10 +23,12 @@ const Alarm = () => {
         <HeaderTitle>
           <h2>알림</h2>
         </HeaderTitle>
-        <DeleteAll>전체삭제</DeleteAll>
+        <DeleteAll onClick={onClickDeleteAll}>전체삭제</DeleteAll>
       </Header>
       <Container>
-        <Body></Body>
+        <Body>
+          {!isAllDeleted && <AlarmItem />}
+        </Body>
       </Container>
     </Wrapper>
   );
@@ -51,12 +62,15 @@ const BackButton = styled(BsChevronLeft)`
 const HeaderTitle = styled.div`
   padding-left: 1.5rem;
   h2 {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
   }
 `;
 
-const DeleteAll = styled.div``;
+const DeleteAll = styled.div`
+  font-size: 15px;
+  cursor: pointer;
+`;
 
 const Container = styled.div``;
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FiBell } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { FiChevronLeft, FiChevronDown } from "react-icons/fi";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -12,8 +12,19 @@ const Header = ({ title, titleList, chatTitle }) => {
   const [select, setSelect] = useState(false);
   const location = useRecoilValue(selectLocation);
   const setLocation = useSetRecoilState(selectLocation);
+  const navigate = useNavigate();
+  const memberId = localStorage.getItem("memberId");
   const handleBack = () => {
     window.history.back();
+  };
+
+  const handlealarm = () => {
+    if (memberId) {
+      navigate("/alarm");
+    } else {
+      alert("로그인 후 경매를 등록할 수 있습니다.");
+      navigate("/login");
+    }
   };
 
   return (
@@ -43,7 +54,7 @@ const Header = ({ title, titleList, chatTitle }) => {
           <CustomLink to="/search">
             <Search />
           </CustomLink>
-          <BellLink to="/alarm">
+          <BellLink onClick={handlealarm}>
             <Bell />
           </BellLink>
         </Notice>
@@ -120,9 +131,12 @@ const Search = styled(BsSearch)`
   margin-bottom: 3px;
 `;
 
-const BellLink = styled(Link)`
+const BellLink = styled.button`
   text-decoration: none;
   color: inherit;
+  border: none;
+  background-color: var(--white1-color);
+  cursor: pointer;
 `;
 
 const Bell = styled(FiBell)`
