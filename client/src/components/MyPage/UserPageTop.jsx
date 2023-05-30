@@ -20,6 +20,7 @@ export default function UserPageTop() {
 
 
   useEffect(() => {
+    if (selectedImage) {
     axios
       .get(`${process.env.REACT_APP_API_URL}/member/${memberId}`, {
         headers: {
@@ -31,22 +32,22 @@ export default function UserPageTop() {
       })
       .then((res) => {
         const { data } = res;
-        setUserNickname(data.nickName);     
+        setUserNickname(data.nickName);
+        setSelectedImage(data.imageUrlList[0]);  
       })
       .catch((err) => {
         console.log(err);
       });
+    }
   }, [setUserNickname, setSelectedImage, accessToken, memberId, selectedImage]);
 
   return (
     <Wrapper>
       <ProfileIcon to="/useredit">
-        {selectedImage.length===0 &&<VscAccount/>}
-        {selectedImage.length >0 && (
-          <div>
+        {selectedImage === undefined || selectedImage.length === 0 ? (
+          <VscAccount />) : (
             <img src={selectedImage} alt="프로필 이미지" />
-          </div>
-        )}
+          )}
       </ProfileIcon>
       <UserName>{userNickname}</UserName>
       <IconContainer>

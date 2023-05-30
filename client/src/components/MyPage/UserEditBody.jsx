@@ -53,12 +53,12 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
           },
         });
         const imageUrl = response.data;
-        setSelectedImage([imageUrl])
+        setSelectedImage([imageUrl]);
       } catch (error) {
         console.error(error);
       }
     }  else {
-      setSelectedImage(!selectedImage);
+      setSelectedImage([]);
     }  
   };
   const handleProfileClick = () => {
@@ -102,13 +102,14 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
         requestBody,
         {
           headers: {
-            Authorization: accessToken,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       )
       .then((res) => {
-        setProfileNickname(res.nickName);
-        setSelectedImage(res.selectedImage);
+        const { data } = res;
+        setProfileNickname(data.nickName);
+        setSelectedImage(data.imageUrlList[0]);
         navigate("/mypage");
       })
       .catch((err) => {
