@@ -12,6 +12,7 @@ import { chatContent1 } from "../assets/dummyChatData";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { SlClose } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
+import Line from "../components/UI/Line/Line";
 
 const Chatting = () => {
   const [modal, setModal] = useRecoilState(AuctionConfirm);
@@ -106,7 +107,7 @@ const Chatting = () => {
           </AuctionImgText>
         </BidInfo>
       </AuctionAndBid>
-      <AuctionLine />
+      <Line />
       <ChattingBody imageSrcList={imageSrcList}>
         {chatContent1.map((chat, index) =>
           //로컬스토리지의 유저 정보와 같을 경우로 수정예정
@@ -185,11 +186,6 @@ const BidInfo = styled.div`
   height: 5rem;
   padding: 0.5rem;
   border-left: 0.5px solid gray;
-`;
-
-const AuctionLine = styled.div`
-  border: 0.5px solid var(--white5-color);
-  width: 100%;
 `;
 
 const AuctionImg = styled.img`

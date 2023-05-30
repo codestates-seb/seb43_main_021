@@ -8,6 +8,7 @@ import Loading from "../components/UI/Loading/Loading";
 import noImage from "../assets/images/noimage.png";
 import FormatDateTime from "../utils/FormatDateTime";
 import defaultUserImg from "../assets/images/defaultUserImg.jpg";
+import Line from "../components/UI/Line/Line";
 
 const BiddingDetail = () => {
   const { data, isLoading, isError, error } = useGetBiddingItem();
@@ -51,7 +52,9 @@ const BiddingDetail = () => {
           {/* <div className="userLocation">{data.userLocation}</div> */}
         </UserText>
       </UserInfoContainer>
-      <UnderLine />
+      <div className="line">
+        <Line />
+      </div>
       <AuctionTitle>{data.bidItemName} </AuctionTitle>
       <AutcionInfo>
         <FormatDateTime dateTime={data.createdDate} />
@@ -66,6 +69,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 6rem;
+
+  .line {
+    margin: 0 1rem;
+  }
 `;
 
 const AuctionImgContainer = styled.div`
