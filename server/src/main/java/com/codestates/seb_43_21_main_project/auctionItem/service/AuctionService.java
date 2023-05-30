@@ -170,37 +170,6 @@ public class AuctionService {
         return auctionRepository.findByNameContaining(keyword, sort);
     }
 
-//
-//    //좋아요
-//    public Auction likeAuction(long auctionItemId, long memberId) {
-//        Long authMemberId = contextHolederUtils.getAuthMemberId();
-//        Optional<Member> optionalMember = memberRepository.findById(memberId); //회원 조회
-//        if (authMemberId == null || !optionalMember.isPresent()) {
-//            throw new IllegalArgumentException("로그인하지 않은 회원은 좋아요를 누를 수 없습니다.");
-//        }
-//
-//        Member member = optionalMember.get(); //실제 회원 객체
-//
-//        Auction auction = auctionRepository.findById(auctionItemId)
-//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.AUCTION_NOT_FOUND));
-//        AuctionLike findAuctionLike = auctionLikeRepository.findByMemberAndAuction(member, auction);
-//
-//
-//        if (findAuctionLike == null) { //좋아요 없을때,
-//            findAuctionLike = new AuctionLike(member, auction, true);
-//        }
-//        if (!findAuctionLike.getMember().equals(member)) { //중복 제거
-//            findAuctionLike.setLiked(true);
-//        } else {
-//            return auction;
-//        }
-//
-//        AuctionLike auctionLike = auctionLikeRepository.save(findAuctionLike); //좋아요 정보 저장
-//        auction.addAuctionLike(auctionLike);
-//        auctionRepository.save(auction);
-//
-//        return auction;
-//    }
 
 
     //입찰 성공 확인

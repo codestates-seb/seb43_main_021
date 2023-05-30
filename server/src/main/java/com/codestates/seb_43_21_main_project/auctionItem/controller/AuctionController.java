@@ -120,10 +120,10 @@ public class AuctionController {
 
 
     @PostMapping("/{auction_items_id}/{bid_item_id}/select")
-    public void selectBidItem(@PathVariable("auction_items_id") Long auctionItemsId,
+    public void selectBidItem(@PathVariable("auction_items_id") Long auctionItemId,
                               @PathVariable("bid_item_id") Long bidItemId) {
         Long memberId = contextHolederUtils.getAuthMemberId();
-        Auction auction = auctionService.findVerifiedAuction(auctionItemsId);
+        Auction auction = auctionService.findVerifiedAuction(auctionItemId);
         BidItem bidItem = bidItemService.findBidItem(bidItemId);
 
         auction.selectBidItem(bidItem);
