@@ -27,7 +27,7 @@ export const auctionState = atom({
 // 내 프로필 수정의 프로필 사진 등록
 export const selectedImageState = atom({
   key: "selectedImageState",
-  default: null,
+  default: [],
 });
 // profileNickname Input
 export const profileNicknameState = atom({

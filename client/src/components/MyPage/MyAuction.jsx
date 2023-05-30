@@ -6,6 +6,7 @@ import { FiChevronLeft } from "react-icons/fi";
 import { VscAccount } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 export default function MyAuction() {
+  const memberId=localStorage.getItem("memberId"); 
   const { data } = useGetItemList();
   const [auction, setAuction] = useRecoilState(auctionState);
   const auctionHandler = () => {
@@ -15,10 +16,10 @@ export default function MyAuction() {
     setAuction(false);
   };
   const countAuctionData = data
-    ? data.filter((item) => !item.auctionState).length
+    ? data.filter((item) => item.auctionStatus ==='AUCTION_BIDDING'&&item.members[0].memberId.toString()===memberId).length
     : 0;
   const countCompletedAuctionData = data
-    ? data.filter((item) => item.auctionState).length
+    ? data.filter((item) => item.auctionStatus ==='AUCTION_EXPIRATION'&&item.members[0].memberId.toString()===memberId).length
     : 0;
   const auctionCount =
     countAuctionData > 0 ? <span>{countAuctionData}</span> : null;
