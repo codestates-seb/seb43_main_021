@@ -1,5 +1,6 @@
 package com.codestates.seb_43_21_main_project.auctionItem.entity;
 
+
 import com.codestates.seb_43_21_main_project.audit.Auditable;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.chat.entity.ChatRoom;
@@ -18,11 +19,9 @@ import java.util.List;
 
 @SQLDelete(sql = "UPDATE auctionItemId SET deleted = true WHERE id=?") //삭제 쿼리 수행시 사용
 @Where(clause = "deleted = false") // deleted = true일 경우 결과에 포함되지 X
-@Builder
-@AllArgsConstructor
+@Builder @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 @Entity
 @Table(name = "AUCTIONITEM")
 public class Auction extends Auditable {
@@ -32,7 +31,7 @@ public class Auction extends Auditable {
 
     @Column(name = "AUCTION_ITEM_NAME", length = 100, nullable = false)
     private String name;
-    //이미지
+
 
     @Column(name = "AUCTION_ITEM_COUNTENT", columnDefinition = "TEXT", nullable = false)
     private String content;
@@ -87,6 +86,11 @@ public class Auction extends Auditable {
 
     @OneToMany(mappedBy = "auction")
     private List<ChatRoom> chatRooms = new ArrayList<>();
+
+
+
+
+
 
     public void addBidItem(BidItem bidItem){
         bidItems.add(bidItem);

@@ -61,7 +61,6 @@ public class AuctionDto {
 
         private String location; //지역
 
-        private Member member;
 
     }
 
@@ -79,7 +78,6 @@ public class AuctionDto {
         private int period;
         private List<BidItemResponseDto> bidItems; //  전체 데이터
         private List<MemberResponseDto> members;
-
         private Auction.AuctionStatus auctionStatus;
 
 

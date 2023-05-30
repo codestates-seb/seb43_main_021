@@ -45,9 +45,9 @@ public class AuctionController {
         return new ResponseEntity(mapper.auctionToAuctionResponseDto(createdAuction), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{auction_items_id}")
+    @PatchMapping( "/{auction_items_id}")
     public ResponseEntity patchAuction(@PathVariable("auction_items_id") @Positive long auctionItemId,
-                                       @Valid @RequestBody AuctionDto.Patch requestBody) {
+                                         @Valid @RequestBody AuctionDto.Patch requestBody) {
 
         requestBody.setAuctionItemId(auctionItemId);
         Auction updatedAuction = auctionService.updateAuction(mapper.auctionPatchDtoToAuction(requestBody));
@@ -100,7 +100,6 @@ public class AuctionController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-
     @GetMapping("/search")
     public ResponseEntity searchAuction(@RequestParam String keyword){
         if(keyword == null || keyword.trim().isEmpty()) {
@@ -109,6 +108,16 @@ public class AuctionController {
         List<Auction> auctions = auctionService.searchAuctionByName(keyword, Sort.Direction.DESC);
         return  new ResponseEntity(mapper.auctionToAuctionResponseDtos(auctions),HttpStatus.OK);
     }
+
+    //좋아요 기능
+//    @PostMapping("/{auction_items_id}/like/{member_id}")
+//    public ResponseEntity likeAuction(@PathVariable("auction_items_id")long auctionItemId,
+//                                      @PathVariable("member_id") long memberId) {
+//        Auction likedAuction = auctionService.likeAuction(auctionItemId, memberId);
+//
+//        return new ResponseEntity(mapper.auctionToAuctionResponseDto(likedAuction), HttpStatus.OK);
+//    }
+
 
     @PostMapping("/{auction_items_id}/{bid_item_id}/select")
     public void selectBidItem(@PathVariable("auction_items_id") Long auctionItemsId,
