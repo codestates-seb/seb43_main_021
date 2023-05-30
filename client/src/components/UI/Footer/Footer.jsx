@@ -45,7 +45,6 @@ const Footer = ({ bidItemStatus }) => {
 
   const handleCB = () => {
     if (myMemberId) {
-      setReItem([]);
       navigate(`/createbidding/${auctionItemId}`);
     } else {
       alert("로그인 후 입찰할 수 있습니다.");
