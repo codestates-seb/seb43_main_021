@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { chatContent1 } from "../assets/dummyChatData";
+import { chatContent } from "../assets/dummyChatData";
 
 //modal on/off기능
 export const modalState = atom({
@@ -67,7 +67,18 @@ export const selectLocation = atom({
   default: "전체",
 });
 
+// 채팅 전체
 export const recoilChatContentList = atom({
   key: "recoilChatContentList",
-  default: chatContent1,
+  default: chatContent,
+});
+
+export const recoilChatContent = atom({
+  key: "recoilChatContent",
+  default: [],
+});
+
+export const recoilNewChat = atom({
+  key: "recoilNewChat",
+  default: false,
 });
