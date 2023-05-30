@@ -1,8 +1,29 @@
 import img2 from "./images/img2.jpg";
 import dayjs from "dayjs";
 import ChatTime from "../utils/ChatTime";
+import defaultUserImg from "./images/defaultUserImg.jpg";
+import FormatDateTime from "../utils/FormatDateTime";
 
 const now = dayjs();
+
+export const chatList = [
+  {
+    chatRoomId: 1,
+    name: "아차산라이더",
+    location: "군자동",
+    time: <FormatDateTime dateTime={now.subtract(23, "minute").toString()} />,
+    content: "안녕하세요 ㅎㅎㅎ",
+    img: defaultUserImg,
+  },
+  // {
+  //   chatRoomId: 2,
+  //   name: "김하민",
+  //   location: "성수동",
+  //   time: <FormatDateTime dateTime={now.subtract(23, "minute").toString()} />,
+  //   content: "저는 5시 쯤 가능할 것 같습니다~~",
+  //   img: defaultUserImg,
+  // },
+];
 
 export const chatRoom = {
   chatRoom_id: 0,
@@ -15,17 +36,9 @@ export const chatRoom = {
   alarm_id: 0,
 };
 
-export const chatContent = {
-  chatContent_id: 0,
-  chat_contents: "",
-  member_id: 0,
-  createdate: 0,
-  chat_image_URL: "",
-  chatRoom_id: 0,
-};
-
-export const chatContent1 = [
+export const chatContent = [
   {
+    chatRoomId: 1,
     chatContent_id: "a",
     member_id: 0,
     img: img2,
@@ -34,6 +47,7 @@ export const chatContent1 = [
     createdate: <ChatTime now={now.subtract(115, "minute").toString()} />,
   },
   {
+    chatRoomId: 1,
     chatContent_id: "b",
     member_id: 1,
     img: img2,
@@ -41,6 +55,7 @@ export const chatContent1 = [
     createdate: <ChatTime now={now.subtract(98, "minute").toString()} />,
   },
   {
+    chatRoomId: 1,
     chatContent_id: "c",
     member_id: 0,
     img: img2,
@@ -49,6 +64,7 @@ export const chatContent1 = [
     createdate: <ChatTime now={now.subtract(74, "minute").toString()} />,
   },
   {
+    chatRoomId: 1,
     chatContent_id: "d",
     member_id: 1,
     img: img2,
@@ -56,11 +72,8 @@ export const chatContent1 = [
       "저는 중랑구 쪽입니다 ㅎㅎㅎ 내일 모레 쯤 건대 갈 예정인데 그 때 거래할까요??? 저녁 8시 쯤에 갈 것 같습니다!!",
     createdate: <ChatTime now={now.subtract(70, "minute").toString()} />,
   },
-  // {
-  //   chatContent_id: "e",
-  //   member_id: "admin",
-  // },
   {
+    chatRoomId: 1,
     chatContent_id: "e",
     member_id: 0,
     img: img2,
@@ -69,6 +82,7 @@ export const chatContent1 = [
     createdate: <ChatTime now={now.subtract(35, "minute").toString()} />,
   },
   {
+    chatRoomId: 1,
     chatContent_id: 5,
     member_id: 1,
     img: img2,

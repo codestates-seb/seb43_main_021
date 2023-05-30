@@ -11,13 +11,12 @@ const Chat = () => {
   const navigate = useNavigate();
   const memberId = localStorage.getItem("memberId");
 
-  // useEffect(() => {
-  //   if (!memberId) {
-  //     navigate("/login");
-  //   }
-  // }, [memberId]);
+  useEffect(() => {
+    if (!memberId) {
+      navigate("/login");
+    }
+  }, [memberId]);
 
-  console.log(memberId);
   return (
     <Container>
       {memberId ? (

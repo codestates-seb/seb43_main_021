@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/UI/Header/Header";
 import { styled } from "styled-components";
 import img2 from "../assets/images/img2.jpg";
@@ -7,10 +7,15 @@ import dayjs from "dayjs";
 import { IoTriangleOutline } from "react-icons/io5";
 import ConfirmModal from "../components/UI/Modal/ConfirmModal";
 import { useRecoilState } from "recoil";
-import { AuctionConfirm, recoilChatContentList } from "../stores/atoms";
+import {
+  AuctionConfirm,
+  recoilChatContent,
+  recoilChatContentList,
+  recoilNewChat,
+} from "../stores/atoms";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { SlClose } from "react-icons/sl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Line from "../components/UI/Line/Line";
 import { useMutation, useQueryClient, useQuery } from "react-query";
 import ChatTime from "../utils/ChatTime";
@@ -22,11 +27,15 @@ const Chatting = () => {
   const [chatting, setChatting] = useState("");
   const [choice, setChoice] = useState(false); // 경매 낙찰 여부
   const navigate = useNavigate();
-  const [chatContentList, setChatContentList] = useRecoilState(
-    recoilChatContentList
-  );
-  const now = dayjs();
+  const [reChatContentList] = useRecoilState(recoilChatContentList);
 
+  const [chatContentList, setChatContentList] =
+    useRecoilState(recoilChatContent);
+  const [reNewChat, setReNewChat] = useRecoilState(recoilNewChat);
+
+  const now = dayjs();
+  const param = useParams();
+  console.log();
   const onUpload = (event) => {
     if (imageSrcList.length >= 10) {
       return;
@@ -53,11 +62,23 @@ const Chatting = () => {
   };
   const queryClient = useQueryClient();
 
-  queryClient.setQueriesData(["chatContentList", 1], { chatContentList });
+  useEffect(() => {
+    if (reChatContentList && reNewChat === false) {
+      const filterdChatContentList = reChatContentList.filter(
+        (chatContent) => chatContent.chatRoomId === Number(param.chatId)
+      );
+      setChatContentList(filterdChatContentList);
+    }
+  }, [reChatContentList, param.chatId]);
 
-  const { data } = useQuery(["chatContentList", 1], () => {
-    queryClient.getQueryData(["chatContentList", 1]);
+  queryClient.setQueriesData(["chatContentList", param.chatId], {
+    chatContentList,
   });
+
+  const { data } = useQuery(["chatContentList", param.chatId], () => {
+    queryClient.getQueryData(["chatContentList", param.chatId]);
+  });
+
   const mutation = useMutation((newChat) => {
     setChatContentList((prevList) => [...prevList, newChat]);
   });
@@ -71,7 +92,7 @@ const Chatting = () => {
       createdate: <ChatTime now={now.toString()} />,
     };
     mutation.mutate(newChat);
-
+    setReNewChat(true);
     setChatting("");
     setImeageSrcList([]);
   };

@@ -49,7 +49,9 @@ const BiddingDetail = () => {
         )}
         <UserText>
           <div>{data.member.nickName}</div>
-          {/* <div className="userLocation">{data.userLocation}</div> */}
+          <div className="userLocation">
+            {data.userLocation ? data.userLocation : "지역 정보 없음"}
+          </div>
         </UserText>
       </UserInfoContainer>
       <div className="line">
@@ -57,7 +59,7 @@ const BiddingDetail = () => {
       </div>
       <AuctionTitle>{data.bidItemName} </AuctionTitle>
       <AutcionInfo>
-        <FormatDateTime dateTime={data.createdDate} />
+        <FormatDateTime dateTime={data.createDate} />
       </AutcionInfo>
       <AuctionContent>{data.bidItemContent}</AuctionContent>
       <Footer bidItemStatus={data.bidItemStatus} />

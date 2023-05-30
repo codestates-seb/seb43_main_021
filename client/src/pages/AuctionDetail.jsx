@@ -71,11 +71,9 @@ const AuctionDetail = () => {
           ) : (
             "유저 이름이 없음"
           )}
-          {data.location ? (
-            <div className="userLocation">{data.location}</div>
-          ) : (
-            <div className="userLocation">지역 정보 없음</div>
-          )}
+          <div className="userLocation">
+            {data.location ? <>{data.location}</> : "지역 정보 없음"}
+          </div>
         </UserText>
       </UserInfoContainer>
       <div className="line">
