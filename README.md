@@ -14,17 +14,20 @@
 # 💻 기술 스택
 
 ## Tools
-| Github | Discord | Notion | Figma |
-| :---: | :---: | :---: | :---: |
-| <img alt="github logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="65" height="65"> | <img alt="Discord logo" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" height="65" width="65"> |<img alt="git logo" src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" width="65" height="65" > | <img alt="git logo" src="https://global-uploads.webflow.com/62014002185c7b256316ef63/6255a05bbf787538f4c6ee5b_-gV7pV6f_400x400.png" width="65" height="65" > |
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
+<br/>
 
 ## BackEnd
+<img src="https://img.shields.io/badge/JAVA-FC4C02?style=for-the-badge&logo=JAVA&logoColor=white"> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/springdatajpa-6DB33F?style=for-the-badge&logo=springdatajpa&logoColor=white"> <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/jwt-4479A1?style=for-the-badge&logo=jwt&logoColor=white"> <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/amazonrds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white"> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+
+<br/>
+
 
 ## FrontEnd
-| JavaScript | React | Styled-<br>Components | esLint |
-| :---: | :---: | :---: | :---: |
-| <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="75" height="75" /></div>| <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="65" height="65" /></div> | <img src="https://styled-components.com/logo.png" alt="styled-components icon" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="65" height="65" /></div> |
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+<img src="https://img.shields.io/badge/recoil-4B32C3?style=for-the-badge&logo=recoil&logoColor=white"> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/reactquery-CA4245?style=for-the-badge&logo=reactquery&logoColor=white">
+
 <br/>
 
 # 🤝 팀 소개
@@ -42,7 +45,7 @@
 
 |임태영 (FE 팀장)|박종찬 (FE)|이원교 (FE)|
 |:--:|:--:|:--:|
-|<img src='태영님 이미지' width='150'/>|<img src='종찬님 이미지' width='150'/>|<img src='원교님 이미지' width='150'/>|
+|<img src='' width='150'/>|<img src='종찬님 이미지' width='150'/>|<img src='원교님 이미지' width='150'/>|
 | [@taeyoung1012](https://github.com/taeyoung1012) | [@jong-bak](https://github.com/jong-bak) | [@dobbykong](https://github.com/dobbykong) |
 
 <br />
