@@ -60,6 +60,9 @@ public class BidItemService {
         Optional.ofNullable(bidItem.getBidItemContent())
                 .ifPresent(bidItemContent -> findBidItem.setBidItemName(bidItemContent));
 
+        Optional.ofNullable(bidItem.getImageUrlList())
+                .ifPresent(ImageUrlList -> findBidItem.setImageUrlList(ImageUrlList));
+
         BidItem updateBidItem = (BidItem) customBeanUtils.copyNonNullProperties(bidItem, findBidItem);
 
 

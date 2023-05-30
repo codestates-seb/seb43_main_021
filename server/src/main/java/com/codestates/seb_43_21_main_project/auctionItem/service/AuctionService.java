@@ -1,11 +1,13 @@
 package com.codestates.seb_43_21_main_project.auctionItem.service;
 
 import com.codestates.seb_43_21_main_project.auctionItem.entity.Auction;
+
 import com.codestates.seb_43_21_main_project.auctionItem.repository.AuctionRepository;
 import com.codestates.seb_43_21_main_project.bidItem.entity.BidItem;
 import com.codestates.seb_43_21_main_project.exception.BusinessLogicException;
 import com.codestates.seb_43_21_main_project.exception.ExceptionCode;
 import com.codestates.seb_43_21_main_project.member.entity.Member;
+import com.codestates.seb_43_21_main_project.member.repository.MemberRepository;
 import com.codestates.seb_43_21_main_project.member.service.MemberService;
 import com.codestates.seb_43_21_main_project.utils.ContextHolederUtils;
 import com.codestates.seb_43_21_main_project.utils.CustomBeanUtils;
@@ -31,10 +33,10 @@ public class AuctionService {
     private final CustomBeanUtils customBeanUtils;
 
 
-    //    , MultipartFile auctionImage
     //물품 등록
     public Auction createAuction(Auction auction) {
         Long memberId = contextHolederUtils.getAuthMemberId(); //인증된 회원 ID
+
         Member member = memberService.findMember(memberId);
         auction.setMember(member);
 
@@ -52,6 +54,7 @@ public class AuctionService {
     // 물품 수정
     public Auction updateAuction(Auction auction) {
         //존재하는 물건인지 검증
+
         Auction findAuction = findVerifiedAuction(auction.getAuctionItemId());
         Long memberId = contextHolederUtils.getAuthMemberId();
         if (!findAuction.getMember().getMemberId().equals(memberId)) {
@@ -74,16 +77,18 @@ public class AuctionService {
         Optional.ofNullable(auction.getLocation())
                 .ifPresent(location -> findAuction.setLocation(location));
 
+        Optional.ofNullable(auction.getImageUrlList())
+                .ifPresent(ImageUrlList -> findAuction.setImageUrlList(ImageUrlList));
 
         //낙찰시 상태 변경
-        if (isBidSuccessful(auction)){
+        if (isBidSuccessful(auction)) {
             findAuction.setAuctionStatus(Auction.AuctionStatus.AUCTION_SUCCESSFUL);
         } else {
             findAuction.setAuctionStatus(Auction.AuctionStatus.AUCTION_BIDDING);
         }
 
         //customBeanUtils : null값이 아닐때 객체를 복사해서 일부 업데이트를 수행
-        Auction updateAuctionItem = (Auction) customBeanUtils.copyNonNullProperties(auction,findAuction);
+        Auction updateAuctionItem = (Auction) customBeanUtils.copyNonNullProperties(auction, findAuction);
 
         //수정된 정보 업데이트
         return auctionRepository.save(findAuction);
@@ -98,7 +103,7 @@ public class AuctionService {
     public List<Auction> findAllAuctions(long memberId) {
         Long authMemberId = contextHolederUtils.getAuthMemberId();
         Member member = memberService.findVerifiedmember(authMemberId);
-        if(!member.getMemberId().equals(memberId)){
+        if (!member.getMemberId().equals(memberId)) {
             throw new BusinessLogicException(ExceptionCode.ACCESS_NOT_ALLOWED);
         }
         return auctionRepository.findAllByMember(member);
@@ -141,7 +146,7 @@ public class AuctionService {
         Long memberId = contextHolederUtils.getAuthMemberId();
 
         auctions.forEach(auction -> {
-            if (!auction.getMember().getMemberId().equals(memberId)){
+            if (!auction.getMember().getMemberId().equals(memberId)) {
                 throw new BusinessLogicException(ExceptionCode.ACCESS_NOT_ALLOWED);
             }
             auction.setDeleted(Boolean.TRUE);
@@ -158,48 +163,83 @@ public class AuctionService {
         return findAuction;
     }
 
+
     //검색
     public List<Auction> searchAuctionByName(String keyword, Sort.Direction sortDirection) {
         Sort sort = Sort.by(sortDirection, "auctionItemId");
         return auctionRepository.findByNameContaining(keyword, sort);
     }
 
+//
+//    //좋아요
+//    public Auction likeAuction(long auctionItemId, long memberId) {
+//        Long authMemberId = contextHolederUtils.getAuthMemberId();
+//        Optional<Member> optionalMember = memberRepository.findById(memberId); //회원 조회
+//        if (authMemberId == null || !optionalMember.isPresent()) {
+//            throw new IllegalArgumentException("로그인하지 않은 회원은 좋아요를 누를 수 없습니다.");
+//        }
+//
+//        Member member = optionalMember.get(); //실제 회원 객체
+//
+//        Auction auction = auctionRepository.findById(auctionItemId)
+//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.AUCTION_NOT_FOUND));
+//        AuctionLike findAuctionLike = auctionLikeRepository.findByMemberAndAuction(member, auction);
+//
+//
+//        if (findAuctionLike == null) { //좋아요 없을때,
+//            findAuctionLike = new AuctionLike(member, auction, true);
+//        }
+//        if (!findAuctionLike.getMember().equals(member)) { //중복 제거
+//            findAuctionLike.setLiked(true);
+//        } else {
+//            return auction;
+//        }
+//
+//        AuctionLike auctionLike = auctionLikeRepository.save(findAuctionLike); //좋아요 정보 저장
+//        auction.addAuctionLike(auctionLike);
+//        auctionRepository.save(auction);
+//
+//        return auction;
+//    }
+
 
     //입찰 성공 확인
-    private boolean isBidSuccessful(Auction auction){
-        List<BidItem> bidItems = auction.getBidItems();
-        //입찰 아이템 상태가 낙찰로 변경되면 낙찰로 판단
-        for (BidItem bidItem : bidItems) {
-            if (bidItem.getBidItemStatus() == BidItem.BidItemStatus.AUCTION_SUCCESSFUL) {
-                return true;
+    private boolean isBidSuccessful(Auction auction) {
+        if (auction != null && auction.getBidItems() != null) {
+            List<BidItem> bidItems = auction.getBidItems();
+            //입찰 아이템 상태가 낙찰로 변경되면 낙찰로 판단
+            for (BidItem bidItem : bidItems) {
+                if (bidItem.getBidItemStatus() == BidItem.BidItemStatus.AUCTION_SUCCESSFUL) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
 
-
-
     //기한 만료
-    private boolean isAuctionExpired(Auction auction, LocalDateTime current){
+    private boolean isAuctionExpired(Auction auction, LocalDateTime current) {
         LocalDateTime endDate = auction.getCreateDate().plusDays(auction.getPeriod()); // 경매 만료 = 시작일 + 기간
         return auction.getAuctionStatus() == Auction.AuctionStatus.AUCTION_BIDDING && endDate.isBefore(current);  //isBefore() : 파라미터값보다 과거
     }
 
-    
-//    @Scheduled(fixedDelay = 10000) //10초마다 실행
+
+    //    @Scheduled(fixedDelay = 10000) //10초마다 실행
     @Scheduled(cron = "0 0 0 * * *") //매일 자정 12시에 실행
-    public void ExpiredAuction(){
+    public void ExpiredAuction() {
         LocalDateTime current = LocalDateTime.now();
         List<Auction> auctions = auctionRepository.findAll();
 
-        for (Auction auction : auctions){
-            if(isAuctionExpired(auction, current)){ //값이 true이면
+        for (Auction auction : auctions) {
+            if (isAuctionExpired(auction, current)) { //값이 true이면
                 auction.setAuctionStatus(Auction.AuctionStatus.AUCTION_EXPIRATION); //상태 변경
                 auctionRepository.save(auction);
-                log.info("auction: {}" , auction);
+                log.info("auction: {}", auction);
             }
         }
     }
+
+
 }
 
