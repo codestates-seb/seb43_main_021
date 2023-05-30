@@ -9,7 +9,7 @@ const LoginOauth = () => {
 
   const onClickGoogleLogin = () => {
     window.location.assign(oAuthURL);
-  }
+  };
 
   return (
     <Body>
