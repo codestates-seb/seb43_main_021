@@ -77,9 +77,9 @@ const SignUpForm = () => {
     setNickName(value);
     if (value.length > 20) {
       setNicknameErrorMessage("닉네임은 최대 20글자까지 입력 가능합니다.");
-    } else if (value.length < 2 || !/^[\w\s]{2,}$/.test(value)) {
+    } else if (value.length < 2 || !/^[\wㄱ-ㅎㅏ-ㅣ가-힣]{2,}$/.test(value)) {
       setNicknameErrorMessage(
-        "닉네임을 영문 및 영문+숫자 2글자 이상으로 입력해주세요."
+        "닉네임을 한글, 영문, 숫자 2글자 이상으로 입력해주세요."
       );
     } else {
       setNicknameErrorMessage("");
@@ -89,8 +89,17 @@ const SignUpForm = () => {
   // phone
   const onChangePhoneNumber = (e) => {
     const value = e.target.value;
-    setPhoneNumber(value);
-    if (value.length < 11 || !/^\d{3}-\d{4}-\d{4}$/.test(value)) {
+    const numericValue = value.replace(/[^0-9]/g, '');
+    const newPhoneValue = numericValue.slice(0, 11);
+  
+    const formattedValue = newPhoneValue.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+  
+    setPhoneNumber(formattedValue);
+  
+    if (
+      formattedValue.length !== 13 ||
+      !/^\d{3}-\d{4}-\d{4}$/.test(formattedValue)
+    ) {
       setPhoneErrorMessage("유효한 핸드폰 번호를 입력해주세요.");
     } else {
       setPhoneErrorMessage("");

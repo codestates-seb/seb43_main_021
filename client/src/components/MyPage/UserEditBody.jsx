@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import {
   selectedImageState,
-  profileNicknameState,
-  memberIdState,
+  profileNicknameState,  
 } from "../../stores/atoms";
 import { Link, useNavigate } from "react-router-dom";
 import { VscAccount } from "react-icons/vsc";
@@ -16,12 +15,12 @@ import { Button2 } from "../UI/Button/Button2";
 import { Button1 } from "../UI/Button/Button1";
 export default function UserEditBody({ onImageChange, onNicknameChange }) {
   const navigate = useNavigate();
-  const [memberId] = useRecoilState(memberIdState);
   const [selectedImage, setSelectedImage] = useRecoilState(selectedImageState); //image상태
   const [profileNickname, setProfileNickname] =
     useRecoilState(profileNicknameState); //nickname상태
   const [nicknameErrorMessage, setNicknameErrorMessage] = useState(""); //nickname errormessage 상태
   const accessToken = localStorage.getItem("accessToken");
+  const memberId=localStorage.getItem("memberId"); 
 
   const fileInputRef = useRef(null);
   const nicknameInputRef = useRef();
@@ -38,6 +37,8 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
 
       reader.readAsDataURL(file);
       onImageChange(reader.result);
+    }else {
+      setSelectedImage([]);
     }
   };
   const handleProfileClick = () => {
@@ -86,7 +87,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       )
       .then((res) => {
         setProfileNickname(res.nickName);
-        setSelectedImage(res.imageUrlList);
+        setSelectedImage(res.selectedImage);
         navigate("/mypage");
       })
       .catch((err) => {

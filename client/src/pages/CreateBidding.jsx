@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoIosCamera } from "react-icons/io";
@@ -19,8 +19,15 @@ const CreateBidding = () => {
   const [showTitleWarning, setShowTitleWarning] = useState(false);
   const [showTextWarning, setShowTextWarning] = useState(false);
   const [showLocationWarning, setShowLocationWarning] = useState(false);
-
+  const memberId = localStorage.getItem("memberId");
   const accessToken = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (!memberId) {
+      alert("로그인 후 입찰할 수 있습니다.");
+      navigate("/login");
+    }
+  }, [memberId]);
 
   const handleBack = () => {
     window.history.back();

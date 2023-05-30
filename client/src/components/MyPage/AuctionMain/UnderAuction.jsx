@@ -20,7 +20,7 @@ export default function UnderAuction() {
   const completedAuctions = data
     ? data.filter((item) => !item.auctionState)    
     : [];
-    console.log(completedAuctions)
+    console.log(completedAuctions.auctionState)
   return (
     <Wrapper>
       {completedAuctions.length === 0 ? (
