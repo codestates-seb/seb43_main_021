@@ -9,10 +9,16 @@ import noImage from "../assets/images/noimage.png";
 import FormatDateTime from "../utils/FormatDateTime";
 import defaultUserImg from "../assets/images/defaultUserImg.jpg";
 import Line from "../components/UI/Line/Line";
+import { useRecoilState } from "recoil";
+import { AuctionConfirm } from "../stores/atoms";
+import ItemEditModal from "../components/UI/Modal/ItemEditModal";
+import ItemDot from "../components/ItemDetail/ItemDot";
 
 const BiddingDetail = () => {
   const { data, isLoading, isError, error } = useGetBiddingItem();
   const img = [noImage];
+  const [modal, setModal] = useRecoilState(AuctionConfirm);
+  const memberId = localStorage.getItem("memberId");
 
   console.log("bidItemData:", data);
 
@@ -33,6 +39,13 @@ const BiddingDetail = () => {
 
   return (
     <Wrapper>
+      {modal ? (
+        <ItemEditModal
+          bidItemId={data.bidItemId}
+          auction_item_id={data.auctionItemId}
+          data={data}
+        />
+      ) : null}
       <AuctionImgContainer>
         {data.imageUrlList.length > 0 ? (
           <ItemImage images={data.imageUrlList} />
@@ -40,17 +53,20 @@ const BiddingDetail = () => {
           <ItemImage images={img} />
         )}
         <BackButton onClick={handleBack} />
+        <div onClick={() => setModal(!modal)}>
+          {Number(memberId) === data.member.memberId ? <ItemDot /> : null}
+        </div>
       </AuctionImgContainer>
       <UserInfoContainer>
         {data.member.imageUrlList.length ? (
-          <UserImg src={data.members.imageUrlList[0]} />
+          <UserImg src={data.member.imageUrlList[0]} />
         ) : (
           <UserImg src={defaultUserImg} />
         )}
         <UserText>
           <div>{data.member.nickName}</div>
           <div className="userLocation">
-            {data.userLocation ? data.userLocation : "지역 정보 없음"}
+            {data.location ? data.location : "지역 정보 없음"}
           </div>
         </UserText>
       </UserInfoContainer>

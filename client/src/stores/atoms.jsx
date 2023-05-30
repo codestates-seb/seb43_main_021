@@ -83,3 +83,9 @@ export const recoilNewChat = atom({
   key: "recoilNewChat",
   default: false,
 });
+
+//수정하기
+export const reviseItem = atom({
+  key: "reviseItem",
+  default: [],
+});

@@ -1,32 +1,75 @@
 import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
-import { AuctionConfirm } from "../../../stores/atoms";
+import { AuctionConfirm, reviseItem } from "../../../stores/atoms";
 import { Button1 } from "../Button/Button1";
 import { Button2 } from "../Button/Button2";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const ItemEditModal = ({ auction_item_id }) => {
+export const ItemEditModal = ({ bidItemId, auction_item_id, data }) => {
   const [, setModal] = useRecoilState(AuctionConfirm);
+  const accessToken = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  const [reItem, setReItem] = useRecoilState(reviseItem);
+  const param = useParams();
 
   const deleteAuction = async () => {
-    try {
-      await axios.delete(
-        `${process.env.REACT_APP_API_URL}/auction_items/${auction_item_id}`
-      );
+    if (bidItemId) {
+      try {
+        await axios.delete(
+          `${process.env.REACT_APP_API_URL}/bid_items/${param.auctionItemId}/${bidItemId}`,
+          {
+            headers: {
+              Authorization: `Bearer  ${accessToken}`,
+            },
+          }
+        );
+        setModal(false);
+        alert("정상적으로 삭제되었습니다.");
+        navigate("/main");
+      } catch (error) {
+        setModal(false);
+        alert("삭제 실패하였습니다.");
+        console.error(error);
+      }
+    } else {
+      try {
+        await axios.delete(
+          `${process.env.REACT_APP_API_URL}/auction_items/${auction_item_id}`,
+          {
+            headers: {
+              Authorization: `Bearer  ${accessToken}`,
+            },
+          }
+        );
+        setModal(false);
+        alert("정상적으로 삭제되었습니다.");
+        navigate("/main");
+      } catch (error) {
+        setModal(false);
+        alert("삭제 실패하였습니다.");
+        console.error(error);
+      }
+    }
+  };
+
+  const handleReviseItems = () => {
+    if (bidItemId) {
+      setReItem(data);
       setModal(false);
-      alert("정상적으로 삭제되었습니다.");
-    } catch (error) {
+      navigate(`/createbidding/${param.auctionItemId}`);
+    } else {
+      setReItem(data);
       setModal(false);
-      alert("삭제 실패하였습니다.");
-      console.error(error);
+      navigate("/createauction");
     }
   };
 
   return (
     <ModalWrapper>
       <ModalContainer>
-        <div onClick={() => setModal(false)}>
+        <div onClick={() => handleReviseItems()}>
           <Button2 name={"수정하기"} />
         </div>
         <div onClick={() => deleteAuction()}>

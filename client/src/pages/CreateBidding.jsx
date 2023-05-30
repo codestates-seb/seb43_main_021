@@ -6,6 +6,8 @@ import { SlClose } from "react-icons/sl";
 import { BsChevronLeft } from "react-icons/bs";
 import BiddingLocation from "../components/ItemDetail/BiddingLocation";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { reviseItem } from "../stores/atoms";
 
 const CreateBidding = () => {
   const navigate = useNavigate();
@@ -21,13 +23,20 @@ const CreateBidding = () => {
   const [showLocationWarning, setShowLocationWarning] = useState(false);
   const memberId = localStorage.getItem("memberId");
   const accessToken = localStorage.getItem("accessToken");
+  const [reItem, setReItem] = useRecoilState(reviseItem);
 
   useEffect(() => {
     if (!memberId) {
       alert("로그인 후 입찰할 수 있습니다.");
       navigate("/login");
+    } else if (reItem.length !== 0) {
+      setTitle(reItem.bidItemName);
+      setText(reItem.bidItemContent);
+      setSelectLocation(reItem.location);
     }
   }, [memberId]);
+
+  console.log("비딩 만들기", reItem);
 
   const handleBack = () => {
     window.history.back();
@@ -107,23 +116,13 @@ const CreateBidding = () => {
       setShowTextWarning(true);
     }
 
-    // if (selectLocation === "지역 설정") {
-    //   setShowLocationWarning(true);
-    // }
-
-    // if (titleList[0] === selectLocation) {
-    //   setShowLocationWarning(true);
-    // } else {
-    //   setShowLocationWarning(false);
-    // }
-
     if (title !== "" && text !== "" && selectLocation !== "지역 설정") {
       try {
         const data = {
           bidItemName: title,
           bidItemContent: text,
           imageUrlList: imageSrcList,
-          // location: selectLocation,
+          location: selectLocation,
         };
 
         axios
@@ -137,7 +136,44 @@ const CreateBidding = () => {
             }
           )
           .then((res) => {
-            navigate("/main");
+            navigate(`/AuctionDetail/${auctionItemId}`);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handleReviseBtnClick = async () => {
+    if (title === "") {
+      setShowTitleWarning(true);
+    }
+
+    if (text === "") {
+      setShowTextWarning(true);
+    }
+
+    if (title !== "" && text !== "" && selectLocation !== "지역 설정") {
+      try {
+        const data = {
+          bidItemName: title,
+          bidItemContent: text,
+          imageUrlList: imageSrcList,
+          location: selectLocation,
+        };
+
+        axios
+          .patch(
+            `${process.env.REACT_APP_API_URL}/bid_items/${reItem.auctionItem.auctionItemId}/${reItem.bidItemId}`,
+            data,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
+          .then((res) => {
+            navigate(`/AuctionDetail/${reItem.auctionItem.auctionItemId}`);
           });
       } catch (err) {
         console.log(err);
@@ -219,7 +255,11 @@ const CreateBidding = () => {
         </Body>
       </Container>
       <CreateBtn>
-        <button onClick={handleCreateBtnClick}>등록하기</button>
+        {reItem.length === 0 ? (
+          <button onClick={handleCreateBtnClick}>등록하기</button>
+        ) : (
+          <button onClick={handleReviseBtnClick}>수정하기</button>
+        )}
       </CreateBtn>
     </Wrapper>
   );
