@@ -57,7 +57,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       } catch (error) {
         console.error(error);
       }
-    }  else {
+    } else {
       setSelectedImage([]);
     }  
   };
