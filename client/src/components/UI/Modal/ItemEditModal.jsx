@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 import { useRecoilState } from "recoil";
-import { AuctionConfirm, reviseItem } from "../../../stores/atoms";
+import {
+  AuctionConfirm,
+  reviseBidId,
+  reviseItem,
+  reviseStatus,
+} from "../../../stores/atoms";
 import { Button1 } from "../Button/Button1";
 import { Button2 } from "../Button/Button2";
 import axios from "axios";
@@ -13,6 +18,8 @@ export const ItemEditModal = ({ bidItemId, auction_item_id, data }) => {
   const navigate = useNavigate();
   const [reItem, setReItem] = useRecoilState(reviseItem);
   const param = useParams();
+  const [reStatus, setReStatus] = useRecoilState(reviseStatus);
+  const [bidId, setBidId] = useRecoilState(reviseBidId);
 
   const deleteAuction = async () => {
     if (bidItemId) {
@@ -56,11 +63,14 @@ export const ItemEditModal = ({ bidItemId, auction_item_id, data }) => {
 
   const handleReviseItems = () => {
     if (bidItemId) {
+      setBidId(param.bidItemId);
       setReItem(data);
+      setReStatus(true);
       setModal(false);
       navigate(`/createbidding/${param.auctionItemId}`);
     } else {
       setReItem(data);
+      setReStatus(true);
       setModal(false);
       navigate("/createauction");
     }

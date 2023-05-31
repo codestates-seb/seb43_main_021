@@ -8,7 +8,7 @@ import Location from "../components/CreateItem/Location";
 import Period from "../components/CreateItem/Period";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { reviseItem } from "../stores/atoms";
+import { reviseItem, reviseStatus } from "../stores/atoms";
 
 const CreateAuction = () => {
   const navigate = useNavigate();
@@ -26,12 +26,12 @@ const CreateAuction = () => {
   const accessToken = localStorage.getItem("accessToken");
   const memberId = localStorage.getItem("memberId");
   const [reItem, setReItem] = useRecoilState(reviseItem);
-
+  const [reStatus, setReStatus] = useRecoilState(reviseStatus);
   useEffect(() => {
     if (!memberId) {
       alert("로그인 후 경매를 등록할 수 있습니다.");
       navigate("/login");
-    } else if (reItem.length !== 0) {
+    } else if (reStatus) {
       setTitle(reItem.name);
       setText(reItem.content);
       setAuctionPeriod(reItem.period);
@@ -232,13 +232,15 @@ const CreateAuction = () => {
           />
         </Body>
       </Container>
-      <CreateBtn>
-        {reItem.length === 0 ? (
-          <button onClick={handleCreateBtnClick}>등록하기</button>
-        ) : (
+      {reStatus ? (
+        <CreateBtn>
           <button onClick={handleReviseBtnClick}>수정하기</button>
-        )}
-      </CreateBtn>
+        </CreateBtn>
+      ) : (
+        <CreateBtn>
+          <button onClick={handleCreateBtnClick}>등록하기</button>
+        </CreateBtn>
+      )}
     </Wrapper>
   );
 };

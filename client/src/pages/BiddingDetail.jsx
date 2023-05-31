@@ -13,14 +13,15 @@ import { useRecoilState } from "recoil";
 import { AuctionConfirm } from "../stores/atoms";
 import ItemEditModal from "../components/UI/Modal/ItemEditModal";
 import ItemDot from "../components/ItemDetail/ItemDot";
+import { HiOutlineHome } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const BiddingDetail = () => {
-  const { data, isLoading, isError, error } = useGetBiddingItem();
+  const { bidData, isLoading, isError, error } = useGetBiddingItem();
   const img = [noImage];
   const [modal, setModal] = useRecoilState(AuctionConfirm);
   const memberId = localStorage.getItem("memberId");
-
-  console.log("bidItemData:", data);
+  const navigate = useNavigate();
 
   if (isLoading) {
     return (
@@ -41,44 +42,45 @@ const BiddingDetail = () => {
     <Wrapper>
       {modal ? (
         <ItemEditModal
-          bidItemId={data.bidItemId}
-          auction_item_id={data.auctionItemId}
-          data={data}
+          bidItemId={bidData.bidItemId}
+          auction_item_id={bidData.auctionItemId}
+          data={bidData}
         />
       ) : null}
       <AuctionImgContainer>
-        {data.imageUrlList.length > 0 ? (
-          <ItemImage images={data.imageUrlList} />
+        {bidData.imageUrlList.length > 0 ? (
+          <ItemImage images={bidData.imageUrlList} />
         ) : (
           <ItemImage images={img} />
         )}
         <BackButton onClick={handleBack} />
+        <HomeButtom onClick={() => navigate("/main")} />
         <div onClick={() => setModal(!modal)}>
-          {Number(memberId) === data.member.memberId ? <ItemDot /> : null}
+          {Number(memberId) === bidData.member.memberId ? <ItemDot /> : null}
         </div>
       </AuctionImgContainer>
       <UserInfoContainer>
-        {data.member.imageUrlList.length ? (
-          <UserImg src={data.member.imageUrlList[0]} />
+        {bidData.member.imageUrlList.length ? (
+          <UserImg src={bidData.member.imageUrlList[0]} />
         ) : (
           <UserImg src={defaultUserImg} />
         )}
         <UserText>
-          <div>{data.member.nickName}</div>
+          <div>{bidData.member.nickName}</div>
           <div className="userLocation">
-            {data.location ? data.location : "지역 정보 없음"}
+            {bidData.location ? bidData.location : "지역 정보 없음"}
           </div>
         </UserText>
       </UserInfoContainer>
       <div className="line">
         <Line />
       </div>
-      <AuctionTitle>{data.bidItemName} </AuctionTitle>
+      <AuctionTitle>{bidData.bidItemName} </AuctionTitle>
       <AutcionInfo>
-        <FormatDateTime dateTime={data.createDate} />
+        <FormatDateTime dateTime={bidData.createDate} />
       </AutcionInfo>
-      <AuctionContent>{data.bidItemContent}</AuctionContent>
-      <Footer bidItemStatus={data.bidItemStatus} />
+      <AuctionContent>{bidData.bidItemContent}</AuctionContent>
+      <Footer bidItemStatus={bidData.bidItemStatus} />
     </Wrapper>
   );
 };
@@ -101,12 +103,37 @@ const AuctionImgContainer = styled.div`
 
 const BackButton = styled(IoArrowBackOutline)`
   position: absolute;
-  top: 2.5%;
-  left: 2.5%;
+  /* top: 2.5%;
+  left: 2.5%; */
+  top: 0.7rem;
+  left: 0.7rem;
+
   font-size: 2rem;
   z-index: 10;
-  color: var(--white2-color);
+  color: var(--white3-color);
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    font-size: 3.5rem;
+    top: 1.2rem;
+    left: 1rem;
+  }
+`;
+
+const HomeButtom = styled(HiOutlineHome)`
+  position: absolute;
+  top: 0.65rem;
+  left: 2.8rem;
+  font-size: 2rem;
+  z-index: 10;
+  color: var(--white3-color);
+  cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    font-size: 3rem;
+    top: 1.4rem;
+    left: 4.4rem;
+  }
 `;
 
 const UserInfoContainer = styled.div`

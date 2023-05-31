@@ -7,14 +7,13 @@ import { BsChevronLeft } from "react-icons/bs";
 import BiddingLocation from "../components/ItemDetail/BiddingLocation";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { reviseItem } from "../stores/atoms";
+import { reviseItem, reviseStatus, reviseBidId } from "../stores/atoms";
+import AddImage from "../components/CreateItem/AddImage";
 
 const CreateBidding = () => {
   const navigate = useNavigate();
   const { auctionItemId } = useParams();
   const [imageSrcList, setImageSrcList] = useState([]); // 이미지 등록
-  const [isImageUploaded, setIsImageUploaded] = useState(false); // 색상을 바꾸기 위한 상태 추가
-
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [selectLocation, setSelectLocation] = useState("지역 설정");
@@ -24,12 +23,14 @@ const CreateBidding = () => {
   const memberId = localStorage.getItem("memberId");
   const accessToken = localStorage.getItem("accessToken");
   const [reItem, setReItem] = useRecoilState(reviseItem);
+  const [reStatus, setReStatus] = useRecoilState(reviseStatus);
+  const [bidId, setBidId] = useRecoilState(reviseBidId);
 
   useEffect(() => {
     if (!memberId) {
       alert("로그인 후 입찰할 수 있습니다.");
       navigate("/login");
-    } else if (reItem.length !== 0) {
+    } else if (reStatus) {
       setTitle(reItem.bidItemName);
       setText(reItem.bidItemContent);
       setSelectLocation(reItem.location);
@@ -39,49 +40,8 @@ const CreateBidding = () => {
     };
   }, [memberId]);
 
-  console.log("비딩 만들기", reItem);
-
   const handleBack = () => {
     window.history.back();
-  };
-
-  const onUpload = async (event) => {
-    if (imageSrcList.length >= 10) {
-      return;
-    }
-    const files = event.target.files;
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const formData = new FormData();
-      formData.append("multipartFile", file);
-
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}/images/upload/`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        const imageUrl = response.data;
-
-        setImageSrcList((prevList) => [...prevList, imageUrl]);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    setIsImageUploaded(true);
-  };
-
-  const onDeleteImage = (index) => {
-    setImageSrcList((prevList) => {
-      const newList = [...prevList];
-      newList.splice(index, 1);
-      return newList;
-    });
   };
 
   const handleTitleChange = (event) => {
@@ -127,14 +87,13 @@ const CreateBidding = () => {
           imageUrlList: imageSrcList,
           location: selectLocation,
         };
-
         axios
           .post(
             `${process.env.REACT_APP_API_URL}/bid_items/${auctionItemId}`,
             data,
             {
               headers: {
-                Authorization: `Bearer ${accessToken}`,
+                Authorization: accessToken,
               },
             }
           )
@@ -167,7 +126,7 @@ const CreateBidding = () => {
 
         axios
           .patch(
-            `${process.env.REACT_APP_API_URL}/bid_items/${reItem.auctionItem.auctionItemId}/${reItem.bidItemId}`,
+            `${process.env.REACT_APP_API_URL}/bid_items/${auctionItemId}/${bidId}`,
             data,
             {
               headers: {
@@ -176,7 +135,7 @@ const CreateBidding = () => {
             }
           )
           .then((res) => {
-            navigate(`/AuctionDetail/${reItem.auctionItem.auctionItemId}`);
+            navigate(`/AuctionDetail/${auctionItemId}`);
           });
       } catch (err) {
         console.log(err);
@@ -194,44 +153,10 @@ const CreateBidding = () => {
       </Header>
       <Container>
         <Body>
-          <AddImages>
-            <div>
-              <label htmlFor="file">
-                <IoIosCamera />
-                <h5>
-                  <span
-                    style={{
-                      color:
-                        isImageUploaded && imageSrcList.length > 0
-                          ? "red"
-                          : "inherit",
-                    }}
-                  >
-                    {imageSrcList.length}
-                  </span>
-                  /10
-                </h5>
-              </label>
-              <input
-                type="file"
-                id="file"
-                onChange={onUpload}
-                multiple
-                accept="image/*"
-                disabled={imageSrcList.length >= 10}
-              />
-            </div>
-            <ImageList className="image-preview">
-              {imageSrcList.map((src, index) => (
-                <ImageWrapper key={index}>
-                  <img src={src} alt={"이미지 미리보기"} />
-                  <DeleteButton onClick={() => onDeleteImage(index)}>
-                    <SlClose />
-                  </DeleteButton>
-                </ImageWrapper>
-              ))}
-            </ImageList>
-          </AddImages>
+          <AddImage
+            imageSrcList={imageSrcList}
+            setImageSrcList={setImageSrcList}
+          />
           <Title>
             <input
               placeholder="제목"
@@ -258,10 +183,10 @@ const CreateBidding = () => {
         </Body>
       </Container>
       <CreateBtn>
-        {reItem.length === 0 ? (
-          <button onClick={handleCreateBtnClick}>등록하기</button>
-        ) : (
+        {reStatus ? (
           <button onClick={handleReviseBtnClick}>수정하기</button>
+        ) : (
+          <button onClick={handleCreateBtnClick}>등록하기</button>
         )}
       </CreateBtn>
     </Wrapper>

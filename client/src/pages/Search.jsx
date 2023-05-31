@@ -60,7 +60,6 @@ const Search = () => {
         `${process.env.REACT_APP_API_URL}/auction_items/search?keyword=${searchWord}`
       );
       setSearchResults(response.data);
-      console.log(response);
       // navigate(`/search?keyword=${searchWord}`);
     } catch (error) {
       console.error(error);
@@ -89,7 +88,6 @@ const Search = () => {
       );
       setSearchResults(response.data);
       setSearchWord(word);
-      console.log(response);
       // navigate(`/search?keyword=${word}`);
     } catch (error) {
       console.error(error);

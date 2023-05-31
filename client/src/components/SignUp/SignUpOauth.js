@@ -7,7 +7,6 @@ const SignUpOauth = () => {
     <Form>
       <GgSignUpBtn>
         <button>
-          {" "}
           <BsGoogle /> Google로 회원가입 하기
         </button>
       </GgSignUpBtn>
