@@ -59,7 +59,7 @@ export default function UserEditBody({ onImageChange, onNicknameChange }) {
       }
     } else {
       setSelectedImage([]);
-    }  
+    }    
   };
   const handleProfileClick = () => {
     fileInputRef.current.click();
