@@ -45,7 +45,7 @@
 
 |임태영 (FE 팀장)|박종찬 (FE)|이원교 (FE)|
 |:--:|:--:|:--:|
-|<img width="150px" height="150px" src="https://github.com/codestates-seb/seb43_main_021/assets/120040832/d99ad28c-853f-41c2-bf33-c63ed33a2856.jpg" />|<img width="150px" height="150px" src="https://github.com/codestates-seb/seb43_main_021/assets/120040832/9ab61af9-350f-495b-825a-757d311dd30f.jpg" />|<img width="150px" height="150px" src="https://github.com/codestates-seb/seb43_main_021/assets/120040832/ce7d6247-6c4b-4dee-9c89-3a7b406fa8a0.jpg" />|
+|<img width="150px" height="150px" src="https://github.com/codestates-seb/seb43_main_021/assets/120040832/d99ad28c-853f-41c2-bf33-c63ed33a2856.jpg" />|<img width="150px" height="150px" src="https://github.com/codestates-seb/seb43_main_021/assets/120040832/9ab61af9-350f-495b-825a-757d311dd30f.jpg" />|<img width="150px" height="150px" src="https://github.com/codestates-seb/seb43_main_021/assets/120040832/ca36a7c6-1529-4c3e-bf28-dc04f0934050.jpg" />|
 | [@taeyoung1012](https://github.com/taeyoung1012) | [@jong-bak](https://github.com/jong-bak) | [@dobbykong](https://github.com/dobbykong) |
 
 <br />
