@@ -8,6 +8,7 @@
 # 📍 프로젝트 정보
 + 프로젝트 기간 : 2023.04.28 ~ 2023.05.30
 + 배포 링크 : http://seb-main-021.s3-website.ap-northeast-2.amazonaws.com/
++ 서비스 메뉴얼 : https://file.notion.so/f/f/82d63a72-8254-4cde-bf1e-b2597b7c099c/347e5286-2bf2-4faf-859e-4c2b6aa475f9/21%ED%8C%80_%EC%84%9C%EB%B9%84%EC%8A%A4_%EB%A9%94%EB%89%B4%EC%96%BC.pdf?id=49077034-8632-4e70-aa61-a4bc8c84f9d3&table=block&spaceId=82d63a72-8254-4cde-bf1e-b2597b7c099c&expirationTimestamp=1711094400000&signature=t-BsBAmfs9vHrKOia0TcuKhmCKjPWEpDox_ymmA66tA&downloadName=21%ED%8C%80_%EC%84%9C%EB%B9%84%EC%8A%A4_%EB%A9%94%EB%89%B4%EC%96%BC.pdf
 
 <br/>
 
